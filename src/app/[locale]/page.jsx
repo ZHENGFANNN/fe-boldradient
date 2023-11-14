@@ -9,6 +9,8 @@ import getGoodSortList from "@/utils/getGoodSortList";
 
 import styles from "./page.module.scss";
 
+export const runtime = "edge";
+
 // 首页产品列表
 function ProductItem({
   title,

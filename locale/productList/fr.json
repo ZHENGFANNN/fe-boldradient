@@ -19,35 +19,6 @@
     "created_time": "2023-09-09T09:20:44.000Z",
     "updated_time": "2023-09-18T15:04:02.000Z",
     "associateProduct": [],
-    "typeList": [
-      {
-        "id": 85,
-        "type": "text",
-        "title": "couleur",
-        "language": "fr",
-        "good_sort_key": "watches",
-        "good_key": "n9-ultra-pro",
-        "options": [
-          {
-            "title": "noir"
-          },
-          {
-            "title": "Blanc"
-          },
-          {
-            "title": "vert"
-          },
-          {
-            "title": "orange"
-          }
-        ],
-        "enabled": 1,
-        "weight": 1,
-        "associate_good_key": "watches:n9-ultra-pro",
-        "created_time": "2023-09-17T13:27:03.000Z",
-        "updated_time": "2023-09-18T15:06:01.000Z"
-      }
-    ],
     "packageList": [
       {
         "id": 634,
@@ -323,6 +294,23 @@
         "weight": 1,
         "created_time": "2023-09-24T08:11:10.000Z",
         "updated_time": "2023-09-24T08:18:15.000Z"
+      }
+    ],
+    "indexConfig": [
+      {
+        "id": 79,
+        "good_key": "n9-ultra-pro",
+        "good_sort_key": "watches",
+        "language": "fr",
+        "associate_good_key": "watches:n9-ultra-pro",
+        "page_keywords": "N9 ULTRA PRO, montre intelligente, Apple Watch, montre intelligente haute performance, montre intelligente mode",
+        "page_title": "N9 ULTRA PRO",
+        "page_description": "N9 ULTRA PRO est une montre intelligente puissante dotée de fonctionnalités avancées et d'un design innovant similaire à l'Apple Watch. Il combine une apparence élégante et une technologie haute performance pour offrir aux utilisateurs une excellente expérience intelligente.",
+        "pc_background": null,
+        "mob_background": null,
+        "is_light": null,
+        "created_time": "2023-09-24T04:51:17.000Z",
+        "updated_time": "2023-09-24T04:51:17.000Z"
       }
     ],
     "comboList": [
@@ -1172,6 +1160,35 @@
             "updated_time": "2023-10-27T17:28:49.000Z"
           }
         ]
+      }
+    ],
+    "typeList": [
+      {
+        "id": 85,
+        "type": "text",
+        "title": "couleur",
+        "language": "fr",
+        "good_sort_key": "watches",
+        "good_key": "n9-ultra-pro",
+        "options": [
+          {
+            "title": "noir"
+          },
+          {
+            "title": "Blanc"
+          },
+          {
+            "title": "vert"
+          },
+          {
+            "title": "orange"
+          }
+        ],
+        "enabled": 1,
+        "weight": 1,
+        "associate_good_key": "watches:n9-ultra-pro",
+        "created_time": "2023-09-17T13:27:03.000Z",
+        "updated_time": "2023-09-18T15:06:01.000Z"
       }
     ],
     "funcionList": [
@@ -2109,23 +2126,6 @@
         "updated_time": "2023-09-17T13:56:18.000Z"
       }
     ],
-    "indexConfig": [
-      {
-        "id": 79,
-        "good_key": "n9-ultra-pro",
-        "good_sort_key": "watches",
-        "language": "fr",
-        "associate_good_key": "watches:n9-ultra-pro",
-        "page_keywords": "N9 ULTRA PRO, montre intelligente, Apple Watch, montre intelligente haute performance, montre intelligente mode",
-        "page_title": "N9 ULTRA PRO",
-        "page_description": "N9 ULTRA PRO est une montre intelligente puissante dotée de fonctionnalités avancées et d'un design innovant similaire à l'Apple Watch. Il combine une apparence élégante et une technologie haute performance pour offrir aux utilisateurs une excellente expérience intelligente.",
-        "pc_background": null,
-        "mob_background": null,
-        "is_light": null,
-        "created_time": "2023-09-24T04:51:17.000Z",
-        "updated_time": "2023-09-24T04:51:17.000Z"
-      }
-    ],
     "path": "/watches/n9-ultra-pro"
   },
   {
@@ -2148,7 +2148,6 @@
     "created_time": "2022-12-26T14:24:11.000Z",
     "updated_time": "2023-09-09T09:54:55.000Z",
     "associateProduct": [],
-    "typeList": [],
     "packageList": [
       {
         "id": 794,
@@ -2238,6 +2237,23 @@
         "weight": 12,
         "created_time": "2023-09-09T14:28:04.000Z",
         "updated_time": "2023-09-09T14:31:51.000Z"
+      }
+    ],
+    "indexConfig": [
+      {
+        "id": 80,
+        "good_key": "8-ultra-mini",
+        "good_sort_key": "watches",
+        "language": "fr",
+        "associate_good_key": "watches:8-ultra-mini",
+        "page_keywords": "8Ultra min, montre intelligente, compacte et légère, surveillance de la santé, suivi sportif",
+        "page_title": "8Ultramini",
+        "page_description": "8Ultra min est une montre intelligente petite et légère dotée de fonctionnalités exceptionnelles et d'un design sophistiqué. Il dispose d'une variété de fonctions intelligentes, telles que la surveillance de la santé, les rappels de notifications et le suivi des exercices, vous permettant de rester connecté et de gérer votre vie à tout moment et en tout lieu.",
+        "pc_background": null,
+        "mob_background": null,
+        "is_light": null,
+        "created_time": "2023-09-24T04:51:21.000Z",
+        "updated_time": "2023-09-24T04:51:21.000Z"
       }
     ],
     "comboList": [
@@ -3076,6 +3092,7 @@
         ]
       }
     ],
+    "typeList": [],
     "funcionList": [
       {
         "id": 4410,
@@ -3820,23 +3837,6 @@
         "updated_time": "2023-09-19T13:12:23.000Z"
       }
     ],
-    "indexConfig": [
-      {
-        "id": 80,
-        "good_key": "8-ultra-mini",
-        "good_sort_key": "watches",
-        "language": "fr",
-        "associate_good_key": "watches:8-ultra-mini",
-        "page_keywords": "8Ultra min, montre intelligente, compacte et légère, surveillance de la santé, suivi sportif",
-        "page_title": "8Ultramini",
-        "page_description": "8Ultra min est une montre intelligente petite et légère dotée de fonctionnalités exceptionnelles et d'un design sophistiqué. Il dispose d'une variété de fonctions intelligentes, telles que la surveillance de la santé, les rappels de notifications et le suivi des exercices, vous permettant de rester connecté et de gérer votre vie à tout moment et en tout lieu.",
-        "pc_background": null,
-        "mob_background": null,
-        "is_light": null,
-        "created_time": "2023-09-24T04:51:21.000Z",
-        "updated_time": "2023-09-24T04:51:21.000Z"
-      }
-    ],
     "path": "/watches/8-ultra-mini"
   },
   {
@@ -3859,7 +3859,6 @@
     "created_time": "2022-12-26T14:24:26.000Z",
     "updated_time": "2023-09-09T09:55:00.000Z",
     "associateProduct": [],
-    "typeList": [],
     "packageList": [
       {
         "id": 799,
@@ -3933,6 +3932,23 @@
       }
     ],
     "mediaList": [],
+    "indexConfig": [
+      {
+        "id": 81,
+        "good_key": "ip8-ultra",
+        "good_sort_key": "watches",
+        "language": "fr",
+        "associate_good_key": "watches:ip8-ultra",
+        "page_keywords": "IP8 ULTRA, montre intelligente, montre haut de gamme, écran tactile HD, performances puissantes",
+        "page_title": "IP8 ULTRA",
+        "page_description": "IP8 ULTRA est une montre intelligente haut de gamme connue pour ses excellentes performances et son apparence exquise. Il dispose d'une puissance de traitement puissante, d'un écran tactile haute définition et de fonctions riches, offrant aux utilisateurs une excellente expérience intelligente.",
+        "pc_background": null,
+        "mob_background": null,
+        "is_light": null,
+        "created_time": "2023-09-24T04:51:25.000Z",
+        "updated_time": "2023-09-24T04:51:25.000Z"
+      }
+    ],
     "comboList": [
       {
         "id": 70,
@@ -4769,6 +4785,7 @@
         ]
       }
     ],
+    "typeList": [],
     "funcionList": [
       {
         "id": 4444,
@@ -5573,23 +5590,6 @@
         "updated_time": "2023-09-10T16:14:06.000Z"
       }
     ],
-    "indexConfig": [
-      {
-        "id": 81,
-        "good_key": "ip8-ultra",
-        "good_sort_key": "watches",
-        "language": "fr",
-        "associate_good_key": "watches:ip8-ultra",
-        "page_keywords": "IP8 ULTRA, montre intelligente, montre haut de gamme, écran tactile HD, performances puissantes",
-        "page_title": "IP8 ULTRA",
-        "page_description": "IP8 ULTRA est une montre intelligente haut de gamme connue pour ses excellentes performances et son apparence exquise. Il dispose d'une puissance de traitement puissante, d'un écran tactile haute définition et de fonctions riches, offrant aux utilisateurs une excellente expérience intelligente.",
-        "pc_background": null,
-        "mob_background": null,
-        "is_light": null,
-        "created_time": "2023-09-24T04:51:25.000Z",
-        "updated_time": "2023-09-24T04:51:25.000Z"
-      }
-    ],
     "path": "/watches/ip8-ultra"
   },
   {
@@ -5612,7 +5612,6 @@
     "created_time": "2022-12-26T14:24:54.000Z",
     "updated_time": "2023-09-09T09:55:03.000Z",
     "associateProduct": [],
-    "typeList": [],
     "packageList": [
       {
         "id": 804,
@@ -5686,6 +5685,23 @@
       }
     ],
     "mediaList": [],
+    "indexConfig": [
+      {
+        "id": 82,
+        "good_key": "series8-mini",
+        "good_sort_key": "watches",
+        "language": "fr",
+        "associate_good_key": "watches:series8-mini",
+        "page_keywords": "Series8 mini, montre intelligente, design élégant, message push, surveillance de la santé",
+        "page_title": "Série8 mini",
+        "page_description": "Series8 mini est une montre intelligente élégante et sophistiquée qui combine un design élégant et une technologie intelligente. Il dispose d'une variété de fonctions intelligentes, telles que l'envoi de messages, la surveillance de la santé et des cadrans de montre personnalisés, vous permettant de profiter de la commodité apportée par la technologie intelligente dans la mode.",
+        "pc_background": null,
+        "mob_background": null,
+        "is_light": null,
+        "created_time": "2023-09-24T04:51:28.000Z",
+        "updated_time": "2023-09-24T04:51:28.000Z"
+      }
+    ],
     "comboList": [
       {
         "id": 80,
@@ -6522,6 +6538,7 @@
         ]
       }
     ],
+    "typeList": [],
     "funcionList": [
       {
         "id": 4486,
@@ -7279,23 +7296,6 @@
         "updated_time": "2023-09-10T16:13:45.000Z"
       }
     ],
-    "indexConfig": [
-      {
-        "id": 82,
-        "good_key": "series8-mini",
-        "good_sort_key": "watches",
-        "language": "fr",
-        "associate_good_key": "watches:series8-mini",
-        "page_keywords": "Series8 mini, montre intelligente, design élégant, message push, surveillance de la santé",
-        "page_title": "Série8 mini",
-        "page_description": "Series8 mini est une montre intelligente élégante et sophistiquée qui combine un design élégant et une technologie intelligente. Il dispose d'une variété de fonctions intelligentes, telles que l'envoi de messages, la surveillance de la santé et des cadrans de montre personnalisés, vous permettant de profiter de la commodité apportée par la technologie intelligente dans la mode.",
-        "pc_background": null,
-        "mob_background": null,
-        "is_light": null,
-        "created_time": "2023-09-24T04:51:28.000Z",
-        "updated_time": "2023-09-24T04:51:28.000Z"
-      }
-    ],
     "path": "/watches/series8-mini"
   },
   {
@@ -7318,7 +7318,6 @@
     "created_time": "2022-12-26T14:25:04.000Z",
     "updated_time": "2023-09-09T09:55:05.000Z",
     "associateProduct": [],
-    "typeList": [],
     "packageList": [
       {
         "id": 809,
@@ -7420,6 +7419,23 @@
       }
     ],
     "mediaList": [],
+    "indexConfig": [
+      {
+        "id": 83,
+        "good_key": "ultra-max",
+        "good_sort_key": "watches",
+        "language": "fr",
+        "associate_good_key": "watches:ultra-max",
+        "page_keywords": "UltraMax, montre intelligente, haute performance, longue durée de vie de la batterie, montre étanche",
+        "page_title": "UltraMax",
+        "page_description": "UltraMax est une montre intelligente complète qui offre aux utilisateurs d'excellentes performances et diverses fonctions. Il possède une puissance de traitement puissante, une longue durée de vie de la batterie et une résistance à l'eau, ce qui le rend adapté à une variété d'activités de plein air et quotidiennes.",
+        "pc_background": null,
+        "mob_background": null,
+        "is_light": null,
+        "created_time": "2023-09-24T04:51:31.000Z",
+        "updated_time": "2023-09-24T04:51:31.000Z"
+      }
+    ],
     "comboList": [
       {
         "id": 90,
@@ -8256,6 +8272,7 @@
         ]
       }
     ],
+    "typeList": [],
     "funcionList": [
       {
         "id": 4523,
@@ -9060,23 +9077,6 @@
         "updated_time": "2023-09-10T16:13:25.000Z"
       }
     ],
-    "indexConfig": [
-      {
-        "id": 83,
-        "good_key": "ultra-max",
-        "good_sort_key": "watches",
-        "language": "fr",
-        "associate_good_key": "watches:ultra-max",
-        "page_keywords": "UltraMax, montre intelligente, haute performance, longue durée de vie de la batterie, montre étanche",
-        "page_title": "UltraMax",
-        "page_description": "UltraMax est une montre intelligente complète qui offre aux utilisateurs d'excellentes performances et diverses fonctions. Il possède une puissance de traitement puissante, une longue durée de vie de la batterie et une résistance à l'eau, ce qui le rend adapté à une variété d'activités de plein air et quotidiennes.",
-        "pc_background": null,
-        "mob_background": null,
-        "is_light": null,
-        "created_time": "2023-09-24T04:51:31.000Z",
-        "updated_time": "2023-09-24T04:51:31.000Z"
-      }
-    ],
     "path": "/watches/ultra-max"
   },
   {
@@ -9099,13 +9099,8 @@
     "created_time": "2022-12-26T14:24:37.000Z",
     "updated_time": "2023-09-09T09:55:07.000Z",
     "associateProduct": [],
-    "typeList": [],
     "packageList": [],
     "mediaList": [],
-    "comboList": [],
-    "funcionList": [],
-    "associationsList": [],
-    "sellingList": [],
     "indexConfig": [
       {
         "id": 84,
@@ -9123,6 +9118,11 @@
         "updated_time": "2023-09-24T04:51:34.000Z"
       }
     ],
+    "comboList": [],
+    "typeList": [],
+    "funcionList": [],
+    "associationsList": [],
+    "sellingList": [],
     "path": "/watches/k8-ultra-max"
   }
 ]

@@ -1,8 +1,9 @@
+"use client";
 import React from "react";
 import styles from "./index.module.scss";
 
 // 临时功能
-async function TipModal({ LANG }, ref) {
+function TipModal({ LANG }, ref) {
   const [show, setShow] = React.useState(false);
   React.useImperativeHandle(ref, () => {
     return {

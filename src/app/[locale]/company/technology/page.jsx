@@ -1,4 +1,3 @@
-import Head from "next/head";
 import Link from "next/link";
 import styles from "./page.module.scss";
 import getAllConfigData from "@/utils/getAllConfigData";

@@ -2,7 +2,6 @@ import Link from "next/link";
 import { contactList } from "./config";
 import { ISEMAIL } from "@/utils/pattern";
 import styles from "./page.module.scss";
-import Head from "next/head";
 import getAllConfigData from "@/utils/getAllConfigData";
 
 export const runtime = "edge";

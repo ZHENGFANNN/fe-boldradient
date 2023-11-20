@@ -1,5 +1,4 @@
 const path = require("path");
-const withLess = require("next-plugin-antd-less");
 
 const nextConfig = {
   // 构建ID

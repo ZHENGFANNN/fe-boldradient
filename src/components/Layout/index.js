@@ -1,6 +1,11 @@
 "use client";
 import React from "react";
-import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import {
+  useRouter,
+  usePathname,
+  useSearchParams,
+  useParams,
+} from "next/navigation";
 import GlobalContext from "@/globalContext";
 import Cookies from "js-cookie";
 import Api from "@/api";
@@ -9,6 +14,7 @@ export default function Layout({ children }) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const { locale } = useParams();
   /**
    * 功能：处理全局数据
    * 数据：
@@ -88,6 +94,8 @@ export default function Layout({ children }) {
         // 购物车数量
         productNum,
         setProductNum,
+        // 语言
+        locale,
       }}
     >
       {children}

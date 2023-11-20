@@ -16,11 +16,7 @@ import TipModal from "@/components/Modal/FunctionTipModal";
 import Api from "../api";
 
 export default function NavBar({ CONFIG, LANG, GOODSORTLIST, GOODLIST }) {
-  const {
-    userInfo,
-    productNum,
-    locale = "en",
-  } = React.useContext(GlobalContext);
+  const { userInfo, productNum } = React.useContext(GlobalContext);
   const ModalRef = React.useRef(null);
   const NAVLIST = React.useMemo(() => {
     return NAVFUNC({ LANG, CONFIG, GOODLIST, GOODSORTLIST });
@@ -162,8 +158,8 @@ export default function NavBar({ CONFIG, LANG, GOODSORTLIST, GOODLIST }) {
           </div>
           <div className={styles.header_left}>
             <div className={styles.header_logo}>
-              <a
-                href={`/${locale}`}
+              <Link
+                href={`/`}
                 onClick={() => {
                   setNavActive(false);
                 }}
@@ -174,7 +170,7 @@ export default function NavBar({ CONFIG, LANG, GOODSORTLIST, GOODLIST }) {
                   height={30}
                   src={CONFIG["company.basic.logo"]}
                 />
-              </a>
+              </Link>
             </div>
             <div
               className={
@@ -311,10 +307,7 @@ export default function NavBar({ CONFIG, LANG, GOODSORTLIST, GOODLIST }) {
           </div>
           <ul className={styles.header_right}>
             <li>
-              <a
-                className={styles.header_store_container}
-                href={`/${locale}/store`}
-              >
+              <Link className={styles.header_store_container} href={`/store`}>
                 <img
                   src={`${process.env.NEXT_PUBLIC_IMAGE}/icon/min-store.svg`}
                   alt="store"
@@ -322,12 +315,12 @@ export default function NavBar({ CONFIG, LANG, GOODSORTLIST, GOODLIST }) {
                 <div className={styles.header_store_title}>
                   {LANG["common.nav.store"]}
                 </div>
-              </a>
+              </Link>
             </li>
             <li
               className={styles.header_cart}
               onClick={() => {
-                window.location.href = `/${locale}/store/cart`;
+                window.location.href = `/store/cart`;
               }}
             >
               {productNum !== 0 ? (
@@ -372,7 +365,7 @@ export default function NavBar({ CONFIG, LANG, GOODSORTLIST, GOODLIST }) {
                     Api.loginOut();
                     location.reload();
                   } else {
-                    location.href = `/${locale}/user/${e}`;
+                    location.href = `/user/${e}`;
                   }
                 }}
               >

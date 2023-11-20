@@ -1,7 +1,17 @@
-export default async function getLanguageList(lang) {
+export default async function getLanguageList(lang, namespace = []) {
   if (lang === "cn") {
     const data = await import("@@/locale/languageList/cn.json");
-    return data.default;
+    if (namespace.length > 0) {
+      const map = {};
+      Object.keys(data.default).forEach((item) => {
+        if (item.startsWith("common")) {
+          map[item] = data.default[item];
+        }
+      });
+      return map;
+    } else {
+      return data.default;
+    }
   } else if (lang === "de") {
     const data = await import("@@/locale/languageList/de.json");
     return data.default;

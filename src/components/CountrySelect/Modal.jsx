@@ -4,9 +4,10 @@ import COUNTRYLIST from "@/config/COUNTRYLIST";
 import Cookie from "js-cookie";
 import styles from "./modal.module.scss";
 import React from "react";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 
 export default function Modal({ show, setShow, languageMap, LANG }) {
+  const { locale } = useParams();
   const router = useRouter();
   const [lock, setLock] = React.useState(false);
   return (
@@ -32,7 +33,7 @@ export default function Modal({ show, setShow, languageMap, LANG }) {
               {COUNTRYLIST("list").map((item, index) => {
                 return (
                   <div className={styles.area_container} key={index}>
-                    <h2>{item[router.query?.locale]}</h2>
+                    <h2>{item[locale]}</h2>
                     <div className={styles.country_list}>
                       {item.countries.map((countryItem, countryIndex) => {
                         return (
@@ -50,11 +51,15 @@ export default function Modal({ show, setShow, languageMap, LANG }) {
                                 path: "/",
                                 expires,
                               });
-                              Cookie.set("locale", countryItem.country_code, {
+                              Cookie.set("locale", countryItem.language_code, {
                                 path: "/",
                                 expires,
                               });
-                              location.reload();
+                              router.refresh({
+                                locale: countryItem.language_code,
+                              });
+                              setShow(false);
+                              setLock(false);
                             }}
                           >
                             {`${countryItem.country}  ( ${

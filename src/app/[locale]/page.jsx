@@ -7,9 +7,9 @@ import styles from "./page.module.scss";
 export const runtime = "edge";
 
 export async function generateMetadata({ params: { locale } }) {
-  const { LANG } = await getAllConfigData(locale);
+  const { LANG, CONFIG } = await getAllConfigData(locale);
   return {
-    title: LANG["www.index.title"],
+    title: `${CONFIG["company.basic.company_name"]} - ${LANG["www.index.title"]}`,
     description: LANG["www.index.description"],
     keywords: LANG["www.index.keywords"],
   };
@@ -84,7 +84,6 @@ export default async function Home({ params: { locale } }) {
             </div>
           </div>
         </section>
-
         <section className={styles.main_list}>
           <div className={styles.main_list_img_container}>
             {CONFIG["www.index.imgs"] &&

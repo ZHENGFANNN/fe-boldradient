@@ -3,12 +3,13 @@ import styles from "./index.module.scss";
 import COUNTRYLIST from "@/config/COUNTRYLIST";
 import LANGUAGES from "@/config/LANGUAGE";
 import dynamic from "next/dynamic";
+import Cookies from "js-cookie";
 const Modal = dynamic(() => import("./Modal"), { ssr: false });
+
 function CountryList({ children, LANG }) {
+  const area = Cookies.get("area");
   const [show, setShow] = React.useState(false);
   const [value, setValue] = React.useState(null);
-
-  const { area = "cn" } = {};
   React.useEffect(() => {
     if (show) {
       document.body.style.overflow = "hidden";
@@ -24,7 +25,7 @@ function CountryList({ children, LANG }) {
       COUNTRYLIST("map")[area]?.currency
     } )`;
     setValue(text);
-  }, []);
+  }, [area]);
 
   return (
     <>

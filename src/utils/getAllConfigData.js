@@ -3,7 +3,7 @@ import getConfigList from "@/utils/getConfigList";
 import getLanguageList from "@/utils/getLanguageList";
 import getGoodSortList from "@/utils/getGoodSortList";
 
-export default async function (locale) {
+export default async function getAllConfigData(locale) {
   const [CONFIG, LANG, GOODSORTLIST, GOODLIST] = await Promise.all([
     getConfigList(locale),
     getLanguageList(locale),

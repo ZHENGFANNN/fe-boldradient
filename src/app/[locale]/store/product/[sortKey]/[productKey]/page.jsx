@@ -216,6 +216,7 @@ export default async function Product({
       {/* 产品底部 */}
       <GoodFooter LANG={LANG} productInfo={productInfo} />
       <Script
+        id="product-3d-script"
         async
         type="module"
         src="https://unpkg.com/@google/model-viewer/dist/model-viewer.js"

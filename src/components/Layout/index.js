@@ -125,6 +125,7 @@ export default function Layout({ children }) {
         src="https://www.googletagmanager.com/gtag/js?id=G-HXTW7Y9DD3"
       ></script> */}
       <Script
+        id="google-gtm"
         dangerouslySetInnerHTML={{
           __html: `window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
@@ -134,6 +135,7 @@ export default function Layout({ children }) {
       />
       {/* Facebook - Fixed */}
       <Script
+        id="facebook-fixed"
         dangerouslySetInnerHTML={{
           __html: `!function(f,b,e,v,n,t,s)
             {if(f.fbq)return;n=f.fbq=function(){n.callMethod?

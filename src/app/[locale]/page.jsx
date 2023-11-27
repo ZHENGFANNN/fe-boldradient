@@ -3,6 +3,7 @@ import Script from "next/script";
 
 import getAllConfigData from "@/utils/getAllConfigData";
 import styles from "./page.module.scss";
+import Link from "next/link";
 
 export const runtime = "edge";
 
@@ -30,7 +31,7 @@ function ProductItem({
       {href?.startsWith("http") ? (
         <a href={href} target="_blank" rel="noreferrer"></a>
       ) : (
-        <a href={`/${locale}/${href}`}></a>
+        <Link href={`${href}`}></Link>
       )}
       <div className={styles.main_list_text}>
         <div className={styles.main_list_text_title}>{title}</div>
@@ -67,7 +68,7 @@ export default async function Home({ params: { locale } }) {
               rel="noreferrer"
             ></a>
           ) : (
-            <a href={`/${locale}/${CONFIG["www.index.kv_link"]}`}></a>
+            <Link href={`${CONFIG["www.index.kv_link"]}`}></Link>
           )}
           <div className={styles.main_kv_text}>
             <div className={styles.main_kv_text_title}>
@@ -104,12 +105,12 @@ export default async function Home({ params: { locale } }) {
               })}
           </div>
         </section>
-        <a
+        <Link
           style={{
             "--about-us-mob": `url(${CONFIG["www.index.about_us_img_mob"]})`,
             "--about-us-pc": `url(${CONFIG["www.index.about_us_img_pc"]})`,
           }}
-          href={`/${locale}/company/introduce`}
+          href={`/company/introduce`}
           className={styles.footer_container}
         >
           <div className={styles.footer_content}>
@@ -123,7 +124,7 @@ export default async function Home({ params: { locale } }) {
               <div className={styles.arrow_icon}></div>
             </div>
           </div>
-        </a>
+        </Link>
       </main>
       <Script
         id="www-index-ld-json"

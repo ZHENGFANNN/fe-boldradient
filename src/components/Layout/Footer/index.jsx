@@ -10,11 +10,11 @@ import TipModal from "@/components/Modal/FunctionTipModal";
 import { ISEMAIL } from "@/utils/pattern";
 import CountryList from "@/components/CountrySelect";
 
-import { useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 
 import NAVFUNC from "@/config/NAVFUNC";
 import Api from "../api";
-import GlobalContext from "@/globalContext";
+import Link from "next/link";
 const FULLYEAR = new Date().getFullYear();
 
 function ShowLanguageItem({ value }) {
@@ -49,14 +49,8 @@ function ShowLanguageItem({ value }) {
   );
 }
 
-export default function Footer({
-  CONFIG,
-  LANG,
-  GOODSORTLIST,
-  GOODLIST,
-  locale,
-}) {
-  const router = useRouter();
+export default function Footer({ CONFIG, LANG, GOODSORTLIST, GOODLIST }) {
+  const { locale } = useParams();
   const ModalRef = React.useRef(null);
   const NAVLIST = React.useMemo(() => {
     return NAVFUNC({ LANG, CONFIG, GOODLIST, GOODSORTLIST });
@@ -170,9 +164,9 @@ export default function Footer({
                       <li key={index}>
                         {nav_items.href &&
                         !nav_items.href.startsWith("http") ? (
-                          <a href={`/${locale}/${nav_items.href}`}>
+                          <Link href={`${nav_items.href}`}>
                             {nav_items.sub_title}
-                          </a>
+                          </Link>
                         ) : (
                           <a
                             onClick={() => {
@@ -237,7 +231,7 @@ export default function Footer({
             <span>{LANG["common.footer.work_time"]}：</span>
             <div>{CONFIG["company.basic.work_time"]}</div>
           </time>
-          {router.query?.locale === "cn" ? (
+          {locale === "cn" ? (
             <div>
               <span>备案信息：</span>
               <span>

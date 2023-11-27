@@ -43,7 +43,7 @@ export async function generateMetadata({ params: { locale } }) {
   };
 }
 
-function ProductInfo({ product, productIndex, LANG, locale }) {
+function ProductInfo({ product, productIndex, LANG }) {
   return (
     <Link
       href={`/store/product/${product.sort_key}/${product.key}`}

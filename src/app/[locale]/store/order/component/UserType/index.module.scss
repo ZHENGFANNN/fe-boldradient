@@ -1,0 +1,129 @@
+.container {
+  .tabs {
+    position: relative;
+    display: flex;
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 50px;
+    &:after {
+      position: absolute;
+      content: "";
+      top: 0;
+      bottom: 0;
+      border-radius: 50px;
+      width: 50%;
+
+      transition: all 300ms;
+    }
+    &.user_active {
+      &:after {
+        left: 50%;
+        background: #000;
+      }
+    }
+    &.tourists_active {
+      &:after {
+        left: 0;
+        background: #000;
+      }
+    }
+
+    .tab_item {
+      position: relative;
+      z-index: 2;
+      cursor: pointer;
+      line-height: 48px;
+      padding: 0 16px;
+      text-align: center;
+      font-weight: 700;
+      font-size: 14px;
+      color: #898a8e;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      border-radius: 50px;
+
+      min-width: 120px;
+      width: 100%;
+      transition: all 300ms;
+      &.active {
+        color: #fff;
+      }
+    }
+  }
+  .content {
+    margin-top: 24px;
+    .form_item {
+      &.disabled {
+        background: rgba(0, 0, 0, 0.05);
+        input {
+          cursor: not-allowed !important;
+        }
+      }
+    }
+
+    .tip {
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 1.5715;
+      margin-bottom: 16px;
+
+      color: #898a8e;
+    }
+    .btn_container {
+      display: flex;
+      .btn_item {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        min-width: 120px;
+        margin-right: 12px;
+
+        padding: 10px 16px;
+        color: #fff;
+        background-color: #3c3e40;
+        font-size: 14px;
+        line-height: 17px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 400ms;
+        border: 0;
+
+        text-decoration: none;
+        &:last-child {
+          margin-right: 0;
+        }
+        &:last-child {
+          color: #000;
+          background-color: #f2f2f3;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .container {
+    .tabs {
+      display: flex;
+      justify-content: center;
+      .tab_item {
+        width: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        line-height: 42px;
+        height: 42px;
+        font-size: 12px;
+        padding: 0 8px;
+      }
+    }
+    .content {
+      .btn_container {
+        .btn_item {
+          min-width: 100px;
+        }
+      }
+    }
+  }
+}

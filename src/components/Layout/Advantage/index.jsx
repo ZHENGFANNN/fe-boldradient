@@ -1,7 +1,11 @@
 import styles from "./index.module.scss";
 export default function Advantage({ LANG }) {
   return (
-    <div className={styles.tip_container} data-role="store-advantage">
+    <div
+      className={styles.tip_container}
+      data-role="store-advantage"
+      id="store-advantage"
+    >
       <div className={styles.tip_item}>
         <div className={styles.tip_item_img}>
           <img

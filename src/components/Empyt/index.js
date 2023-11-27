@@ -1,9 +1,7 @@
 import styles from "./index.module.scss";
 import React from "react";
-import getAllConfigData from "@/utils/getAllConfigData";
 
-export default async function Empyt({ buttonProps }) {
-  const { LANG } = await getAllConfigData();
+export default function Empyt({ buttonProps, LANG }) {
   return (
     <div className={styles.container}>
       <img

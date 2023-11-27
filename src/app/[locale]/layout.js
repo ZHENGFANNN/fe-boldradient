@@ -1,20 +1,19 @@
-import "../styles/globals.css";
-import "../styles/reset.css";
+import "../../styles/globals.css";
+import "../../styles/reset.css";
 
 import Navbar from "@/components/Layout/NavBar";
 import Footer from "@/components/Layout/Footer";
 
 import getAllConfigData from "@/utils/getAllConfigData";
-import { cookies } from "next/headers";
 
 import React from "react";
 import Layout from "@/components/Layout";
 
 export default async function RootLayout(props) {
-  const { children } = props;
-  const cookieStore = cookies();
-  console.log("2", cookieStore.get("locale"));
-  const locale = cookieStore.get("locale").value;
+  const {
+    children,
+    params: { locale },
+  } = props;
   const { CONFIG, LANG, GOODLIST, GOODSORTLIST } = await getAllConfigData(
     locale
   );

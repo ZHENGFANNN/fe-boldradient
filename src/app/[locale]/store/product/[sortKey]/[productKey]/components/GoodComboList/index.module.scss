@@ -1,0 +1,129 @@
+.container {
+  margin-bottom: 48px;
+
+  h2 {
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 21px;
+    color: #191c21;
+
+    padding-bottom: 16px;
+  }
+  .list {
+    margin-bottom: 12px;
+    padding: 32px 24px;
+    border-radius: 8px;
+
+    border: 1px solid #ddd;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    &:hover {
+      border: 1px solid #000;
+    }
+    &.active {
+      border: 1px solid #000;
+    }
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    .list_item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .discount_tip {
+        position: absolute;
+        right: 0;
+        top: 0;
+
+        font-size: 12px;
+        line-height: 12px;
+        text-align: center;
+        color: #fff;
+        overflow: hidden;
+        border-bottom-left-radius: 8px;
+
+        background: #000;
+
+        font-size: 11px;
+        line-height: 12px;
+        padding: 4px 16px;
+      }
+
+      .stock_tip {
+        position: absolute;
+        right: 0;
+        top: 0;
+
+        font-size: 12px;
+        line-height: 12px;
+        text-align: center;
+        color: #302802;
+        overflow: hidden;
+        border-bottom-left-radius: 8px;
+
+        background: rgb(175, 177, 180);
+        color: rgb(255, 255, 255);
+
+        font-size: 11px;
+        line-height: 12px;
+        padding: 4px 8px;
+      }
+      .list_item_left {
+        font-weight: 700;
+        font-size: 14px;
+        line-height: 18px;
+      }
+      .list_item_right {
+        font-size: 14px;
+        line-height: 20px;
+        color: #191c21;
+        display: flex;
+        flex-direction: row-reverse;
+        div:nth-child(2) {
+          color: #898a8e;
+          font-size: 12px;
+          margin-right: 8px;
+          text-decoration: line-through;
+        }
+      }
+    }
+
+    .line {
+      height: 32px;
+      position: relative;
+      &::before {
+        content: ' ';
+        position: absolute;
+        left: 0;
+        top: 50%;
+        right: 0;
+        height: 0;
+        border-top: 1px solid #f0f1f2;
+        -webkit-transform: translateY(-50%);
+        transform: translateY(-50%);
+      }
+    }
+    .description {
+      font-size: 14px;
+      line-height: 20px;
+      color: #4b4d50;
+      white-space: pre-wrap;
+
+      text-transform: capitalize;
+    }
+  }
+}
+
+@media screen and (max-width: 1050px) {
+  .container {
+    .list {
+      padding: 24px 16px;
+      .line {
+        height: 26px;
+      }
+    }
+  }
+}

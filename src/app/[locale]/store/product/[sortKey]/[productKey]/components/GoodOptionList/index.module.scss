@@ -1,0 +1,144 @@
+.container {
+  margin-bottom: 24px;
+  h2 {
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 21px;
+    color: #191c21;
+
+    padding-bottom: 16px;
+    text-transform: capitalize;
+  }
+  .list {
+    margin-bottom: 12px;
+    border-radius: 8px;
+
+    display: flex;
+    flex-wrap: wrap;
+    .list_item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      width: calc(33.33% - 8px);
+      margin-right: 12px;
+      margin-bottom: 12px;
+
+      font-weight: 700;
+      font-size: 15px;
+      line-height: 18px;
+
+      padding: 16px;
+      box-sizing: border-box;
+      border: 1px solid #ddd;
+      cursor: pointer;
+
+      border-radius: 8px;
+
+      text-transform: capitalize;
+      &:hover {
+        border: 1px solid #000;
+      }
+      &.active {
+        border: 1px solid #000;
+      }
+    }
+    .list_item_image {
+      height: 90px;
+      width: 90px;
+      overflow: hidden;
+
+      position: relative;
+      margin-right: 12px;
+      margin-bottom: 12px;
+
+      font-weight: 700;
+      font-size: 15px;
+      line-height: 18px;
+
+      padding: 12px;
+      box-sizing: border-box;
+      border: 1px solid #ddd;
+      cursor: pointer;
+
+      border-radius: 8px;
+      img {
+        object-fit: cover;
+
+        position: absolute;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+      }
+      &:hover {
+        border: 1px solid #000;
+      }
+      &.active {
+        border: 1px solid #000;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 1081px) {
+  .container {
+    .list {
+      .list_item {
+        &:nth-child(3n) {
+          margin-right: 0;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1081px) {
+  .container {
+    .list {
+      margin-bottom: 12px;
+      border-radius: 8px;
+
+      display: flex;
+      flex-wrap: wrap;
+      .list_item {
+        width: calc(50% - 6px);
+        margin-right: 12px;
+        margin-bottom: 12px;
+
+        font-weight: 700;
+        font-size: 15px;
+        line-height: 18px;
+
+        padding: 12px;
+        box-sizing: border-box;
+        border: 1px solid #ddd;
+        cursor: pointer;
+
+        border-radius: 8px;
+        &:hover {
+          border: 1px solid #000;
+        }
+        &.active {
+          border: 1px solid #000;
+        }
+        &:nth-child(2n) {
+          margin-right: 0;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    .list {
+      .list_item {
+      }
+      .list_item_image {
+      }
+    }
+  }
+}

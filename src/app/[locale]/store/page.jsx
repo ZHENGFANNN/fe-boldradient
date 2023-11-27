@@ -8,6 +8,7 @@ import Script from "next/script";
 import Banner from "./components/Banner";
 
 import { cookies } from "next/headers";
+import Link from "next/link";
 
 export const runtime = "edge";
 
@@ -44,8 +45,8 @@ export async function generateMetadata({ params: { locale } }) {
 
 function ProductInfo({ product, productIndex, LANG, locale }) {
   return (
-    <a
-      href={`/${locale}/store/product/${product.sort_key}/${product.key}`}
+    <Link
+      href={`/store/product/${product.sort_key}/${product.key}`}
       className={`${styles.goods_items} ${
         productIndex === 0 ? styles.big_item : ""
       }`}
@@ -122,7 +123,7 @@ function ProductInfo({ product, productIndex, LANG, locale }) {
           </div>
         ) : null}
       </div>
-    </a>
+    </Link>
   );
 }
 export default async function Home({ params: { locale } }) {

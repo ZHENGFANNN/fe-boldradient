@@ -1,3 +1,5 @@
+"use client";
+
 import styles from "./index.module.scss";
 export default function Loading({ height = "100%", width = "100%" }) {
   return (

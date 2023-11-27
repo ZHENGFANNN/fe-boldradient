@@ -1,0 +1,99 @@
+.pay_list {
+  .pay_item {
+    min-height: 64px;
+    display: flex;
+    flex-direction: column;
+
+    padding: 8px 20px;
+    display: flex;
+    justify-content: space-between;
+
+    border: 1px solid #e6e6e6;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    transition: all 200ms;
+    cursor: pointer;
+
+    position: relative;
+    overflow: hidden;
+
+    .pay_item_select {
+      min-height: 64px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .pay_text {
+        h3 {
+          color: #000;
+          font-size: 14px;
+          line-height: 1.5715;
+          font-weight: 700;
+          margin: 2px 0;
+          white-space: nowrap;
+
+          text-transform: capitalize;
+        }
+        p {
+          font-size: 12px;
+          color: rgba(0, 0, 0, 0.45);
+          line-height: 1.5715;
+        }
+      }
+      &:has(.credit_card) {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        .pay_text {
+          h3 {
+            margin-bottom: 4px;
+          }
+        }
+        .credit_card {
+          position: relative;
+          left: -8px;
+          img {
+            margin: 4px 0;
+            margin-left: 8px;
+          }
+        }
+      }
+
+      img {
+        margin-left: 8px;
+        height: 32px;
+      }
+    }
+    .pay_item_additional {
+      height: 0;
+      transition: all 350ms;
+    }
+    &.active {
+      border: 1px solid rgba(0, 0, 0, 1);
+      background: rgba(0, 0, 0, 0.05);
+      &::after {
+        position: absolute;
+        content: '';
+        right: 0;
+        bottom: 0;
+        border-color: transparent rgba(0, 0, 0, 1) rgba(0, 0, 0, 1) transparent;
+        border-style: solid;
+        border-width: 10px;
+      }
+      .pay_item_additional {
+        height: auto;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .pay_list {
+    .pay_item {
+      min-height: 48px;
+      .pay_item_select {
+        min-height: 48px;
+      }
+    }
+  }
+}

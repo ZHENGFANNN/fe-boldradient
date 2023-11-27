@@ -1,0 +1,93 @@
+.from_container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    padding: 20px 0;
+    input[name="card_number"] {
+        width: 606px;
+    }
+    input[name="card_month"] {
+        width: 295px;
+    }
+    input[name="card_year"] {
+        width: 295px;
+    }
+    input[name="card_cvv"] {
+        width: 295px;
+    }
+    input[name="card_name"] {
+        width: 295px;
+    }
+}
+
+@media screen and (max-width: 1249px) {
+    .from_container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        
+        input[name="card_number"] {
+            width: 480px;
+        }
+        input[name="card_month"] {
+            width: 232px;
+        }
+        input[name="card_year"] {
+            width: 232px;
+        }
+        input[name="card_cvv"] {
+            width: 232px;
+        }
+        input[name="card_name"] {
+            width: 232px;
+        }
+
+    }
+}
+
+@media screen and (max-width: 1049px) {
+    .from_container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        input[name="card_number"] {
+            width: 646px;
+        }
+        input[name="card_month"] {
+            width: 315px;
+        }
+        input[name="card_year"] {
+            width: 315px;
+        }
+        input[name="card_cvv"] {
+            width: 315px;
+        }
+        input[name="card_name"] {
+            width: 315px;
+        }
+    }
+}
+
+
+@media screen and (max-width: 800px) {
+    .from_container {
+        display: flex;
+        flex-wrap: wrap;
+        input[name="card_number"] {
+            width: calc(100vw - 88px);
+        }
+        input[name="card_month"] {
+            width: calc(50vw - 50px);
+        }
+        input[name="card_year"] {
+            width: calc(50vw - 50px);
+        }
+        input[name="card_cvv"] {
+            width: calc(50vw - 50px);
+        }
+        input[name="card_name"] {
+            width: calc(50vw - 50px);
+        }
+    }
+}

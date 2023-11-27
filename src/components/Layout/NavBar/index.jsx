@@ -105,9 +105,9 @@ export default function NavBar({ CONFIG, LANG, GOODSORTLIST, GOODLIST }) {
               className={styles.header_user}
               onClick={() => {
                 if (userInfo) {
-                  location.href = `/user/account`;
+                  router.push(`/user/account`);
                 } else {
-                  location.href = `/user/login`;
+                  router.push(`/user/login`);
                 }
               }}
             >
@@ -317,21 +317,18 @@ export default function NavBar({ CONFIG, LANG, GOODSORTLIST, GOODLIST }) {
                 </div>
               </Link>
             </li>
-            <li
-              className={styles.header_cart}
-              onClick={() => {
-                window.location.href = `/store/cart`;
-              }}
-            >
-              {productNum !== 0 ? (
-                <div className={styles.num}>{productNum}</div>
-              ) : null}
-              <img
-                alt="avatar"
-                width={24}
-                height={24}
-                src={`${process.env.NEXT_PUBLIC_IMAGE}/icon/min-cart.svg`}
-              />
+            <li className={styles.header_cart}>
+              <Link href="/store/cart">
+                {productNum !== 0 ? (
+                  <div className={styles.num}>{productNum}</div>
+                ) : null}
+                <img
+                  alt="avatar"
+                  width={24}
+                  height={24}
+                  src={`${process.env.NEXT_PUBLIC_IMAGE}/icon/min-cart.svg`}
+                />
+              </Link>
             </li>
             <li className={styles.header_user}>
               <DropSelect
@@ -365,7 +362,7 @@ export default function NavBar({ CONFIG, LANG, GOODSORTLIST, GOODLIST }) {
                     Api.loginOut();
                     location.reload();
                   } else {
-                    location.href = `/user/${e}`;
+                    router.push(`/user/${e}`);
                   }
                 }}
               >

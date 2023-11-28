@@ -4,6 +4,7 @@ import React from "react";
 import getAllConfigData from "@/utils/getAllConfigData";
 import HeaderTitle from "./components/HeaderTitle";
 import ProductInfo from "./components/ProductInfo";
+import Link from "next/link";
 
 export const runtime = "edge";
 
@@ -38,7 +39,7 @@ export default async function Nav({ params: { type, locale } }) {
                 <div className={styles.header_nav_width}>
                   {item.goodList.map((item2, index2) => {
                     return (
-                      <a
+                      <Link
                         key={index2}
                         href={`/store/product/${item.key}/${item2.key}`}
                         className={styles.header_nav_items}
@@ -50,7 +51,7 @@ export default async function Nav({ params: { type, locale } }) {
                           alt={item2.name}
                         />
                         <p>{item2.name}</p>
-                      </a>
+                      </Link>
                     );
                   })}
                 </div>

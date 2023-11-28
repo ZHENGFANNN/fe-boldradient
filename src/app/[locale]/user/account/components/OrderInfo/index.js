@@ -5,7 +5,6 @@ import Api from "../../api";
 import React from "react";
 import Empyt from "@/components/Empyt";
 import Loading from "@/components/Loading";
-import $ from "jquery";
 
 export default function OrderInfo({ LANG }) {
   const payMap = React.useMemo(() => {
@@ -45,39 +44,44 @@ export default function OrderInfo({ LANG }) {
 
   React.useEffect(() => {
     if (list.length < 1) return;
-    const $orderList = $(`.${styles.order_list}`);
-    const $expandIcon = $orderList.find(`.${styles.expand_icon}`);
-    const $expandContainer = $orderList.find(`.${styles.expand_container}`);
-    const $expandHeight = $orderList.find(`.${styles.expand_height}`);
 
-    $(`.${styles.order_list} .${styles.expand_icon}`).on("click", function () {
-      const _index = $(`.${styles.order_list} .${styles.expand_icon}`).index(
-        this
-      );
-      $expandIcon.each(function (index) {
-        $(this).find("span").text(LANG["www.account.my_order.expand"]);
-        $(this).removeClass(styles.active);
-        if ($expandContainer.eq(index).height() > 0 && _index !== index) {
-          $expandContainer.eq(index).css({
-            height: 0,
+    import("jquery").then(({ default: $ }) => {
+      const $orderList = $(`.${styles.order_list}`);
+      const $expandIcon = $orderList.find(`.${styles.expand_icon}`);
+      const $expandContainer = $orderList.find(`.${styles.expand_container}`);
+      const $expandHeight = $orderList.find(`.${styles.expand_height}`);
+      $(`.${styles.order_list} .${styles.expand_icon}`).on(
+        "click",
+        function () {
+          const _index = $(
+            `.${styles.order_list} .${styles.expand_icon}`
+          ).index(this);
+          $expandIcon.each(function (index) {
+            $(this).find("span").text(LANG["www.account.my_order.expand"]);
+            $(this).removeClass(styles.active);
+            if ($expandContainer.eq(index).height() > 0 && _index !== index) {
+              $expandContainer.eq(index).css({
+                height: 0,
+              });
+            }
           });
-        }
-      });
 
-      if ($expandContainer.eq(_index).height() > 0) {
-        $expandContainer.eq(_index).css({
-          height: 0,
-        });
-        $(this).removeClass(styles.active);
-        $(this).find("span").text(LANG["www.account.my_order.expand"]);
-      } else {
-        const height = $expandHeight.eq(_index).height();
-        $expandContainer.eq(_index).css({
-          height: `${height}px`,
-        });
-        $(this).addClass(styles.active);
-        $(this).find("span").text(LANG["www.account.my_order.collaspe"]);
-      }
+          if ($expandContainer.eq(_index).height() > 0) {
+            $expandContainer.eq(_index).css({
+              height: 0,
+            });
+            $(this).removeClass(styles.active);
+            $(this).find("span").text(LANG["www.account.my_order.expand"]);
+          } else {
+            const height = $expandHeight.eq(_index).height();
+            $expandContainer.eq(_index).css({
+              height: `${height}px`,
+            });
+            $(this).addClass(styles.active);
+            $(this).find("span").text(LANG["www.account.my_order.collaspe"]);
+          }
+        }
+      );
     });
   }, [list]);
 

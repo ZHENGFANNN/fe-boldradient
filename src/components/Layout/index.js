@@ -32,7 +32,6 @@ export default function Layout({ children }) {
   React.useEffect(() => {
     if (userInfo) return;
     const token = Cookies.get("token");
-    console.log("searchParams", pathname);
     const asPath = `${pathname}${searchParams ? `?${searchParams}` : ""}`;
     // ***需要鉴权的URL列表***
     const tokenUrlList = ["/user/account"];
@@ -71,7 +70,6 @@ export default function Layout({ children }) {
         const storeList = JSON.parse(localStorage.getItem("store_shopping"));
         let num = 0;
         if (typeof storeList === "object") {
-          console.log("storeList", storeList);
           storeList.forEach((item) => {
             num = num + item.productNum;
           });

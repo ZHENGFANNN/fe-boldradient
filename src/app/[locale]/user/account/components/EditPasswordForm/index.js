@@ -6,7 +6,6 @@ import styles from "./index.module.scss";
 import Input from "@/components/Form/Input";
 import ShowTipModal from "@/components/Modal/ShowTipModal";
 import Api from "../../api";
-import GlobalContext from "@/globalContext";
 
 export default function EditPasswordForm({ LANG }) {
   const [show, setShow] = React.useState(false);

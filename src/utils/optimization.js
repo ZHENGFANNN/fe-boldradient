@@ -1,78 +1,79 @@
-import $ from 'jquery'
+"use client";
+import $ from "jquery";
 // 图片封面懒加载
 export const lazyLoadImages = function ($container) {
-  if (!$container) return
+  if (!$container) return;
 
-  const viewportHeight = $(window).height()
-  const images = $container.find('img[data-src]')
+  const viewportHeight = $(window).height();
+  const images = $container.find("img[data-src]");
 
   function lazyLoad() {
-    const scrollTop = $(window).scrollTop()
+    const scrollTop = $(window).scrollTop();
 
     images.each(function () {
-      const $img = $(this)
-      const imgTop = $img.offset()?.top
+      const $img = $(this);
+      const imgTop = $img.offset()?.top;
 
       if (viewportHeight * 2 + scrollTop > imgTop) {
-        $img.attr('src', $img.attr('data-src'))
-        $img.removeAttr('data-src')
+        $img.attr("src", $img.attr("data-src"));
+        $img.removeAttr("data-src");
       }
-    })
+    });
 
     // Remove scroll event listener if all images loaded
     if (images.length === 0) {
-      $(window).off('scroll', lazyLoad)
+      $(window).off("scroll", lazyLoad);
     }
   }
 
   // Bind scroll event listener
-  lazyLoad()
-  $(window).on('scroll', lazyLoad)
+  lazyLoad();
+  $(window).on("scroll", lazyLoad);
 
   // Return function to remove scroll event listener
-  return () => $(window).off('scroll', lazyLoad)
-}
+  return () => $(window).off("scroll", lazyLoad);
+};
 
 // 视频封面懒加载
 export const lazyLoadVideos = function ($container) {
-  if (!$container) return
+  if (!$container) return;
 
-  const viewportHeight = $(window).height()
-  const videos = $container.find('video[data-src]')
+  const viewportHeight = $(window).height();
+  const videos = $container.find("video[data-src]");
 
   function lazyLoad() {
-    const scrollTop = $(window).scrollTop()
+    const scrollTop = $(window).scrollTop();
 
     videos.each(function () {
-      const $video = $(this)
-      const videoTop = $video.offset()?.top
+      const $video = $(this);
+      const videoTop = $video.offset()?.top;
 
       if (viewportHeight * 2 + scrollTop > videoTop) {
-        $video.attr('src', $video.attr('data-src'))
-        $video.removeAttr('data-src')
+        $video.attr("src", $video.attr("data-src"));
+        $video.removeAttr("data-src");
       }
-    })
+    });
 
     // Remove scroll event listener if all videos loaded
     if (videos.length === 0) {
-      $(window).off('scroll', lazyLoad)
+      $(window).off("scroll", lazyLoad);
     }
   }
 
   // Bind scroll event listener
-  $(window).on('scroll', lazyLoad)
+  $(window).on("scroll", lazyLoad);
 
   // Return function to remove scroll event listener
-  return () => $(window).off('scroll', lazyLoad)
-}
+  return () => $(window).off("scroll", lazyLoad);
+};
 
 // 首屏脚本优化
 export function ifScrollDown({ onToggle }) {
   function handler() {
     if ($(window).scrollTop() > 0) {
-      onToggle()
-      $(window).off('scroll', handler)
+      onToggle();
+      $(window).off("scroll", handler);
     }
   }
-  $(window).on('scroll', handler)
+  $(window).on("scroll", handler);
 }

@@ -1,4 +1,3 @@
-import styles from "./page.module.scss";
 import React from "react";
 
 import getAllConfigData from "@/utils/getAllConfigData";

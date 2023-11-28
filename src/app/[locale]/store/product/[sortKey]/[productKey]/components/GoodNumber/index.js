@@ -6,9 +6,6 @@ import useProductStore from "../../productStore";
 export default function GoodNumber({ LANG }) {
   const setProductNum = useProductStore((state) => state.setProductNum);
   const productNum = useProductStore((state) => state.productNum);
-  React.useEffect(() => {
-    console.log("productNum", productNum);
-  }, [productNum]);
   return (
     <div className={styles.product_num}>
       <h3>{LANG["store.product.amount"]}</h3>

@@ -11,7 +11,7 @@ import GlobalContext from "@/globalContext";
 import Loading from "@/components/Loading";
 import Advantage from "@/components/Layout/Advantage";
 
-const EmpytCart = function ({ locale, LANG }) {
+const EmpytCart = function ({ LANG }) {
   return (
     <div className={styles.empyt_container}>
       <div className={styles.img_container}>
@@ -60,6 +60,18 @@ export default function Main({ LANG, GOODLIST, area, locale }) {
               );
             }
           }
+          // 处理选项
+          let options;
+          try {
+            if (typeof item.options === "object") {
+              options = item.options;
+            } else {
+              options = JSON.parse(item.options);
+            }
+          } catch {
+            options = [];
+          }
+
           if (areaInfo && comboInfo && product) {
             // 库存不存在的情况下，不允许点击
             if (!areaInfo.stock) item.selected = false;
@@ -83,10 +95,7 @@ export default function Main({ LANG, GOODLIST, area, locale }) {
               // 其他
               productNum: item.productNum,
               selected: item.selected,
-              options:
-                typeof item.options === "object"
-                  ? item.options
-                  : JSON.parse(item.options),
+              options,
             });
           }
         });

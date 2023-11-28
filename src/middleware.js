@@ -74,8 +74,6 @@ export function middleware(request) {
   // 判断URL与locale是否一致;
   const curLocale =
     returnOptions.headers.get("x-next-i18n-router-locale") || "en";
-  console.log("curLocale", curLocale);
-  console.log("locale", locale);
   if (curLocale !== locale) {
     let baseUrl;
     // 特殊处理英文

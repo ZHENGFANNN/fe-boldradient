@@ -261,7 +261,11 @@ export default function NavBar({ CONFIG, LANG, GOODSORTLIST, GOODLIST }) {
                                 if (!item2.href) {
                                   ModalRef.current.showModal();
                                 } else {
-                                  location.href = item2.href;
+                                  if (item2.href.startsWith("http")) {
+                                    window.open(item2.href);
+                                  } else {
+                                    router.push(item2.href);
+                                  }
                                 }
                               }}
                             >

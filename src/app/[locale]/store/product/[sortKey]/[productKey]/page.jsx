@@ -16,7 +16,6 @@ import useProductStore from "./productStore";
 
 import styles from "./page.module.scss";
 import { cookies } from "next/headers";
-import Head from "next/head";
 import Script from "next/script";
 
 import getAllConfigData from "@/utils/getAllConfigData";
@@ -24,12 +23,21 @@ import GoodPrice from "./components/GoodPrice";
 import GoodFooter from "./components/GoodFooter";
 export const runtime = "edge";
 
-export async function generateMetadata({ params: { locale } }) {
-  const { LANG, CONFIG } = await getAllConfigData(locale);
+export async function generateMetadata({ params: { locale, productKey } }) {
+  const { CONFIG, GOODLIST } = await getAllConfigData(locale);
+  const productInfo = await getProductInfo({
+    productList: GOODLIST,
+    productKey,
+  });
   return {
-    title: `${CONFIG["company.basic.company_name"]} - ${LANG["store.index.title"]}`,
-    description: LANG["store.index.description"],
-    keywords: LANG["store.index.keywords"],
+    title: `${productInfo.indexConfig[0]?.page_title} - ${CONFIG["company.basic.company_name"]}`,
+    description: productInfo.indexConfig[0]?.page_description,
+    keywords: productInfo.indexConfig[0]?.page_keywords,
+    openGraph: {
+      title: `${productInfo.indexConfig[0]?.page_title} - ${CONFIG["company.basic.company_name"]}`,
+      description: productInfo.indexConfig[0]?.page_description,
+      image: productInfo.image_url,
+    },
   };
 }
 
@@ -38,14 +46,6 @@ async function getProductInfo({ productList, productKey, order_page = null }) {
   return productList.find((item) => {
     return item.key === productKey;
   });
-  // if (!productInfo) {
-  //   return {
-  //     redirect: {
-  //       destination: "/404",
-  //       permanent: false, // 是否为永久重定向
-  //     },
-  //   };
-  // }
 }
 
 // 获取产品套餐
@@ -101,10 +101,7 @@ async function getTypeList({ productInfo, LANG }) {
   return list;
 }
 
-export default async function Product({
-  params: { locale, productKey },
-  orderPage,
-}) {
+export default async function Product({ params: { locale, productKey } }) {
   const area = cookies().get("area").value;
   const { LANG, CONFIG, GOODLIST } = await getAllConfigData(locale);
   const productInfo = await getProductInfo({
@@ -116,27 +113,6 @@ export default async function Product({
 
   return (
     <div className={styles.container}>
-      <Head>
-        <title>{`${CONFIG["company.basic.company_name"]} - ${productInfo.indexConfig[0]?.page_title}`}</title>
-        <meta
-          name="description"
-          content={productInfo.indexConfig[0]?.page_description}
-        />
-        <meta
-          name="keywords"
-          content={productInfo.indexConfig[0]?.page_keywords}
-        />
-        {/* Facebook - Show */}
-        <meta
-          property="og:title"
-          content={`${CONFIG["company.basic.company_name"]} - ${productInfo.indexConfig[0]?.page_title}`}
-        />
-        <meta property="og:image" content={productInfo.image_url} />
-        <meta
-          property="og:description"
-          content={productInfo.indexConfig[0]?.page_description}
-        />
-      </Head>
       {/* 首屏信息配置 */}
       <section className={styles.main_content}>
         <div className={styles.left_content}>

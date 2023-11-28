@@ -9,7 +9,7 @@ export const runtime = "edge";
 export async function generateMetadata({ params: { locale } }) {
   const { LANG, CONFIG } = await getAllConfigData(locale);
   return {
-    title: `${CONFIG["company.basic.company_name"]} - ${LANG["store.cart.page_title"]}`,
+    title: `${LANG["store.cart.page_title"]} - ${CONFIG["company.basic.company_name"]}`,
     description: LANG["store.cart.page_description"],
     keywords: LANG["store.cart.page_keywords"],
   };

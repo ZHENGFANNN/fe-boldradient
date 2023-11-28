@@ -7,7 +7,6 @@ import Input from "@/components/Form/Input";
 import { ISPHONE, ISPHONEOBERVER } from "@/utils/pattern";
 import CountryModal from "@/components/Form/CountrySelect";
 import ShowTipModal from "@/components/Modal/ShowTipModal";
-import GlobalContext from "@/globalContext";
 import Api from "../../api";
 
 export default function NewAddressForm({ onFinish, LANG }) {

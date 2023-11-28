@@ -19,6 +19,191 @@
     "created_time": "2023-09-09T09:20:44.000Z",
     "updated_time": "2023-09-18T15:02:56.000Z",
     "associateProduct": [],
+    "packageList": [
+      {
+        "id": 579,
+        "type": "image",
+        "good_key": "n9-ultra-pro",
+        "good_sort_key": "watches",
+        "language": "hk",
+        "associate_good_key": "watches:n9-ultra-pro",
+        "value": null,
+        "key": null,
+        "image": "https://image.sslfly.com/base/2023/9/17/609D062B6FFAEED9D2F90036827B388C/package_1.jpg",
+        "weight": 11,
+        "created_time": "2023-09-17T12:20:14.000Z",
+        "updated_time": "2023-09-17T15:03:10.000Z"
+      },
+      {
+        "id": 580,
+        "type": "image",
+        "good_key": "n9-ultra-pro",
+        "good_sort_key": "watches",
+        "language": "hk",
+        "associate_good_key": "watches:n9-ultra-pro",
+        "value": null,
+        "key": null,
+        "image": "https://image.sslfly.com/base/2023/9/17/0D5F9CFC292FDD2053E19882BE7E3322/package_2.jpg",
+        "weight": 10,
+        "created_time": "2023-09-17T12:19:35.000Z",
+        "updated_time": "2023-09-17T15:03:15.000Z"
+      },
+      {
+        "id": 581,
+        "type": "text",
+        "good_key": "n9-ultra-pro",
+        "good_sort_key": "watches",
+        "language": "hk",
+        "associate_good_key": "watches:n9-ultra-pro",
+        "value": "機頭*1，錶帶*1，說明書*1，無線充*1",
+        "key": "包裝清單:",
+        "image": null,
+        "weight": 9,
+        "created_time": "2023-09-10T16:03:19.000Z",
+        "updated_time": "2023-09-10T16:03:19.000Z"
+      },
+      {
+        "id": 582,
+        "type": "text",
+        "good_key": "n9-ultra-pro",
+        "good_sort_key": "watches",
+        "language": "hk",
+        "associate_good_key": "watches:n9-ultra-pro",
+        "value": "鋅合金機身+IML底殼",
+        "key": "機身材質:",
+        "image": null,
+        "weight": 8,
+        "created_time": "2023-09-10T16:03:19.000Z",
+        "updated_time": "2023-09-10T16:03:19.000Z"
+      },
+      {
+        "id": 583,
+        "type": "text",
+        "good_key": "n9-ultra-pro",
+        "good_sort_key": "watches",
+        "language": "hk",
+        "associate_good_key": "watches:n9-ultra-pro",
+        "value": "矽膠",
+        "key": "錶帶材質:",
+        "image": null,
+        "weight": 7,
+        "created_time": "2023-09-10T16:03:19.000Z",
+        "updated_time": "2023-09-10T16:03:19.000Z"
+      },
+      {
+        "id": 584,
+        "type": "text",
+        "good_key": "n9-ultra-pro",
+        "good_sort_key": "watches",
+        "language": "hk",
+        "associate_good_key": "watches:n9-ultra-pro",
+        "value": "49mm",
+        "key": "產品尺寸(mm):",
+        "image": null,
+        "weight": 6,
+        "created_time": "2023-09-10T16:03:19.000Z",
+        "updated_time": "2023-09-10T16:03:19.000Z"
+      },
+      {
+        "id": 585,
+        "type": "text",
+        "good_key": "n9-ultra-pro",
+        "good_sort_key": "watches",
+        "language": "hk",
+        "associate_good_key": "watches:n9-ultra-pro",
+        "value": "20.8*11.3*2.1CM",
+        "key": "彩盒尺寸(mm):",
+        "image": null,
+        "weight": 5,
+        "created_time": "2023-09-10T16:03:19.000Z",
+        "updated_time": "2023-09-10T16:03:19.000Z"
+      },
+      {
+        "id": 586,
+        "type": "text",
+        "good_key": "n9-ultra-pro",
+        "good_sort_key": "watches",
+        "language": "hk",
+        "associate_good_key": "watches:n9-ultra-pro",
+        "value": "100PCS/箱\n59.5*43.5*24CM",
+        "key": "外箱尺寸(mm):",
+        "image": null,
+        "weight": 4,
+        "created_time": "2023-09-10T16:03:19.000Z",
+        "updated_time": "2023-09-10T16:03:19.000Z"
+      },
+      {
+        "id": 587,
+        "type": "text",
+        "good_key": "n9-ultra-pro",
+        "good_sort_key": "watches",
+        "language": "hk",
+        "associate_good_key": "watches:n9-ultra-pro",
+        "value": "53g",
+        "key": "產品重量(g):",
+        "image": null,
+        "weight": 3,
+        "created_time": "2023-09-10T16:03:19.000Z",
+        "updated_time": "2023-09-10T16:03:19.000Z"
+      },
+      {
+        "id": 588,
+        "type": "text",
+        "good_key": "n9-ultra-pro",
+        "good_sort_key": "watches",
+        "language": "hk",
+        "associate_good_key": "watches:n9-ultra-pro",
+        "value": "205g",
+        "key": "整套重量(g):",
+        "image": null,
+        "weight": 2,
+        "created_time": "2023-09-10T16:03:19.000Z",
+        "updated_time": "2023-09-10T16:03:19.000Z"
+      },
+      {
+        "id": 589,
+        "type": "text",
+        "good_key": "n9-ultra-pro",
+        "good_sort_key": "watches",
+        "language": "hk",
+        "associate_good_key": "watches:n9-ultra-pro",
+        "value": "21.5kg/箱",
+        "key": "整箱重量(kg):",
+        "image": null,
+        "weight": 1,
+        "created_time": "2023-09-10T16:03:19.000Z",
+        "updated_time": "2023-09-10T16:03:19.000Z"
+      }
+    ],
+    "typeList": [
+      {
+        "id": 80,
+        "type": "text",
+        "title": "顏色",
+        "language": "hk",
+        "good_sort_key": "watches",
+        "good_key": "n9-ultra-pro",
+        "options": [
+          {
+            "title": "黑色"
+          },
+          {
+            "title": "白色"
+          },
+          {
+            "title": "綠色"
+          },
+          {
+            "title": "橘色"
+          }
+        ],
+        "enabled": 1,
+        "weight": 1,
+        "associate_good_key": "watches:n9-ultra-pro",
+        "created_time": "2023-09-17T13:27:03.000Z",
+        "updated_time": "2023-09-17T13:27:03.000Z"
+      }
+    ],
     "comboList": [
       {
         "id": 105,
@@ -866,191 +1051,6 @@
             "updated_time": "2023-10-27T17:28:49.000Z"
           }
         ]
-      }
-    ],
-    "typeList": [
-      {
-        "id": 80,
-        "type": "text",
-        "title": "顏色",
-        "language": "hk",
-        "good_sort_key": "watches",
-        "good_key": "n9-ultra-pro",
-        "options": [
-          {
-            "title": "黑色"
-          },
-          {
-            "title": "白色"
-          },
-          {
-            "title": "綠色"
-          },
-          {
-            "title": "橘色"
-          }
-        ],
-        "enabled": 1,
-        "weight": 1,
-        "associate_good_key": "watches:n9-ultra-pro",
-        "created_time": "2023-09-17T13:27:03.000Z",
-        "updated_time": "2023-09-17T13:27:03.000Z"
-      }
-    ],
-    "packageList": [
-      {
-        "id": 579,
-        "type": "image",
-        "good_key": "n9-ultra-pro",
-        "good_sort_key": "watches",
-        "language": "hk",
-        "associate_good_key": "watches:n9-ultra-pro",
-        "value": null,
-        "key": null,
-        "image": "https://image.sslfly.com/base/2023/9/17/609D062B6FFAEED9D2F90036827B388C/package_1.jpg",
-        "weight": 11,
-        "created_time": "2023-09-17T12:20:14.000Z",
-        "updated_time": "2023-09-17T15:03:10.000Z"
-      },
-      {
-        "id": 580,
-        "type": "image",
-        "good_key": "n9-ultra-pro",
-        "good_sort_key": "watches",
-        "language": "hk",
-        "associate_good_key": "watches:n9-ultra-pro",
-        "value": null,
-        "key": null,
-        "image": "https://image.sslfly.com/base/2023/9/17/0D5F9CFC292FDD2053E19882BE7E3322/package_2.jpg",
-        "weight": 10,
-        "created_time": "2023-09-17T12:19:35.000Z",
-        "updated_time": "2023-09-17T15:03:15.000Z"
-      },
-      {
-        "id": 581,
-        "type": "text",
-        "good_key": "n9-ultra-pro",
-        "good_sort_key": "watches",
-        "language": "hk",
-        "associate_good_key": "watches:n9-ultra-pro",
-        "value": "機頭*1，錶帶*1，說明書*1，無線充*1",
-        "key": "包裝清單:",
-        "image": null,
-        "weight": 9,
-        "created_time": "2023-09-10T16:03:19.000Z",
-        "updated_time": "2023-09-10T16:03:19.000Z"
-      },
-      {
-        "id": 582,
-        "type": "text",
-        "good_key": "n9-ultra-pro",
-        "good_sort_key": "watches",
-        "language": "hk",
-        "associate_good_key": "watches:n9-ultra-pro",
-        "value": "鋅合金機身+IML底殼",
-        "key": "機身材質:",
-        "image": null,
-        "weight": 8,
-        "created_time": "2023-09-10T16:03:19.000Z",
-        "updated_time": "2023-09-10T16:03:19.000Z"
-      },
-      {
-        "id": 583,
-        "type": "text",
-        "good_key": "n9-ultra-pro",
-        "good_sort_key": "watches",
-        "language": "hk",
-        "associate_good_key": "watches:n9-ultra-pro",
-        "value": "矽膠",
-        "key": "錶帶材質:",
-        "image": null,
-        "weight": 7,
-        "created_time": "2023-09-10T16:03:19.000Z",
-        "updated_time": "2023-09-10T16:03:19.000Z"
-      },
-      {
-        "id": 584,
-        "type": "text",
-        "good_key": "n9-ultra-pro",
-        "good_sort_key": "watches",
-        "language": "hk",
-        "associate_good_key": "watches:n9-ultra-pro",
-        "value": "49mm",
-        "key": "產品尺寸(mm):",
-        "image": null,
-        "weight": 6,
-        "created_time": "2023-09-10T16:03:19.000Z",
-        "updated_time": "2023-09-10T16:03:19.000Z"
-      },
-      {
-        "id": 585,
-        "type": "text",
-        "good_key": "n9-ultra-pro",
-        "good_sort_key": "watches",
-        "language": "hk",
-        "associate_good_key": "watches:n9-ultra-pro",
-        "value": "20.8*11.3*2.1CM",
-        "key": "彩盒尺寸(mm):",
-        "image": null,
-        "weight": 5,
-        "created_time": "2023-09-10T16:03:19.000Z",
-        "updated_time": "2023-09-10T16:03:19.000Z"
-      },
-      {
-        "id": 586,
-        "type": "text",
-        "good_key": "n9-ultra-pro",
-        "good_sort_key": "watches",
-        "language": "hk",
-        "associate_good_key": "watches:n9-ultra-pro",
-        "value": "100PCS/箱\n59.5*43.5*24CM",
-        "key": "外箱尺寸(mm):",
-        "image": null,
-        "weight": 4,
-        "created_time": "2023-09-10T16:03:19.000Z",
-        "updated_time": "2023-09-10T16:03:19.000Z"
-      },
-      {
-        "id": 587,
-        "type": "text",
-        "good_key": "n9-ultra-pro",
-        "good_sort_key": "watches",
-        "language": "hk",
-        "associate_good_key": "watches:n9-ultra-pro",
-        "value": "53g",
-        "key": "產品重量(g):",
-        "image": null,
-        "weight": 3,
-        "created_time": "2023-09-10T16:03:19.000Z",
-        "updated_time": "2023-09-10T16:03:19.000Z"
-      },
-      {
-        "id": 588,
-        "type": "text",
-        "good_key": "n9-ultra-pro",
-        "good_sort_key": "watches",
-        "language": "hk",
-        "associate_good_key": "watches:n9-ultra-pro",
-        "value": "205g",
-        "key": "整套重量(g):",
-        "image": null,
-        "weight": 2,
-        "created_time": "2023-09-10T16:03:19.000Z",
-        "updated_time": "2023-09-10T16:03:19.000Z"
-      },
-      {
-        "id": 589,
-        "type": "text",
-        "good_key": "n9-ultra-pro",
-        "good_sort_key": "watches",
-        "language": "hk",
-        "associate_good_key": "watches:n9-ultra-pro",
-        "value": "21.5kg/箱",
-        "key": "整箱重量(kg):",
-        "image": null,
-        "weight": 1,
-        "created_time": "2023-09-10T16:03:19.000Z",
-        "updated_time": "2023-09-10T16:03:19.000Z"
       }
     ],
     "mediaList": [
@@ -2148,6 +2148,79 @@
     "created_time": "2022-12-26T14:24:11.000Z",
     "updated_time": "2023-09-09T09:53:43.000Z",
     "associateProduct": [],
+    "packageList": [
+      {
+        "id": 684,
+        "type": "text",
+        "good_key": "8-ultra-mini",
+        "good_sort_key": "watches",
+        "language": "hk",
+        "associate_good_key": "watches:8-ultra-mini",
+        "value": "機頭*1，錶帶*1，說明書*1，無線充電器*1",
+        "key": "包裝清單:",
+        "image": null,
+        "weight": 5,
+        "created_time": "2023-09-09T16:01:57.000Z",
+        "updated_time": "2023-09-09T16:01:57.000Z"
+      },
+      {
+        "id": 685,
+        "type": "text",
+        "good_key": "8-ultra-mini",
+        "good_sort_key": "watches",
+        "language": "hk",
+        "associate_good_key": "watches:8-ultra-mini",
+        "value": "鋅合金機身+IML底殼",
+        "key": "機體素質:",
+        "image": null,
+        "weight": 4,
+        "created_time": "2023-09-09T16:01:57.000Z",
+        "updated_time": "2023-09-09T16:01:57.000Z"
+      },
+      {
+        "id": 686,
+        "type": "text",
+        "good_key": "8-ultra-mini",
+        "good_sort_key": "watches",
+        "language": "hk",
+        "associate_good_key": "watches:8-ultra-mini",
+        "value": "矽膠",
+        "key": "錶帶材質:",
+        "image": null,
+        "weight": 3,
+        "created_time": "2023-09-09T16:01:57.000Z",
+        "updated_time": "2023-09-09T16:01:57.000Z"
+      },
+      {
+        "id": 687,
+        "type": "text",
+        "good_key": "8-ultra-mini",
+        "good_sort_key": "watches",
+        "language": "hk",
+        "associate_good_key": "watches:8-ultra-mini",
+        "value": "210*106*25mm",
+        "key": "彩盒尺寸(mm):",
+        "image": null,
+        "weight": 2,
+        "created_time": "2023-09-09T16:01:57.000Z",
+        "updated_time": "2023-09-09T16:01:57.000Z"
+      },
+      {
+        "id": 688,
+        "type": "text",
+        "good_key": "8-ultra-mini",
+        "good_sort_key": "watches",
+        "language": "hk",
+        "associate_good_key": "watches:8-ultra-mini",
+        "value": "50pcs/箱\n570*315*235mm",
+        "key": "外箱尺寸(mm):",
+        "image": null,
+        "weight": 1,
+        "created_time": "2023-09-09T16:01:57.000Z",
+        "updated_time": "2023-09-09T16:01:57.000Z"
+      }
+    ],
+    "typeList": [],
     "comboList": [
       {
         "id": 55,
@@ -2984,79 +3057,6 @@
         ]
       }
     ],
-    "typeList": [],
-    "packageList": [
-      {
-        "id": 684,
-        "type": "text",
-        "good_key": "8-ultra-mini",
-        "good_sort_key": "watches",
-        "language": "hk",
-        "associate_good_key": "watches:8-ultra-mini",
-        "value": "機頭*1，錶帶*1，說明書*1，無線充電器*1",
-        "key": "包裝清單:",
-        "image": null,
-        "weight": 5,
-        "created_time": "2023-09-09T16:01:57.000Z",
-        "updated_time": "2023-09-09T16:01:57.000Z"
-      },
-      {
-        "id": 685,
-        "type": "text",
-        "good_key": "8-ultra-mini",
-        "good_sort_key": "watches",
-        "language": "hk",
-        "associate_good_key": "watches:8-ultra-mini",
-        "value": "鋅合金機身+IML底殼",
-        "key": "機體素質:",
-        "image": null,
-        "weight": 4,
-        "created_time": "2023-09-09T16:01:57.000Z",
-        "updated_time": "2023-09-09T16:01:57.000Z"
-      },
-      {
-        "id": 686,
-        "type": "text",
-        "good_key": "8-ultra-mini",
-        "good_sort_key": "watches",
-        "language": "hk",
-        "associate_good_key": "watches:8-ultra-mini",
-        "value": "矽膠",
-        "key": "錶帶材質:",
-        "image": null,
-        "weight": 3,
-        "created_time": "2023-09-09T16:01:57.000Z",
-        "updated_time": "2023-09-09T16:01:57.000Z"
-      },
-      {
-        "id": 687,
-        "type": "text",
-        "good_key": "8-ultra-mini",
-        "good_sort_key": "watches",
-        "language": "hk",
-        "associate_good_key": "watches:8-ultra-mini",
-        "value": "210*106*25mm",
-        "key": "彩盒尺寸(mm):",
-        "image": null,
-        "weight": 2,
-        "created_time": "2023-09-09T16:01:57.000Z",
-        "updated_time": "2023-09-09T16:01:57.000Z"
-      },
-      {
-        "id": 688,
-        "type": "text",
-        "good_key": "8-ultra-mini",
-        "good_sort_key": "watches",
-        "language": "hk",
-        "associate_good_key": "watches:8-ultra-mini",
-        "value": "50pcs/箱\n570*315*235mm",
-        "key": "外箱尺寸(mm):",
-        "image": null,
-        "weight": 1,
-        "created_time": "2023-09-09T16:01:57.000Z",
-        "updated_time": "2023-09-09T16:01:57.000Z"
-      }
-    ],
     "mediaList": [
       {
         "id": 34,
@@ -3859,6 +3859,79 @@
     "created_time": "2022-12-26T14:24:26.000Z",
     "updated_time": "2023-09-09T09:53:48.000Z",
     "associateProduct": [],
+    "packageList": [
+      {
+        "id": 689,
+        "type": "text",
+        "good_key": "ip8-ultra",
+        "good_sort_key": "watches",
+        "language": "hk",
+        "associate_good_key": "watches:ip8-ultra",
+        "value": " 機頭*1，錶帶*1，說明書*1，無線充電線*1",
+        "key": "包裝清單:",
+        "image": null,
+        "weight": 5,
+        "created_time": "2023-09-10T16:05:34.000Z",
+        "updated_time": "2023-09-10T16:05:34.000Z"
+      },
+      {
+        "id": 690,
+        "type": "text",
+        "good_key": "ip8-ultra",
+        "good_sort_key": "watches",
+        "language": "hk",
+        "associate_good_key": "watches:ip8-ultra",
+        "value": "鋅合金機身+IML底殼",
+        "key": "機體素質:",
+        "image": null,
+        "weight": 4,
+        "created_time": "2023-09-10T16:05:34.000Z",
+        "updated_time": "2023-09-10T16:05:34.000Z"
+      },
+      {
+        "id": 691,
+        "type": "text",
+        "good_key": "ip8-ultra",
+        "good_sort_key": "watches",
+        "language": "hk",
+        "associate_good_key": "watches:ip8-ultra",
+        "value": "矽膠",
+        "key": "錶帶材質:",
+        "image": null,
+        "weight": 3,
+        "created_time": "2023-09-10T16:05:34.000Z",
+        "updated_time": "2023-09-10T16:05:34.000Z"
+      },
+      {
+        "id": 692,
+        "type": "text",
+        "good_key": "ip8-ultra",
+        "good_sort_key": "watches",
+        "language": "hk",
+        "associate_good_key": "watches:ip8-ultra",
+        "value": "214x117x27mm",
+        "key": "彩盒尺寸(cm):",
+        "image": null,
+        "weight": 2,
+        "created_time": "2023-09-10T16:05:34.000Z",
+        "updated_time": "2023-09-10T16:05:34.000Z"
+      },
+      {
+        "id": 693,
+        "type": "text",
+        "good_key": "ip8-ultra",
+        "good_sort_key": "watches",
+        "language": "hk",
+        "associate_good_key": "watches:ip8-ultra",
+        "value": "50/箱 62*45.5*18cm",
+        "key": "外箱尺寸(cm):",
+        "image": null,
+        "weight": 1,
+        "created_time": "2023-09-10T16:05:34.000Z",
+        "updated_time": "2023-09-10T16:05:34.000Z"
+      }
+    ],
+    "typeList": [],
     "comboList": [
       {
         "id": 65,
@@ -4693,79 +4766,6 @@
             "updated_time": "2023-09-03T16:08:31.000Z"
           }
         ]
-      }
-    ],
-    "typeList": [],
-    "packageList": [
-      {
-        "id": 689,
-        "type": "text",
-        "good_key": "ip8-ultra",
-        "good_sort_key": "watches",
-        "language": "hk",
-        "associate_good_key": "watches:ip8-ultra",
-        "value": " 機頭*1，錶帶*1，說明書*1，無線充電線*1",
-        "key": "包裝清單:",
-        "image": null,
-        "weight": 5,
-        "created_time": "2023-09-10T16:05:34.000Z",
-        "updated_time": "2023-09-10T16:05:34.000Z"
-      },
-      {
-        "id": 690,
-        "type": "text",
-        "good_key": "ip8-ultra",
-        "good_sort_key": "watches",
-        "language": "hk",
-        "associate_good_key": "watches:ip8-ultra",
-        "value": "鋅合金機身+IML底殼",
-        "key": "機體素質:",
-        "image": null,
-        "weight": 4,
-        "created_time": "2023-09-10T16:05:34.000Z",
-        "updated_time": "2023-09-10T16:05:34.000Z"
-      },
-      {
-        "id": 691,
-        "type": "text",
-        "good_key": "ip8-ultra",
-        "good_sort_key": "watches",
-        "language": "hk",
-        "associate_good_key": "watches:ip8-ultra",
-        "value": "矽膠",
-        "key": "錶帶材質:",
-        "image": null,
-        "weight": 3,
-        "created_time": "2023-09-10T16:05:34.000Z",
-        "updated_time": "2023-09-10T16:05:34.000Z"
-      },
-      {
-        "id": 692,
-        "type": "text",
-        "good_key": "ip8-ultra",
-        "good_sort_key": "watches",
-        "language": "hk",
-        "associate_good_key": "watches:ip8-ultra",
-        "value": "214x117x27mm",
-        "key": "彩盒尺寸(cm):",
-        "image": null,
-        "weight": 2,
-        "created_time": "2023-09-10T16:05:34.000Z",
-        "updated_time": "2023-09-10T16:05:34.000Z"
-      },
-      {
-        "id": 693,
-        "type": "text",
-        "good_key": "ip8-ultra",
-        "good_sort_key": "watches",
-        "language": "hk",
-        "associate_good_key": "watches:ip8-ultra",
-        "value": "50/箱 62*45.5*18cm",
-        "key": "外箱尺寸(cm):",
-        "image": null,
-        "weight": 1,
-        "created_time": "2023-09-10T16:05:34.000Z",
-        "updated_time": "2023-09-10T16:05:34.000Z"
       }
     ],
     "mediaList": [],
@@ -5612,6 +5612,79 @@
     "created_time": "2022-12-26T14:24:54.000Z",
     "updated_time": "2023-09-09T09:53:51.000Z",
     "associateProduct": [],
+    "packageList": [
+      {
+        "id": 694,
+        "type": "text",
+        "good_key": "series8-mini",
+        "good_sort_key": "watches",
+        "language": "hk",
+        "associate_good_key": "watches:series8-mini",
+        "value": "機頭*1，錶帶*1，說明書*1，無線充電器*1",
+        "key": "包裝清單:",
+        "image": null,
+        "weight": 5,
+        "created_time": "2023-09-10T16:05:11.000Z",
+        "updated_time": "2023-09-10T16:05:11.000Z"
+      },
+      {
+        "id": 695,
+        "type": "text",
+        "good_key": "series8-mini",
+        "good_sort_key": "watches",
+        "language": "hk",
+        "associate_good_key": "watches:series8-mini",
+        "value": "鋅合金機身+IML底殼",
+        "key": "機體素質:",
+        "image": null,
+        "weight": 4,
+        "created_time": "2023-09-10T16:05:11.000Z",
+        "updated_time": "2023-09-10T16:05:11.000Z"
+      },
+      {
+        "id": 696,
+        "type": "text",
+        "good_key": "series8-mini",
+        "good_sort_key": "watches",
+        "language": "hk",
+        "associate_good_key": "watches:series8-mini",
+        "value": "矽膠",
+        "key": "錶帶材質:",
+        "image": null,
+        "weight": 3,
+        "created_time": "2023-09-10T16:05:11.000Z",
+        "updated_time": "2023-09-10T16:05:11.000Z"
+      },
+      {
+        "id": 697,
+        "type": "text",
+        "good_key": "series8-mini",
+        "good_sort_key": "watches",
+        "language": "hk",
+        "associate_good_key": "watches:series8-mini",
+        "value": "196*108.5*22mm",
+        "key": "彩盒尺寸(mm):",
+        "image": null,
+        "weight": 2,
+        "created_time": "2023-09-10T16:05:11.000Z",
+        "updated_time": "2023-09-10T16:05:11.000Z"
+      },
+      {
+        "id": 698,
+        "type": "text",
+        "good_key": "series8-mini",
+        "good_sort_key": "watches",
+        "language": "hk",
+        "associate_good_key": "watches:series8-mini",
+        "value": "100pcs/箱\n565*245*415mm",
+        "key": "外箱尺寸(mm):",
+        "image": null,
+        "weight": 1,
+        "created_time": "2023-09-10T16:05:11.000Z",
+        "updated_time": "2023-09-10T16:05:11.000Z"
+      }
+    ],
+    "typeList": [],
     "comboList": [
       {
         "id": 75,
@@ -6448,79 +6521,6 @@
         ]
       }
     ],
-    "typeList": [],
-    "packageList": [
-      {
-        "id": 694,
-        "type": "text",
-        "good_key": "series8-mini",
-        "good_sort_key": "watches",
-        "language": "hk",
-        "associate_good_key": "watches:series8-mini",
-        "value": "機頭*1，錶帶*1，說明書*1，無線充電器*1",
-        "key": "包裝清單:",
-        "image": null,
-        "weight": 5,
-        "created_time": "2023-09-10T16:05:11.000Z",
-        "updated_time": "2023-09-10T16:05:11.000Z"
-      },
-      {
-        "id": 695,
-        "type": "text",
-        "good_key": "series8-mini",
-        "good_sort_key": "watches",
-        "language": "hk",
-        "associate_good_key": "watches:series8-mini",
-        "value": "鋅合金機身+IML底殼",
-        "key": "機體素質:",
-        "image": null,
-        "weight": 4,
-        "created_time": "2023-09-10T16:05:11.000Z",
-        "updated_time": "2023-09-10T16:05:11.000Z"
-      },
-      {
-        "id": 696,
-        "type": "text",
-        "good_key": "series8-mini",
-        "good_sort_key": "watches",
-        "language": "hk",
-        "associate_good_key": "watches:series8-mini",
-        "value": "矽膠",
-        "key": "錶帶材質:",
-        "image": null,
-        "weight": 3,
-        "created_time": "2023-09-10T16:05:11.000Z",
-        "updated_time": "2023-09-10T16:05:11.000Z"
-      },
-      {
-        "id": 697,
-        "type": "text",
-        "good_key": "series8-mini",
-        "good_sort_key": "watches",
-        "language": "hk",
-        "associate_good_key": "watches:series8-mini",
-        "value": "196*108.5*22mm",
-        "key": "彩盒尺寸(mm):",
-        "image": null,
-        "weight": 2,
-        "created_time": "2023-09-10T16:05:11.000Z",
-        "updated_time": "2023-09-10T16:05:11.000Z"
-      },
-      {
-        "id": 698,
-        "type": "text",
-        "good_key": "series8-mini",
-        "good_sort_key": "watches",
-        "language": "hk",
-        "associate_good_key": "watches:series8-mini",
-        "value": "100pcs/箱\n565*245*415mm",
-        "key": "外箱尺寸(mm):",
-        "image": null,
-        "weight": 1,
-        "created_time": "2023-09-10T16:05:11.000Z",
-        "updated_time": "2023-09-10T16:05:11.000Z"
-      }
-    ],
     "mediaList": [],
     "indexConfig": [
       {
@@ -7318,6 +7318,107 @@
     "created_time": "2022-12-26T14:25:04.000Z",
     "updated_time": "2023-09-09T09:53:53.000Z",
     "associateProduct": [],
+    "packageList": [
+      {
+        "id": 699,
+        "type": "text",
+        "good_key": "ultra-max",
+        "good_sort_key": "watches",
+        "language": "hk",
+        "associate_good_key": "watches:ultra-max",
+        "value": " 機頭*1，錶帶*1，說明書*1，無線充電線*1",
+        "key": "包裝清單:",
+        "image": null,
+        "weight": 7,
+        "created_time": "2023-09-10T16:03:34.000Z",
+        "updated_time": "2023-09-10T16:03:34.000Z"
+      },
+      {
+        "id": 700,
+        "type": "text",
+        "good_key": "ultra-max",
+        "good_sort_key": "watches",
+        "language": "hk",
+        "associate_good_key": "watches:ultra-max",
+        "value": "鋅合金機身+IML底殼",
+        "key": "機體素質:",
+        "image": null,
+        "weight": 6,
+        "created_time": "2023-09-10T16:03:34.000Z",
+        "updated_time": "2023-09-10T16:03:34.000Z"
+      },
+      {
+        "id": 701,
+        "type": "text",
+        "good_key": "ultra-max",
+        "good_sort_key": "watches",
+        "language": "hk",
+        "associate_good_key": "watches:ultra-max",
+        "value": "矽膠",
+        "key": "錶帶材質:",
+        "image": null,
+        "weight": 5,
+        "created_time": "2023-09-10T16:03:34.000Z",
+        "updated_time": "2023-09-10T16:03:34.000Z"
+      },
+      {
+        "id": 702,
+        "type": "text",
+        "good_key": "ultra-max",
+        "good_sort_key": "watches",
+        "language": "hk",
+        "associate_good_key": "watches:ultra-max",
+        "value": "215x117x26mm",
+        "key": "彩盒尺寸(cm):",
+        "image": null,
+        "weight": 4,
+        "created_time": "2023-09-10T16:03:34.000Z",
+        "updated_time": "2023-09-10T16:03:34.000Z"
+      },
+      {
+        "id": 703,
+        "type": "text",
+        "good_key": "ultra-max",
+        "good_sort_key": "watches",
+        "language": "hk",
+        "associate_good_key": "watches:ultra-max",
+        "value": "50/箱 62*45.5*18cm",
+        "key": "外箱尺寸(cm):",
+        "image": null,
+        "weight": 3,
+        "created_time": "2023-09-10T16:03:34.000Z",
+        "updated_time": "2023-09-10T16:03:34.000Z"
+      },
+      {
+        "id": 704,
+        "type": "text",
+        "good_key": "ultra-max",
+        "good_sort_key": "watches",
+        "language": "hk",
+        "associate_good_key": "watches:ultra-max",
+        "value": "294.2g",
+        "key": "整套重量(g):",
+        "image": null,
+        "weight": 2,
+        "created_time": "2023-09-10T16:03:34.000Z",
+        "updated_time": "2023-09-10T16:03:34.000Z"
+      },
+      {
+        "id": 705,
+        "type": "text",
+        "good_key": "ultra-max",
+        "good_sort_key": "watches",
+        "language": "hk",
+        "associate_good_key": "watches:ultra-max",
+        "value": "15.77kg",
+        "key": "整箱重量(kg):",
+        "image": null,
+        "weight": 1,
+        "created_time": "2023-09-10T16:03:34.000Z",
+        "updated_time": "2023-09-10T16:03:34.000Z"
+      }
+    ],
+    "typeList": [],
     "comboList": [
       {
         "id": 85,
@@ -8152,107 +8253,6 @@
             "updated_time": "2023-09-03T15:59:03.000Z"
           }
         ]
-      }
-    ],
-    "typeList": [],
-    "packageList": [
-      {
-        "id": 699,
-        "type": "text",
-        "good_key": "ultra-max",
-        "good_sort_key": "watches",
-        "language": "hk",
-        "associate_good_key": "watches:ultra-max",
-        "value": " 機頭*1，錶帶*1，說明書*1，無線充電線*1",
-        "key": "包裝清單:",
-        "image": null,
-        "weight": 7,
-        "created_time": "2023-09-10T16:03:34.000Z",
-        "updated_time": "2023-09-10T16:03:34.000Z"
-      },
-      {
-        "id": 700,
-        "type": "text",
-        "good_key": "ultra-max",
-        "good_sort_key": "watches",
-        "language": "hk",
-        "associate_good_key": "watches:ultra-max",
-        "value": "鋅合金機身+IML底殼",
-        "key": "機體素質:",
-        "image": null,
-        "weight": 6,
-        "created_time": "2023-09-10T16:03:34.000Z",
-        "updated_time": "2023-09-10T16:03:34.000Z"
-      },
-      {
-        "id": 701,
-        "type": "text",
-        "good_key": "ultra-max",
-        "good_sort_key": "watches",
-        "language": "hk",
-        "associate_good_key": "watches:ultra-max",
-        "value": "矽膠",
-        "key": "錶帶材質:",
-        "image": null,
-        "weight": 5,
-        "created_time": "2023-09-10T16:03:34.000Z",
-        "updated_time": "2023-09-10T16:03:34.000Z"
-      },
-      {
-        "id": 702,
-        "type": "text",
-        "good_key": "ultra-max",
-        "good_sort_key": "watches",
-        "language": "hk",
-        "associate_good_key": "watches:ultra-max",
-        "value": "215x117x26mm",
-        "key": "彩盒尺寸(cm):",
-        "image": null,
-        "weight": 4,
-        "created_time": "2023-09-10T16:03:34.000Z",
-        "updated_time": "2023-09-10T16:03:34.000Z"
-      },
-      {
-        "id": 703,
-        "type": "text",
-        "good_key": "ultra-max",
-        "good_sort_key": "watches",
-        "language": "hk",
-        "associate_good_key": "watches:ultra-max",
-        "value": "50/箱 62*45.5*18cm",
-        "key": "外箱尺寸(cm):",
-        "image": null,
-        "weight": 3,
-        "created_time": "2023-09-10T16:03:34.000Z",
-        "updated_time": "2023-09-10T16:03:34.000Z"
-      },
-      {
-        "id": 704,
-        "type": "text",
-        "good_key": "ultra-max",
-        "good_sort_key": "watches",
-        "language": "hk",
-        "associate_good_key": "watches:ultra-max",
-        "value": "294.2g",
-        "key": "整套重量(g):",
-        "image": null,
-        "weight": 2,
-        "created_time": "2023-09-10T16:03:34.000Z",
-        "updated_time": "2023-09-10T16:03:34.000Z"
-      },
-      {
-        "id": 705,
-        "type": "text",
-        "good_key": "ultra-max",
-        "good_sort_key": "watches",
-        "language": "hk",
-        "associate_good_key": "watches:ultra-max",
-        "value": "15.77kg",
-        "key": "整箱重量(kg):",
-        "image": null,
-        "weight": 1,
-        "created_time": "2023-09-10T16:03:34.000Z",
-        "updated_time": "2023-09-10T16:03:34.000Z"
       }
     ],
     "mediaList": [],
@@ -9099,9 +9099,9 @@
     "created_time": "2022-12-26T14:24:37.000Z",
     "updated_time": "2023-09-09T09:53:55.000Z",
     "associateProduct": [],
-    "comboList": [],
-    "typeList": [],
     "packageList": [],
+    "typeList": [],
+    "comboList": [],
     "mediaList": [],
     "indexConfig": [
       {

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import styles from "./index.module.scss";
 export default function Advantage({ LANG }) {
   return (
@@ -36,9 +37,9 @@ export default function Advantage({ LANG }) {
           />
         </div>
         <div className={styles.tip_item_text}>
-          <a rel="noreferrer" href={`/company/contact`}>
+          <Link rel="noreferrer" href={`/company/contact`}>
             {LANG["store.common.advantage.contact"]}
-          </a>
+          </Link>
         </div>
       </div>
     </div>

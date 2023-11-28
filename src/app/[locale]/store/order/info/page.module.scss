@@ -3,6 +3,17 @@
   flex-direction: column;
   background: #f7f7f7;
   padding: 64px 0;
+  .loading_container {
+    max-width: 100%;
+    width: 800px;
+    margin: 0 auto 32px;
+    border-radius: 16px;
+    box-sizing: border-box;
+    padding: 32px;
+    background: #ffffff;
+
+    height: 70vh;
+  }
   .order_container {
     max-width: 800px;
     width: 800px;
@@ -368,6 +379,13 @@
   .container {
     padding: 0;
     background: #f6f7fc;
+    .loading_container {
+      width: 100%;
+      border-radius: 0;
+      padding: 16px;
+      padding-top: 48px;
+      margin-bottom: 0;
+    }
     .order_container {
       width: 100%;
       border-radius: 0;

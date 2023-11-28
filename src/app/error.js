@@ -15,7 +15,7 @@ const languages = {
 };
 
 export default function Error() {
-  const locale = Cookies.get("locale") || "en";
+  const locale = "en";
   const LANG = languages[locale];
   const [second, setSecond] = React.useState(10);
   const router = useRouter();

@@ -72,13 +72,25 @@ export function middleware(request) {
   });
 
   // 判断URL与locale是否一致;
-  const curLocale = returnOptions.headers.get("x-next-i18n-router-locale");
-  if (curLocale !== locale && !(!curLocale && locale === "en")) {
-    const baseUrl = `${request.nextUrl.pathname}${request.nextUrl.search}`;
+  const curLocale =
+    returnOptions.headers.get("x-next-i18n-router-locale") || "en";
+  console.log("curLocale", curLocale);
+  console.log("locale", locale);
+  if (curLocale !== locale) {
+    let baseUrl;
+    // 特殊处理英文
+    if (curLocale === "en") {
+      baseUrl = `/${locale}${
+        request.nextUrl.pathname === "/" ? "" : request.nextUrl.pathname
+      }${request.nextUrl.search}`;
+    } else {
+      baseUrl = `${request.nextUrl.pathname.split(curLocale).join(locale)}${
+        request.nextUrl.search
+      }`;
+    }
     const origin = request.nextUrl.origin;
-    return NextResponse.redirect(`${origin}/${locale}/${baseUrl}`);
+    return NextResponse.redirect(`${origin}${baseUrl}`);
   }
-
   return returnOptions;
 }
 

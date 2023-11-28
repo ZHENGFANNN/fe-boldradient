@@ -117,7 +117,9 @@ export default function Main({ secret, LANG, CONFIG }) {
   return (
     <div className={styles.container}>
       {loading ? (
-        <Loading />
+        <div className={styles.loading_container}>
+          <Loading />
+        </div>
       ) : (
         <>
           <div className={styles.order_container}>

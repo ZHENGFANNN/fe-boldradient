@@ -136,7 +136,6 @@ export default async function Home({ params: { locale } }) {
     locale,
     area,
   });
-
   return (
     <main className={styles.container}>
       <Banner CONFIG={CONFIG} LANG={LANG} />

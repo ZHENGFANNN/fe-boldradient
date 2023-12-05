@@ -138,7 +138,7 @@ export default async function Product({ params: { locale, productKey } }) {
                 options={typeList}
                 productInfo={productInfo}
               />
-              {/* <Countdown /> */}
+              <Countdown />
               <GoodMediaTabs options={typeList} />
             </div>
             <div className={styles.right_content}>

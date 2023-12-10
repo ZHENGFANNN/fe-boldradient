@@ -15,11 +15,13 @@ export async function generateMetadata({ params: { locale } }) {
 }
 
 export default async function Order({ params: { locale } }) {
-  const { CONFIG, LANG, GOODLIST } = await getAllConfigData(locale);
+  const { CONFIG, LANG, GOODLIST, GOODDISCOUNTFESTIVAL } =
+    await getAllConfigData(locale);
   const area = cookies().get("area")?.value || "us";
   const token = cookies().get("token")?.value;
   return (
     <Main
+      GOODDISCOUNTFESTIVAL={GOODDISCOUNTFESTIVAL}
       CONFIG={CONFIG}
       LANG={LANG}
       GOODLIST={GOODLIST}

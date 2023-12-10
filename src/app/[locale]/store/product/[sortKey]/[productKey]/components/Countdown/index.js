@@ -15,15 +15,19 @@ function updateCountdown(endTime) {
   const currentTime = Date.now();
   // 计算剩余时间
   const milliseconds = endTime - currentTime;
+  if (milliseconds < 0) {
+    location.reload();
+    return;
+  }
 
   const seconds = Math.floor(milliseconds / 1000);
   const minutes = Math.floor(seconds / 60);
   const hours = Math.floor(minutes / 60);
 
   // 更新倒计时元素的值
-  $(`#countdown-hours`).text(formatTime(hours));
-  $(`#countdown-minutes`).text(formatTime(minutes % 60));
-  $(`#countdown-seconds`).text(formatTime(seconds % 60));
+  $(`#countdown-hours`).text(Math.max(formatTime(hours), 0));
+  $(`#countdown-minutes`).text(Math.max(formatTime(minutes % 60), 0));
+  $(`#countdown-seconds`).text(Math.max(formatTime(seconds % 60), 0));
 }
 
 export default function Countdown({ goodDiscountFestival }) {

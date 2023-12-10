@@ -87,7 +87,7 @@ export default function GoodFooter({
           <div className={styles.footer_price}>
             {productCurCombo.areaInfo.price ? (
               <div className={styles.price}>
-                {goodDiscountFestival ? (
+                {goodDiscountFestival && productCurCombo.areaInfo.price ? (
                   <div>{`${productCurCombo.areaInfo.currency_symbol}${
                     productCurCombo.areaInfo.currency
                   } ${
@@ -103,7 +103,7 @@ export default function GoodFooter({
                 } ${productCurCombo.areaInfo.price * productNum}`}</div>
               </div>
             ) : null}
-            {goodDiscountFestival ? (
+            {goodDiscountFestival && productCurCombo.areaInfo.price ? (
               <div className={styles.save_price}>
                 -{" "}
                 {`${productCurCombo.areaInfo.currency_symbol}${

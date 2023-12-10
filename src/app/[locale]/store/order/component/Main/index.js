@@ -24,7 +24,14 @@ import tracking from "../../tracking";
 
 import { useSearchParams, useParams, useRouter } from "next/navigation";
 
-export default function Main({ CONFIG, LANG, GOODLIST, area, token }) {
+export default function Main({
+  CONFIG,
+  LANG,
+  GOODLIST,
+  GOODDISCOUNTFESTIVAL,
+  area,
+  token,
+}) {
   const router = useRouter();
   const { locale } = useParams();
   console.log("locale", locale);
@@ -186,10 +193,10 @@ export default function Main({ CONFIG, LANG, GOODLIST, area, token }) {
 
   const discount = React.useMemo(() => {
     return orderList.reduce((pre, cur) => {
-      if (cur.good_discount) {
+      if (GOODDISCOUNTFESTIVAL) {
         return (
           pre +
-          Math.ceil(cur.price * (100 - cur.good_discount) * 0.01) *
+          Math.ceil(cur.price * (100 - GOODDISCOUNTFESTIVAL.discount) * 0.01) *
             cur.productNum
         );
       } else {
@@ -376,12 +383,14 @@ export default function Main({ CONFIG, LANG, GOODLIST, area, token }) {
                           </div>
                         </div>
                         <div className={styles.order_price}>
-                          {item.good_discount ? (
+                          {GOODDISCOUNTFESTIVAL ? (
                             <div className={styles.discount}>{`${
                               item.priceSymbol || item.priceCurrency
                             } ${
                               Math.floor(
-                                item.price * item.good_discount * 0.01
+                                item.price *
+                                  GOODDISCOUNTFESTIVAL.discount *
+                                  0.01
                               ) * item.productNum
                             }`}</div>
                           ) : null}

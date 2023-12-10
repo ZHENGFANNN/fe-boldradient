@@ -9,6 +9,7 @@ export default function GoodComboList({
   options = [],
   defaultActive,
   LANG,
+  goodDiscountFestival,
 }) {
   const setProductCurCombo = useProductStore(
     (state) => state.setProductCurCombo
@@ -42,18 +43,18 @@ export default function GoodComboList({
                   {LANG["store.product.no_stock"]}
                 </div>
               ) : null}
-              {item.areaInfo?.good_discount ? (
+              {goodDiscountFestival && item.areaInfo?.price ? (
                 <div className={styles.discount_tip}>
-                  OFF {100 - item.areaInfo?.good_discount}%
+                  OFF {100 - goodDiscountFestival.discount}%
                 </div>
               ) : null}
               <div className={styles.list_item_left}>{item.title}</div>
               <div className={styles.list_item_right}>
-                {item.areaInfo?.good_discount ? (
+                {goodDiscountFestival && item.areaInfo?.price ? (
                   <div>{`${item.areaInfo.currency_symbol}${
                     item.areaInfo.currency
                   } ${Math.floor(
-                    item.areaInfo.price * item.areaInfo.good_discount * 0.01
+                    item.areaInfo.price * goodDiscountFestival.discount * 0.01
                   )}`}</div>
                 ) : null}
                 {item.areaInfo?.price ? (

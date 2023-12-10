@@ -115,6 +115,8 @@ export default async function Product({ params: { locale, productKey } }) {
   const area = cookies().get("area")?.value || "us";
   const { LANG, CONFIG, GOODLIST, GOODDISCOUNTFESTIVAL } =
     await getAllConfigData(locale);
+
+  console.log("GOODDISCOUNTFESTIVAL", GOODDISCOUNTFESTIVAL);
   const productInfo = await getProductInfo({
     productList: GOODLIST,
     productKey,
@@ -178,6 +180,7 @@ export default async function Product({ params: { locale, productKey } }) {
                 {/* 套餐列表 */}
                 {comboList.length > 0 ? (
                   <GoodComboList
+                    goodDiscountFestival={GOODDISCOUNTFESTIVAL}
                     LANG={LANG}
                     title={LANG["store.product.combo"]}
                     options={comboList}

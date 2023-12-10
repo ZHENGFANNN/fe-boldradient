@@ -16,8 +16,18 @@ export async function generateMetadata({ params: { locale } }) {
 }
 
 export default async function Cart({ params: { locale } }) {
-  const { LANG, GOODLIST } = await getAllConfigData(locale);
+  const { LANG, GOODLIST, GOODDISCOUNTFESTIVAL } = await getAllConfigData(
+    locale
+  );
   const area = cookies().get("area")?.value || "us";
 
-  return <Main locale={locale} area={area} LANG={LANG} GOODLIST={GOODLIST} />;
+  return (
+    <Main
+      locale={locale}
+      area={area}
+      LANG={LANG}
+      GOODLIST={GOODLIST}
+      goodDiscountFestival={GOODDISCOUNTFESTIVAL}
+    />
+  );
 }

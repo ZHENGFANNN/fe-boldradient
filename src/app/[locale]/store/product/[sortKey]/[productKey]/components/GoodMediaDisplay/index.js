@@ -117,7 +117,7 @@ export default function ContentDisplay({
               <div className={`splide__track ${styles.splide__track}`}>
                 <ul className="splide__list">
                   <li className={`splide__slide ${styles.splide__slide}`}>
-                    {goodDiscountFestival.discount ? (
+                    {goodDiscountFestival ? (
                       <div className={styles.good_discount}>
                         <div className={styles.off}>OFF</div>
                         <div className={styles.discount}>

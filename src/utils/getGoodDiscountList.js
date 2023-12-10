@@ -6,12 +6,6 @@ function filterData(data) {
     const item = data[i];
     const startTime = item.start_time;
     const endTime = item.end_time;
-    console.log(
-      "startTime <= currentTime && endTime >= currentTime",
-      endTime,
-      i
-    );
-
     if (startTime <= currentTime && endTime >= currentTime) {
       return item;
     }

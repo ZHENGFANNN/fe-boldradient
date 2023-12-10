@@ -28,7 +28,13 @@ const EmpytCart = function ({ LANG }) {
   );
 };
 
-export default function Main({ LANG, GOODLIST, area, locale }) {
+export default function Main({
+  LANG,
+  GOODLIST,
+  goodDiscountFestival,
+  area,
+  locale,
+}) {
   const { setProductNum } = React.useContext(GlobalContext);
   const [cartList, setCartList] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
@@ -115,10 +121,11 @@ export default function Main({ LANG, GOODLIST, area, locale }) {
     const price = cartList.reduce((pre, cur) => {
       productNum = productNum + cur.productNum;
       if (cur.selected) {
-        if (cur.good_discount) {
+        if (goodDiscountFestival) {
           return (
             pre +
-            Math.floor(cur.price * 0.01 * cur.good_discount) * cur.productNum
+            Math.floor(cur.price * 0.01 * goodDiscountFestival.discount) *
+              cur.productNum
           );
         } else {
           return pre + cur.price * cur.productNum;
@@ -304,20 +311,23 @@ export default function Main({ LANG, GOODLIST, area, locale }) {
                   </div>
                   <div className={styles.table_body_price_peration}>
                     <div className={styles.table_body_price}>
-                      {item.good_discount ? (
+                      {goodDiscountFestival ? (
                         <div className={styles.discount}>{`- ${
                           item.priceSymbol
                         } ${
                           Math.ceil(
-                            item.price * (100 - item.good_discount) * 0.01
+                            item.price *
+                              (100 - goodDiscountFestival.discount) *
+                              0.01
                           ) * item.productNum
                         }`}</div>
                       ) : null}
                       <div className={styles.price}>
-                        {item.good_discount ? (
+                        {goodDiscountFestival ? (
                           <div>{`${item.priceSymbol} ${
-                            Math.floor(item.price * item.good_discount * 0.01) *
-                            item.productNum
+                            Math.floor(
+                              item.price * goodDiscountFestival.discount * 0.01
+                            ) * item.productNum
                           }`}</div>
                         ) : null}
                         <div>{`${item.priceSymbol} ${

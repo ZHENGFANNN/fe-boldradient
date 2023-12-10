@@ -1191,6 +1191,85 @@
         ]
       }
     ],
+    "sellingList": [
+      {
+        "id": 971,
+        "light": "NFC",
+        "weight": 7,
+        "good_key": "n9-ultra-pro",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:n9-ultra-pro",
+        "language": "ko",
+        "created_time": "2023-09-10T16:12:29.000Z",
+        "updated_time": "2023-09-10T16:12:29.000Z"
+      },
+      {
+        "id": 972,
+        "light": "메시지 알림",
+        "weight": 6,
+        "good_key": "n9-ultra-pro",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:n9-ultra-pro",
+        "language": "ko",
+        "created_time": "2023-09-10T16:12:29.000Z",
+        "updated_time": "2023-09-17T13:56:07.000Z"
+      },
+      {
+        "id": 973,
+        "light": "손목 지갑",
+        "weight": 5,
+        "good_key": "n9-ultra-pro",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:n9-ultra-pro",
+        "language": "ko",
+        "created_time": "2023-09-10T16:12:29.000Z",
+        "updated_time": "2023-09-17T13:54:19.000Z"
+      },
+      {
+        "id": 974,
+        "light": "음성 통화",
+        "weight": 3,
+        "good_key": "n9-ultra-pro",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:n9-ultra-pro",
+        "language": "ko",
+        "created_time": "2023-09-10T16:12:29.000Z",
+        "updated_time": "2023-09-10T16:12:29.000Z"
+      },
+      {
+        "id": 975,
+        "light": "음악을 재생",
+        "weight": 3,
+        "good_key": "n9-ultra-pro",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:n9-ultra-pro",
+        "language": "ko",
+        "created_time": "2023-09-10T16:12:29.000Z",
+        "updated_time": "2023-09-17T13:54:42.000Z"
+      },
+      {
+        "id": 976,
+        "light": "팔찌 언어 전환",
+        "weight": 2,
+        "good_key": "n9-ultra-pro",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:n9-ultra-pro",
+        "language": "ko",
+        "created_time": "2023-09-10T16:12:29.000Z",
+        "updated_time": "2023-09-17T13:54:33.000Z"
+      },
+      {
+        "id": 977,
+        "light": "공유 포지셔닝",
+        "weight": 1,
+        "good_key": "n9-ultra-pro",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:n9-ultra-pro",
+        "language": "ko",
+        "created_time": "2023-09-10T16:12:29.000Z",
+        "updated_time": "2023-09-17T13:56:18.000Z"
+      }
+    ],
     "associationsList": [
       {
         "id": 1884,
@@ -1443,85 +1522,6 @@
         "weight": 1,
         "created_time": "2023-09-10T15:50:55.000Z",
         "updated_time": "2023-09-10T15:50:55.000Z"
-      }
-    ],
-    "sellingList": [
-      {
-        "id": 971,
-        "light": "NFC",
-        "weight": 7,
-        "good_key": "n9-ultra-pro",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:n9-ultra-pro",
-        "language": "ko",
-        "created_time": "2023-09-10T16:12:29.000Z",
-        "updated_time": "2023-09-10T16:12:29.000Z"
-      },
-      {
-        "id": 972,
-        "light": "메시지 알림",
-        "weight": 6,
-        "good_key": "n9-ultra-pro",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:n9-ultra-pro",
-        "language": "ko",
-        "created_time": "2023-09-10T16:12:29.000Z",
-        "updated_time": "2023-09-17T13:56:07.000Z"
-      },
-      {
-        "id": 973,
-        "light": "손목 지갑",
-        "weight": 5,
-        "good_key": "n9-ultra-pro",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:n9-ultra-pro",
-        "language": "ko",
-        "created_time": "2023-09-10T16:12:29.000Z",
-        "updated_time": "2023-09-17T13:54:19.000Z"
-      },
-      {
-        "id": 974,
-        "light": "음성 통화",
-        "weight": 3,
-        "good_key": "n9-ultra-pro",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:n9-ultra-pro",
-        "language": "ko",
-        "created_time": "2023-09-10T16:12:29.000Z",
-        "updated_time": "2023-09-10T16:12:29.000Z"
-      },
-      {
-        "id": 975,
-        "light": "음악을 재생",
-        "weight": 3,
-        "good_key": "n9-ultra-pro",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:n9-ultra-pro",
-        "language": "ko",
-        "created_time": "2023-09-10T16:12:29.000Z",
-        "updated_time": "2023-09-17T13:54:42.000Z"
-      },
-      {
-        "id": 976,
-        "light": "팔찌 언어 전환",
-        "weight": 2,
-        "good_key": "n9-ultra-pro",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:n9-ultra-pro",
-        "language": "ko",
-        "created_time": "2023-09-10T16:12:29.000Z",
-        "updated_time": "2023-09-17T13:54:33.000Z"
-      },
-      {
-        "id": 977,
-        "light": "공유 포지셔닝",
-        "weight": 1,
-        "good_key": "n9-ultra-pro",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:n9-ultra-pro",
-        "language": "ko",
-        "created_time": "2023-09-10T16:12:29.000Z",
-        "updated_time": "2023-09-17T13:56:18.000Z"
       }
     ],
     "funcionList": [
@@ -3108,6 +3108,74 @@
         ]
       }
     ],
+    "sellingList": [
+      {
+        "id": 1143,
+        "light": "음성 비서",
+        "weight": 7,
+        "good_key": "8-ultra-mini",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:8-ultra-mini",
+        "language": "ko",
+        "created_time": "2023-09-19T13:12:23.000Z",
+        "updated_time": "2023-09-19T13:12:23.000Z"
+      },
+      {
+        "id": 1144,
+        "light": "아연 합금 본체",
+        "weight": 6,
+        "good_key": "8-ultra-mini",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:8-ultra-mini",
+        "language": "ko",
+        "created_time": "2023-09-19T13:12:23.000Z",
+        "updated_time": "2023-09-19T13:12:23.000Z"
+      },
+      {
+        "id": 1145,
+        "light": "전체 화면 터치",
+        "weight": 5,
+        "good_key": "8-ultra-mini",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:8-ultra-mini",
+        "language": "ko",
+        "created_time": "2023-09-19T13:12:23.000Z",
+        "updated_time": "2023-09-19T13:12:23.000Z"
+      },
+      {
+        "id": 1146,
+        "light": "음성통화",
+        "weight": 4,
+        "good_key": "8-ultra-mini",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:8-ultra-mini",
+        "language": "ko",
+        "created_time": "2023-09-19T13:12:23.000Z",
+        "updated_time": "2023-09-19T13:12:23.000Z"
+      },
+      {
+        "id": 1147,
+        "light": "메시지 알림",
+        "weight": 3,
+        "good_key": "8-ultra-mini",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:8-ultra-mini",
+        "language": "ko",
+        "created_time": "2023-09-19T13:12:23.000Z",
+        "updated_time": "2023-09-19T13:12:23.000Z"
+      },
+      {
+        "id": 1148,
+        "light": "수신 전화",
+        "weight": 1,
+        "good_key": "8-ultra-mini",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:8-ultra-mini",
+        "language": "ko",
+        "created_time": "2023-09-19T13:12:23.000Z",
+        "updated_time": "2023-09-19T13:12:23.000Z"
+      }
+    ],
     "associationsList": [
       {
         "id": 2418,
@@ -3372,74 +3440,6 @@
         "weight": 1,
         "created_time": "2023-09-09T16:01:26.000Z",
         "updated_time": "2023-09-09T16:01:26.000Z"
-      }
-    ],
-    "sellingList": [
-      {
-        "id": 1143,
-        "light": "음성 비서",
-        "weight": 7,
-        "good_key": "8-ultra-mini",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:8-ultra-mini",
-        "language": "ko",
-        "created_time": "2023-09-19T13:12:23.000Z",
-        "updated_time": "2023-09-19T13:12:23.000Z"
-      },
-      {
-        "id": 1144,
-        "light": "아연 합금 본체",
-        "weight": 6,
-        "good_key": "8-ultra-mini",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:8-ultra-mini",
-        "language": "ko",
-        "created_time": "2023-09-19T13:12:23.000Z",
-        "updated_time": "2023-09-19T13:12:23.000Z"
-      },
-      {
-        "id": 1145,
-        "light": "전체 화면 터치",
-        "weight": 5,
-        "good_key": "8-ultra-mini",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:8-ultra-mini",
-        "language": "ko",
-        "created_time": "2023-09-19T13:12:23.000Z",
-        "updated_time": "2023-09-19T13:12:23.000Z"
-      },
-      {
-        "id": 1146,
-        "light": "음성통화",
-        "weight": 4,
-        "good_key": "8-ultra-mini",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:8-ultra-mini",
-        "language": "ko",
-        "created_time": "2023-09-19T13:12:23.000Z",
-        "updated_time": "2023-09-19T13:12:23.000Z"
-      },
-      {
-        "id": 1147,
-        "light": "메시지 알림",
-        "weight": 3,
-        "good_key": "8-ultra-mini",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:8-ultra-mini",
-        "language": "ko",
-        "created_time": "2023-09-19T13:12:23.000Z",
-        "updated_time": "2023-09-19T13:12:23.000Z"
-      },
-      {
-        "id": 1148,
-        "light": "수신 전화",
-        "weight": 1,
-        "good_key": "8-ultra-mini",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:8-ultra-mini",
-        "language": "ko",
-        "created_time": "2023-09-19T13:12:23.000Z",
-        "updated_time": "2023-09-19T13:12:23.000Z"
       }
     ],
     "funcionList": [
@@ -4816,6 +4816,74 @@
         ]
       }
     ],
+    "sellingList": [
+      {
+        "id": 1149,
+        "light": "NFC",
+        "weight": 7,
+        "good_key": "ip8-ultra",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:ip8-ultra",
+        "language": "ko",
+        "created_time": "2023-09-10T16:14:06.000Z",
+        "updated_time": "2023-09-10T16:14:06.000Z"
+      },
+      {
+        "id": 1150,
+        "light": "스마트 리모콘",
+        "weight": 6,
+        "good_key": "ip8-ultra",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:ip8-ultra",
+        "language": "ko",
+        "created_time": "2023-09-10T16:14:06.000Z",
+        "updated_time": "2023-09-10T16:14:06.000Z"
+      },
+      {
+        "id": 1151,
+        "light": "맞춤 시계 모드",
+        "weight": 5,
+        "good_key": "ip8-ultra",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:ip8-ultra",
+        "language": "ko",
+        "created_time": "2023-09-10T16:14:06.000Z",
+        "updated_time": "2023-09-10T16:14:06.000Z"
+      },
+      {
+        "id": 1152,
+        "light": "음성 통화",
+        "weight": 3,
+        "good_key": "ip8-ultra",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:ip8-ultra",
+        "language": "ko",
+        "created_time": "2023-09-10T16:14:06.000Z",
+        "updated_time": "2023-09-10T16:14:06.000Z"
+      },
+      {
+        "id": 1153,
+        "light": "날씨",
+        "weight": 2,
+        "good_key": "ip8-ultra",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:ip8-ultra",
+        "language": "ko",
+        "created_time": "2023-09-10T16:14:06.000Z",
+        "updated_time": "2023-09-10T16:14:06.000Z"
+      },
+      {
+        "id": 1154,
+        "light": "음악을 재생",
+        "weight": 1,
+        "good_key": "ip8-ultra",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:ip8-ultra",
+        "language": "ko",
+        "created_time": "2023-09-10T16:14:06.000Z",
+        "updated_time": "2023-09-10T16:14:06.000Z"
+      }
+    ],
     "associationsList": [
       {
         "id": 2440,
@@ -5044,74 +5112,6 @@
         "weight": 1,
         "created_time": "2023-09-10T16:02:11.000Z",
         "updated_time": "2023-09-10T16:02:11.000Z"
-      }
-    ],
-    "sellingList": [
-      {
-        "id": 1149,
-        "light": "NFC",
-        "weight": 7,
-        "good_key": "ip8-ultra",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:ip8-ultra",
-        "language": "ko",
-        "created_time": "2023-09-10T16:14:06.000Z",
-        "updated_time": "2023-09-10T16:14:06.000Z"
-      },
-      {
-        "id": 1150,
-        "light": "스마트 리모콘",
-        "weight": 6,
-        "good_key": "ip8-ultra",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:ip8-ultra",
-        "language": "ko",
-        "created_time": "2023-09-10T16:14:06.000Z",
-        "updated_time": "2023-09-10T16:14:06.000Z"
-      },
-      {
-        "id": 1151,
-        "light": "맞춤 시계 모드",
-        "weight": 5,
-        "good_key": "ip8-ultra",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:ip8-ultra",
-        "language": "ko",
-        "created_time": "2023-09-10T16:14:06.000Z",
-        "updated_time": "2023-09-10T16:14:06.000Z"
-      },
-      {
-        "id": 1152,
-        "light": "음성 통화",
-        "weight": 3,
-        "good_key": "ip8-ultra",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:ip8-ultra",
-        "language": "ko",
-        "created_time": "2023-09-10T16:14:06.000Z",
-        "updated_time": "2023-09-10T16:14:06.000Z"
-      },
-      {
-        "id": 1153,
-        "light": "날씨",
-        "weight": 2,
-        "good_key": "ip8-ultra",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:ip8-ultra",
-        "language": "ko",
-        "created_time": "2023-09-10T16:14:06.000Z",
-        "updated_time": "2023-09-10T16:14:06.000Z"
-      },
-      {
-        "id": 1154,
-        "light": "음악을 재생",
-        "weight": 1,
-        "good_key": "ip8-ultra",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:ip8-ultra",
-        "language": "ko",
-        "created_time": "2023-09-10T16:14:06.000Z",
-        "updated_time": "2023-09-10T16:14:06.000Z"
       }
     ],
     "funcionList": [
@@ -6584,6 +6584,63 @@
         ]
       }
     ],
+    "sellingList": [
+      {
+        "id": 1155,
+        "light": "음성 비서",
+        "weight": 7,
+        "good_key": "series8-mini",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:series8-mini",
+        "language": "ko",
+        "created_time": "2023-09-10T16:13:45.000Z",
+        "updated_time": "2023-09-10T16:13:45.000Z"
+      },
+      {
+        "id": 1156,
+        "light": "전체 화면 터치",
+        "weight": 5,
+        "good_key": "series8-mini",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:series8-mini",
+        "language": "ko",
+        "created_time": "2023-09-10T16:13:45.000Z",
+        "updated_time": "2023-09-10T16:13:45.000Z"
+      },
+      {
+        "id": 1157,
+        "light": "음성 통화",
+        "weight": 4,
+        "good_key": "series8-mini",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:series8-mini",
+        "language": "ko",
+        "created_time": "2023-09-10T16:13:45.000Z",
+        "updated_time": "2023-09-10T16:13:45.000Z"
+      },
+      {
+        "id": 1158,
+        "light": "메시지 알림",
+        "weight": 3,
+        "good_key": "series8-mini",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:series8-mini",
+        "language": "ko",
+        "created_time": "2023-09-10T16:13:45.000Z",
+        "updated_time": "2023-09-10T16:13:45.000Z"
+      },
+      {
+        "id": 1159,
+        "light": "수신 전화",
+        "weight": 1,
+        "good_key": "series8-mini",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:series8-mini",
+        "language": "ko",
+        "created_time": "2023-09-10T16:13:45.000Z",
+        "updated_time": "2023-09-10T16:13:45.000Z"
+      }
+    ],
     "associationsList": [
       {
         "id": 2459,
@@ -6836,63 +6893,6 @@
         "weight": 1,
         "created_time": "2023-09-19T12:47:26.000Z",
         "updated_time": "2023-09-19T12:47:26.000Z"
-      }
-    ],
-    "sellingList": [
-      {
-        "id": 1155,
-        "light": "음성 비서",
-        "weight": 7,
-        "good_key": "series8-mini",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:series8-mini",
-        "language": "ko",
-        "created_time": "2023-09-10T16:13:45.000Z",
-        "updated_time": "2023-09-10T16:13:45.000Z"
-      },
-      {
-        "id": 1156,
-        "light": "전체 화면 터치",
-        "weight": 5,
-        "good_key": "series8-mini",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:series8-mini",
-        "language": "ko",
-        "created_time": "2023-09-10T16:13:45.000Z",
-        "updated_time": "2023-09-10T16:13:45.000Z"
-      },
-      {
-        "id": 1157,
-        "light": "음성 통화",
-        "weight": 4,
-        "good_key": "series8-mini",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:series8-mini",
-        "language": "ko",
-        "created_time": "2023-09-10T16:13:45.000Z",
-        "updated_time": "2023-09-10T16:13:45.000Z"
-      },
-      {
-        "id": 1158,
-        "light": "메시지 알림",
-        "weight": 3,
-        "good_key": "series8-mini",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:series8-mini",
-        "language": "ko",
-        "created_time": "2023-09-10T16:13:45.000Z",
-        "updated_time": "2023-09-10T16:13:45.000Z"
-      },
-      {
-        "id": 1159,
-        "light": "수신 전화",
-        "weight": 1,
-        "good_key": "series8-mini",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:series8-mini",
-        "language": "ko",
-        "created_time": "2023-09-10T16:13:45.000Z",
-        "updated_time": "2023-09-10T16:13:45.000Z"
       }
     ],
     "funcionList": [
@@ -8333,6 +8333,74 @@
         ]
       }
     ],
+    "sellingList": [
+      {
+        "id": 1160,
+        "light": "수신 전화",
+        "weight": 8,
+        "good_key": "ultra-max",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:ultra-max",
+        "language": "ko",
+        "created_time": "2023-09-10T16:13:25.000Z",
+        "updated_time": "2023-09-10T16:13:25.000Z"
+      },
+      {
+        "id": 1161,
+        "light": "메시지 알림",
+        "weight": 7,
+        "good_key": "ultra-max",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:ultra-max",
+        "language": "ko",
+        "created_time": "2023-09-10T16:13:25.000Z",
+        "updated_time": "2023-09-10T16:13:25.000Z"
+      },
+      {
+        "id": 1162,
+        "light": "팔찌 언어 전환",
+        "weight": 6,
+        "good_key": "ultra-max",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:ultra-max",
+        "language": "ko",
+        "created_time": "2023-09-10T16:13:25.000Z",
+        "updated_time": "2023-09-10T16:13:25.000Z"
+      },
+      {
+        "id": 1163,
+        "light": "공유 포지셔닝",
+        "weight": 5,
+        "good_key": "ultra-max",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:ultra-max",
+        "language": "ko",
+        "created_time": "2023-09-10T16:13:25.000Z",
+        "updated_time": "2023-09-10T16:13:25.000Z"
+      },
+      {
+        "id": 1164,
+        "light": "NFC",
+        "weight": 4,
+        "good_key": "ultra-max",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:ultra-max",
+        "language": "ko",
+        "created_time": "2023-09-10T16:13:25.000Z",
+        "updated_time": "2023-09-10T16:13:25.000Z"
+      },
+      {
+        "id": 1165,
+        "light": "피로 분석",
+        "weight": 2,
+        "good_key": "ultra-max",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:ultra-max",
+        "language": "ko",
+        "created_time": "2023-09-10T16:13:25.000Z",
+        "updated_time": "2023-09-10T16:13:25.000Z"
+      }
+    ],
     "associationsList": [
       {
         "id": 2480,
@@ -8561,74 +8629,6 @@
         "weight": 1,
         "created_time": "2023-09-10T16:00:39.000Z",
         "updated_time": "2023-09-10T16:00:39.000Z"
-      }
-    ],
-    "sellingList": [
-      {
-        "id": 1160,
-        "light": "수신 전화",
-        "weight": 8,
-        "good_key": "ultra-max",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:ultra-max",
-        "language": "ko",
-        "created_time": "2023-09-10T16:13:25.000Z",
-        "updated_time": "2023-09-10T16:13:25.000Z"
-      },
-      {
-        "id": 1161,
-        "light": "메시지 알림",
-        "weight": 7,
-        "good_key": "ultra-max",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:ultra-max",
-        "language": "ko",
-        "created_time": "2023-09-10T16:13:25.000Z",
-        "updated_time": "2023-09-10T16:13:25.000Z"
-      },
-      {
-        "id": 1162,
-        "light": "팔찌 언어 전환",
-        "weight": 6,
-        "good_key": "ultra-max",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:ultra-max",
-        "language": "ko",
-        "created_time": "2023-09-10T16:13:25.000Z",
-        "updated_time": "2023-09-10T16:13:25.000Z"
-      },
-      {
-        "id": 1163,
-        "light": "공유 포지셔닝",
-        "weight": 5,
-        "good_key": "ultra-max",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:ultra-max",
-        "language": "ko",
-        "created_time": "2023-09-10T16:13:25.000Z",
-        "updated_time": "2023-09-10T16:13:25.000Z"
-      },
-      {
-        "id": 1164,
-        "light": "NFC",
-        "weight": 4,
-        "good_key": "ultra-max",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:ultra-max",
-        "language": "ko",
-        "created_time": "2023-09-10T16:13:25.000Z",
-        "updated_time": "2023-09-10T16:13:25.000Z"
-      },
-      {
-        "id": 1165,
-        "light": "피로 분석",
-        "weight": 2,
-        "good_key": "ultra-max",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:ultra-max",
-        "language": "ko",
-        "created_time": "2023-09-10T16:13:25.000Z",
-        "updated_time": "2023-09-10T16:13:25.000Z"
       }
     ],
     "funcionList": [
@@ -9195,8 +9195,8 @@
     ],
     "packageList": [],
     "comboList": [],
-    "associationsList": [],
     "sellingList": [],
+    "associationsList": [],
     "funcionList": [],
     "path": "/watches/k8-ultra-max"
   }

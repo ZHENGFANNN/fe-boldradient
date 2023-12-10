@@ -31,7 +31,6 @@ function updateCountdown(endTime) {
 }
 
 export default function Countdown({ goodDiscountFestival }) {
-  if (!goodDiscountFestival) return null;
   const { lazyLoading } = React.useContext(ProductContext);
   const productCurCombo = useProductStore((state) => state.productCurCombo);
   React.useEffect(() => {
@@ -44,6 +43,7 @@ export default function Countdown({ goodDiscountFestival }) {
       };
     }
   }, [lazyLoading]);
+  if (!goodDiscountFestival) return null;
   return (
     <div className={styles.container}>
       <div className={styles.content}>

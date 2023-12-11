@@ -187,7 +187,27 @@ export default function Main({
                         setCartList(list);
                         window.localStorage.setItem(
                           "store_shopping",
-                          JSON.stringify(list)
+                          JSON.stringify(
+                            list.map(
+                              ({
+                                comboKey,
+                                options = "[]",
+                                productKey,
+                                productNum,
+                                selected,
+                                sortKey,
+                              }) => {
+                                return {
+                                  comboKey,
+                                  options,
+                                  productKey,
+                                  productNum,
+                                  selected,
+                                  sortKey,
+                                };
+                              }
+                            )
+                          )
                         );
                       }}
                       className={styles.checkout_box}
@@ -242,7 +262,27 @@ export default function Main({
                         setCartList(newCart);
                         window.localStorage.setItem(
                           "store_shopping",
-                          JSON.stringify(newCart)
+                          JSON.stringify(
+                            newCart.map(
+                              ({
+                                comboKey,
+                                options = "[]",
+                                productKey,
+                                productNum,
+                                selected,
+                                sortKey,
+                              }) => {
+                                return {
+                                  comboKey,
+                                  options,
+                                  productKey,
+                                  productNum,
+                                  selected,
+                                  sortKey,
+                                };
+                              }
+                            )
+                          )
                         );
                       }}
                       className={styles.product_num_symbol}
@@ -275,7 +315,27 @@ export default function Main({
                         setCartList(newCart);
                         window.localStorage.setItem(
                           "store_shopping",
-                          JSON.stringify(newCart)
+                          JSON.stringify(
+                            newCart.map(
+                              ({
+                                comboKey,
+                                options = "[]",
+                                productKey,
+                                productNum,
+                                selected,
+                                sortKey,
+                              }) => {
+                                return {
+                                  comboKey,
+                                  options,
+                                  productKey,
+                                  productNum,
+                                  selected,
+                                  sortKey,
+                                };
+                              }
+                            )
+                          )
                         );
                       }}
                     />
@@ -301,7 +361,27 @@ export default function Main({
                         setCartList(newCart);
                         window.localStorage.setItem(
                           "store_shopping",
-                          JSON.stringify(newCart)
+                          JSON.stringify(
+                            newCart.map(
+                              ({
+                                comboKey,
+                                options = "[]",
+                                productKey,
+                                productNum,
+                                selected,
+                                sortKey,
+                              }) => {
+                                return {
+                                  comboKey,
+                                  options,
+                                  productKey,
+                                  productNum,
+                                  selected,
+                                  sortKey,
+                                };
+                              }
+                            )
+                          )
                         );
                       }}
                       className={styles.product_num_symbol}
@@ -360,7 +440,27 @@ export default function Main({
                         setCartList(newCart);
                         window.localStorage.setItem(
                           "store_shopping",
-                          JSON.stringify(newCart)
+                          JSON.stringify(
+                            newCart.map(
+                              ({
+                                comboKey,
+                                options = "[]",
+                                productKey,
+                                productNum,
+                                selected,
+                                sortKey,
+                              }) => {
+                                return {
+                                  comboKey,
+                                  options,
+                                  productKey,
+                                  productNum,
+                                  selected,
+                                  sortKey,
+                                };
+                              }
+                            )
+                          )
                         );
                       }}
                     />

@@ -325,7 +325,7 @@
   "store.order.user_type.tourists_order": "Tourist checkout",
   "store.order.user_type.email_empyt": "E-mail can not be empty!",
   "store.order.user_type.email_error": "E-mail format is incorrect!",
-  "store.order.page_title": "order information",
+  "store.order.page_title": "Order Information",
   "store.order.page_description": null,
   "store.order.page_keywords": null,
   "store.order.credit_info": null,

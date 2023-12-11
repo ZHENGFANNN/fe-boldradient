@@ -11,6 +11,7 @@ function formatTime(time) {
 }
 
 function updateCountdown(endTime) {
+  if (!endTime) return;
   // 获取当前时间
   const currentTime = Date.now();
   // 计算剩余时间
@@ -36,7 +37,7 @@ export default function Countdown({ goodDiscountFestival }) {
   React.useEffect(() => {
     if (!lazyLoading) {
       const t = setInterval(() => {
-        updateCountdown(goodDiscountFestival.end_time);
+        updateCountdown(goodDiscountFestival?.end_time);
       }, 500);
       return () => {
         clearInterval(t);

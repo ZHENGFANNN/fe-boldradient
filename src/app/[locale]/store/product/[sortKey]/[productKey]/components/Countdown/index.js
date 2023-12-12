@@ -31,7 +31,7 @@ function updateCountdown(endTime) {
   $(`#countdown-seconds`).text(Math.max(formatTime(seconds % 60), 0));
 }
 
-export default function Countdown({ goodDiscountFestival }) {
+export default function Countdown({ goodDiscountFestival, LANG }) {
   const { lazyLoading } = React.useContext(ProductContext);
   const productCurCombo = useProductStore((state) => state.productCurCombo);
   React.useEffect(() => {
@@ -68,7 +68,9 @@ export default function Countdown({ goodDiscountFestival }) {
         </h2>
       </div>
       <div className={styles.countdown}>
-        <div className={styles.countdown_description}>限时优惠</div>
+        <div className={styles.countdown_description}>
+          {LANG["store.product.limit_time_discount"]}
+        </div>
         <div className={styles.countdown_time}>
           <div className={styles.countdown_item}>
             <div id="countdown-hours">00</div>

@@ -509,5 +509,6 @@
   "www.account.my_order.cod": "貨到付款",
   "store.order_info.order_remark": "訂單備註",
   "store.product.immedate_order": "立即購買",
-  "store.cart.no_stock": "out of stock"
+  "store.cart.no_stock": "out of stock",
+  "store.product.limit_time_discount": "限時優惠"
 }

@@ -143,7 +143,10 @@ export default async function Product({ params: { locale, productKey } }) {
                 goodDiscountFestival={GOODDISCOUNTFESTIVAL}
                 productInfo={productInfo}
               />
-              <Countdown goodDiscountFestival={GOODDISCOUNTFESTIVAL} />
+              <Countdown
+                goodDiscountFestival={GOODDISCOUNTFESTIVAL}
+                LANG={LANG}
+              />
               <GoodMediaTabs options={typeList} />
             </div>
             <div className={styles.right_content}>

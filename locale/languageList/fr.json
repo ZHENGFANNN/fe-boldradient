@@ -509,5 +509,6 @@
   "www.account.my_order.cod": "paiement à la livraison",
   "store.order_info.order_remark": "Notes d'ordre",
   "store.product.immedate_order": "Achetez-le maintenant",
-  "store.cart.no_stock": "out of stock"
+  "store.cart.no_stock": "out of stock",
+  "store.product.limit_time_discount": "Offre d'une durée limitée"
 }

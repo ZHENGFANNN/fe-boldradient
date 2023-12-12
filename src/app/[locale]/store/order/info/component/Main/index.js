@@ -10,7 +10,13 @@ import ShowTipModal from "@/components/Modal/ShowTipModal";
 import { useRouter } from "next/navigation";
 import Loading from "@/components/Loading";
 
-export default function Main({ secret, locale, LANG, CONFIG }) {
+export default function Main({
+  secret,
+  locale,
+  goodDiscountFestival,
+  LANG,
+  CONFIG,
+}) {
   const router = useRouter();
   const [order, setOrder] = React.useState();
   const [loading, setLoading] = React.useState(true);
@@ -301,12 +307,14 @@ export default function Main({ secret, locale, LANG, CONFIG }) {
                         </div>
                       </div>
                       <div className={styles.product_number}>
-                        {goodItem.good_discount ? (
+                        {goodDiscountFestival ? (
                           <div className={styles.good_price}>{`${
                             goodItem.priceSymbol
                           }${goodItem.priceCurrency} ${
                             Math.floor(
-                              goodItem.price * goodItem.good_discount * 0.01
+                              goodItem.price *
+                                goodDiscountFestival.discount *
+                                0.01
                             ) * goodItem.productNum
                           }`}</div>
                         ) : null}

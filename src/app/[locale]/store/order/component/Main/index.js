@@ -34,7 +34,6 @@ export default function Main({
 }) {
   const router = useRouter();
   const { locale } = useParams();
-  console.log("locale", locale);
   const searchParams = useSearchParams();
   const singleGood = searchParams.get("single_good");
 
@@ -166,11 +165,11 @@ export default function Main({
             selected: item.selected,
             options,
           };
-          if (areaInfo.country_code === "ae" && payKey === "payPal") {
-            itemData.priceSymbol = "$";
-            itemData.priceCurrency = "USD";
-            itemData.price = Math.floor(0.27 * areaInfo.price);
-          }
+          // if (areaInfo.country_code === "ae" && payKey === "payPal") {
+          //   itemData.priceSymbol = "$";
+          //   itemData.priceCurrency = "USD";
+          //   itemData.price = Math.floor(0.27 * areaInfo.price);
+          // }
           list.push(itemData);
         }
       });
@@ -203,7 +202,7 @@ export default function Main({
         return pre;
       }
     }, 0);
-  }, [orderList]);
+  }, [orderList, GOODDISCOUNTFESTIVAL]);
 
   // 获取用户信息
   const getUserInfo = React.useCallback(() => {
@@ -472,7 +471,7 @@ export default function Main({
                     if (res.code === 0) {
                       tracking.initiateCheckout({
                         currency: orderList[0].priceCurrency,
-                        value: totalPrice,
+                        value: totalPrice - discount,
                         discount,
                         type: payKey,
                         contents: orderList,

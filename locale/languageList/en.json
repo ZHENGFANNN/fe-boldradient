@@ -509,5 +509,6 @@
   "www.account.my_order.cod": "cash on delivery",
   "store.order_info.order_remark": "order notes",
   "store.product.immedate_order": "Buy now",
-  "store.cart.no_stock": "out of stock"
+  "store.cart.no_stock": "out of stock",
+  "store.product.limit_time_discount": "Limited Time Offer"
 }

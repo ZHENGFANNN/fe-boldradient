@@ -1,25 +1,27 @@
 export const domesticPay = function ({ CONFIG, LANG }) {
   return [
     {
-      title: LANG['store.order.pay_info.wechat'],
-      key: 'wechat',
+      title: LANG["store.order.pay_info.wechat"],
+      key: "wechat",
       imgList: [`${process.env.NEXT_PUBLIC_IMAGE}/icon/pay-wechat.png`],
-      description: '',
+      description: "",
     },
     {
-      title: LANG['store.order.pay_info.zhifubao'],
-      key: 'zhifubao',
+      title: LANG["store.order.pay_info.zhifubao"],
+      key: "zhifubao",
       imgList: [`${process.env.NEXT_PUBLIC_IMAGE}/icon/pay-zhifubao.png`],
-      description: '',
+      description: "",
     },
     {
-      title: LANG['store.order.pay_info.transfer'],
-      key: 'bankTransfoer',
-      description: LANG['store.order.pay_info.transfer_detail'].split('${1}').join(CONFIG['company.basic.company_name']),
+      title: LANG["store.order.pay_info.transfer"],
+      key: "bankTransfoer",
+      description: LANG["store.order.pay_info.transfer_detail"]
+        .split("${1}")
+        .join(CONFIG["company.basic.company_name"]),
       imgList: [`${process.env.NEXT_PUBLIC_IMAGE}/icon/pay-transfer.png`],
     },
-  ]
-}
+  ];
+};
 
 export const foreignPay = function ({ CONFIG, LANG }) {
   return [
@@ -37,16 +39,16 @@ export const foreignPay = function ({ CONFIG, LANG }) {
     //     `${process.env.NEXT_PUBLIC_IMAGE}/icon/pay-unionpay.png`,
     //   ],
     // },
+    // {
+    //   title: LANG['store.order.pay_info.pay_after_arrival'],
+    //   description: LANG['store.order.pay_info.pay_after_arrival_desc'],
+    //   key: 'COD',
+    //   // imgList: [`${process.env.NEXT_PUBLIC_IMAGE}/icon/pay-paypal.png`],
+    // },
     {
-      title: LANG['store.order.pay_info.pay_after_arrival'],
-      description: LANG['store.order.pay_info.pay_after_arrival_desc'],
-      key: 'COD',
-      // imgList: [`${process.env.NEXT_PUBLIC_IMAGE}/icon/pay-paypal.png`],
-    },
-    {
-      title: LANG['store.order.pay_info.paypal'],
-      description: LANG['store.order.pay_info.paypal_detail'],
-      key: 'payPal',
+      title: LANG["store.order.pay_info.paypal"],
+      description: LANG["store.order.pay_info.paypal_detail"],
+      key: "payPal",
       imgList: [`${process.env.NEXT_PUBLIC_IMAGE}/icon/pay-paypal.png`],
     },
     // {
@@ -55,5 +57,5 @@ export const foreignPay = function ({ CONFIG, LANG }) {
     //   key: 'bankTransfer',
     //   imgList: [`${process.env.NEXT_PUBLIC_IMAGE}/icon/pay-transfer.png`],
     // },
-  ]
-}
+  ];
+};

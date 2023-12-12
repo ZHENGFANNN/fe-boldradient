@@ -509,5 +509,6 @@
   "www.account.my_order.cod": "货到付款",
   "store.order_info.order_remark": "订单备注",
   "store.product.immedate_order": "立即购买",
-  "store.cart.no_stock": "没货"
+  "store.cart.no_stock": "没货",
+  "store.product.limit_time_discount": "限时优惠"
 }

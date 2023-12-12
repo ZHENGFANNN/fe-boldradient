@@ -509,5 +509,6 @@
   "www.account.my_order.cod": "Barzahlung bei Lieferung",
   "store.order_info.order_remark": "Bestellnotizen",
   "store.product.immedate_order": "Kaufe es jetzt",
-  "store.cart.no_stock": "out of stock"
+  "store.cart.no_stock": "out of stock",
+  "store.product.limit_time_discount": "Zeitlich befristetes Angebot"
 }

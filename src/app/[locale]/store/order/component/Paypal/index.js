@@ -51,33 +51,21 @@ export default function Paypal({
     }
     return countryCode?.toUpperCase();
   }, [area]);
-
-  const [loading, setLoading] = React.useState(false);
-  React.useEffect(() => {
-    setLoading(true);
-    const t = setTimeout(() => {
-      setLoading(false);
-    }, 500);
-  }, [currency]);
   return (
-    <>
-      {!loading ? (
-        <PayPalScriptProvider
-          options={{
-            clientId: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID,
-            components: "buttons",
-            locale: `${locale === "hk" ? "zh" : locale}_${countryCode}`,
-            currency,
-          }}
-        >
-          <PayButton
-            onCancel={onCancel}
-            onError={onError}
-            createOrder={createOrder}
-            onApprove={onApprove}
-          />
-        </PayPalScriptProvider>
-      ) : null}
-    </>
+    <PayPalScriptProvider
+      options={{
+        clientId: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID,
+        components: "buttons",
+        locale: `${locale === "hk" ? "zh" : locale}_${countryCode}`,
+        currency,
+      }}
+    >
+      <PayButton
+        onCancel={onCancel}
+        onError={onError}
+        createOrder={createOrder}
+        onApprove={onApprove}
+      />
+    </PayPalScriptProvider>
   );
 }

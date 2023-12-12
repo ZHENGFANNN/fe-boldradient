@@ -509,5 +509,6 @@
   "www.account.my_order.cod": "contra reembolso",
   "store.order_info.order_remark": "pedidos",
   "store.product.immedate_order": "Compre ya",
-  "store.cart.no_stock": "out of stock"
+  "store.cart.no_stock": "out of stock",
+  "store.product.limit_time_discount": "Oferta de tiempo limitado"
 }

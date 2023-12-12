@@ -509,5 +509,6 @@
   "www.account.my_order.cod": "대금 상환",
   "store.order_info.order_remark": "주문 메모",
   "store.product.immedate_order": "지금 구매하세요",
-  "store.cart.no_stock": "out of stock"
+  "store.cart.no_stock": "out of stock",
+  "store.product.limit_time_discount": "기간 한정 제안"
 }

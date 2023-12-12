@@ -138,7 +138,7 @@ export default function GoodFooter({
                   productKey: productInfo.key,
                   comboKey: productCurCombo.key,
                   productNum,
-                  options: JSON.stringify(productOptions),
+                  options: productOptions,
                   selected: true,
                 },
               ];
@@ -172,6 +172,7 @@ export default function GoodFooter({
                     }
                   });
                   // 判断是否商品是否购物车里
+                  console.log("includeCurCombo", includeCurCombo, returnCart);
                   if (includeCurCombo) {
                     newCart = returnCart;
                   } else {

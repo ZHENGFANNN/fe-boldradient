@@ -1,5 +1,20 @@
 [
   {
+    "id": 49,
+    "key": "sensor-light",
+    "image_src": "https://image.sslfly.com/base/2023/12/12/CDB1B4D5AAD2D384837AAD4D94C8EA80/sensor-light-icon.svg",
+    "video_src": null,
+    "video_cover": null,
+    "name": "Sensor Light",
+    "description": "Motion sensor lights are lighting systems equipped with sensors that detect movement. They automatically turn on when motion is detected and provide illumination for security, convenience, and energy-saving purposes.",
+    "enabled": true,
+    "weight": 3,
+    "language": "en",
+    "created_time": "2023-12-12T14:38:18.000Z",
+    "updated_time": "2023-12-12T14:39:54.000Z",
+    "goodList": []
+  },
+  {
     "id": 39,
     "key": "watches",
     "image_src": "https://image.sslfly.com/base/2023/4/3/807A702C643234E2C61B3772DCEDCF01/watch%20(1).svg",

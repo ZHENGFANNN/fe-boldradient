@@ -19,35 +19,6 @@
     "created_time": "2023-09-09T09:20:44.000Z",
     "updated_time": "2023-09-18T15:04:02.000Z",
     "associateProduct": [],
-    "typeList": [
-      {
-        "id": 85,
-        "type": "text",
-        "title": "couleur",
-        "language": "fr",
-        "good_sort_key": "watches",
-        "good_key": "n9-ultra-pro",
-        "options": [
-          {
-            "title": "noir"
-          },
-          {
-            "title": "Blanc"
-          },
-          {
-            "title": "vert"
-          },
-          {
-            "title": "orange"
-          }
-        ],
-        "enabled": 1,
-        "weight": 1,
-        "associate_good_key": "watches:n9-ultra-pro",
-        "created_time": "2023-09-17T13:27:03.000Z",
-        "updated_time": "2023-09-18T15:06:01.000Z"
-      }
-    ],
     "comboList": [
       {
         "id": 110,
@@ -897,6 +868,35 @@
         ]
       }
     ],
+    "typeList": [
+      {
+        "id": 85,
+        "type": "text",
+        "title": "couleur",
+        "language": "fr",
+        "good_sort_key": "watches",
+        "good_key": "n9-ultra-pro",
+        "options": [
+          {
+            "title": "noir"
+          },
+          {
+            "title": "Blanc"
+          },
+          {
+            "title": "vert"
+          },
+          {
+            "title": "orange"
+          }
+        ],
+        "enabled": 1,
+        "weight": 1,
+        "associate_good_key": "watches:n9-ultra-pro",
+        "created_time": "2023-09-17T13:27:03.000Z",
+        "updated_time": "2023-09-18T15:06:01.000Z"
+      }
+    ],
     "packageList": [
       {
         "id": 634,
@@ -1053,23 +1053,6 @@
         "updated_time": "2023-09-10T16:03:19.000Z"
       }
     ],
-    "indexConfig": [
-      {
-        "id": 79,
-        "good_key": "n9-ultra-pro",
-        "good_sort_key": "watches",
-        "language": "fr",
-        "associate_good_key": "watches:n9-ultra-pro",
-        "page_keywords": "N9 ULTRA PRO, montre intelligente, Apple Watch, montre intelligente haute performance, montre intelligente mode",
-        "page_title": "N9 ULTRA PRO",
-        "page_description": "N9 ULTRA PRO est une montre intelligente puissante dotée de fonctionnalités avancées et d'un design innovant similaire à l'Apple Watch. Il combine une apparence élégante et une technologie haute performance pour offrir aux utilisateurs une excellente expérience intelligente.",
-        "pc_background": null,
-        "mob_background": null,
-        "is_light": null,
-        "created_time": "2023-09-24T04:51:17.000Z",
-        "updated_time": "2023-09-24T04:51:17.000Z"
-      }
-    ],
     "mediaList": [
       {
         "id": 95,
@@ -1189,6 +1172,23 @@
         "weight": 1,
         "created_time": "2023-09-24T08:11:10.000Z",
         "updated_time": "2023-09-24T08:18:15.000Z"
+      }
+    ],
+    "indexConfig": [
+      {
+        "id": 79,
+        "good_key": "n9-ultra-pro",
+        "good_sort_key": "watches",
+        "language": "fr",
+        "associate_good_key": "watches:n9-ultra-pro",
+        "page_keywords": "N9 ULTRA PRO, montre intelligente, Apple Watch, montre intelligente haute performance, montre intelligente mode",
+        "page_title": "N9 ULTRA PRO",
+        "page_description": "N9 ULTRA PRO est une montre intelligente puissante dotée de fonctionnalités avancées et d'un design innovant similaire à l'Apple Watch. Il combine une apparence élégante et une technologie haute performance pour offrir aux utilisateurs une excellente expérience intelligente.",
+        "pc_background": null,
+        "mob_background": null,
+        "is_light": null,
+        "created_time": "2023-09-24T04:51:17.000Z",
+        "updated_time": "2023-09-24T04:51:17.000Z"
       }
     ],
     "associationsList": [
@@ -1443,6 +1443,85 @@
         "weight": 1,
         "created_time": "2023-09-10T15:50:55.000Z",
         "updated_time": "2023-09-10T15:50:55.000Z"
+      }
+    ],
+    "sellingList": [
+      {
+        "id": 1166,
+        "light": "NFC",
+        "weight": 7,
+        "good_key": "n9-ultra-pro",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:n9-ultra-pro",
+        "language": "fr",
+        "created_time": "2023-09-10T16:12:29.000Z",
+        "updated_time": "2023-09-10T16:12:29.000Z"
+      },
+      {
+        "id": 1167,
+        "light": "avis de message",
+        "weight": 6,
+        "good_key": "n9-ultra-pro",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:n9-ultra-pro",
+        "language": "fr",
+        "created_time": "2023-09-10T16:12:29.000Z",
+        "updated_time": "2023-09-17T13:56:07.000Z"
+      },
+      {
+        "id": 1168,
+        "light": "portefeuille de poignet",
+        "weight": 5,
+        "good_key": "n9-ultra-pro",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:n9-ultra-pro",
+        "language": "fr",
+        "created_time": "2023-09-10T16:12:29.000Z",
+        "updated_time": "2023-09-17T13:54:19.000Z"
+      },
+      {
+        "id": 1169,
+        "light": "Appels vocaux",
+        "weight": 3,
+        "good_key": "n9-ultra-pro",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:n9-ultra-pro",
+        "language": "fr",
+        "created_time": "2023-09-10T16:12:29.000Z",
+        "updated_time": "2023-09-10T16:12:29.000Z"
+      },
+      {
+        "id": 1170,
+        "light": "jouer de la musique",
+        "weight": 3,
+        "good_key": "n9-ultra-pro",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:n9-ultra-pro",
+        "language": "fr",
+        "created_time": "2023-09-10T16:12:29.000Z",
+        "updated_time": "2023-09-17T13:54:42.000Z"
+      },
+      {
+        "id": 1171,
+        "light": "Changement de langue du bracelet",
+        "weight": 2,
+        "good_key": "n9-ultra-pro",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:n9-ultra-pro",
+        "language": "fr",
+        "created_time": "2023-09-10T16:12:29.000Z",
+        "updated_time": "2023-09-17T13:54:33.000Z"
+      },
+      {
+        "id": 1172,
+        "light": "Positionnement partagé",
+        "weight": 1,
+        "good_key": "n9-ultra-pro",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:n9-ultra-pro",
+        "language": "fr",
+        "created_time": "2023-09-10T16:12:29.000Z",
+        "updated_time": "2023-09-17T13:56:18.000Z"
       }
     ],
     "funcionList": [
@@ -2047,85 +2126,6 @@
         "updated_time": "2023-09-10T16:07:02.000Z"
       }
     ],
-    "sellingList": [
-      {
-        "id": 1166,
-        "light": "NFC",
-        "weight": 7,
-        "good_key": "n9-ultra-pro",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:n9-ultra-pro",
-        "language": "fr",
-        "created_time": "2023-09-10T16:12:29.000Z",
-        "updated_time": "2023-09-10T16:12:29.000Z"
-      },
-      {
-        "id": 1167,
-        "light": "avis de message",
-        "weight": 6,
-        "good_key": "n9-ultra-pro",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:n9-ultra-pro",
-        "language": "fr",
-        "created_time": "2023-09-10T16:12:29.000Z",
-        "updated_time": "2023-09-17T13:56:07.000Z"
-      },
-      {
-        "id": 1168,
-        "light": "portefeuille de poignet",
-        "weight": 5,
-        "good_key": "n9-ultra-pro",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:n9-ultra-pro",
-        "language": "fr",
-        "created_time": "2023-09-10T16:12:29.000Z",
-        "updated_time": "2023-09-17T13:54:19.000Z"
-      },
-      {
-        "id": 1169,
-        "light": "Appels vocaux",
-        "weight": 3,
-        "good_key": "n9-ultra-pro",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:n9-ultra-pro",
-        "language": "fr",
-        "created_time": "2023-09-10T16:12:29.000Z",
-        "updated_time": "2023-09-10T16:12:29.000Z"
-      },
-      {
-        "id": 1170,
-        "light": "jouer de la musique",
-        "weight": 3,
-        "good_key": "n9-ultra-pro",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:n9-ultra-pro",
-        "language": "fr",
-        "created_time": "2023-09-10T16:12:29.000Z",
-        "updated_time": "2023-09-17T13:54:42.000Z"
-      },
-      {
-        "id": 1171,
-        "light": "Changement de langue du bracelet",
-        "weight": 2,
-        "good_key": "n9-ultra-pro",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:n9-ultra-pro",
-        "language": "fr",
-        "created_time": "2023-09-10T16:12:29.000Z",
-        "updated_time": "2023-09-17T13:54:33.000Z"
-      },
-      {
-        "id": 1172,
-        "light": "Positionnement partagé",
-        "weight": 1,
-        "good_key": "n9-ultra-pro",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:n9-ultra-pro",
-        "language": "fr",
-        "created_time": "2023-09-10T16:12:29.000Z",
-        "updated_time": "2023-09-17T13:56:18.000Z"
-      }
-    ],
     "path": "/watches/n9-ultra-pro"
   },
   {
@@ -2148,7 +2148,6 @@
     "created_time": "2022-12-26T14:24:11.000Z",
     "updated_time": "2023-09-09T09:54:55.000Z",
     "associateProduct": [],
-    "typeList": [],
     "comboList": [
       {
         "id": 60,
@@ -2985,6 +2984,7 @@
         ]
       }
     ],
+    "typeList": [],
     "packageList": [
       {
         "id": 794,
@@ -3057,23 +3057,6 @@
         "updated_time": "2023-09-09T16:01:57.000Z"
       }
     ],
-    "indexConfig": [
-      {
-        "id": 80,
-        "good_key": "8-ultra-mini",
-        "good_sort_key": "watches",
-        "language": "fr",
-        "associate_good_key": "watches:8-ultra-mini",
-        "page_keywords": "8Ultra min, montre intelligente, compacte et légère, surveillance de la santé, suivi sportif",
-        "page_title": "8Ultramini",
-        "page_description": "8Ultra min est une montre intelligente petite et légère dotée de fonctionnalités exceptionnelles et d'un design sophistiqué. Il dispose d'une variété de fonctions intelligentes, telles que la surveillance de la santé, les rappels de notifications et le suivi des exercices, vous permettant de rester connecté et de gérer votre vie à tout moment et en tout lieu.",
-        "pc_background": null,
-        "mob_background": null,
-        "is_light": null,
-        "created_time": "2023-09-24T04:51:21.000Z",
-        "updated_time": "2023-09-24T04:51:21.000Z"
-      }
-    ],
     "mediaList": [
       {
         "id": 39,
@@ -3091,6 +3074,23 @@
         "weight": 12,
         "created_time": "2023-09-09T14:28:04.000Z",
         "updated_time": "2023-09-09T14:31:51.000Z"
+      }
+    ],
+    "indexConfig": [
+      {
+        "id": 80,
+        "good_key": "8-ultra-mini",
+        "good_sort_key": "watches",
+        "language": "fr",
+        "associate_good_key": "watches:8-ultra-mini",
+        "page_keywords": "8Ultra min, montre intelligente, compacte et légère, surveillance de la santé, suivi sportif",
+        "page_title": "8Ultramini",
+        "page_description": "8Ultra min est une montre intelligente petite et légère dotée de fonctionnalités exceptionnelles et d'un design sophistiqué. Il dispose d'une variété de fonctions intelligentes, telles que la surveillance de la santé, les rappels de notifications et le suivi des exercices, vous permettant de rester connecté et de gérer votre vie à tout moment et en tout lieu.",
+        "pc_background": null,
+        "mob_background": null,
+        "is_light": null,
+        "created_time": "2023-09-24T04:51:21.000Z",
+        "updated_time": "2023-09-24T04:51:21.000Z"
       }
     ],
     "associationsList": [
@@ -3357,6 +3357,74 @@
         "weight": 1,
         "created_time": "2023-09-09T16:01:26.000Z",
         "updated_time": "2023-09-09T16:01:26.000Z"
+      }
+    ],
+    "sellingList": [
+      {
+        "id": 1173,
+        "light": "assistant vocal",
+        "weight": 7,
+        "good_key": "8-ultra-mini",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:8-ultra-mini",
+        "language": "fr",
+        "created_time": "2023-09-19T13:12:23.000Z",
+        "updated_time": "2023-09-19T13:12:23.000Z"
+      },
+      {
+        "id": 1174,
+        "light": "Corps en alliage de zinc",
+        "weight": 6,
+        "good_key": "8-ultra-mini",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:8-ultra-mini",
+        "language": "fr",
+        "created_time": "2023-09-19T13:12:23.000Z",
+        "updated_time": "2023-09-19T13:12:23.000Z"
+      },
+      {
+        "id": 1175,
+        "light": "Tactile plein écran",
+        "weight": 5,
+        "good_key": "8-ultra-mini",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:8-ultra-mini",
+        "language": "fr",
+        "created_time": "2023-09-19T13:12:23.000Z",
+        "updated_time": "2023-09-19T13:12:23.000Z"
+      },
+      {
+        "id": 1176,
+        "light": "Appels vocaux",
+        "weight": 4,
+        "good_key": "8-ultra-mini",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:8-ultra-mini",
+        "language": "fr",
+        "created_time": "2023-09-19T13:12:23.000Z",
+        "updated_time": "2023-09-19T13:12:23.000Z"
+      },
+      {
+        "id": 1177,
+        "light": "avis de message",
+        "weight": 3,
+        "good_key": "8-ultra-mini",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:8-ultra-mini",
+        "language": "fr",
+        "created_time": "2023-09-19T13:12:23.000Z",
+        "updated_time": "2023-09-19T13:12:23.000Z"
+      },
+      {
+        "id": 1178,
+        "light": "appel entrant",
+        "weight": 1,
+        "good_key": "8-ultra-mini",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:8-ultra-mini",
+        "language": "fr",
+        "created_time": "2023-09-19T13:12:23.000Z",
+        "updated_time": "2023-09-19T13:12:23.000Z"
       }
     ],
     "funcionList": [
@@ -3769,74 +3837,6 @@
         "updated_time": "2023-09-09T15:37:22.000Z"
       }
     ],
-    "sellingList": [
-      {
-        "id": 1173,
-        "light": "assistant vocal",
-        "weight": 7,
-        "good_key": "8-ultra-mini",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:8-ultra-mini",
-        "language": "fr",
-        "created_time": "2023-09-19T13:12:23.000Z",
-        "updated_time": "2023-09-19T13:12:23.000Z"
-      },
-      {
-        "id": 1174,
-        "light": "Corps en alliage de zinc",
-        "weight": 6,
-        "good_key": "8-ultra-mini",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:8-ultra-mini",
-        "language": "fr",
-        "created_time": "2023-09-19T13:12:23.000Z",
-        "updated_time": "2023-09-19T13:12:23.000Z"
-      },
-      {
-        "id": 1175,
-        "light": "Tactile plein écran",
-        "weight": 5,
-        "good_key": "8-ultra-mini",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:8-ultra-mini",
-        "language": "fr",
-        "created_time": "2023-09-19T13:12:23.000Z",
-        "updated_time": "2023-09-19T13:12:23.000Z"
-      },
-      {
-        "id": 1176,
-        "light": "Appels vocaux",
-        "weight": 4,
-        "good_key": "8-ultra-mini",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:8-ultra-mini",
-        "language": "fr",
-        "created_time": "2023-09-19T13:12:23.000Z",
-        "updated_time": "2023-09-19T13:12:23.000Z"
-      },
-      {
-        "id": 1177,
-        "light": "avis de message",
-        "weight": 3,
-        "good_key": "8-ultra-mini",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:8-ultra-mini",
-        "language": "fr",
-        "created_time": "2023-09-19T13:12:23.000Z",
-        "updated_time": "2023-09-19T13:12:23.000Z"
-      },
-      {
-        "id": 1178,
-        "light": "appel entrant",
-        "weight": 1,
-        "good_key": "8-ultra-mini",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:8-ultra-mini",
-        "language": "fr",
-        "created_time": "2023-09-19T13:12:23.000Z",
-        "updated_time": "2023-09-19T13:12:23.000Z"
-      }
-    ],
     "path": "/watches/8-ultra-mini"
   },
   {
@@ -3859,7 +3859,6 @@
     "created_time": "2022-12-26T14:24:26.000Z",
     "updated_time": "2023-09-09T09:55:00.000Z",
     "associateProduct": [],
-    "typeList": [],
     "comboList": [
       {
         "id": 70,
@@ -4696,6 +4695,7 @@
         ]
       }
     ],
+    "typeList": [],
     "packageList": [
       {
         "id": 799,
@@ -4768,6 +4768,7 @@
         "updated_time": "2023-09-10T16:05:34.000Z"
       }
     ],
+    "mediaList": [],
     "indexConfig": [
       {
         "id": 81,
@@ -4785,7 +4786,6 @@
         "updated_time": "2023-09-24T04:51:25.000Z"
       }
     ],
-    "mediaList": [],
     "associationsList": [
       {
         "id": 2521,
@@ -5014,6 +5014,74 @@
         "weight": 1,
         "created_time": "2023-09-10T16:02:11.000Z",
         "updated_time": "2023-09-10T16:02:11.000Z"
+      }
+    ],
+    "sellingList": [
+      {
+        "id": 1179,
+        "light": "NFC",
+        "weight": 7,
+        "good_key": "ip8-ultra",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:ip8-ultra",
+        "language": "fr",
+        "created_time": "2023-09-10T16:14:06.000Z",
+        "updated_time": "2023-09-10T16:14:06.000Z"
+      },
+      {
+        "id": 1180,
+        "light": "Télécommande intelligente",
+        "weight": 6,
+        "good_key": "ip8-ultra",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:ip8-ultra",
+        "language": "fr",
+        "created_time": "2023-09-10T16:14:06.000Z",
+        "updated_time": "2023-09-10T16:14:06.000Z"
+      },
+      {
+        "id": 1181,
+        "light": "Cadran de montre personnalisé",
+        "weight": 5,
+        "good_key": "ip8-ultra",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:ip8-ultra",
+        "language": "fr",
+        "created_time": "2023-09-10T16:14:06.000Z",
+        "updated_time": "2023-09-10T16:14:06.000Z"
+      },
+      {
+        "id": 1182,
+        "light": "Appels vocaux",
+        "weight": 3,
+        "good_key": "ip8-ultra",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:ip8-ultra",
+        "language": "fr",
+        "created_time": "2023-09-10T16:14:06.000Z",
+        "updated_time": "2023-09-10T16:14:06.000Z"
+      },
+      {
+        "id": 1183,
+        "light": "météo",
+        "weight": 2,
+        "good_key": "ip8-ultra",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:ip8-ultra",
+        "language": "fr",
+        "created_time": "2023-09-10T16:14:06.000Z",
+        "updated_time": "2023-09-10T16:14:06.000Z"
+      },
+      {
+        "id": 1184,
+        "light": "jouer de la musique",
+        "weight": 1,
+        "good_key": "ip8-ultra",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:ip8-ultra",
+        "language": "fr",
+        "created_time": "2023-09-10T16:14:06.000Z",
+        "updated_time": "2023-09-10T16:14:06.000Z"
       }
     ],
     "funcionList": [
@@ -5522,74 +5590,6 @@
         "updated_time": "2023-09-10T16:08:42.000Z"
       }
     ],
-    "sellingList": [
-      {
-        "id": 1179,
-        "light": "NFC",
-        "weight": 7,
-        "good_key": "ip8-ultra",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:ip8-ultra",
-        "language": "fr",
-        "created_time": "2023-09-10T16:14:06.000Z",
-        "updated_time": "2023-09-10T16:14:06.000Z"
-      },
-      {
-        "id": 1180,
-        "light": "Télécommande intelligente",
-        "weight": 6,
-        "good_key": "ip8-ultra",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:ip8-ultra",
-        "language": "fr",
-        "created_time": "2023-09-10T16:14:06.000Z",
-        "updated_time": "2023-09-10T16:14:06.000Z"
-      },
-      {
-        "id": 1181,
-        "light": "Cadran de montre personnalisé",
-        "weight": 5,
-        "good_key": "ip8-ultra",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:ip8-ultra",
-        "language": "fr",
-        "created_time": "2023-09-10T16:14:06.000Z",
-        "updated_time": "2023-09-10T16:14:06.000Z"
-      },
-      {
-        "id": 1182,
-        "light": "Appels vocaux",
-        "weight": 3,
-        "good_key": "ip8-ultra",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:ip8-ultra",
-        "language": "fr",
-        "created_time": "2023-09-10T16:14:06.000Z",
-        "updated_time": "2023-09-10T16:14:06.000Z"
-      },
-      {
-        "id": 1183,
-        "light": "météo",
-        "weight": 2,
-        "good_key": "ip8-ultra",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:ip8-ultra",
-        "language": "fr",
-        "created_time": "2023-09-10T16:14:06.000Z",
-        "updated_time": "2023-09-10T16:14:06.000Z"
-      },
-      {
-        "id": 1184,
-        "light": "jouer de la musique",
-        "weight": 1,
-        "good_key": "ip8-ultra",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:ip8-ultra",
-        "language": "fr",
-        "created_time": "2023-09-10T16:14:06.000Z",
-        "updated_time": "2023-09-10T16:14:06.000Z"
-      }
-    ],
     "path": "/watches/ip8-ultra"
   },
   {
@@ -5612,7 +5612,6 @@
     "created_time": "2022-12-26T14:24:54.000Z",
     "updated_time": "2023-09-09T09:55:03.000Z",
     "associateProduct": [],
-    "typeList": [],
     "comboList": [
       {
         "id": 80,
@@ -6449,6 +6448,7 @@
         ]
       }
     ],
+    "typeList": [],
     "packageList": [
       {
         "id": 804,
@@ -6521,6 +6521,7 @@
         "updated_time": "2023-09-10T16:05:11.000Z"
       }
     ],
+    "mediaList": [],
     "indexConfig": [
       {
         "id": 82,
@@ -6538,7 +6539,6 @@
         "updated_time": "2023-09-24T04:51:28.000Z"
       }
     ],
-    "mediaList": [],
     "associationsList": [
       {
         "id": 2540,
@@ -6791,6 +6791,63 @@
         "weight": 1,
         "created_time": "2023-09-19T12:47:26.000Z",
         "updated_time": "2023-09-19T12:47:26.000Z"
+      }
+    ],
+    "sellingList": [
+      {
+        "id": 1185,
+        "light": "assistant vocal",
+        "weight": 7,
+        "good_key": "series8-mini",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:series8-mini",
+        "language": "fr",
+        "created_time": "2023-09-10T16:13:45.000Z",
+        "updated_time": "2023-09-10T16:13:45.000Z"
+      },
+      {
+        "id": 1186,
+        "light": "Tactile plein écran",
+        "weight": 5,
+        "good_key": "series8-mini",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:series8-mini",
+        "language": "fr",
+        "created_time": "2023-09-10T16:13:45.000Z",
+        "updated_time": "2023-09-10T16:13:45.000Z"
+      },
+      {
+        "id": 1187,
+        "light": "Appels vocaux",
+        "weight": 4,
+        "good_key": "series8-mini",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:series8-mini",
+        "language": "fr",
+        "created_time": "2023-09-10T16:13:45.000Z",
+        "updated_time": "2023-09-10T16:13:45.000Z"
+      },
+      {
+        "id": 1188,
+        "light": "avis de message",
+        "weight": 3,
+        "good_key": "series8-mini",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:series8-mini",
+        "language": "fr",
+        "created_time": "2023-09-10T16:13:45.000Z",
+        "updated_time": "2023-09-10T16:13:45.000Z"
+      },
+      {
+        "id": 1189,
+        "light": "appel entrant",
+        "weight": 1,
+        "good_key": "series8-mini",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:series8-mini",
+        "language": "fr",
+        "created_time": "2023-09-10T16:13:45.000Z",
+        "updated_time": "2023-09-10T16:13:45.000Z"
       }
     ],
     "funcionList": [
@@ -7239,63 +7296,6 @@
         "updated_time": "2023-09-10T16:08:19.000Z"
       }
     ],
-    "sellingList": [
-      {
-        "id": 1185,
-        "light": "assistant vocal",
-        "weight": 7,
-        "good_key": "series8-mini",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:series8-mini",
-        "language": "fr",
-        "created_time": "2023-09-10T16:13:45.000Z",
-        "updated_time": "2023-09-10T16:13:45.000Z"
-      },
-      {
-        "id": 1186,
-        "light": "Tactile plein écran",
-        "weight": 5,
-        "good_key": "series8-mini",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:series8-mini",
-        "language": "fr",
-        "created_time": "2023-09-10T16:13:45.000Z",
-        "updated_time": "2023-09-10T16:13:45.000Z"
-      },
-      {
-        "id": 1187,
-        "light": "Appels vocaux",
-        "weight": 4,
-        "good_key": "series8-mini",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:series8-mini",
-        "language": "fr",
-        "created_time": "2023-09-10T16:13:45.000Z",
-        "updated_time": "2023-09-10T16:13:45.000Z"
-      },
-      {
-        "id": 1188,
-        "light": "avis de message",
-        "weight": 3,
-        "good_key": "series8-mini",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:series8-mini",
-        "language": "fr",
-        "created_time": "2023-09-10T16:13:45.000Z",
-        "updated_time": "2023-09-10T16:13:45.000Z"
-      },
-      {
-        "id": 1189,
-        "light": "appel entrant",
-        "weight": 1,
-        "good_key": "series8-mini",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:series8-mini",
-        "language": "fr",
-        "created_time": "2023-09-10T16:13:45.000Z",
-        "updated_time": "2023-09-10T16:13:45.000Z"
-      }
-    ],
     "path": "/watches/series8-mini"
   },
   {
@@ -7318,7 +7318,6 @@
     "created_time": "2022-12-26T14:25:04.000Z",
     "updated_time": "2023-09-09T09:55:05.000Z",
     "associateProduct": [],
-    "typeList": [],
     "comboList": [
       {
         "id": 90,
@@ -8155,6 +8154,7 @@
         ]
       }
     ],
+    "typeList": [],
     "packageList": [
       {
         "id": 809,
@@ -8255,6 +8255,7 @@
         "updated_time": "2023-09-10T16:03:34.000Z"
       }
     ],
+    "mediaList": [],
     "indexConfig": [
       {
         "id": 83,
@@ -8272,7 +8273,6 @@
         "updated_time": "2023-09-24T04:51:31.000Z"
       }
     ],
-    "mediaList": [],
     "associationsList": [
       {
         "id": 2561,
@@ -8501,6 +8501,74 @@
         "weight": 1,
         "created_time": "2023-09-10T16:00:39.000Z",
         "updated_time": "2023-09-10T16:00:39.000Z"
+      }
+    ],
+    "sellingList": [
+      {
+        "id": 1190,
+        "light": "appel entrant",
+        "weight": 8,
+        "good_key": "ultra-max",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:ultra-max",
+        "language": "fr",
+        "created_time": "2023-09-10T16:13:25.000Z",
+        "updated_time": "2023-09-10T16:13:25.000Z"
+      },
+      {
+        "id": 1191,
+        "light": "avis de message",
+        "weight": 7,
+        "good_key": "ultra-max",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:ultra-max",
+        "language": "fr",
+        "created_time": "2023-09-10T16:13:25.000Z",
+        "updated_time": "2023-09-10T16:13:25.000Z"
+      },
+      {
+        "id": 1192,
+        "light": "Changement de langue du bracelet",
+        "weight": 6,
+        "good_key": "ultra-max",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:ultra-max",
+        "language": "fr",
+        "created_time": "2023-09-10T16:13:25.000Z",
+        "updated_time": "2023-09-10T16:13:25.000Z"
+      },
+      {
+        "id": 1193,
+        "light": "Positionnement partagé",
+        "weight": 5,
+        "good_key": "ultra-max",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:ultra-max",
+        "language": "fr",
+        "created_time": "2023-09-10T16:13:25.000Z",
+        "updated_time": "2023-09-10T16:13:25.000Z"
+      },
+      {
+        "id": 1194,
+        "light": "NFC",
+        "weight": 4,
+        "good_key": "ultra-max",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:ultra-max",
+        "language": "fr",
+        "created_time": "2023-09-10T16:13:25.000Z",
+        "updated_time": "2023-09-10T16:13:25.000Z"
+      },
+      {
+        "id": 1195,
+        "light": "Analyse de fatigue",
+        "weight": 2,
+        "good_key": "ultra-max",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:ultra-max",
+        "language": "fr",
+        "created_time": "2023-09-10T16:13:25.000Z",
+        "updated_time": "2023-09-10T16:13:25.000Z"
       }
     ],
     "funcionList": [
@@ -9009,74 +9077,6 @@
         "updated_time": "2023-09-10T16:07:39.000Z"
       }
     ],
-    "sellingList": [
-      {
-        "id": 1190,
-        "light": "appel entrant",
-        "weight": 8,
-        "good_key": "ultra-max",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:ultra-max",
-        "language": "fr",
-        "created_time": "2023-09-10T16:13:25.000Z",
-        "updated_time": "2023-09-10T16:13:25.000Z"
-      },
-      {
-        "id": 1191,
-        "light": "avis de message",
-        "weight": 7,
-        "good_key": "ultra-max",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:ultra-max",
-        "language": "fr",
-        "created_time": "2023-09-10T16:13:25.000Z",
-        "updated_time": "2023-09-10T16:13:25.000Z"
-      },
-      {
-        "id": 1192,
-        "light": "Changement de langue du bracelet",
-        "weight": 6,
-        "good_key": "ultra-max",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:ultra-max",
-        "language": "fr",
-        "created_time": "2023-09-10T16:13:25.000Z",
-        "updated_time": "2023-09-10T16:13:25.000Z"
-      },
-      {
-        "id": 1193,
-        "light": "Positionnement partagé",
-        "weight": 5,
-        "good_key": "ultra-max",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:ultra-max",
-        "language": "fr",
-        "created_time": "2023-09-10T16:13:25.000Z",
-        "updated_time": "2023-09-10T16:13:25.000Z"
-      },
-      {
-        "id": 1194,
-        "light": "NFC",
-        "weight": 4,
-        "good_key": "ultra-max",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:ultra-max",
-        "language": "fr",
-        "created_time": "2023-09-10T16:13:25.000Z",
-        "updated_time": "2023-09-10T16:13:25.000Z"
-      },
-      {
-        "id": 1195,
-        "light": "Analyse de fatigue",
-        "weight": 2,
-        "good_key": "ultra-max",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:ultra-max",
-        "language": "fr",
-        "created_time": "2023-09-10T16:13:25.000Z",
-        "updated_time": "2023-09-10T16:13:25.000Z"
-      }
-    ],
     "path": "/watches/ultra-max"
   },
   {
@@ -9099,9 +9099,10 @@
     "created_time": "2022-12-26T14:24:37.000Z",
     "updated_time": "2023-09-09T09:55:07.000Z",
     "associateProduct": [],
-    "typeList": [],
     "comboList": [],
+    "typeList": [],
     "packageList": [],
+    "mediaList": [],
     "indexConfig": [
       {
         "id": 84,
@@ -9119,10 +9120,9 @@
         "updated_time": "2023-09-24T04:51:34.000Z"
       }
     ],
-    "mediaList": [],
     "associationsList": [],
-    "funcionList": [],
     "sellingList": [],
+    "funcionList": [],
     "path": "/watches/k8-ultra-max"
   }
 ]

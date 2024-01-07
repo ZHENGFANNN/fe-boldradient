@@ -515,5 +515,6 @@
   "store.index.off": "off",
   "store.product.reviews": "${num} reviews",
   "store.product.all": "All",
-  "store.product.stars": "${num} Stars"
+  "store.product.stars": "${num} Stars",
+  "store.product.filter": "Filter by:"
 }

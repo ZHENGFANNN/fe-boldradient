@@ -7,6 +7,7 @@ import { lazyLoadImages } from "@/utils/optimization";
 import ProductContext from "../../productContext";
 import React from "react";
 import DropSelect from "@/components/DropSelect";
+import VConsole from "vconsole";
 
 const icon = (
   <svg
@@ -63,6 +64,7 @@ export default function GoodReviewsContent({ LANG }) {
   }, [LANG]);
 
   React.useEffect(() => {
+    new VConsole();
     if (!lazyLoading) {
       const cleanLazy = lazyLoadImages($(`.${styles.reviews}`));
       return () => cleanLazy();
@@ -138,7 +140,7 @@ export default function GoodReviewsContent({ LANG }) {
             <div className={styles.reviews_header_select}>
               <div className={styles.review_header_select_item}>
                 <div className={styles.review_header_select_item_tip}>
-                  Filter by:
+                  {LANG["store.product.filter"]}
                 </div>
                 <DropSelect
                   position="bottom"

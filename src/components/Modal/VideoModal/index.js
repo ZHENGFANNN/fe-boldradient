@@ -16,14 +16,14 @@ export default function VideoModal({
   const [show, setShow] = React.useState(false);
   React.useEffect(() => {
     if (show) {
-      videoRef.current.play();
+      videoRef.current?.play();
       document.body.style.overflow = "hidden";
     } else {
-      videoRef.current.pause();
+      videoRef.current?.pause();
       document.body.style.overflow = "unset";
     }
     return () => {
-      videoRef.current.pause();
+      videoRef.current?.pause();
     };
   }, [show]);
   return (

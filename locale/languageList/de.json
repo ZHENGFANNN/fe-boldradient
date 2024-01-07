@@ -515,5 +515,6 @@
   "store.index.off": "speichern",
   "store.product.reviews": "${num} Kommentare",
   "store.product.all": "Alle",
-  "store.product.stars": "${num} Sterne"
+  "store.product.stars": "${num} Sterne",
+  "store.product.filter": "Filter:"
 }

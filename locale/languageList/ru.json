@@ -515,5 +515,6 @@
   "store.index.off": "сохранять",
   "store.product.reviews": "${num} комментариев",
   "store.product.all": "все",
-  "store.product.stars": "${num} звезд"
+  "store.product.stars": "${num} звезд",
+  "store.product.filter": "фильтр:"
 }

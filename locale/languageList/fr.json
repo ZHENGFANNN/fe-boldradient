@@ -515,5 +515,6 @@
   "store.index.off": "sauvegarder",
   "store.product.reviews": "${num} commentaires",
   "store.product.all": "Tous",
-  "store.product.stars": "${num} étoiles"
+  "store.product.stars": "${num} étoiles",
+  "store.product.filter": "Filtre:"
 }

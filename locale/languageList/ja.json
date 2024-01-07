@@ -515,5 +515,6 @@
   "store.index.off": "保存",
   "store.product.reviews": "${num} 件のコメント",
   "store.product.all": "全て",
-  "store.product.stars": "${num} つ星"
+  "store.product.stars": "${num} つ星",
+  "store.product.filter": "フィルター："
 }

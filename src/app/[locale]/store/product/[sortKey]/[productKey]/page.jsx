@@ -22,6 +22,8 @@ import GoodPrice from "./components/GoodPrice";
 import GoodFooter from "./components/GoodFooter";
 import Loading from "@/components/Loading";
 import NavigatorIndex from "./components/NavigatorIndex";
+import GoodReviewsRate from "./components/GoodReviewsRate";
+import GoodReviewsContent from "./components/GoodReviewsContent";
 export const runtime = "edge";
 
 export async function generateMetadata({ params: { locale, productKey } }) {
@@ -173,7 +175,10 @@ export default async function Product({ params: { locale, productKey } }) {
                 ) : null}
                 {/* 价格配置 */}
                 <GoodPrice goodDiscountFestival={GOODDISCOUNTFESTIVAL} />
+                {/* 产品评价 */}
+                <GoodReviewsRate LANG={LANG} />
                 <div className={styles.line}></div>
+                {/* 产品选项 */}
                 {productInfo.typeList?.length > 0
                   ? productInfo.typeList.map((item, index) => {
                       return (
@@ -217,8 +222,10 @@ export default async function Product({ params: { locale, productKey } }) {
           />
           {/* 产品包装列表 */}
           <GoodPackageList configList={productInfo.packageList} LANG={LANG} />
+          {/* 产品评论 */}
+          <GoodReviewsContent LANG={LANG} />
           {/* 关联产品列表 */}
-          {productInfo.associateProduct.length > 0 ? (
+          {/* {productInfo.associateProduct.length > 0 ? (
             <>
               <div className={styles.sec_line}></div>
               <AssociateProductList
@@ -226,7 +233,7 @@ export default async function Product({ params: { locale, productKey } }) {
                 title={LANG["store.product.maybe_you_like"]}
               />
             </>
-          ) : null}
+          ) : null} */}
           {/* 产品底部 */}
           <GoodFooter
             LANG={LANG}

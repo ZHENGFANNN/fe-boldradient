@@ -283,7 +283,7 @@
   "store.product.image": "Картина",
   "store.product.product_introduce": "Вступление",
   "store.product.product_info": "Обзор продукта",
-  "store.product.combo": "Комбо",
+  "store.product.combo": "Спецификация",
   "store.product.amount": "Kоличество",
   "store.product.3d_loading": "Загрузка 3D модели",
   "store.cart": null,
@@ -510,5 +510,8 @@
   "store.order_info.order_remark": "примечания к заказу",
   "store.product.immedate_order": "Купить сейчас",
   "store.cart.no_stock": "out of stock",
-  "store.product.limit_time_discount": "Ограниченное по времени предложение"
+  "store.product.limit_time_discount": "Ограниченное по времени предложение",
+  "store.product.off": "сохранять",
+  "store.index.off": "сохранять",
+  "store.product.reviews": "${num} комментариев"
 }

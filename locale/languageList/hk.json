@@ -283,7 +283,7 @@
   "store.product.image": "圖片",
   "store.product.product_introduce": "產品介紹",
   "store.product.product_info": "產品概覽",
-  "store.product.combo": "套餐",
+  "store.product.combo": "規格",
   "store.product.amount": "數量",
   "store.product.3d_loading": "3D 模型加載中",
   "store.cart": null,
@@ -510,5 +510,8 @@
   "store.order_info.order_remark": "訂單備註",
   "store.product.immedate_order": "立即購買",
   "store.cart.no_stock": "out of stock",
-  "store.product.limit_time_discount": "限時優惠"
+  "store.product.limit_time_discount": "限時優惠",
+  "store.product.off": "節約",
+  "store.index.off": "節約",
+  "store.product.reviews": "${num} 一則評論"
 }

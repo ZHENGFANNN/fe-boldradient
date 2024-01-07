@@ -1,5 +1,6 @@
 .container {
   background: #ffffff;
+  padding-bottom: 80px;
   // 去掉视频Download
   video::-internal-media-controls-download-button {
     display: none;
@@ -39,44 +40,14 @@
         background: #e8e8e1;
         margin: 25px auto;
       }
-
       h1 {
         font-size: 32px;
         font-weight: 600;
         line-height: 36px;
         font-weight: 900;
-        color: #282b3a;
+        color: #1a0000;
 
         margin-bottom: 12px;
-      }
-
-      .discount_price {
-        padding: 4px 8px;
-        background: #fd6651;
-        border-radius: 4px;
-        font-size: 14px;
-        line-height: 18px;
-        color: #fff;
-        margin-bottom: 12px;
-
-        display: inline-block;
-      }
-
-      .product_price {
-        font-weight: 500;
-        line-height: 28px;
-        font-size: 24px;
-        color: #282b3a;
-
-        margin-bottom: 16px;
-        display: flex;
-        align-items: center;
-        div:nth-child(2) {
-          color: #898a8e;
-          font-size: 14px;
-          margin-left: 8px;
-          text-decoration: line-through;
-        }
       }
       .product_num {
         display: flex;
@@ -88,7 +59,7 @@
           font-size: 16px;
           font-weight: 700;
           line-height: 16px;
-          color: #282b3a;
+          color: #534040;
         }
         .product_num_operation {
           display: flex;
@@ -130,7 +101,7 @@
         font-size: 14px;
         font-weight: 400;
         color: rgba(0, 0, 0, 0.65);
-        margin-bottom: 16px;
+        margin-bottom: 12px;
 
         display: flex;
         flex-wrap: wrap;
@@ -263,20 +234,6 @@
           margin-bottom: 8px;
         }
 
-        .product_price {
-          font-size: 20px;
-          line-height: 24px;
-          font-weight: 500;
-          color: rgba(0, 0, 0, 0.85);
-
-          margin-bottom: 12px;
-          div:nth-child(2) {
-            color: #898a8e;
-            font-size: 12px;
-            margin-left: 8px;
-            text-decoration: line-through;
-          }
-        }
         .product_num {
           display: flex;
           justify-content: space-between;
@@ -327,7 +284,7 @@
           font-size: 12px;
           line-height: 20px;
           color: rgba(0, 0, 0, 0.65);
-          margin-bottom: 16px;
+          margin-bottom: 12px;
           li {
            
 
@@ -372,13 +329,6 @@
         box-sizing: border-box;
         h1 {
           margin-bottom: 8px;
-        }
-        .discount_price {
-          padding: 2px 6px;
-          font-size: 12px;
-        }
-        .product_price {
-          margin-bottom: 10px;
         }
       }
     }

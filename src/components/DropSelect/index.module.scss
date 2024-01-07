@@ -3,12 +3,11 @@
   align-items: center;
   position: relative;
   height: 48px;
-  z-index: 9999;
+  z-index: 99;
 
   .show_content {
     display: flex;
     align-items: center;
-
     cursor: pointer;
     height: 100%;
   }

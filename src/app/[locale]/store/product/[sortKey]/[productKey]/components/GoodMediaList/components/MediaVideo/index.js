@@ -1,4 +1,6 @@
 import styles from "./index.module.scss";
+import Video from "@/components/Video";
+
 export default function MediaVideo({ videoInfo }) {
   return (
     <div className={styles.media_container}>
@@ -7,7 +9,7 @@ export default function MediaVideo({ videoInfo }) {
           {videoInfo.title ? <h3>{videoInfo.title}</h3> : null}
           {videoInfo.description ? <p>{videoInfo.description}</p> : null}
         </div>
-        <video
+        <Video
           muted
           autoPlay
           loop

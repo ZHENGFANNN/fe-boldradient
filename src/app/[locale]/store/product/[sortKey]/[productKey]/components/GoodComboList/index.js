@@ -46,7 +46,8 @@ export default function GoodComboList({
               ) : null}
               {goodDiscountFestival && item.areaInfo?.good_discount ? (
                 <div className={styles.discount_tip}>
-                  OFF {100 - item.areaInfo?.good_discount}%
+                  {LANG["store.product.off"]}{" "}
+                  {100 - item.areaInfo?.good_discount}%
                 </div>
               ) : null}
               {/* 套餐标题 */}
@@ -60,8 +61,9 @@ export default function GoodComboList({
                     } ${Math.floor(
                       item.areaInfo.price * item.areaInfo?.good_discount * 0.01
                     )}`}</div>
-                  ) : null}
-                  <div>{`${item.areaInfo?.currency_symbol}${item.areaInfo?.currency} ${item.areaInfo?.price}`}</div>
+                  ) : (
+                    <div>{`${item.areaInfo?.currency_symbol}${item.areaInfo?.currency} ${item.areaInfo?.price}`}</div>
+                  )}
                 </div>
               ) : null}
             </div>

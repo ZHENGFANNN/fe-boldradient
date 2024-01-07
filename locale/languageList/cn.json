@@ -283,7 +283,7 @@
   "store.product.image": "图片",
   "store.product.product_introduce": "产品介绍",
   "store.product.product_info": "产品概览",
-  "store.product.combo": "套餐",
+  "store.product.combo": "规格",
   "store.product.amount": "数量",
   "store.product.3d_loading": "3D 模型加载中",
   "store.cart": null,
@@ -510,5 +510,8 @@
   "store.order_info.order_remark": "订单备注",
   "store.product.immedate_order": "立即购买",
   "store.cart.no_stock": "没货",
-  "store.product.limit_time_discount": "限时优惠"
+  "store.product.limit_time_discount": "限时优惠",
+  "store.product.off": "节约",
+  "store.index.off": "节约",
+  "store.product.reviews": "${num} 条评论"
 }

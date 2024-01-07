@@ -37,15 +37,21 @@ export default function GoodFooter({
       // 滚动展示底部位置
       const $btnDom = $('[data-role="buy-btn-list"]').eq(0);
       function computedFooterBottom() {
-        const btnTop = $btnDom.offset().top;
-        const scrollTop = $(document).scrollTop();
-        if (scrollTop > btnTop) {
-          $footerDom.css({
-            bottom: 0,
-          });
+        const btnTop = $btnDom.offset()?.top;
+        if (btnTop) {
+          const scrollTop = $(document).scrollTop();
+          if (scrollTop > btnTop) {
+            $footerDom.css({
+              bottom: 0,
+            });
+          } else {
+            $footerDom.css({
+              bottom: "-100%",
+            });
+          }
         } else {
           $footerDom.css({
-            bottom: "-100%",
+            bottom: 0,
           });
         }
       }

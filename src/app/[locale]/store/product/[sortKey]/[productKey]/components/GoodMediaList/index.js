@@ -1,3 +1,5 @@
+"use client";
+
 // 参数组件
 import styles from "./index.module.scss";
 import React from "react";
@@ -7,7 +9,23 @@ import MediaYoutube from "./components/MediaYoutube";
 import MediaFacebook from "./components/MediaFacebook";
 import MediaImage from "./components/MediaImage";
 
+import { lazyLoadImages, lazyLoadVideos } from "@/utils/optimization";
+import ProductContext from "../../productContext";
+
 export default function GoodMediaList({ configList = [] }) {
+  const { lazyLoading } = React.useContext(ProductContext);
+  React.useEffect(() => {
+    if (!lazyLoading) {
+      const cleanLazy = lazyLoadImages($(`.${styles.media}`));
+      const cleanLazyVideo = lazyLoadVideos($(`.${styles.media}`));
+
+      return () => {
+        cleanLazy();
+        cleanLazyVideo();
+      };
+    }
+  }, [lazyLoading]);
+
   if (configList.length < 1) return null;
   return (
     <section className={`${styles.media}`} id="productMedia">

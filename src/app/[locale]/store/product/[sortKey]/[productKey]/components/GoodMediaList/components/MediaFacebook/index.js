@@ -8,7 +8,7 @@ export default function MediaYoutube({ facebookInfo }) {
           {facebookInfo.description ? <p>{facebookInfo.description}</p> : null}
         </div>
         <iframe
-          src={`https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Fsslfly%2Fvideos%2F${facebookInfo.media_code}%2F&t=0`}
+          src={`https://www.facebook.com/plugins/video.php?href=${facebookInfo.media_code}`}
           allowFullScreen
           allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
         ></iframe>

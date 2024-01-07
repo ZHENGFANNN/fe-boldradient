@@ -283,7 +283,7 @@
   "store.product.image": "사진",
   "store.product.product_introduce": "소개",
   "store.product.product_info": "제품 개요",
-  "store.product.combo": "번들",
+  "store.product.combo": "사양",
   "store.product.amount": "수량",
   "store.product.3d_loading": "3D 모델 로딩",
   "store.cart": null,
@@ -510,5 +510,8 @@
   "store.order_info.order_remark": "주문 메모",
   "store.product.immedate_order": "지금 구매하세요",
   "store.cart.no_stock": "out of stock",
-  "store.product.limit_time_discount": "기간 한정 제안"
+  "store.product.limit_time_discount": "기간 한정 제안",
+  "store.product.off": "구하다",
+  "store.index.off": "구하다",
+  "store.product.reviews": "${num}개의 댓글"
 }

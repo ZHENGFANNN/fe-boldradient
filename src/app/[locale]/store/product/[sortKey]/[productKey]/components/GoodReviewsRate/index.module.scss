@@ -1,0 +1,35 @@
+.container {
+    position: relative;
+    height: 14px;
+    user-select: none;
+    cursor: pointer;
+    .active_stars, .no_active_stars {
+        position: absolute;
+        left: 0;
+        top: 0;
+
+        display: flex;
+        svg {
+            width: 14px;
+            height: 14px;
+        }
+    }
+
+    .active_stars {
+        overflow: hidden;
+        svg {
+            fill:#fdb300;
+          }
+    }
+    .no_active_stars {
+        svg {
+            fill: #e2e2e2;
+        }
+    }
+
+    .reviews_text {
+        margin-left: 76px;
+        font-size: 13px;
+        color: #534040;
+    }
+}

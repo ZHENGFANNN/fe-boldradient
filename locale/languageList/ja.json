@@ -283,7 +283,7 @@
   "store.product.image": "写真",
   "store.product.product_introduce": "イントロ",
   "store.product.product_info": "製品の概要",
-  "store.product.combo": "セール",
+  "store.product.combo": "仕様",
   "store.product.amount": "数量",
   "store.product.3d_loading": "3Dモデルの読み込み",
   "store.cart": null,
@@ -510,5 +510,8 @@
   "store.order_info.order_remark": "注文メモ",
   "store.product.immedate_order": "即購入",
   "store.cart.no_stock": "out of stock",
-  "store.product.limit_time_discount": "期間限定オファー"
+  "store.product.limit_time_discount": "期間限定オファー",
+  "store.product.off": "保存",
+  "store.index.off": "保存",
+  "store.product.reviews": "${num} 件のコメント"
 }

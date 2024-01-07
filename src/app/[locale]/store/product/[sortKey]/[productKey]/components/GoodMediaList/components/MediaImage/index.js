@@ -1,3 +1,4 @@
+import Image from "@/components/Image";
 import styles from "./index.module.scss";
 export default function MediaVideo({ imageInfo }) {
   return (
@@ -10,7 +11,7 @@ export default function MediaVideo({ imageInfo }) {
           </div>
         ) : null}
         <div className={styles.img_container}>
-          <img alt={imageInfo.title} src={imageInfo.image_src} />
+          <Image alt={imageInfo.title} src={imageInfo.image_src} />
         </div>
       </div>
     </div>

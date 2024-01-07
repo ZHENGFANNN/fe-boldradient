@@ -283,7 +283,7 @@
   "store.product.image": "Photos",
   "store.product.product_introduce": "Intro",
   "store.product.product_info": "Présentation du produit",
-  "store.product.combo": "Kit",
+  "store.product.combo": "spécification",
   "store.product.amount": "Quantité",
   "store.product.3d_loading": "Chargement du modèle 3D",
   "store.cart": null,
@@ -510,5 +510,8 @@
   "store.order_info.order_remark": "Notes d'ordre",
   "store.product.immedate_order": "Achetez-le maintenant",
   "store.cart.no_stock": "out of stock",
-  "store.product.limit_time_discount": "Offre d'une durée limitée"
+  "store.product.limit_time_discount": "Offre d'une durée limitée",
+  "store.product.off": "sauvegarder",
+  "store.index.off": "sauvegarder",
+  "store.product.reviews": "${num} commentaires"
 }

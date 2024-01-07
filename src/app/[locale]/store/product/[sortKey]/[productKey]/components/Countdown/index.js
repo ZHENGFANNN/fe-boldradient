@@ -34,7 +34,6 @@ function updateCountdown(endTime) {
 export default function Countdown({ goodDiscountFestival, LANG }) {
   const { lazyLoading } = React.useContext(ProductContext);
   const productCurCombo = useProductStore((state) => state.productCurCombo);
-  console.log("productCurCombo", productCurCombo);
   React.useEffect(() => {
     if (!lazyLoading) {
       const t = setInterval(() => {

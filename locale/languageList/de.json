@@ -283,7 +283,7 @@
   "store.product.image": "Fotos",
   "store.product.product_introduce": "Einführung",
   "store.product.product_info": "Produktübersicht",
-  "store.product.combo": "Bundle",
+  "store.product.combo": "Spezifikation",
   "store.product.amount": "Menge",
   "store.product.3d_loading": "Laden des 3D-Modells",
   "store.cart": null,
@@ -510,5 +510,8 @@
   "store.order_info.order_remark": "Bestellnotizen",
   "store.product.immedate_order": "Kaufe es jetzt",
   "store.cart.no_stock": "out of stock",
-  "store.product.limit_time_discount": "Zeitlich befristetes Angebot"
+  "store.product.limit_time_discount": "Zeitlich befristetes Angebot",
+  "store.product.off": "speichern",
+  "store.index.off": "speichern",
+  "store.product.reviews": "${num} Kommentare"
 }

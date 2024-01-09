@@ -34,7 +34,7 @@ export default function MediaVideo({ videoInfo }) {
           style={{
             height: isNaN((100 * videoHeight) / videoWidth)
               ? "auto"
-              : `calc((100vw - 48px) * ${height / width})`,
+              : `calc((100vw - 48px) * ${videoHeight / videoWidth})`,
             maxHeight: isNaN((1200 * videoHeight) / videoWidth)
               ? "auto"
               : (1200 * videoHeight) / videoWidth,

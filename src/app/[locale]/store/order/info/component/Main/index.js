@@ -9,6 +9,7 @@ import ShowTipModal from "@/components/Modal/ShowTipModal";
 
 import { useRouter } from "next/navigation";
 import Loading from "@/components/Loading";
+import moment from "moment";
 
 export default function Main({ secret, locale, LANG, CONFIG }) {
   const router = useRouter();
@@ -160,14 +161,18 @@ export default function Main({ secret, locale, LANG, CONFIG }) {
                 <h3 className={styles.flex_2}>
                   {LANG["store.order_info.order_time"]}
                 </h3>
-                <p className={styles.flex_3}>{order.order_time}</p>
+                <p className={styles.flex_3}>
+                  {moment(order.order_time).format("YYYY-MM-DD HH:mm")}
+                </p>
               </li>
               {order.pay_time ? (
                 <li>
                   <h3 className={styles.flex_2}>
                     {LANG["store.order_info.pay_time"]}
                   </h3>
-                  <p className={styles.flex_3}>{order.pay_time}</p>
+                  <p className={styles.flex_3}>
+                    {moment(order.pay_time).format("YYYY-MM-DD HH:mm")}
+                  </p>
                 </li>
               ) : null}
 
@@ -176,7 +181,9 @@ export default function Main({ secret, locale, LANG, CONFIG }) {
                   <h3 className={styles.flex_2}>
                     {LANG["store.order_info.deliver_time"]}
                   </h3>
-                  <p className={styles.flex_3}>{order.deliver_time}</p>
+                  <p className={styles.flex_3}>
+                    {moment(order.deliver_time).format("YYYY-MM-DD HH:mm")}
+                  </p>
                 </li>
               ) : null}
 
@@ -185,7 +192,9 @@ export default function Main({ secret, locale, LANG, CONFIG }) {
                   <h3 className={styles.flex_2}>
                     {LANG["store.order_info.finish_time"]}
                   </h3>
-                  <p className={styles.flex_3}>{order.finish_time}</p>
+                  <p className={styles.flex_3}>
+                    {moment(order.finish_time).format("YYYY-MM-DD HH:mm")}
+                  </p>
                 </li>
               ) : null}
 

@@ -77,7 +77,7 @@ function PayButton({
         options: productOptions,
       },
     ];
-  }, [productNum, productCurCombo, productInfo, locale]);
+  }, [productNum, productCurCombo, productInfo, productOptions, locale]);
 
   return (
     <>

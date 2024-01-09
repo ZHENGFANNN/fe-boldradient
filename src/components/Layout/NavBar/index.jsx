@@ -83,11 +83,13 @@ export default function NavBar({ CONFIG, LANG, GOODSORTLIST, GOODLIST }) {
       if (navItemActive) setVavItemActive(false);
       // 处理top header
       if (document.documentElement.scrollTop > 40) {
-        document.getElementsByClassName(`${styles.container}`)[0].style.top =
-          "-40px";
+        document.getElementsByClassName(
+          `${styles.container}`
+        )[0].style.transform = "translateY(-40px)";
       } else {
-        document.getElementsByClassName(`${styles.container}`)[0].style.top =
-          "0";
+        document.getElementsByClassName(
+          `${styles.container}`
+        )[0].style.transform = "translateY(0)";
       }
     }
     window.addEventListener("scroll", scrollEvent);

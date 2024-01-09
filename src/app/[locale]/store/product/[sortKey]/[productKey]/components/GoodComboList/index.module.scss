@@ -145,6 +145,12 @@
 @media screen and (max-width: 820px) {
   .container {
     .list {
+      &:hover {
+        border: 1px solid #ddd;
+      }
+      &.active {
+        border: 1px solid #000;
+      }
       .list_item {
         .list_item_left {
           font-size: 12px;

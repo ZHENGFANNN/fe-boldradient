@@ -271,6 +271,7 @@
 @media screen and (max-width: 1080px) {
   .container {
     height: 90px;
+    z-index: 999999999;
     .top_header {
       .top_header_container {
         padding: 0 16px;
@@ -381,7 +382,7 @@
               width: 90px;
               overflow: hidden;
               text-overflow: ellipsis;
-              white-space: nowrap;
+              white-space: pre-wrap;
               display: block;
               &::after {
                 left: 16px;

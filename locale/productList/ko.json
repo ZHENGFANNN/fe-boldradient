@@ -1174,23 +1174,6 @@
         ]
       }
     ],
-    "indexConfig": [
-      {
-        "id": 68,
-        "good_key": "n9-ultra-pro",
-        "good_sort_key": "watches",
-        "language": "ko",
-        "associate_good_key": "watches:n9-ultra-pro",
-        "page_keywords": "N9 ULTRA PRO, 스마트 워치, Apple Watch, 고성능 스마트 워치, 패션 스마트 워치",
-        "page_title": "N9 ULTRA PRO",
-        "page_description": "N9 ULTRA PRO는 Apple Watch와 유사한 고급 기능과 혁신적인 디자인을 갖춘 강력한 스마트워치입니다. 세련된 외관과 고성능 기술을 결합하여 사용자에게 뛰어난 스마트 경험을 제공합니다.",
-        "pc_background": null,
-        "mob_background": null,
-        "is_light": null,
-        "created_time": "2023-09-24T04:50:13.000Z",
-        "updated_time": "2023-09-24T04:50:20.000Z"
-      }
-    ],
     "funcionList": [
       {
         "id": 4155,
@@ -2127,6 +2110,23 @@
       }
     ],
     "reviewsList": [],
+    "indexConfig": [
+      {
+        "id": 68,
+        "good_key": "n9-ultra-pro",
+        "good_sort_key": "watches",
+        "language": "ko",
+        "associate_good_key": "watches:n9-ultra-pro",
+        "page_keywords": "N9 ULTRA PRO, 스마트 워치, Apple Watch, 고성능 스마트 워치, 패션 스마트 워치",
+        "page_title": "N9 ULTRA PRO",
+        "page_description": "N9 ULTRA PRO는 Apple Watch와 유사한 고급 기능과 혁신적인 디자인을 갖춘 강력한 스마트워치입니다. 세련된 외관과 고성능 기술을 결합하여 사용자에게 뛰어난 스마트 경험을 제공합니다.",
+        "pc_background": null,
+        "mob_background": null,
+        "is_light": null,
+        "created_time": "2023-09-24T04:50:13.000Z",
+        "updated_time": "2023-09-24T04:50:20.000Z"
+      }
+    ],
     "path": "/watches/n9-ultra-pro"
   },
   {
@@ -3077,38 +3077,6 @@
         ]
       }
     ],
-    "indexConfig": [
-      {
-        "id": 69,
-        "good_key": "8-ultra-mini",
-        "good_sort_key": "watches",
-        "language": "ko",
-        "associate_good_key": "watches:8-ultra-mini",
-        "page_keywords": "8초소형, 스마트워치, 작고 가벼운, 건강 모니터링, 스포츠 추적",
-        "page_title": "8울트라 미니",
-        "page_description": "8Ultra min은 뛰어난 기능과 ​​세련된 디자인을 갖춘 작고 가벼운 스마트워치입니다. 건강 모니터링, 알림 알림, 운동 추적 등 다양한 스마트 기능을 갖추고 있어 언제 어디서나 연결을 유지하고 생활을 관리할 수 있습니다.",
-        "pc_background": null,
-        "mob_background": null,
-        "is_light": null,
-        "created_time": "2023-09-24T04:50:23.000Z",
-        "updated_time": "2023-09-24T04:50:23.000Z"
-      },
-      {
-        "id": 70,
-        "good_key": "8-ultra-mini",
-        "good_sort_key": "watches",
-        "language": "ko",
-        "associate_good_key": "watches:8-ultra-mini",
-        "page_keywords": "8초소형, 스마트워치, 작고 가벼운, 건강 모니터링, 스포츠 추적",
-        "page_title": "8Ultra mini",
-        "page_description": "8Ultra min은 뛰어난 기능과 ​​세련된 디자인을 갖춘 작고 가벼운 스마트워치입니다. 건강 모니터링, 알림 알림, 운동 추적 등 다양한 스마트 기능을 갖추고 있어 언제 어디서나 연결을 유지하고 생활을 관리할 수 있습니다.",
-        "pc_background": null,
-        "mob_background": null,
-        "is_light": null,
-        "created_time": "2023-09-24T04:50:33.000Z",
-        "updated_time": "2023-09-24T04:50:33.000Z"
-      }
-    ],
     "funcionList": [
       {
         "id": 4205,
@@ -3854,6 +3822,38 @@
       }
     ],
     "reviewsList": [],
+    "indexConfig": [
+      {
+        "id": 69,
+        "good_key": "8-ultra-mini",
+        "good_sort_key": "watches",
+        "language": "ko",
+        "associate_good_key": "watches:8-ultra-mini",
+        "page_keywords": "8초소형, 스마트워치, 작고 가벼운, 건강 모니터링, 스포츠 추적",
+        "page_title": "8울트라 미니",
+        "page_description": "8Ultra min은 뛰어난 기능과 ​​세련된 디자인을 갖춘 작고 가벼운 스마트워치입니다. 건강 모니터링, 알림 알림, 운동 추적 등 다양한 스마트 기능을 갖추고 있어 언제 어디서나 연결을 유지하고 생활을 관리할 수 있습니다.",
+        "pc_background": null,
+        "mob_background": null,
+        "is_light": null,
+        "created_time": "2023-09-24T04:50:23.000Z",
+        "updated_time": "2023-09-24T04:50:23.000Z"
+      },
+      {
+        "id": 70,
+        "good_key": "8-ultra-mini",
+        "good_sort_key": "watches",
+        "language": "ko",
+        "associate_good_key": "watches:8-ultra-mini",
+        "page_keywords": "8초소형, 스마트워치, 작고 가벼운, 건강 모니터링, 스포츠 추적",
+        "page_title": "8Ultra mini",
+        "page_description": "8Ultra min은 뛰어난 기능과 ​​세련된 디자인을 갖춘 작고 가벼운 스마트워치입니다. 건강 모니터링, 알림 알림, 운동 추적 등 다양한 스마트 기능을 갖추고 있어 언제 어디서나 연결을 유지하고 생활을 관리할 수 있습니다.",
+        "pc_background": null,
+        "mob_background": null,
+        "is_light": null,
+        "created_time": "2023-09-24T04:50:33.000Z",
+        "updated_time": "2023-09-24T04:50:33.000Z"
+      }
+    ],
     "path": "/watches/8-ultra-mini"
   },
   {
@@ -4786,38 +4786,6 @@
         ]
       }
     ],
-    "indexConfig": [
-      {
-        "id": 71,
-        "good_key": "ip8-ultra",
-        "good_sort_key": "watches",
-        "language": "ko",
-        "associate_good_key": "watches:ip8-ultra",
-        "page_keywords": "IP8 ULTRA, 스마트 시계, 고급 시계, HD 터치 스크린, 강력한 성능",
-        "page_title": "IP8 울트라",
-        "page_description": "IP8 ULTRA는 뛰어난 성능과 아름다운 외관으로 유명한 하이엔드 스마트워치입니다. 강력한 처리 능력, 고화질 터치 스크린 및 풍부한 기능을 갖추고 있어 사용자에게 뛰어난 스마트 경험을 제공합니다.",
-        "pc_background": null,
-        "mob_background": null,
-        "is_light": null,
-        "created_time": "2023-09-24T04:50:38.000Z",
-        "updated_time": "2023-09-24T04:50:38.000Z"
-      },
-      {
-        "id": 72,
-        "good_key": "ip8-ultra",
-        "good_sort_key": "watches",
-        "language": "ko",
-        "associate_good_key": "watches:ip8-ultra",
-        "page_keywords": "IP8 ULTRA, 스마트 시계, 고급 시계, HD 터치 스크린, 강력한 성능",
-        "page_title": "IP8 ULTRA",
-        "page_description": "IP8 ULTRA는 뛰어난 성능과 아름다운 외관으로 유명한 하이엔드 스마트워치입니다. 강력한 처리 능력, 고화질 터치 스크린 및 풍부한 기능을 갖추고 있어 사용자에게 뛰어난 스마트 경험을 제공합니다.",
-        "pc_background": null,
-        "mob_background": null,
-        "is_light": null,
-        "created_time": "2023-09-24T04:50:43.000Z",
-        "updated_time": "2023-09-24T04:50:43.000Z"
-      }
-    ],
     "funcionList": [
       {
         "id": 4239,
@@ -5623,6 +5591,38 @@
       }
     ],
     "reviewsList": [],
+    "indexConfig": [
+      {
+        "id": 71,
+        "good_key": "ip8-ultra",
+        "good_sort_key": "watches",
+        "language": "ko",
+        "associate_good_key": "watches:ip8-ultra",
+        "page_keywords": "IP8 ULTRA, 스마트 시계, 고급 시계, HD 터치 스크린, 강력한 성능",
+        "page_title": "IP8 울트라",
+        "page_description": "IP8 ULTRA는 뛰어난 성능과 아름다운 외관으로 유명한 하이엔드 스마트워치입니다. 강력한 처리 능력, 고화질 터치 스크린 및 풍부한 기능을 갖추고 있어 사용자에게 뛰어난 스마트 경험을 제공합니다.",
+        "pc_background": null,
+        "mob_background": null,
+        "is_light": null,
+        "created_time": "2023-09-24T04:50:38.000Z",
+        "updated_time": "2023-09-24T04:50:38.000Z"
+      },
+      {
+        "id": 72,
+        "good_key": "ip8-ultra",
+        "good_sort_key": "watches",
+        "language": "ko",
+        "associate_good_key": "watches:ip8-ultra",
+        "page_keywords": "IP8 ULTRA, 스마트 시계, 고급 시계, HD 터치 스크린, 강력한 성능",
+        "page_title": "IP8 ULTRA",
+        "page_description": "IP8 ULTRA는 뛰어난 성능과 아름다운 외관으로 유명한 하이엔드 스마트워치입니다. 강력한 처리 능력, 고화질 터치 스크린 및 풍부한 기능을 갖추고 있어 사용자에게 뛰어난 스마트 경험을 제공합니다.",
+        "pc_background": null,
+        "mob_background": null,
+        "is_light": null,
+        "created_time": "2023-09-24T04:50:43.000Z",
+        "updated_time": "2023-09-24T04:50:43.000Z"
+      }
+    ],
     "path": "/watches/ip8-ultra"
   },
   {
@@ -6555,38 +6555,6 @@
         ]
       }
     ],
-    "indexConfig": [
-      {
-        "id": 73,
-        "good_key": "series8-mini",
-        "good_sort_key": "watches",
-        "language": "ko",
-        "associate_good_key": "watches:series8-mini",
-        "page_keywords": "Series8 mini, 스마트워치, 스타일리시한 디자인, 푸시 메시지, 건강 모니터링",
-        "page_title": "시리즈8 미니",
-        "page_description": "Series8 mini는 세련된 디자인과 스마트 기술이 결합된 세련되고 세련된 스마트워치입니다. 메시지 푸시, 건강 모니터링, 개인 맞춤형 시계 모드 등 다양한 스마트 기능을 탑재해 패션에 스마트 기술이 선사하는 편리함을 누릴 수 있습니다.",
-        "pc_background": null,
-        "mob_background": null,
-        "is_light": null,
-        "created_time": "2023-09-24T04:50:46.000Z",
-        "updated_time": "2023-09-24T04:50:46.000Z"
-      },
-      {
-        "id": 74,
-        "good_key": "series8-mini",
-        "good_sort_key": "watches",
-        "language": "ko",
-        "associate_good_key": "watches:series8-mini",
-        "page_keywords": "Series8 mini, 스마트워치, 스타일리시한 디자인, 푸시 메시지, 건강 모니터링",
-        "page_title": "Series8 mini",
-        "page_description": "Series8 mini는 세련된 디자인과 스마트 기술이 결합된 세련되고 세련된 스마트워치입니다. 메시지 푸시, 건강 모니터링, 개인 맞춤형 시계 모드 등 다양한 스마트 기능을 탑재해 패션에 스마트 기술이 선사하는 편리함을 누릴 수 있습니다.",
-        "pc_background": null,
-        "mob_background": null,
-        "is_light": null,
-        "created_time": "2023-09-24T04:50:57.000Z",
-        "updated_time": "2023-09-24T04:50:57.000Z"
-      }
-    ],
     "funcionList": [
       {
         "id": 4281,
@@ -7345,6 +7313,38 @@
       }
     ],
     "reviewsList": [],
+    "indexConfig": [
+      {
+        "id": 73,
+        "good_key": "series8-mini",
+        "good_sort_key": "watches",
+        "language": "ko",
+        "associate_good_key": "watches:series8-mini",
+        "page_keywords": "Series8 mini, 스마트워치, 스타일리시한 디자인, 푸시 메시지, 건강 모니터링",
+        "page_title": "시리즈8 미니",
+        "page_description": "Series8 mini는 세련된 디자인과 스마트 기술이 결합된 세련되고 세련된 스마트워치입니다. 메시지 푸시, 건강 모니터링, 개인 맞춤형 시계 모드 등 다양한 스마트 기능을 탑재해 패션에 스마트 기술이 선사하는 편리함을 누릴 수 있습니다.",
+        "pc_background": null,
+        "mob_background": null,
+        "is_light": null,
+        "created_time": "2023-09-24T04:50:46.000Z",
+        "updated_time": "2023-09-24T04:50:46.000Z"
+      },
+      {
+        "id": 74,
+        "good_key": "series8-mini",
+        "good_sort_key": "watches",
+        "language": "ko",
+        "associate_good_key": "watches:series8-mini",
+        "page_keywords": "Series8 mini, 스마트워치, 스타일리시한 디자인, 푸시 메시지, 건강 모니터링",
+        "page_title": "Series8 mini",
+        "page_description": "Series8 mini는 세련된 디자인과 스마트 기술이 결합된 세련되고 세련된 스마트워치입니다. 메시지 푸시, 건강 모니터링, 개인 맞춤형 시계 모드 등 다양한 스마트 기능을 탑재해 패션에 스마트 기술이 선사하는 편리함을 누릴 수 있습니다.",
+        "pc_background": null,
+        "mob_background": null,
+        "is_light": null,
+        "created_time": "2023-09-24T04:50:57.000Z",
+        "updated_time": "2023-09-24T04:50:57.000Z"
+      }
+    ],
     "path": "/watches/series8-mini"
   },
   {
@@ -8305,38 +8305,6 @@
         ]
       }
     ],
-    "indexConfig": [
-      {
-        "id": 75,
-        "good_key": "ultra-max",
-        "good_sort_key": "watches",
-        "language": "ko",
-        "associate_good_key": "watches:ultra-max",
-        "page_keywords": "UltraMax, 스마트 시계, 고성능, 긴 배터리 수명, 방수 시계",
-        "page_title": "울트라맥스",
-        "page_description": "UltraMax는 사용자에게 뛰어난 성능과 다양한 기능을 제공하는 종합 스마트워치입니다. 강력한 처리 능력, 긴 배터리 수명, 방수 기능을 갖추고 있어 다양한 야외 활동과 일상 활동에 적합합니다.",
-        "pc_background": null,
-        "mob_background": null,
-        "is_light": null,
-        "created_time": "2023-09-24T04:51:00.000Z",
-        "updated_time": "2023-09-24T04:51:00.000Z"
-      },
-      {
-        "id": 76,
-        "good_key": "ultra-max",
-        "good_sort_key": "watches",
-        "language": "ko",
-        "associate_good_key": "watches:ultra-max",
-        "page_keywords": "UltraMax, 스마트 시계, 고성능, 긴 배터리 수명, 방수 시계",
-        "page_title": "UltraMax",
-        "page_description": "UltraMax는 사용자에게 뛰어난 성능과 다양한 기능을 제공하는 종합 스마트워치입니다. 강력한 처리 능력, 긴 배터리 수명, 방수 기능을 갖추고 있어 다양한 야외 활동과 일상 활동에 적합합니다.",
-        "pc_background": null,
-        "mob_background": null,
-        "is_light": null,
-        "created_time": "2023-09-24T04:51:05.000Z",
-        "updated_time": "2023-09-24T04:51:05.000Z"
-      }
-    ],
     "funcionList": [
       {
         "id": 4318,
@@ -9142,6 +9110,38 @@
       }
     ],
     "reviewsList": [],
+    "indexConfig": [
+      {
+        "id": 75,
+        "good_key": "ultra-max",
+        "good_sort_key": "watches",
+        "language": "ko",
+        "associate_good_key": "watches:ultra-max",
+        "page_keywords": "UltraMax, 스마트 시계, 고성능, 긴 배터리 수명, 방수 시계",
+        "page_title": "울트라맥스",
+        "page_description": "UltraMax는 사용자에게 뛰어난 성능과 다양한 기능을 제공하는 종합 스마트워치입니다. 강력한 처리 능력, 긴 배터리 수명, 방수 기능을 갖추고 있어 다양한 야외 활동과 일상 활동에 적합합니다.",
+        "pc_background": null,
+        "mob_background": null,
+        "is_light": null,
+        "created_time": "2023-09-24T04:51:00.000Z",
+        "updated_time": "2023-09-24T04:51:00.000Z"
+      },
+      {
+        "id": 76,
+        "good_key": "ultra-max",
+        "good_sort_key": "watches",
+        "language": "ko",
+        "associate_good_key": "watches:ultra-max",
+        "page_keywords": "UltraMax, 스마트 시계, 고성능, 긴 배터리 수명, 방수 시계",
+        "page_title": "UltraMax",
+        "page_description": "UltraMax는 사용자에게 뛰어난 성능과 다양한 기능을 제공하는 종합 스마트워치입니다. 강력한 처리 능력, 긴 배터리 수명, 방수 기능을 갖추고 있어 다양한 야외 활동과 일상 활동에 적합합니다.",
+        "pc_background": null,
+        "mob_background": null,
+        "is_light": null,
+        "created_time": "2023-09-24T04:51:05.000Z",
+        "updated_time": "2023-09-24T04:51:05.000Z"
+      }
+    ],
     "path": "/watches/ultra-max"
   },
   {
@@ -9168,6 +9168,10 @@
     "packageList": [],
     "mediaList": [],
     "comboList": [],
+    "funcionList": [],
+    "associationsList": [],
+    "sellingList": [],
+    "reviewsList": [],
     "indexConfig": [
       {
         "id": 77,
@@ -9200,10 +9204,6 @@
         "updated_time": "2023-09-24T04:51:13.000Z"
       }
     ],
-    "funcionList": [],
-    "associationsList": [],
-    "sellingList": [],
-    "reviewsList": [],
     "path": "/watches/k8-ultra-max"
   }
 ]

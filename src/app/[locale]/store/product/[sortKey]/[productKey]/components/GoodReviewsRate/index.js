@@ -32,11 +32,10 @@ export default function GoodReviewsRate({ LANG, configList }) {
       onClick={function () {
         const $dom = document.getElementById("productReviews");
         if ($dom) {
-          location.href = "#productReviews";
-          // $dom.scrollIntoView({
-          //   block: "start",
-          //   behavior: "smooth",
-          // });
+          $dom.scrollIntoView({
+            block: "start",
+            behavior: "smooth",
+          });
         }
       }}
     >

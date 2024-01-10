@@ -60,18 +60,20 @@ async function getProductInfo({ productList, productKey, order_page = null }) {
 // 获取产品套餐
 async function getComboList({ area, productInfo }) {
   if (productInfo) {
-    const list = productInfo.comboList.map((item) => {
-      let areaInfo = null;
-      item.areaList.forEach((country) => {
-        if (country.country_code === area) {
-          areaInfo = country;
-        }
-      });
-      return {
-        ...item,
-        areaInfo,
-      };
-    });
+    const list = productInfo.comboList.map(
+      ({ areaList, weight, updated_time, created_time, ...item }) => {
+        let areaInfo = null;
+        areaList.forEach((country) => {
+          if (country.country_code === area) {
+            areaInfo = country;
+          }
+        });
+        return {
+          ...item,
+          areaInfo,
+        };
+      }
+    );
     return list;
   } else {
     return null;
@@ -174,7 +176,10 @@ export default async function Product({ params: { locale, productKey } }) {
                   </ul>
                 ) : null}
                 {/* 价格配置 */}
-                <GoodPrice goodDiscountFestival={GOODDISCOUNTFESTIVAL} />
+                <GoodPrice
+                  goodDiscountFestival={GOODDISCOUNTFESTIVAL}
+                  comboList={comboList}
+                />
                 {/* 产品评价 */}
                 {productInfo.reviewsList.length > 0 ? (
                   <GoodReviewsRate

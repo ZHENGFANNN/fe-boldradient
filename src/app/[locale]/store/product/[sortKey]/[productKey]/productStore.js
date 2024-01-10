@@ -8,7 +8,7 @@ const useProductStore = create((set) => ({
   productOptions: [],
   setProductOptions: (productOptions) => set({ productOptions }),
   // 当前产品套餐
-  productCurCombo: { areaInfo: [] },
+  productCurCombo: { areaInfo: {} },
   setProductCurCombo: (productCurCombo) => set({ productCurCombo }),
   // 当前展示类型
   productShowType: "image",

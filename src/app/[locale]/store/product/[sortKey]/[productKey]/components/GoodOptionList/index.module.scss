@@ -131,3 +131,20 @@
     }
   }
 }
+
+
+@media screen and (max-width: 820px) {
+  .container {
+    .list {
+      .list_item {
+        &:hover {
+          border: 1px solid #ddd;
+        }
+        &.active {
+          border: 1px solid #000;
+        }
+      }
+    }
+  }
+  
+}

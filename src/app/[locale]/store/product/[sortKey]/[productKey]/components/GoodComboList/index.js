@@ -19,6 +19,7 @@ export default function GoodComboList({
   });
 
   React.useEffect(() => {
+    console.log("options", options[0]);
     setProductCurCombo(options[0]);
   }, []);
 

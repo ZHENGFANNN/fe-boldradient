@@ -2,7 +2,7 @@
 import styles from "./index.module.scss";
 import useProductStore from "../../productStore";
 
-export default function GoodPrice({ goodDiscountFestival }) {
+export default function GoodPrice({ goodDiscountFestival, comboList }) {
   const productCurCombo = useProductStore((state) => state.productCurCombo);
   return (
     <>

@@ -40,7 +40,7 @@ export default function MediaVideo({ videoInfo }) {
               : (1200 * videoHeight) / videoWidth,
           }}
         >
-          <Video muted autoPlay loop src={video} poster={poster} />
+          <Video controls loop src={video} poster={poster} />
         </div>
       </div>
     </div>

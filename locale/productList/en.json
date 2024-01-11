@@ -48,21 +48,160 @@
         "updated_time": "2023-09-17T13:28:54.000Z"
       }
     ],
-    "indexConfig": [
+    "packageList": [
       {
-        "id": 34,
+        "id": 568,
+        "type": "image",
         "good_key": "n9-ultra-pro",
         "good_sort_key": "watches",
         "language": "en",
         "associate_good_key": "watches:n9-ultra-pro",
-        "page_keywords": "N9 ULTRA PRO, Smart Watch, Apple Watch, High Performance Smart Watch, Fashion Smart Watch",
-        "page_title": "N9 ULTRA PRO",
-        "page_description": "N9 ULTRA PRO is a powerful smartwatch with advanced features and innovative design similar to Apple Watch. It combines stylish appearance and high-performance technology to provide users with an excellent smart experience.",
-        "pc_background": null,
-        "mob_background": null,
-        "is_light": null,
-        "created_time": "2023-09-24T04:38:43.000Z",
-        "updated_time": "2023-09-24T04:38:43.000Z"
+        "value": null,
+        "key": null,
+        "image": "https://image.sslfly.com/base/2023/9/17/609D062B6FFAEED9D2F90036827B388C/package_1.jpg",
+        "weight": 11,
+        "created_time": "2023-09-17T12:20:14.000Z",
+        "updated_time": "2023-09-17T15:03:10.000Z"
+      },
+      {
+        "id": 569,
+        "type": "image",
+        "good_key": "n9-ultra-pro",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:n9-ultra-pro",
+        "value": null,
+        "key": null,
+        "image": "https://image.sslfly.com/base/2023/9/17/0D5F9CFC292FDD2053E19882BE7E3322/package_2.jpg",
+        "weight": 10,
+        "created_time": "2023-09-17T12:19:35.000Z",
+        "updated_time": "2023-09-17T15:03:15.000Z"
+      },
+      {
+        "id": 570,
+        "type": "text",
+        "good_key": "n9-ultra-pro",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:n9-ultra-pro",
+        "value": "Machine head*1, watch strap*1, manual*1, wireless charger*1",
+        "key": "packing list:",
+        "image": null,
+        "weight": 9,
+        "created_time": "2023-09-10T16:03:19.000Z",
+        "updated_time": "2023-09-10T16:03:19.000Z"
+      },
+      {
+        "id": 571,
+        "type": "text",
+        "good_key": "n9-ultra-pro",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:n9-ultra-pro",
+        "value": "Zinc alloy body + IML bottom case",
+        "key": "Body material:",
+        "image": null,
+        "weight": 8,
+        "created_time": "2023-09-10T16:03:19.000Z",
+        "updated_time": "2023-09-10T16:03:19.000Z"
+      },
+      {
+        "id": 572,
+        "type": "text",
+        "good_key": "n9-ultra-pro",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:n9-ultra-pro",
+        "value": "Silica gel",
+        "key": "Strap material:",
+        "image": null,
+        "weight": 7,
+        "created_time": "2023-09-10T16:03:19.000Z",
+        "updated_time": "2023-09-10T16:03:19.000Z"
+      },
+      {
+        "id": 573,
+        "type": "text",
+        "good_key": "n9-ultra-pro",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:n9-ultra-pro",
+        "value": "49mm",
+        "key": "Product size (mm):",
+        "image": null,
+        "weight": 6,
+        "created_time": "2023-09-10T16:03:19.000Z",
+        "updated_time": "2023-09-10T16:03:19.000Z"
+      },
+      {
+        "id": 574,
+        "type": "text",
+        "good_key": "n9-ultra-pro",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:n9-ultra-pro",
+        "value": "20.8*11.3*2.1CM",
+        "key": "Color box size (mm):",
+        "image": null,
+        "weight": 5,
+        "created_time": "2023-09-10T16:03:19.000Z",
+        "updated_time": "2023-09-10T16:03:19.000Z"
+      },
+      {
+        "id": 575,
+        "type": "text",
+        "good_key": "n9-ultra-pro",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:n9-ultra-pro",
+        "value": "100PCS/carton\n59.5*43.5*24CM",
+        "key": "Outer box size (mm):",
+        "image": null,
+        "weight": 4,
+        "created_time": "2023-09-10T16:03:19.000Z",
+        "updated_time": "2023-09-10T16:03:19.000Z"
+      },
+      {
+        "id": 576,
+        "type": "text",
+        "good_key": "n9-ultra-pro",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:n9-ultra-pro",
+        "value": "53g",
+        "key": "Product weight (g):",
+        "image": null,
+        "weight": 3,
+        "created_time": "2023-09-10T16:03:19.000Z",
+        "updated_time": "2023-09-10T16:03:19.000Z"
+      },
+      {
+        "id": 577,
+        "type": "text",
+        "good_key": "n9-ultra-pro",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:n9-ultra-pro",
+        "value": "205g",
+        "key": "Complete set weight (g):",
+        "image": null,
+        "weight": 2,
+        "created_time": "2023-09-10T16:03:19.000Z",
+        "updated_time": "2023-09-10T16:03:19.000Z"
+      },
+      {
+        "id": 578,
+        "type": "text",
+        "good_key": "n9-ultra-pro",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:n9-ultra-pro",
+        "value": "21.5kg/carton",
+        "key": "Full box weight (kg):",
+        "image": null,
+        "weight": 1,
+        "created_time": "2023-09-10T16:03:19.000Z",
+        "updated_time": "2023-09-10T16:03:19.000Z"
       }
     ],
     "mediaList": [
@@ -269,6 +408,23 @@
         "weight": 90,
         "created_time": "2023-10-21T09:38:24.000Z",
         "updated_time": "2023-10-21T09:38:24.000Z"
+      }
+    ],
+    "indexConfig": [
+      {
+        "id": 34,
+        "good_key": "n9-ultra-pro",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:n9-ultra-pro",
+        "page_keywords": "N9 ULTRA PRO, Smart Watch, Apple Watch, High Performance Smart Watch, Fashion Smart Watch",
+        "page_title": "N9 ULTRA PRO",
+        "page_description": "N9 ULTRA PRO is a powerful smartwatch with advanced features and innovative design similar to Apple Watch. It combines stylish appearance and high-performance technology to provide users with an excellent smart experience.",
+        "pc_background": null,
+        "mob_background": null,
+        "is_light": null,
+        "created_time": "2023-09-24T04:38:43.000Z",
+        "updated_time": "2023-09-24T04:38:43.000Z"
       }
     ],
     "comboList": [
@@ -1120,163 +1276,6 @@
         ]
       }
     ],
-    "packageList": [
-      {
-        "id": 568,
-        "type": "image",
-        "good_key": "n9-ultra-pro",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:n9-ultra-pro",
-        "value": null,
-        "key": null,
-        "image": "https://image.sslfly.com/base/2023/9/17/609D062B6FFAEED9D2F90036827B388C/package_1.jpg",
-        "weight": 11,
-        "created_time": "2023-09-17T12:20:14.000Z",
-        "updated_time": "2023-09-17T15:03:10.000Z"
-      },
-      {
-        "id": 569,
-        "type": "image",
-        "good_key": "n9-ultra-pro",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:n9-ultra-pro",
-        "value": null,
-        "key": null,
-        "image": "https://image.sslfly.com/base/2023/9/17/0D5F9CFC292FDD2053E19882BE7E3322/package_2.jpg",
-        "weight": 10,
-        "created_time": "2023-09-17T12:19:35.000Z",
-        "updated_time": "2023-09-17T15:03:15.000Z"
-      },
-      {
-        "id": 570,
-        "type": "text",
-        "good_key": "n9-ultra-pro",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:n9-ultra-pro",
-        "value": "Machine head*1, watch strap*1, manual*1, wireless charger*1",
-        "key": "packing list:",
-        "image": null,
-        "weight": 9,
-        "created_time": "2023-09-10T16:03:19.000Z",
-        "updated_time": "2023-09-10T16:03:19.000Z"
-      },
-      {
-        "id": 571,
-        "type": "text",
-        "good_key": "n9-ultra-pro",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:n9-ultra-pro",
-        "value": "Zinc alloy body + IML bottom case",
-        "key": "Body material:",
-        "image": null,
-        "weight": 8,
-        "created_time": "2023-09-10T16:03:19.000Z",
-        "updated_time": "2023-09-10T16:03:19.000Z"
-      },
-      {
-        "id": 572,
-        "type": "text",
-        "good_key": "n9-ultra-pro",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:n9-ultra-pro",
-        "value": "Silica gel",
-        "key": "Strap material:",
-        "image": null,
-        "weight": 7,
-        "created_time": "2023-09-10T16:03:19.000Z",
-        "updated_time": "2023-09-10T16:03:19.000Z"
-      },
-      {
-        "id": 573,
-        "type": "text",
-        "good_key": "n9-ultra-pro",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:n9-ultra-pro",
-        "value": "49mm",
-        "key": "Product size (mm):",
-        "image": null,
-        "weight": 6,
-        "created_time": "2023-09-10T16:03:19.000Z",
-        "updated_time": "2023-09-10T16:03:19.000Z"
-      },
-      {
-        "id": 574,
-        "type": "text",
-        "good_key": "n9-ultra-pro",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:n9-ultra-pro",
-        "value": "20.8*11.3*2.1CM",
-        "key": "Color box size (mm):",
-        "image": null,
-        "weight": 5,
-        "created_time": "2023-09-10T16:03:19.000Z",
-        "updated_time": "2023-09-10T16:03:19.000Z"
-      },
-      {
-        "id": 575,
-        "type": "text",
-        "good_key": "n9-ultra-pro",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:n9-ultra-pro",
-        "value": "100PCS/carton\n59.5*43.5*24CM",
-        "key": "Outer box size (mm):",
-        "image": null,
-        "weight": 4,
-        "created_time": "2023-09-10T16:03:19.000Z",
-        "updated_time": "2023-09-10T16:03:19.000Z"
-      },
-      {
-        "id": 576,
-        "type": "text",
-        "good_key": "n9-ultra-pro",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:n9-ultra-pro",
-        "value": "53g",
-        "key": "Product weight (g):",
-        "image": null,
-        "weight": 3,
-        "created_time": "2023-09-10T16:03:19.000Z",
-        "updated_time": "2023-09-10T16:03:19.000Z"
-      },
-      {
-        "id": 577,
-        "type": "text",
-        "good_key": "n9-ultra-pro",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:n9-ultra-pro",
-        "value": "205g",
-        "key": "Complete set weight (g):",
-        "image": null,
-        "weight": 2,
-        "created_time": "2023-09-10T16:03:19.000Z",
-        "updated_time": "2023-09-10T16:03:19.000Z"
-      },
-      {
-        "id": 578,
-        "type": "text",
-        "good_key": "n9-ultra-pro",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:n9-ultra-pro",
-        "value": "21.5kg/carton",
-        "key": "Full box weight (kg):",
-        "image": null,
-        "weight": 1,
-        "created_time": "2023-09-10T16:03:19.000Z",
-        "updated_time": "2023-09-10T16:03:19.000Z"
-      }
-    ],
-    "reviewsList": [],
     "sellingList": [
       {
         "id": 1007,
@@ -1356,6 +1355,7 @@
         "updated_time": "2023-10-21T06:52:21.000Z"
       }
     ],
+    "reviewsList": [],
     "associationsList": [
       {
         "id": 1992,
@@ -2238,21 +2238,76 @@
     "updated_time": "2023-09-18T14:47:40.000Z",
     "associateProduct": [],
     "typeList": [],
-    "indexConfig": [
+    "packageList": [
       {
-        "id": 36,
+        "id": 526,
+        "type": "text",
         "good_key": "8-ultra-mini",
         "good_sort_key": "watches",
         "language": "en",
         "associate_good_key": "watches:8-ultra-mini",
-        "page_keywords": "8Ultra min, smart watch, compact and lightweight, health monitoring, sports tracking",
-        "page_title": "8Ultra mini",
-        "page_description": "8Ultra min is a small and lightweight smartwatch with great features and sophisticated design. It has a variety of smart functions, such as health monitoring, notification reminders, and exercise tracking, allowing you to stay connected and manage your life anytime, anywhere.",
-        "pc_background": null,
-        "mob_background": null,
-        "is_light": null,
-        "created_time": "2023-09-24T04:43:00.000Z",
-        "updated_time": "2023-09-24T04:43:00.000Z"
+        "value": "Machine head*1, watch strap*1, manual*1, wireless charger*1",
+        "key": "packing list:",
+        "image": null,
+        "weight": 5,
+        "created_time": "2023-09-09T15:58:47.000Z",
+        "updated_time": "2023-09-09T15:58:47.000Z"
+      },
+      {
+        "id": 527,
+        "type": "text",
+        "good_key": "8-ultra-mini",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:8-ultra-mini",
+        "value": "Zinc alloy body + IML bottom case",
+        "key": "Body material:",
+        "image": null,
+        "weight": 4,
+        "created_time": "2023-09-09T15:58:47.000Z",
+        "updated_time": "2023-09-09T15:58:47.000Z"
+      },
+      {
+        "id": 528,
+        "type": "text",
+        "good_key": "8-ultra-mini",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:8-ultra-mini",
+        "value": "Silica gel",
+        "key": "Strap material:",
+        "image": null,
+        "weight": 3,
+        "created_time": "2023-09-09T15:58:47.000Z",
+        "updated_time": "2023-09-09T15:58:47.000Z"
+      },
+      {
+        "id": 529,
+        "type": "text",
+        "good_key": "8-ultra-mini",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:8-ultra-mini",
+        "value": "210*106*25mm",
+        "key": "Color box size (mm):",
+        "image": null,
+        "weight": 2,
+        "created_time": "2023-09-09T15:58:47.000Z",
+        "updated_time": "2023-09-09T15:58:47.000Z"
+      },
+      {
+        "id": 530,
+        "type": "text",
+        "good_key": "8-ultra-mini",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:8-ultra-mini",
+        "value": "50pcs/carton\n570*315*235mm",
+        "key": "Outer box size (mm):",
+        "image": null,
+        "weight": 1,
+        "created_time": "2023-09-09T15:58:47.000Z",
+        "updated_time": "2023-09-09T15:58:47.000Z"
       }
     ],
     "mediaList": [
@@ -2272,6 +2327,23 @@
         "weight": 12,
         "created_time": "2023-09-09T14:28:04.000Z",
         "updated_time": "2023-09-24T06:49:22.000Z"
+      }
+    ],
+    "indexConfig": [
+      {
+        "id": 36,
+        "good_key": "8-ultra-mini",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:8-ultra-mini",
+        "page_keywords": "8Ultra min, smart watch, compact and lightweight, health monitoring, sports tracking",
+        "page_title": "8Ultra mini",
+        "page_description": "8Ultra min is a small and lightweight smartwatch with great features and sophisticated design. It has a variety of smart functions, such as health monitoring, notification reminders, and exercise tracking, allowing you to stay connected and manage your life anytime, anywhere.",
+        "pc_background": null,
+        "mob_background": null,
+        "is_light": null,
+        "created_time": "2023-09-24T04:43:00.000Z",
+        "updated_time": "2023-09-24T04:43:00.000Z"
       }
     ],
     "comboList": [
@@ -3110,79 +3182,6 @@
         ]
       }
     ],
-    "packageList": [
-      {
-        "id": 526,
-        "type": "text",
-        "good_key": "8-ultra-mini",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:8-ultra-mini",
-        "value": "Machine head*1, watch strap*1, manual*1, wireless charger*1",
-        "key": "packing list:",
-        "image": null,
-        "weight": 5,
-        "created_time": "2023-09-09T15:58:47.000Z",
-        "updated_time": "2023-09-09T15:58:47.000Z"
-      },
-      {
-        "id": 527,
-        "type": "text",
-        "good_key": "8-ultra-mini",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:8-ultra-mini",
-        "value": "Zinc alloy body + IML bottom case",
-        "key": "Body material:",
-        "image": null,
-        "weight": 4,
-        "created_time": "2023-09-09T15:58:47.000Z",
-        "updated_time": "2023-09-09T15:58:47.000Z"
-      },
-      {
-        "id": 528,
-        "type": "text",
-        "good_key": "8-ultra-mini",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:8-ultra-mini",
-        "value": "Silica gel",
-        "key": "Strap material:",
-        "image": null,
-        "weight": 3,
-        "created_time": "2023-09-09T15:58:47.000Z",
-        "updated_time": "2023-09-09T15:58:47.000Z"
-      },
-      {
-        "id": 529,
-        "type": "text",
-        "good_key": "8-ultra-mini",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:8-ultra-mini",
-        "value": "210*106*25mm",
-        "key": "Color box size (mm):",
-        "image": null,
-        "weight": 2,
-        "created_time": "2023-09-09T15:58:47.000Z",
-        "updated_time": "2023-09-09T15:58:47.000Z"
-      },
-      {
-        "id": 530,
-        "type": "text",
-        "good_key": "8-ultra-mini",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:8-ultra-mini",
-        "value": "50pcs/carton\n570*315*235mm",
-        "key": "Outer box size (mm):",
-        "image": null,
-        "weight": 1,
-        "created_time": "2023-09-09T15:58:47.000Z",
-        "updated_time": "2023-09-09T15:58:47.000Z"
-      }
-    ],
-    "reviewsList": [],
     "sellingList": [
       {
         "id": 1014,
@@ -3251,6 +3250,7 @@
         "updated_time": "2023-09-19T13:12:23.000Z"
       }
     ],
+    "reviewsList": [],
     "associationsList": [
       {
         "id": 2013,
@@ -3950,6 +3950,79 @@
     "updated_time": "2023-09-17T12:10:55.000Z",
     "associateProduct": [],
     "typeList": [],
+    "packageList": [
+      {
+        "id": 667,
+        "type": "text",
+        "good_key": "ip8-ultra",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:ip8-ultra",
+        "value": " Machine head*1, watch strap*1, manual*1, wireless charging cable*1",
+        "key": "packing list:",
+        "image": null,
+        "weight": 5,
+        "created_time": "2023-09-10T16:05:34.000Z",
+        "updated_time": "2023-09-10T16:05:34.000Z"
+      },
+      {
+        "id": 668,
+        "type": "text",
+        "good_key": "ip8-ultra",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:ip8-ultra",
+        "value": "Zinc alloy body + IML bottom case",
+        "key": "Body material:",
+        "image": null,
+        "weight": 4,
+        "created_time": "2023-09-10T16:05:34.000Z",
+        "updated_time": "2023-09-10T16:05:34.000Z"
+      },
+      {
+        "id": 669,
+        "type": "text",
+        "good_key": "ip8-ultra",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:ip8-ultra",
+        "value": "Silica gel ",
+        "key": "Strap material:",
+        "image": null,
+        "weight": 3,
+        "created_time": "2023-09-10T16:05:34.000Z",
+        "updated_time": "2023-09-10T16:05:34.000Z"
+      },
+      {
+        "id": 670,
+        "type": "text",
+        "good_key": "ip8-ultra",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:ip8-ultra",
+        "value": "214x117x27mm",
+        "key": "Color box size (cm):",
+        "image": null,
+        "weight": 2,
+        "created_time": "2023-09-10T16:05:34.000Z",
+        "updated_time": "2023-09-10T16:05:34.000Z"
+      },
+      {
+        "id": 671,
+        "type": "text",
+        "good_key": "ip8-ultra",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:ip8-ultra",
+        "value": "50/box 62*45.5*18cm",
+        "key": "Outer box size (cm):",
+        "image": null,
+        "weight": 1,
+        "created_time": "2023-09-10T16:05:34.000Z",
+        "updated_time": "2023-09-10T16:05:34.000Z"
+      }
+    ],
+    "mediaList": [],
     "indexConfig": [
       {
         "id": 35,
@@ -3967,7 +4040,6 @@
         "updated_time": "2023-09-24T04:39:09.000Z"
       }
     ],
-    "mediaList": [],
     "comboList": [
       {
         "id": 64,
@@ -4804,79 +4876,6 @@
         ]
       }
     ],
-    "packageList": [
-      {
-        "id": 667,
-        "type": "text",
-        "good_key": "ip8-ultra",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:ip8-ultra",
-        "value": " Machine head*1, watch strap*1, manual*1, wireless charging cable*1",
-        "key": "packing list:",
-        "image": null,
-        "weight": 5,
-        "created_time": "2023-09-10T16:05:34.000Z",
-        "updated_time": "2023-09-10T16:05:34.000Z"
-      },
-      {
-        "id": 668,
-        "type": "text",
-        "good_key": "ip8-ultra",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:ip8-ultra",
-        "value": "Zinc alloy body + IML bottom case",
-        "key": "Body material:",
-        "image": null,
-        "weight": 4,
-        "created_time": "2023-09-10T16:05:34.000Z",
-        "updated_time": "2023-09-10T16:05:34.000Z"
-      },
-      {
-        "id": 669,
-        "type": "text",
-        "good_key": "ip8-ultra",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:ip8-ultra",
-        "value": "Silica gel ",
-        "key": "Strap material:",
-        "image": null,
-        "weight": 3,
-        "created_time": "2023-09-10T16:05:34.000Z",
-        "updated_time": "2023-09-10T16:05:34.000Z"
-      },
-      {
-        "id": 670,
-        "type": "text",
-        "good_key": "ip8-ultra",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:ip8-ultra",
-        "value": "214x117x27mm",
-        "key": "Color box size (cm):",
-        "image": null,
-        "weight": 2,
-        "created_time": "2023-09-10T16:05:34.000Z",
-        "updated_time": "2023-09-10T16:05:34.000Z"
-      },
-      {
-        "id": 671,
-        "type": "text",
-        "good_key": "ip8-ultra",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:ip8-ultra",
-        "value": "50/box 62*45.5*18cm",
-        "key": "Outer box size (cm):",
-        "image": null,
-        "weight": 1,
-        "created_time": "2023-09-10T16:05:34.000Z",
-        "updated_time": "2023-09-10T16:05:34.000Z"
-      }
-    ],
-    "reviewsList": [],
     "sellingList": [
       {
         "id": 1020,
@@ -4945,6 +4944,7 @@
         "updated_time": "2023-09-10T16:14:06.000Z"
       }
     ],
+    "reviewsList": [],
     "associationsList": [
       {
         "id": 2035,
@@ -5704,6 +5704,79 @@
     "updated_time": "2023-09-09T09:53:36.000Z",
     "associateProduct": [],
     "typeList": [],
+    "packageList": [
+      {
+        "id": 672,
+        "type": "text",
+        "good_key": "series8-mini",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:series8-mini",
+        "value": "Machine head*1, watch strap*1, manual*1, wireless charger*1",
+        "key": "packing list:",
+        "image": null,
+        "weight": 5,
+        "created_time": "2023-09-10T16:05:11.000Z",
+        "updated_time": "2023-09-10T16:05:11.000Z"
+      },
+      {
+        "id": 673,
+        "type": "text",
+        "good_key": "series8-mini",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:series8-mini",
+        "value": "Zinc alloy body + IML bottom case",
+        "key": "Body material:",
+        "image": null,
+        "weight": 4,
+        "created_time": "2023-09-10T16:05:11.000Z",
+        "updated_time": "2023-09-10T16:05:11.000Z"
+      },
+      {
+        "id": 674,
+        "type": "text",
+        "good_key": "series8-mini",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:series8-mini",
+        "value": "Silica gel",
+        "key": "Strap material:",
+        "image": null,
+        "weight": 3,
+        "created_time": "2023-09-10T16:05:11.000Z",
+        "updated_time": "2023-09-10T16:05:11.000Z"
+      },
+      {
+        "id": 675,
+        "type": "text",
+        "good_key": "series8-mini",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:series8-mini",
+        "value": "196*108.5*22mm",
+        "key": "Color box size (mm):",
+        "image": null,
+        "weight": 2,
+        "created_time": "2023-09-10T16:05:11.000Z",
+        "updated_time": "2023-09-10T16:05:11.000Z"
+      },
+      {
+        "id": 676,
+        "type": "text",
+        "good_key": "series8-mini",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:series8-mini",
+        "value": "100pcs/carton\n565*245*415mm",
+        "key": "Outer box size (mm):",
+        "image": null,
+        "weight": 1,
+        "created_time": "2023-09-10T16:05:11.000Z",
+        "updated_time": "2023-09-10T16:05:11.000Z"
+      }
+    ],
+    "mediaList": [],
     "indexConfig": [
       {
         "id": 37,
@@ -5721,7 +5794,6 @@
         "updated_time": "2023-09-24T04:43:06.000Z"
       }
     ],
-    "mediaList": [],
     "comboList": [
       {
         "id": 74,
@@ -6558,79 +6630,6 @@
         ]
       }
     ],
-    "packageList": [
-      {
-        "id": 672,
-        "type": "text",
-        "good_key": "series8-mini",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:series8-mini",
-        "value": "Machine head*1, watch strap*1, manual*1, wireless charger*1",
-        "key": "packing list:",
-        "image": null,
-        "weight": 5,
-        "created_time": "2023-09-10T16:05:11.000Z",
-        "updated_time": "2023-09-10T16:05:11.000Z"
-      },
-      {
-        "id": 673,
-        "type": "text",
-        "good_key": "series8-mini",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:series8-mini",
-        "value": "Zinc alloy body + IML bottom case",
-        "key": "Body material:",
-        "image": null,
-        "weight": 4,
-        "created_time": "2023-09-10T16:05:11.000Z",
-        "updated_time": "2023-09-10T16:05:11.000Z"
-      },
-      {
-        "id": 674,
-        "type": "text",
-        "good_key": "series8-mini",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:series8-mini",
-        "value": "Silica gel",
-        "key": "Strap material:",
-        "image": null,
-        "weight": 3,
-        "created_time": "2023-09-10T16:05:11.000Z",
-        "updated_time": "2023-09-10T16:05:11.000Z"
-      },
-      {
-        "id": 675,
-        "type": "text",
-        "good_key": "series8-mini",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:series8-mini",
-        "value": "196*108.5*22mm",
-        "key": "Color box size (mm):",
-        "image": null,
-        "weight": 2,
-        "created_time": "2023-09-10T16:05:11.000Z",
-        "updated_time": "2023-09-10T16:05:11.000Z"
-      },
-      {
-        "id": 676,
-        "type": "text",
-        "good_key": "series8-mini",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:series8-mini",
-        "value": "100pcs/carton\n565*245*415mm",
-        "key": "Outer box size (mm):",
-        "image": null,
-        "weight": 1,
-        "created_time": "2023-09-10T16:05:11.000Z",
-        "updated_time": "2023-09-10T16:05:11.000Z"
-      }
-    ],
-    "reviewsList": [],
     "sellingList": [
       {
         "id": 1026,
@@ -6688,6 +6687,7 @@
         "updated_time": "2023-09-10T16:13:45.000Z"
       }
     ],
+    "reviewsList": [],
     "associationsList": [
       {
         "id": 2054,
@@ -7411,6 +7411,107 @@
     "updated_time": "2023-09-09T09:53:38.000Z",
     "associateProduct": [],
     "typeList": [],
+    "packageList": [
+      {
+        "id": 677,
+        "type": "text",
+        "good_key": "ultra-max",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:ultra-max",
+        "value": " Machine head*1, watch strap*1, manual*1, wireless charging cable*1",
+        "key": "packing list:",
+        "image": null,
+        "weight": 7,
+        "created_time": "2023-09-10T16:03:34.000Z",
+        "updated_time": "2023-09-10T16:03:34.000Z"
+      },
+      {
+        "id": 678,
+        "type": "text",
+        "good_key": "ultra-max",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:ultra-max",
+        "value": "Zinc alloy body + IML bottom case",
+        "key": "Body material:",
+        "image": null,
+        "weight": 6,
+        "created_time": "2023-09-10T16:03:34.000Z",
+        "updated_time": "2023-09-10T16:03:34.000Z"
+      },
+      {
+        "id": 679,
+        "type": "text",
+        "good_key": "ultra-max",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:ultra-max",
+        "value": "Silica gel ",
+        "key": "Strap material:",
+        "image": null,
+        "weight": 5,
+        "created_time": "2023-09-10T16:03:34.000Z",
+        "updated_time": "2023-09-10T16:03:34.000Z"
+      },
+      {
+        "id": 680,
+        "type": "text",
+        "good_key": "ultra-max",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:ultra-max",
+        "value": "215x117x26mm",
+        "key": "Color box size (cm):",
+        "image": null,
+        "weight": 4,
+        "created_time": "2023-09-10T16:03:34.000Z",
+        "updated_time": "2023-09-10T16:03:34.000Z"
+      },
+      {
+        "id": 681,
+        "type": "text",
+        "good_key": "ultra-max",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:ultra-max",
+        "value": "50/box 62*45.5*18cm",
+        "key": "Outer box size (cm):",
+        "image": null,
+        "weight": 3,
+        "created_time": "2023-09-10T16:03:34.000Z",
+        "updated_time": "2023-09-10T16:03:34.000Z"
+      },
+      {
+        "id": 682,
+        "type": "text",
+        "good_key": "ultra-max",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:ultra-max",
+        "value": "294.2g",
+        "key": "Complete set weight (g):",
+        "image": null,
+        "weight": 2,
+        "created_time": "2023-09-10T16:03:34.000Z",
+        "updated_time": "2023-09-10T16:03:34.000Z"
+      },
+      {
+        "id": 683,
+        "type": "text",
+        "good_key": "ultra-max",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:ultra-max",
+        "value": "15.77kg",
+        "key": "Full box weight (kg):",
+        "image": null,
+        "weight": 1,
+        "created_time": "2023-09-10T16:03:34.000Z",
+        "updated_time": "2023-09-10T16:03:34.000Z"
+      }
+    ],
+    "mediaList": [],
     "indexConfig": [
       {
         "id": 38,
@@ -7428,7 +7529,6 @@
         "updated_time": "2023-09-24T04:43:09.000Z"
       }
     ],
-    "mediaList": [],
     "comboList": [
       {
         "id": 84,
@@ -8265,107 +8365,6 @@
         ]
       }
     ],
-    "packageList": [
-      {
-        "id": 677,
-        "type": "text",
-        "good_key": "ultra-max",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:ultra-max",
-        "value": " Machine head*1, watch strap*1, manual*1, wireless charging cable*1",
-        "key": "packing list:",
-        "image": null,
-        "weight": 7,
-        "created_time": "2023-09-10T16:03:34.000Z",
-        "updated_time": "2023-09-10T16:03:34.000Z"
-      },
-      {
-        "id": 678,
-        "type": "text",
-        "good_key": "ultra-max",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:ultra-max",
-        "value": "Zinc alloy body + IML bottom case",
-        "key": "Body material:",
-        "image": null,
-        "weight": 6,
-        "created_time": "2023-09-10T16:03:34.000Z",
-        "updated_time": "2023-09-10T16:03:34.000Z"
-      },
-      {
-        "id": 679,
-        "type": "text",
-        "good_key": "ultra-max",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:ultra-max",
-        "value": "Silica gel ",
-        "key": "Strap material:",
-        "image": null,
-        "weight": 5,
-        "created_time": "2023-09-10T16:03:34.000Z",
-        "updated_time": "2023-09-10T16:03:34.000Z"
-      },
-      {
-        "id": 680,
-        "type": "text",
-        "good_key": "ultra-max",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:ultra-max",
-        "value": "215x117x26mm",
-        "key": "Color box size (cm):",
-        "image": null,
-        "weight": 4,
-        "created_time": "2023-09-10T16:03:34.000Z",
-        "updated_time": "2023-09-10T16:03:34.000Z"
-      },
-      {
-        "id": 681,
-        "type": "text",
-        "good_key": "ultra-max",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:ultra-max",
-        "value": "50/box 62*45.5*18cm",
-        "key": "Outer box size (cm):",
-        "image": null,
-        "weight": 3,
-        "created_time": "2023-09-10T16:03:34.000Z",
-        "updated_time": "2023-09-10T16:03:34.000Z"
-      },
-      {
-        "id": 682,
-        "type": "text",
-        "good_key": "ultra-max",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:ultra-max",
-        "value": "294.2g",
-        "key": "Complete set weight (g):",
-        "image": null,
-        "weight": 2,
-        "created_time": "2023-09-10T16:03:34.000Z",
-        "updated_time": "2023-09-10T16:03:34.000Z"
-      },
-      {
-        "id": 683,
-        "type": "text",
-        "good_key": "ultra-max",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:ultra-max",
-        "value": "15.77kg",
-        "key": "Full box weight (kg):",
-        "image": null,
-        "weight": 1,
-        "created_time": "2023-09-10T16:03:34.000Z",
-        "updated_time": "2023-09-10T16:03:34.000Z"
-      }
-    ],
-    "reviewsList": [],
     "sellingList": [
       {
         "id": 1031,
@@ -8434,6 +8433,7 @@
         "updated_time": "2023-09-10T16:13:25.000Z"
       }
     ],
+    "reviewsList": [],
     "associationsList": [
       {
         "id": 2075,
@@ -9183,33 +9183,17 @@
     "language": "en",
     "video_url": "https://video.sslfly.com/base/2023/9/17/15B446259E60551FD48FBA5FD60426F7/N9%20Ultra%20Pro.mp4",
     "video_cover": null,
-    "three_d": null,
+    "three_d": "https://dji-official-fe.djicdn.com/reactor/assets/_next/static/3d/88a76383-4ebc-4d51-be65-31a7ee2e2bb4.glb",
     "three_d_background": null,
     "image_url": "https://image.sslfly.com/base/2023/12/18/848BA414A0525FD14A02A7CB8D0E35EF/rgb-3d-ambient-light.png",
     "image_scenes": null,
     "associate_keys": null,
     "associate_good_key": "ambien-light:rhythm-light",
     "created_time": "2023-12-17T05:09:29.000Z",
-    "updated_time": "2024-01-06T07:37:29.000Z",
+    "updated_time": "2024-01-11T16:25:54.000Z",
     "associateProduct": [],
     "typeList": [],
-    "indexConfig": [
-      {
-        "id": 101,
-        "good_key": "rhythm-light",
-        "good_sort_key": "ambien-light",
-        "language": "en",
-        "associate_good_key": "ambien-light:rhythm-light",
-        "page_keywords": "",
-        "page_title": "RGB 3D Ambient Light",
-        "page_description": "RGB 3D Ambient Light",
-        "pc_background": null,
-        "mob_background": null,
-        "is_light": null,
-        "created_time": "2023-12-17T05:41:11.000Z",
-        "updated_time": "2023-12-18T15:14:10.000Z"
-      }
-    ],
+    "packageList": [],
     "mediaList": [
       {
         "id": 143,
@@ -9431,6 +9415,23 @@
         "weight": 90,
         "created_time": "2023-12-18T15:07:55.000Z",
         "updated_time": "2024-01-09T14:58:58.000Z"
+      }
+    ],
+    "indexConfig": [
+      {
+        "id": 101,
+        "good_key": "rhythm-light",
+        "good_sort_key": "ambien-light",
+        "language": "en",
+        "associate_good_key": "ambien-light:rhythm-light",
+        "page_keywords": "",
+        "page_title": "RGB 3D Ambient Light",
+        "page_description": "RGB 3D Ambient Light",
+        "pc_background": null,
+        "mob_background": null,
+        "is_light": null,
+        "created_time": "2023-12-17T05:41:11.000Z",
+        "updated_time": "2023-12-18T15:14:10.000Z"
       }
     ],
     "comboList": [
@@ -14439,7 +14440,63 @@
         ]
       }
     ],
-    "packageList": [],
+    "sellingList": [
+      {
+        "id": 1247,
+        "light": "Create an electrifying party atmosphere by synchronizing the dynamic RGB lights with the pulsating beats of your favorite music",
+        "weight": 5,
+        "good_key": "rhythm-light",
+        "good_sort_key": "ambien-light",
+        "associate_good_key": "ambien-light:rhythm-light",
+        "language": "en",
+        "created_time": "2023-12-18T14:47:48.000Z",
+        "updated_time": "2023-12-18T14:47:48.000Z"
+      },
+      {
+        "id": 1248,
+        "light": "Illuminate your computer setup, car interior, or desktop with customizable lighting effects to match your mood or enhance the ambiance",
+        "weight": 4,
+        "good_key": "rhythm-light",
+        "good_sort_key": "ambien-light",
+        "associate_good_key": "ambien-light:rhythm-light",
+        "language": "en",
+        "created_time": "2023-12-18T14:47:48.000Z",
+        "updated_time": "2023-12-18T14:47:48.000Z"
+      },
+      {
+        "id": 1249,
+        "light": " Immerse yourself in a kaleidoscope of vibrant colors as the RGB lights paint your surroundings with stunning visual displays",
+        "weight": 3,
+        "good_key": "rhythm-light",
+        "good_sort_key": "ambien-light",
+        "associate_good_key": "ambien-light:rhythm-light",
+        "language": "en",
+        "created_time": "2023-12-18T14:47:48.000Z",
+        "updated_time": "2023-12-18T14:47:48.000Z"
+      },
+      {
+        "id": 1250,
+        "light": "Enjoy an evenly distributed and immersive lighting experience from both sides of the 3D light strip, adding depth and dimension to any space",
+        "weight": 2,
+        "good_key": "rhythm-light",
+        "good_sort_key": "ambien-light",
+        "associate_good_key": "ambien-light:rhythm-light",
+        "language": "en",
+        "created_time": "2023-12-18T14:47:48.000Z",
+        "updated_time": "2023-12-18T14:47:48.000Z"
+      },
+      {
+        "id": 1251,
+        "light": "Take full control of the lighting effects, colors, and modes using the dedicated mobile app, allowing for easy customization and convenience",
+        "weight": 1,
+        "good_key": "rhythm-light",
+        "good_sort_key": "ambien-light",
+        "associate_good_key": "ambien-light:rhythm-light",
+        "language": "en",
+        "created_time": "2023-12-18T14:47:48.000Z",
+        "updated_time": "2023-12-18T14:47:48.000Z"
+      }
+    ],
     "reviewsList": [
       {
         "id": 866,
@@ -14568,63 +14625,6 @@
         "associate_good_key": "ambien-light:rhythm-light",
         "created_time": "2024-01-08T12:34:49.000Z",
         "updated_time": "2024-01-08T12:34:49.000Z"
-      }
-    ],
-    "sellingList": [
-      {
-        "id": 1247,
-        "light": "Create an electrifying party atmosphere by synchronizing the dynamic RGB lights with the pulsating beats of your favorite music",
-        "weight": 5,
-        "good_key": "rhythm-light",
-        "good_sort_key": "ambien-light",
-        "associate_good_key": "ambien-light:rhythm-light",
-        "language": "en",
-        "created_time": "2023-12-18T14:47:48.000Z",
-        "updated_time": "2023-12-18T14:47:48.000Z"
-      },
-      {
-        "id": 1248,
-        "light": "Illuminate your computer setup, car interior, or desktop with customizable lighting effects to match your mood or enhance the ambiance",
-        "weight": 4,
-        "good_key": "rhythm-light",
-        "good_sort_key": "ambien-light",
-        "associate_good_key": "ambien-light:rhythm-light",
-        "language": "en",
-        "created_time": "2023-12-18T14:47:48.000Z",
-        "updated_time": "2023-12-18T14:47:48.000Z"
-      },
-      {
-        "id": 1249,
-        "light": " Immerse yourself in a kaleidoscope of vibrant colors as the RGB lights paint your surroundings with stunning visual displays",
-        "weight": 3,
-        "good_key": "rhythm-light",
-        "good_sort_key": "ambien-light",
-        "associate_good_key": "ambien-light:rhythm-light",
-        "language": "en",
-        "created_time": "2023-12-18T14:47:48.000Z",
-        "updated_time": "2023-12-18T14:47:48.000Z"
-      },
-      {
-        "id": 1250,
-        "light": "Enjoy an evenly distributed and immersive lighting experience from both sides of the 3D light strip, adding depth and dimension to any space",
-        "weight": 2,
-        "good_key": "rhythm-light",
-        "good_sort_key": "ambien-light",
-        "associate_good_key": "ambien-light:rhythm-light",
-        "language": "en",
-        "created_time": "2023-12-18T14:47:48.000Z",
-        "updated_time": "2023-12-18T14:47:48.000Z"
-      },
-      {
-        "id": 1251,
-        "light": "Take full control of the lighting effects, colors, and modes using the dedicated mobile app, allowing for easy customization and convenience",
-        "weight": 1,
-        "good_key": "rhythm-light",
-        "good_sort_key": "ambien-light",
-        "associate_good_key": "ambien-light:rhythm-light",
-        "language": "en",
-        "created_time": "2023-12-18T14:47:48.000Z",
-        "updated_time": "2023-12-18T14:47:48.000Z"
       }
     ],
     "associationsList": [
@@ -14894,6 +14894,8 @@
     "updated_time": "2023-09-09T09:53:40.000Z",
     "associateProduct": [],
     "typeList": [],
+    "packageList": [],
+    "mediaList": [],
     "indexConfig": [
       {
         "id": 39,
@@ -14911,11 +14913,9 @@
         "updated_time": "2023-09-24T04:43:12.000Z"
       }
     ],
-    "mediaList": [],
     "comboList": [],
-    "packageList": [],
-    "reviewsList": [],
     "sellingList": [],
+    "reviewsList": [],
     "associationsList": [],
     "funcionList": [],
     "path": "/watches/k8-ultra-max"

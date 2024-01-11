@@ -60,6 +60,42 @@
         "updated_time": "2023-09-17T13:27:03.000Z"
       }
     ],
+    "indexConfig": [
+      {
+        "id": 28,
+        "good_key": "n9-ultra-pro",
+        "good_sort_key": "watches",
+        "language": "cn",
+        "associate_good_key": "watches:n9-ultra-pro",
+        "page_keywords": "N9 ULTRA PRO, 智能手表, 苹果手表, 高性能智能手表, 时尚智能手表",
+        "page_title": "N9 ULTRA PRO",
+        "page_description": "N9 ULTRA PRO是一款功能强大的智能手表，具有类似苹果手表的先进功能和创新设计。它结合了时尚外观和高性能技术，为用户提供了卓越的智能体验。",
+        "pc_background": null,
+        "mob_background": null,
+        "is_light": null,
+        "created_time": "2023-09-17T14:31:22.000Z",
+        "updated_time": "2023-09-24T04:31:35.000Z"
+      }
+    ],
+    "mediaList": [
+      {
+        "id": 44,
+        "good_key": "n9-ultra-pro",
+        "good_sort_key": "watches",
+        "language": "cn",
+        "associate_good_key": "watches:n9-ultra-pro",
+        "type": "image",
+        "title": "多彩世界尽在掌握！",
+        "description": "展现多种色彩选择，让你尽享个性与时尚！",
+        "video_src": null,
+        "poster_src": null,
+        "image_src": "https://image.sslfly.com/base/2023/9/17/5B4DCAD8DF1E8E928036B24E0684B764/color.jpg",
+        "media_code": null,
+        "weight": 100,
+        "created_time": "2023-09-24T07:13:48.000Z",
+        "updated_time": "2023-09-24T08:09:36.000Z"
+      }
+    ],
     "packageList": [
       {
         "id": 567,
@@ -1065,6 +1101,56 @@
         ]
       }
     ],
+    "reviewsList": [
+      {
+        "id": 869,
+        "name": "郑凡2",
+        "score": 3,
+        "weight": 100,
+        "comment": "一份的评价，非常好",
+        "image": "https://image.sslfly.com/base/2023/12/24/420968F0180156D487B996D1B113FDA2/06(1)_19.jpg",
+        "video": "https://video.sslfly.com/base/2023/4/8/054E707E0F994D1B66517281C207D635/compay_video_compress.mp4",
+        "type": "video",
+        "language": "cn",
+        "good_key": "n9-ultra-pro",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:n9-ultra-pro",
+        "created_time": "2024-01-08T12:45:08.000Z",
+        "updated_time": "2024-01-08T12:45:08.000Z"
+      },
+      {
+        "id": 868,
+        "name": "郑凡2",
+        "score": 2,
+        "weight": 100,
+        "comment": "一份的评价，非常差",
+        "image": "https://image.sslfly.com/base/2023/12/24/420968F0180156D487B996D1B113FDA2/06(1)_19.jpg",
+        "video": null,
+        "type": "image",
+        "language": "cn",
+        "good_key": "n9-ultra-pro",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:n9-ultra-pro",
+        "created_time": "2024-01-08T12:44:52.000Z",
+        "updated_time": "2024-01-08T12:44:52.000Z"
+      },
+      {
+        "id": 867,
+        "name": "郑凡1",
+        "score": 1,
+        "weight": 100,
+        "comment": "一份的评价，非常差",
+        "image": null,
+        "video": null,
+        "type": "text",
+        "language": "cn",
+        "good_key": "n9-ultra-pro",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:n9-ultra-pro",
+        "created_time": "2024-01-08T12:44:41.000Z",
+        "updated_time": "2024-01-08T12:44:41.000Z"
+      }
+    ],
     "sellingList": [
       {
         "id": 899,
@@ -1142,42 +1228,6 @@
         "language": "cn",
         "created_time": "2023-09-10T16:12:29.000Z",
         "updated_time": "2023-09-17T13:56:18.000Z"
-      }
-    ],
-    "mediaList": [
-      {
-        "id": 44,
-        "good_key": "n9-ultra-pro",
-        "good_sort_key": "watches",
-        "language": "cn",
-        "associate_good_key": "watches:n9-ultra-pro",
-        "type": "image",
-        "title": "多彩世界尽在掌握！",
-        "description": "展现多种色彩选择，让你尽享个性与时尚！",
-        "video_src": null,
-        "poster_src": null,
-        "image_src": "https://image.sslfly.com/base/2023/9/17/5B4DCAD8DF1E8E928036B24E0684B764/color.jpg",
-        "media_code": null,
-        "weight": 100,
-        "created_time": "2023-09-24T07:13:48.000Z",
-        "updated_time": "2023-09-24T08:09:36.000Z"
-      }
-    ],
-    "indexConfig": [
-      {
-        "id": 28,
-        "good_key": "n9-ultra-pro",
-        "good_sort_key": "watches",
-        "language": "cn",
-        "associate_good_key": "watches:n9-ultra-pro",
-        "page_keywords": "N9 ULTRA PRO, 智能手表, 苹果手表, 高性能智能手表, 时尚智能手表",
-        "page_title": "N9 ULTRA PRO",
-        "page_description": "N9 ULTRA PRO是一款功能强大的智能手表，具有类似苹果手表的先进功能和创新设计。它结合了时尚外观和高性能技术，为用户提供了卓越的智能体验。",
-        "pc_background": null,
-        "mob_background": null,
-        "is_light": null,
-        "created_time": "2023-09-17T14:31:22.000Z",
-        "updated_time": "2023-09-24T04:31:35.000Z"
       }
     ],
     "associationsList": [
@@ -2048,56 +2098,6 @@
         "updated_time": "2023-09-10T16:07:02.000Z"
       }
     ],
-    "reviewsList": [
-      {
-        "id": 869,
-        "name": "郑凡2",
-        "score": 3,
-        "weight": 100,
-        "comment": "一份的评价，非常好",
-        "image": "https://image.sslfly.com/base/2023/12/24/420968F0180156D487B996D1B113FDA2/06(1)_19.jpg",
-        "video": "https://video.sslfly.com/base/2023/4/8/054E707E0F994D1B66517281C207D635/compay_video_compress.mp4",
-        "type": "video",
-        "language": "cn",
-        "good_key": "n9-ultra-pro",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:n9-ultra-pro",
-        "created_time": "2024-01-08T12:45:08.000Z",
-        "updated_time": "2024-01-08T12:45:08.000Z"
-      },
-      {
-        "id": 868,
-        "name": "郑凡2",
-        "score": 2,
-        "weight": 100,
-        "comment": "一份的评价，非常差",
-        "image": "https://image.sslfly.com/base/2023/12/24/420968F0180156D487B996D1B113FDA2/06(1)_19.jpg",
-        "video": null,
-        "type": "image",
-        "language": "cn",
-        "good_key": "n9-ultra-pro",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:n9-ultra-pro",
-        "created_time": "2024-01-08T12:44:52.000Z",
-        "updated_time": "2024-01-08T12:44:52.000Z"
-      },
-      {
-        "id": 867,
-        "name": "郑凡1",
-        "score": 1,
-        "weight": 100,
-        "comment": "一份的评价，非常差",
-        "image": null,
-        "video": null,
-        "type": "text",
-        "language": "cn",
-        "good_key": "n9-ultra-pro",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:n9-ultra-pro",
-        "created_time": "2024-01-08T12:44:41.000Z",
-        "updated_time": "2024-01-08T12:44:41.000Z"
-      }
-    ],
     "path": "/watches/n9-ultra-pro"
   },
   {
@@ -2126,6 +2126,42 @@
     "updated_time": "2023-09-10T15:34:09.000Z",
     "associateProduct": [],
     "typeList": [],
+    "indexConfig": [
+      {
+        "id": 29,
+        "good_key": "8-ultra-mini",
+        "good_sort_key": "watches",
+        "language": "cn",
+        "associate_good_key": "watches:8-ultra-mini",
+        "page_keywords": "8Ultra min, 智能手表, 小巧轻便, 健康监测, 运动追踪",
+        "page_title": "8Ultra mini",
+        "page_description": "8Ultra min是一款小巧轻便的智能手表，拥有出色的功能和精致的设计。它具有多种智能功能，如健康监测、通知提醒和运动追踪，让你随时随地保持连接和管理生活。",
+        "pc_background": null,
+        "mob_background": null,
+        "is_light": null,
+        "created_time": "2023-09-19T13:17:16.000Z",
+        "updated_time": "2023-09-24T04:31:58.000Z"
+      }
+    ],
+    "mediaList": [
+      {
+        "id": 31,
+        "good_key": "8-ultra-mini",
+        "good_sort_key": "watches",
+        "language": "cn",
+        "associate_good_key": "watches:8-ultra-mini",
+        "type": "facebook",
+        "title": "时尚科技，\n全能智能手表",
+        "description": "这款智能手表集合了多种功能，包括健康管理、智能助手、通讯、娱乐等，让您可以随时随地保持联系、监测健康状况、接受个性化建议，并通过语音控制、手势识别等方式更加便捷高效。",
+        "video_src": null,
+        "poster_src": null,
+        "image_src": null,
+        "media_code": "288303853920678",
+        "weight": 12,
+        "created_time": "2023-09-09T14:28:04.000Z",
+        "updated_time": "2023-09-09T14:53:32.000Z"
+      }
+    ],
     "packageList": [
       {
         "id": 531,
@@ -3034,6 +3070,7 @@
         ]
       }
     ],
+    "reviewsList": [],
     "sellingList": [
       {
         "id": 1000,
@@ -3100,42 +3137,6 @@
         "language": "cn",
         "created_time": "2023-09-19T13:12:23.000Z",
         "updated_time": "2023-09-19T13:12:23.000Z"
-      }
-    ],
-    "mediaList": [
-      {
-        "id": 31,
-        "good_key": "8-ultra-mini",
-        "good_sort_key": "watches",
-        "language": "cn",
-        "associate_good_key": "watches:8-ultra-mini",
-        "type": "facebook",
-        "title": "时尚科技，\n全能智能手表",
-        "description": "这款智能手表集合了多种功能，包括健康管理、智能助手、通讯、娱乐等，让您可以随时随地保持联系、监测健康状况、接受个性化建议，并通过语音控制、手势识别等方式更加便捷高效。",
-        "video_src": null,
-        "poster_src": null,
-        "image_src": null,
-        "media_code": "288303853920678",
-        "weight": 12,
-        "created_time": "2023-09-09T14:28:04.000Z",
-        "updated_time": "2023-09-09T14:53:32.000Z"
-      }
-    ],
-    "indexConfig": [
-      {
-        "id": 29,
-        "good_key": "8-ultra-mini",
-        "good_sort_key": "watches",
-        "language": "cn",
-        "associate_good_key": "watches:8-ultra-mini",
-        "page_keywords": "8Ultra min, 智能手表, 小巧轻便, 健康监测, 运动追踪",
-        "page_title": "8Ultra mini",
-        "page_description": "8Ultra min是一款小巧轻便的智能手表，拥有出色的功能和精致的设计。它具有多种智能功能，如健康监测、通知提醒和运动追踪，让你随时随地保持连接和管理生活。",
-        "pc_background": null,
-        "mob_background": null,
-        "is_light": null,
-        "created_time": "2023-09-19T13:17:16.000Z",
-        "updated_time": "2023-09-24T04:31:58.000Z"
       }
     ],
     "associationsList": [
@@ -3814,7 +3815,6 @@
         "updated_time": "2023-09-09T15:37:22.000Z"
       }
     ],
-    "reviewsList": [],
     "path": "/watches/8-ultra-mini"
   },
   {
@@ -3838,6 +3838,24 @@
     "updated_time": "2023-09-09T09:53:10.000Z",
     "associateProduct": [],
     "typeList": [],
+    "indexConfig": [
+      {
+        "id": 30,
+        "good_key": "ultra-max",
+        "good_sort_key": "watches",
+        "language": "cn",
+        "associate_good_key": "watches:ultra-max",
+        "page_keywords": "UltraMax, 智能手表, 高性能, 长续航, 防水手表",
+        "page_title": "UltraMax",
+        "page_description": "UltraMax是一款功能全面的智能手表，为用户提供了卓越的性能和多样化的功能。它具备强大的处理能力、长续航时间和防水功能，适合各种户外和日常活动。",
+        "pc_background": null,
+        "mob_background": null,
+        "is_light": null,
+        "created_time": "2023-09-19T13:17:24.000Z",
+        "updated_time": "2023-09-24T04:32:18.000Z"
+      }
+    ],
+    "mediaList": [],
     "packageList": [
       {
         "id": 545,
@@ -4774,6 +4792,7 @@
         ]
       }
     ],
+    "reviewsList": [],
     "sellingList": [
       {
         "id": 906,
@@ -4840,24 +4859,6 @@
         "language": "cn",
         "created_time": "2023-09-10T16:13:25.000Z",
         "updated_time": "2023-09-10T16:13:25.000Z"
-      }
-    ],
-    "mediaList": [],
-    "indexConfig": [
-      {
-        "id": 30,
-        "good_key": "ultra-max",
-        "good_sort_key": "watches",
-        "language": "cn",
-        "associate_good_key": "watches:ultra-max",
-        "page_keywords": "UltraMax, 智能手表, 高性能, 长续航, 防水手表",
-        "page_title": "UltraMax",
-        "page_description": "UltraMax是一款功能全面的智能手表，为用户提供了卓越的性能和多样化的功能。它具备强大的处理能力、长续航时间和防水功能，适合各种户外和日常活动。",
-        "pc_background": null,
-        "mob_background": null,
-        "is_light": null,
-        "created_time": "2023-09-19T13:17:24.000Z",
-        "updated_time": "2023-09-24T04:32:18.000Z"
       }
     ],
     "associationsList": [
@@ -5596,7 +5597,6 @@
         "updated_time": "2023-09-10T16:07:39.000Z"
       }
     ],
-    "reviewsList": [],
     "path": "/watches/ultra-max"
   },
   {
@@ -5620,6 +5620,24 @@
     "updated_time": "2023-09-09T09:53:12.000Z",
     "associateProduct": [],
     "typeList": [],
+    "indexConfig": [
+      {
+        "id": 31,
+        "good_key": "series8-mini",
+        "good_sort_key": "watches",
+        "language": "cn",
+        "associate_good_key": "watches:series8-mini",
+        "page_keywords": "Series8 mini, 智能手表, 时尚设计, 消息推送, 健康监测",
+        "page_title": "Series8 mini",
+        "page_description": "Series8 mini是一款时尚精致的智能手表，融合了时尚设计和智能科技。它具有多种智能功能，如消息推送、健康监测和个性化表盘，让你在时尚中享受智能科技带来的便利。",
+        "pc_background": null,
+        "mob_background": null,
+        "is_light": null,
+        "created_time": "2023-09-19T13:17:31.000Z",
+        "updated_time": "2023-09-24T04:32:40.000Z"
+      }
+    ],
+    "mediaList": [],
     "packageList": [
       {
         "id": 552,
@@ -6528,6 +6546,7 @@
         ]
       }
     ],
+    "reviewsList": [],
     "sellingList": [
       {
         "id": 915,
@@ -6583,24 +6602,6 @@
         "language": "cn",
         "created_time": "2023-09-10T16:13:45.000Z",
         "updated_time": "2023-09-10T16:13:45.000Z"
-      }
-    ],
-    "mediaList": [],
-    "indexConfig": [
-      {
-        "id": 31,
-        "good_key": "series8-mini",
-        "good_sort_key": "watches",
-        "language": "cn",
-        "associate_good_key": "watches:series8-mini",
-        "page_keywords": "Series8 mini, 智能手表, 时尚设计, 消息推送, 健康监测",
-        "page_title": "Series8 mini",
-        "page_description": "Series8 mini是一款时尚精致的智能手表，融合了时尚设计和智能科技。它具有多种智能功能，如消息推送、健康监测和个性化表盘，让你在时尚中享受智能科技带来的便利。",
-        "pc_background": null,
-        "mob_background": null,
-        "is_light": null,
-        "created_time": "2023-09-19T13:17:31.000Z",
-        "updated_time": "2023-09-24T04:32:40.000Z"
       }
     ],
     "associationsList": [
@@ -7303,7 +7304,6 @@
         "updated_time": "2023-09-10T16:08:19.000Z"
       }
     ],
-    "reviewsList": [],
     "path": "/watches/series8-mini"
   },
   {
@@ -7327,6 +7327,24 @@
     "updated_time": "2023-09-09T09:53:15.000Z",
     "associateProduct": [],
     "typeList": [],
+    "indexConfig": [
+      {
+        "id": 32,
+        "good_key": "ip8-ultra",
+        "good_sort_key": "watches",
+        "language": "cn",
+        "associate_good_key": "watches:ip8-ultra",
+        "page_keywords": "IP8 ULTRA, 智能手表, 高端手表, 高清触摸屏, 强大性能",
+        "page_title": "IP8 ULTRA",
+        "page_description": "IP8 ULTRA是一款高端智能手表，以其出色的性能和精美的外观而闻名。它具备强大的处理能力、高清触摸屏和丰富的功能，为用户提供了卓越的智能体验。",
+        "pc_background": null,
+        "mob_background": null,
+        "is_light": null,
+        "created_time": "2023-09-19T13:17:40.000Z",
+        "updated_time": "2023-09-24T04:32:58.000Z"
+      }
+    ],
+    "mediaList": [],
     "packageList": [
       {
         "id": 557,
@@ -8235,6 +8253,7 @@
         ]
       }
     ],
+    "reviewsList": [],
     "sellingList": [
       {
         "id": 922,
@@ -8301,24 +8320,6 @@
         "language": "cn",
         "created_time": "2023-09-10T16:14:06.000Z",
         "updated_time": "2023-09-10T16:14:06.000Z"
-      }
-    ],
-    "mediaList": [],
-    "indexConfig": [
-      {
-        "id": 32,
-        "good_key": "ip8-ultra",
-        "good_sort_key": "watches",
-        "language": "cn",
-        "associate_good_key": "watches:ip8-ultra",
-        "page_keywords": "IP8 ULTRA, 智能手表, 高端手表, 高清触摸屏, 强大性能",
-        "page_title": "IP8 ULTRA",
-        "page_description": "IP8 ULTRA是一款高端智能手表，以其出色的性能和精美的外观而闻名。它具备强大的处理能力、高清触摸屏和丰富的功能，为用户提供了卓越的智能体验。",
-        "pc_background": null,
-        "mob_background": null,
-        "is_light": null,
-        "created_time": "2023-09-19T13:17:40.000Z",
-        "updated_time": "2023-09-24T04:32:58.000Z"
       }
     ],
     "associationsList": [
@@ -9057,7 +9058,6 @@
         "updated_time": "2023-09-10T16:08:42.000Z"
       }
     ],
-    "reviewsList": [],
     "path": "/watches/ip8-ultra"
   },
   {
@@ -9081,10 +9081,6 @@
     "updated_time": "2023-09-09T09:53:19.000Z",
     "associateProduct": [],
     "typeList": [],
-    "packageList": [],
-    "comboList": [],
-    "sellingList": [],
-    "mediaList": [],
     "indexConfig": [
       {
         "id": 33,
@@ -9102,9 +9098,13 @@
         "updated_time": "2023-09-24T04:33:13.000Z"
       }
     ],
+    "mediaList": [],
+    "packageList": [],
+    "comboList": [],
+    "reviewsList": [],
+    "sellingList": [],
     "associationsList": [],
     "funcionList": [],
-    "reviewsList": [],
     "path": "/watches/k8-ultra-max"
   }
 ]

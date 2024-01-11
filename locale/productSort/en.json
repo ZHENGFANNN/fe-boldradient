@@ -24,14 +24,14 @@
         "language": "en",
         "video_url": "https://video.sslfly.com/base/2023/9/17/15B446259E60551FD48FBA5FD60426F7/N9%20Ultra%20Pro.mp4",
         "video_cover": null,
-        "three_d": null,
+        "three_d": "https://dji-official-fe.djicdn.com/reactor/assets/_next/static/3d/88a76383-4ebc-4d51-be65-31a7ee2e2bb4.glb",
         "three_d_background": null,
         "image_url": "https://image.sslfly.com/base/2023/12/18/848BA414A0525FD14A02A7CB8D0E35EF/rgb-3d-ambient-light.png",
         "image_scenes": null,
         "associate_keys": null,
         "associate_good_key": "ambien-light:rhythm-light",
         "created_time": "2023-12-17T05:09:29.000Z",
-        "updated_time": "2024-01-06T07:37:29.000Z",
+        "updated_time": "2024-01-11T16:25:54.000Z",
         "typeList": [],
         "comboList": [
           {

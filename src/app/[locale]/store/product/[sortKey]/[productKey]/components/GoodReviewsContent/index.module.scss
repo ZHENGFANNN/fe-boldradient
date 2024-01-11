@@ -48,16 +48,13 @@
                         line-height: 18px;
                         cursor: pointer;
                         color: rgba(0,0,0,.85);
-
                         height: 32px;
                         &:last-child {
                             margin-bottom: 0;
                         }
-                        svg {
+                        img {
                             width: 16px;
                             height: 16px;
-                            fill: #fdaa00;
-
                             margin-right: 6px;
                         }
                         .line_container {
@@ -290,7 +287,7 @@
         top: 0;
 
         display: flex;
-        svg {
+        img {
             margin: 0 1px;
             width: 24px;
             height: 24px;
@@ -299,13 +296,5 @@
 
     .active_stars {
         overflow: hidden;
-        svg {
-            fill:#fdb300;
-            }
-    }
-    .no_active_stars {
-        svg {
-            fill: #e2e2e2;
-        }
     }
 }

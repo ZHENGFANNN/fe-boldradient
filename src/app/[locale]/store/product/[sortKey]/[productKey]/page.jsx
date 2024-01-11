@@ -256,12 +256,6 @@ export default async function Product({ params: { locale, productKey } }) {
             goodDiscountFestival={GOODDISCOUNTFESTIVAL}
           />
           <Script
-            id="product-3d-script"
-            async
-            type="module"
-            src="https://unpkg.com/@google/model-viewer/dist/model-viewer.js"
-          ></Script>
-          <Script
             id="store-product-ld-json"
             type="application/ld+json"
             dangerouslySetInnerHTML={{

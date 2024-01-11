@@ -1,6 +1,7 @@
 "use client";
 import styles from "./index.module.scss";
 import React from "react";
+import Script from "next/script";
 
 import "@splidejs/splide/css";
 import Splide from "@splidejs/splide";
@@ -174,47 +175,54 @@ export default function ContentDisplay({ options = [], productInfo, LANG }) {
           );
         } else if (item.type === "3d") {
           return (
-            <model-viewer
-              key={item.type}
-              style={{
-                display: productShowType === "3d" ? "block" : "none",
-              }}
-              id="product-model-viewer"
-              data-src={item.three_d}
-              data-environment-image={item.three_d_background}
-              exposure="1.2"
-              shadow-intensity="0"
-              camera-controls="true"
-              data-js-focus-visible="true"
-              interaction-policy="always-allow"
-              camera-orbit="0deg 90deg 120%"
-              min-camera-orbit="auto auto 120%"
-              max-camera-orbit="auto auto 120%"
-              loading="eager"
-              preload="true"
-              max-field-of-view="auto"
-              ar-status="not-presenting"
-              disable-pan="true"
-            >
-              <div slot="progress-bar"></div>
-              <div slot="poster" className={styles.product_3d_process}>
-                <div
-                  style={{
-                    padding: "24px",
-                  }}
-                >
-                  <img
-                    width={38}
-                    height={38}
-                    alt="3d"
-                    src={`${process.env.NEXT_PUBLIC_IMAGE}/icon/media-three-3d.svg`}
-                  />
+            <React.Fragment key={item.type}>
+              <Script
+                id="product-3d-script"
+                defer
+                type="module"
+                src="https://unpkg.com/@google/model-viewer/dist/model-viewer.js"
+              ></Script>
+              <model-viewer
+                style={{
+                  display: productShowType === "3d" ? "block" : "none",
+                }}
+                id="product-model-viewer"
+                data-src={item.three_d}
+                data-environment-image={item.three_d_background}
+                exposure="1.2"
+                shadow-intensity="0"
+                camera-controls="true"
+                data-js-focus-visible="true"
+                interaction-policy="always-allow"
+                camera-orbit="0deg 90deg 120%"
+                min-camera-orbit="auto auto 120%"
+                max-camera-orbit="auto auto 120%"
+                loading="eager"
+                preload="true"
+                max-field-of-view="auto"
+                ar-status="not-presenting"
+                disable-pan="true"
+              >
+                <div slot="progress-bar"></div>
+                <div slot="poster" className={styles.product_3d_process}>
+                  <div
+                    style={{
+                      padding: "24px",
+                    }}
+                  >
+                    <img
+                      width={38}
+                      height={38}
+                      alt="3d"
+                      src={`${process.env.NEXT_PUBLIC_IMAGE}/icon/media-three-3d.svg`}
+                    />
+                  </div>
+                  <span>
+                    {LANG["store.product.3d_loading"]} {progress}%
+                  </span>
                 </div>
-                <span>
-                  {LANG["store.product.3d_loading"]} {progress}%
-                </span>
-              </div>
-            </model-viewer>
+              </model-viewer>
+            </React.Fragment>
           );
         }
       })}

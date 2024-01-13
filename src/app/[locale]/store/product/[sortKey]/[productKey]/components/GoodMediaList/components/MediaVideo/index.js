@@ -40,7 +40,7 @@ export default function MediaVideo({ videoInfo }) {
               : (1200 * videoHeight) / videoWidth,
           }}
         >
-          <Video controls loop src={video} poster={poster} />
+          <Video preload="none" controls loop src={video} poster={poster} />
         </div>
       </div>
     </div>

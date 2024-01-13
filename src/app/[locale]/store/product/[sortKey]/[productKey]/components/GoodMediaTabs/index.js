@@ -33,6 +33,7 @@ export default function SelectList({ options = [] }) {
       <div className={styles.left_content_type}>
         <div className={styles.type_container_color}></div>
         {options.map((item) => {
+          if (item.type === "3d") return null;
           return (
             <div
               key={item.type}

@@ -1191,85 +1191,6 @@
         "updated_time": "2023-09-24T04:52:24.000Z"
       }
     ],
-    "sellingList": [
-      {
-        "id": 992,
-        "light": "НФК",
-        "weight": 7,
-        "good_key": "n9-ultra-pro",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:n9-ultra-pro",
-        "language": "ru",
-        "created_time": "2023-09-10T16:12:29.000Z",
-        "updated_time": "2023-09-10T16:12:29.000Z"
-      },
-      {
-        "id": 993,
-        "light": "уведомление о сообщении",
-        "weight": 6,
-        "good_key": "n9-ultra-pro",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:n9-ultra-pro",
-        "language": "ru",
-        "created_time": "2023-09-10T16:12:29.000Z",
-        "updated_time": "2023-09-17T13:56:07.000Z"
-      },
-      {
-        "id": 994,
-        "light": "наручный кошелек",
-        "weight": 5,
-        "good_key": "n9-ultra-pro",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:n9-ultra-pro",
-        "language": "ru",
-        "created_time": "2023-09-10T16:12:29.000Z",
-        "updated_time": "2023-09-17T13:54:19.000Z"
-      },
-      {
-        "id": 995,
-        "light": "Голосовые звонки",
-        "weight": 3,
-        "good_key": "n9-ultra-pro",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:n9-ultra-pro",
-        "language": "ru",
-        "created_time": "2023-09-10T16:12:29.000Z",
-        "updated_time": "2023-09-10T16:12:29.000Z"
-      },
-      {
-        "id": 996,
-        "light": "воспроизводить музыку",
-        "weight": 3,
-        "good_key": "n9-ultra-pro",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:n9-ultra-pro",
-        "language": "ru",
-        "created_time": "2023-09-10T16:12:29.000Z",
-        "updated_time": "2023-09-17T13:54:42.000Z"
-      },
-      {
-        "id": 997,
-        "light": "Переключение языка браслета",
-        "weight": 2,
-        "good_key": "n9-ultra-pro",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:n9-ultra-pro",
-        "language": "ru",
-        "created_time": "2023-09-10T16:12:29.000Z",
-        "updated_time": "2023-09-17T13:54:33.000Z"
-      },
-      {
-        "id": 998,
-        "light": "Общее позиционирование",
-        "weight": 1,
-        "good_key": "n9-ultra-pro",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:n9-ultra-pro",
-        "language": "ru",
-        "created_time": "2023-09-10T16:12:29.000Z",
-        "updated_time": "2023-09-17T13:56:18.000Z"
-      }
-    ],
     "funcionList": [
       {
         "id": 4770,
@@ -1872,7 +1793,6 @@
         "updated_time": "2023-09-10T16:07:02.000Z"
       }
     ],
-    "reviewsList": [],
     "associationsList": [
       {
         "id": 1950,
@@ -2127,6 +2047,86 @@
         "updated_time": "2023-09-10T15:50:55.000Z"
       }
     ],
+    "sellingList": [
+      {
+        "id": 992,
+        "light": "НФК",
+        "weight": 7,
+        "good_key": "n9-ultra-pro",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:n9-ultra-pro",
+        "language": "ru",
+        "created_time": "2023-09-10T16:12:29.000Z",
+        "updated_time": "2023-09-10T16:12:29.000Z"
+      },
+      {
+        "id": 993,
+        "light": "уведомление о сообщении",
+        "weight": 6,
+        "good_key": "n9-ultra-pro",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:n9-ultra-pro",
+        "language": "ru",
+        "created_time": "2023-09-10T16:12:29.000Z",
+        "updated_time": "2023-09-17T13:56:07.000Z"
+      },
+      {
+        "id": 994,
+        "light": "наручный кошелек",
+        "weight": 5,
+        "good_key": "n9-ultra-pro",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:n9-ultra-pro",
+        "language": "ru",
+        "created_time": "2023-09-10T16:12:29.000Z",
+        "updated_time": "2023-09-17T13:54:19.000Z"
+      },
+      {
+        "id": 995,
+        "light": "Голосовые звонки",
+        "weight": 3,
+        "good_key": "n9-ultra-pro",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:n9-ultra-pro",
+        "language": "ru",
+        "created_time": "2023-09-10T16:12:29.000Z",
+        "updated_time": "2023-09-10T16:12:29.000Z"
+      },
+      {
+        "id": 996,
+        "light": "воспроизводить музыку",
+        "weight": 3,
+        "good_key": "n9-ultra-pro",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:n9-ultra-pro",
+        "language": "ru",
+        "created_time": "2023-09-10T16:12:29.000Z",
+        "updated_time": "2023-09-17T13:54:42.000Z"
+      },
+      {
+        "id": 997,
+        "light": "Переключение языка браслета",
+        "weight": 2,
+        "good_key": "n9-ultra-pro",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:n9-ultra-pro",
+        "language": "ru",
+        "created_time": "2023-09-10T16:12:29.000Z",
+        "updated_time": "2023-09-17T13:54:33.000Z"
+      },
+      {
+        "id": 998,
+        "light": "Общее позиционирование",
+        "weight": 1,
+        "good_key": "n9-ultra-pro",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:n9-ultra-pro",
+        "language": "ru",
+        "created_time": "2023-09-10T16:12:29.000Z",
+        "updated_time": "2023-09-17T13:56:18.000Z"
+      }
+    ],
+    "reviewsList": [],
     "path": "/watches/n9-ultra-pro"
   },
   {
@@ -3109,74 +3109,6 @@
         "updated_time": "2023-09-24T04:52:37.000Z"
       }
     ],
-    "sellingList": [
-      {
-        "id": 1236,
-        "light": "голосовой помощник",
-        "weight": 7,
-        "good_key": "8-ultra-mini",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:8-ultra-mini",
-        "language": "ru",
-        "created_time": "2023-09-19T13:12:23.000Z",
-        "updated_time": "2023-09-19T13:12:23.000Z"
-      },
-      {
-        "id": 1237,
-        "light": "Корпус из цинкового сплава",
-        "weight": 6,
-        "good_key": "8-ultra-mini",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:8-ultra-mini",
-        "language": "ru",
-        "created_time": "2023-09-19T13:12:23.000Z",
-        "updated_time": "2023-09-19T13:12:23.000Z"
-      },
-      {
-        "id": 1238,
-        "light": "Полноэкранный сенсорный экран",
-        "weight": 5,
-        "good_key": "8-ultra-mini",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:8-ultra-mini",
-        "language": "ru",
-        "created_time": "2023-09-19T13:12:23.000Z",
-        "updated_time": "2023-09-19T13:12:23.000Z"
-      },
-      {
-        "id": 1239,
-        "light": "Голосовые звонки",
-        "weight": 4,
-        "good_key": "8-ultra-mini",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:8-ultra-mini",
-        "language": "ru",
-        "created_time": "2023-09-19T13:12:23.000Z",
-        "updated_time": "2023-09-19T13:12:23.000Z"
-      },
-      {
-        "id": 1240,
-        "light": "уведомление о сообщении",
-        "weight": 3,
-        "good_key": "8-ultra-mini",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:8-ultra-mini",
-        "language": "ru",
-        "created_time": "2023-09-19T13:12:23.000Z",
-        "updated_time": "2023-09-19T13:12:23.000Z"
-      },
-      {
-        "id": 1241,
-        "light": "входящий звонок",
-        "weight": 1,
-        "good_key": "8-ultra-mini",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:8-ultra-mini",
-        "language": "ru",
-        "created_time": "2023-09-19T13:12:23.000Z",
-        "updated_time": "2023-09-19T13:12:23.000Z"
-      }
-    ],
     "funcionList": [
       {
         "id": 4820,
@@ -3587,7 +3519,6 @@
         "updated_time": "2023-09-09T15:37:22.000Z"
       }
     ],
-    "reviewsList": [],
     "associationsList": [
       {
         "id": 2661,
@@ -3854,6 +3785,75 @@
         "updated_time": "2023-09-09T16:01:26.000Z"
       }
     ],
+    "sellingList": [
+      {
+        "id": 1236,
+        "light": "голосовой помощник",
+        "weight": 7,
+        "good_key": "8-ultra-mini",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:8-ultra-mini",
+        "language": "ru",
+        "created_time": "2023-09-19T13:12:23.000Z",
+        "updated_time": "2023-09-19T13:12:23.000Z"
+      },
+      {
+        "id": 1237,
+        "light": "Корпус из цинкового сплава",
+        "weight": 6,
+        "good_key": "8-ultra-mini",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:8-ultra-mini",
+        "language": "ru",
+        "created_time": "2023-09-19T13:12:23.000Z",
+        "updated_time": "2023-09-19T13:12:23.000Z"
+      },
+      {
+        "id": 1238,
+        "light": "Полноэкранный сенсорный экран",
+        "weight": 5,
+        "good_key": "8-ultra-mini",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:8-ultra-mini",
+        "language": "ru",
+        "created_time": "2023-09-19T13:12:23.000Z",
+        "updated_time": "2023-09-19T13:12:23.000Z"
+      },
+      {
+        "id": 1239,
+        "light": "Голосовые звонки",
+        "weight": 4,
+        "good_key": "8-ultra-mini",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:8-ultra-mini",
+        "language": "ru",
+        "created_time": "2023-09-19T13:12:23.000Z",
+        "updated_time": "2023-09-19T13:12:23.000Z"
+      },
+      {
+        "id": 1240,
+        "light": "уведомление о сообщении",
+        "weight": 3,
+        "good_key": "8-ultra-mini",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:8-ultra-mini",
+        "language": "ru",
+        "created_time": "2023-09-19T13:12:23.000Z",
+        "updated_time": "2023-09-19T13:12:23.000Z"
+      },
+      {
+        "id": 1241,
+        "light": "входящий звонок",
+        "weight": 1,
+        "good_key": "8-ultra-mini",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:8-ultra-mini",
+        "language": "ru",
+        "created_time": "2023-09-19T13:12:23.000Z",
+        "updated_time": "2023-09-19T13:12:23.000Z"
+      }
+    ],
+    "reviewsList": [],
     "path": "/watches/8-ultra-mini"
   },
   {
@@ -4803,74 +4803,6 @@
         "updated_time": "2023-09-24T04:52:41.000Z"
       }
     ],
-    "sellingList": [
-      {
-        "id": 1230,
-        "light": "НФК",
-        "weight": 7,
-        "good_key": "ip8-ultra",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:ip8-ultra",
-        "language": "ru",
-        "created_time": "2023-09-10T16:14:06.000Z",
-        "updated_time": "2023-09-10T16:14:06.000Z"
-      },
-      {
-        "id": 1231,
-        "light": "Умный пульт дистанционного управления",
-        "weight": 6,
-        "good_key": "ip8-ultra",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:ip8-ultra",
-        "language": "ru",
-        "created_time": "2023-09-10T16:14:06.000Z",
-        "updated_time": "2023-09-10T16:14:06.000Z"
-      },
-      {
-        "id": 1232,
-        "light": "Пользовательский циферблат",
-        "weight": 5,
-        "good_key": "ip8-ultra",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:ip8-ultra",
-        "language": "ru",
-        "created_time": "2023-09-10T16:14:06.000Z",
-        "updated_time": "2023-09-10T16:14:06.000Z"
-      },
-      {
-        "id": 1233,
-        "light": "Голосовые звонки",
-        "weight": 3,
-        "good_key": "ip8-ultra",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:ip8-ultra",
-        "language": "ru",
-        "created_time": "2023-09-10T16:14:06.000Z",
-        "updated_time": "2023-09-10T16:14:06.000Z"
-      },
-      {
-        "id": 1234,
-        "light": "погода",
-        "weight": 2,
-        "good_key": "ip8-ultra",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:ip8-ultra",
-        "language": "ru",
-        "created_time": "2023-09-10T16:14:06.000Z",
-        "updated_time": "2023-09-10T16:14:06.000Z"
-      },
-      {
-        "id": 1235,
-        "light": "воспроизводить музыку",
-        "weight": 1,
-        "good_key": "ip8-ultra",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:ip8-ultra",
-        "language": "ru",
-        "created_time": "2023-09-10T16:14:06.000Z",
-        "updated_time": "2023-09-10T16:14:06.000Z"
-      }
-    ],
     "funcionList": [
       {
         "id": 4854,
@@ -5377,7 +5309,6 @@
         "updated_time": "2023-09-10T16:08:42.000Z"
       }
     ],
-    "reviewsList": [],
     "associationsList": [
       {
         "id": 2683,
@@ -5608,6 +5539,75 @@
         "updated_time": "2023-09-10T16:02:11.000Z"
       }
     ],
+    "sellingList": [
+      {
+        "id": 1230,
+        "light": "НФК",
+        "weight": 7,
+        "good_key": "ip8-ultra",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:ip8-ultra",
+        "language": "ru",
+        "created_time": "2023-09-10T16:14:06.000Z",
+        "updated_time": "2023-09-10T16:14:06.000Z"
+      },
+      {
+        "id": 1231,
+        "light": "Умный пульт дистанционного управления",
+        "weight": 6,
+        "good_key": "ip8-ultra",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:ip8-ultra",
+        "language": "ru",
+        "created_time": "2023-09-10T16:14:06.000Z",
+        "updated_time": "2023-09-10T16:14:06.000Z"
+      },
+      {
+        "id": 1232,
+        "light": "Пользовательский циферблат",
+        "weight": 5,
+        "good_key": "ip8-ultra",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:ip8-ultra",
+        "language": "ru",
+        "created_time": "2023-09-10T16:14:06.000Z",
+        "updated_time": "2023-09-10T16:14:06.000Z"
+      },
+      {
+        "id": 1233,
+        "light": "Голосовые звонки",
+        "weight": 3,
+        "good_key": "ip8-ultra",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:ip8-ultra",
+        "language": "ru",
+        "created_time": "2023-09-10T16:14:06.000Z",
+        "updated_time": "2023-09-10T16:14:06.000Z"
+      },
+      {
+        "id": 1234,
+        "light": "погода",
+        "weight": 2,
+        "good_key": "ip8-ultra",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:ip8-ultra",
+        "language": "ru",
+        "created_time": "2023-09-10T16:14:06.000Z",
+        "updated_time": "2023-09-10T16:14:06.000Z"
+      },
+      {
+        "id": 1235,
+        "light": "воспроизводить музыку",
+        "weight": 1,
+        "good_key": "ip8-ultra",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:ip8-ultra",
+        "language": "ru",
+        "created_time": "2023-09-10T16:14:06.000Z",
+        "updated_time": "2023-09-10T16:14:06.000Z"
+      }
+    ],
+    "reviewsList": [],
     "path": "/watches/ip8-ultra"
   },
   {
@@ -6572,63 +6572,6 @@
         "updated_time": "2023-09-24T04:52:51.000Z"
       }
     ],
-    "sellingList": [
-      {
-        "id": 1225,
-        "light": "голосовой помощник",
-        "weight": 7,
-        "good_key": "series8-mini",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:series8-mini",
-        "language": "ru",
-        "created_time": "2023-09-10T16:13:45.000Z",
-        "updated_time": "2023-09-10T16:13:45.000Z"
-      },
-      {
-        "id": 1226,
-        "light": "Полноэкранный сенсорный экран",
-        "weight": 5,
-        "good_key": "series8-mini",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:series8-mini",
-        "language": "ru",
-        "created_time": "2023-09-10T16:13:45.000Z",
-        "updated_time": "2023-09-10T16:13:45.000Z"
-      },
-      {
-        "id": 1227,
-        "light": "Голосовые звонки",
-        "weight": 4,
-        "good_key": "series8-mini",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:series8-mini",
-        "language": "ru",
-        "created_time": "2023-09-10T16:13:45.000Z",
-        "updated_time": "2023-09-10T16:13:45.000Z"
-      },
-      {
-        "id": 1228,
-        "light": "уведомление о сообщении",
-        "weight": 3,
-        "good_key": "series8-mini",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:series8-mini",
-        "language": "ru",
-        "created_time": "2023-09-10T16:13:45.000Z",
-        "updated_time": "2023-09-10T16:13:45.000Z"
-      },
-      {
-        "id": 1229,
-        "light": "входящий звонок",
-        "weight": 1,
-        "good_key": "series8-mini",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:series8-mini",
-        "language": "ru",
-        "created_time": "2023-09-10T16:13:45.000Z",
-        "updated_time": "2023-09-10T16:13:45.000Z"
-      }
-    ],
     "funcionList": [
       {
         "id": 4896,
@@ -7075,7 +7018,6 @@
         "updated_time": "2023-09-10T16:08:19.000Z"
       }
     ],
-    "reviewsList": [],
     "associationsList": [
       {
         "id": 2702,
@@ -7330,6 +7272,64 @@
         "updated_time": "2023-09-19T12:47:26.000Z"
       }
     ],
+    "sellingList": [
+      {
+        "id": 1225,
+        "light": "голосовой помощник",
+        "weight": 7,
+        "good_key": "series8-mini",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:series8-mini",
+        "language": "ru",
+        "created_time": "2023-09-10T16:13:45.000Z",
+        "updated_time": "2023-09-10T16:13:45.000Z"
+      },
+      {
+        "id": 1226,
+        "light": "Полноэкранный сенсорный экран",
+        "weight": 5,
+        "good_key": "series8-mini",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:series8-mini",
+        "language": "ru",
+        "created_time": "2023-09-10T16:13:45.000Z",
+        "updated_time": "2023-09-10T16:13:45.000Z"
+      },
+      {
+        "id": 1227,
+        "light": "Голосовые звонки",
+        "weight": 4,
+        "good_key": "series8-mini",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:series8-mini",
+        "language": "ru",
+        "created_time": "2023-09-10T16:13:45.000Z",
+        "updated_time": "2023-09-10T16:13:45.000Z"
+      },
+      {
+        "id": 1228,
+        "light": "уведомление о сообщении",
+        "weight": 3,
+        "good_key": "series8-mini",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:series8-mini",
+        "language": "ru",
+        "created_time": "2023-09-10T16:13:45.000Z",
+        "updated_time": "2023-09-10T16:13:45.000Z"
+      },
+      {
+        "id": 1229,
+        "light": "входящий звонок",
+        "weight": 1,
+        "good_key": "series8-mini",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:series8-mini",
+        "language": "ru",
+        "created_time": "2023-09-10T16:13:45.000Z",
+        "updated_time": "2023-09-10T16:13:45.000Z"
+      }
+    ],
+    "reviewsList": [],
     "path": "/watches/series8-mini"
   },
   {
@@ -8322,74 +8322,6 @@
         "updated_time": "2023-09-24T04:52:59.000Z"
       }
     ],
-    "sellingList": [
-      {
-        "id": 1219,
-        "light": "входящий звонок",
-        "weight": 8,
-        "good_key": "ultra-max",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:ultra-max",
-        "language": "ru",
-        "created_time": "2023-09-10T16:13:25.000Z",
-        "updated_time": "2023-09-10T16:13:25.000Z"
-      },
-      {
-        "id": 1220,
-        "light": "уведомление о сообщении",
-        "weight": 7,
-        "good_key": "ultra-max",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:ultra-max",
-        "language": "ru",
-        "created_time": "2023-09-10T16:13:25.000Z",
-        "updated_time": "2023-09-10T16:13:25.000Z"
-      },
-      {
-        "id": 1221,
-        "light": "Переключение языка браслета",
-        "weight": 6,
-        "good_key": "ultra-max",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:ultra-max",
-        "language": "ru",
-        "created_time": "2023-09-10T16:13:25.000Z",
-        "updated_time": "2023-09-10T16:13:25.000Z"
-      },
-      {
-        "id": 1222,
-        "light": "Общее позиционирование",
-        "weight": 5,
-        "good_key": "ultra-max",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:ultra-max",
-        "language": "ru",
-        "created_time": "2023-09-10T16:13:25.000Z",
-        "updated_time": "2023-09-10T16:13:25.000Z"
-      },
-      {
-        "id": 1223,
-        "light": "НФК",
-        "weight": 4,
-        "good_key": "ultra-max",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:ultra-max",
-        "language": "ru",
-        "created_time": "2023-09-10T16:13:25.000Z",
-        "updated_time": "2023-09-10T16:13:25.000Z"
-      },
-      {
-        "id": 1224,
-        "light": "Анализ усталости",
-        "weight": 2,
-        "good_key": "ultra-max",
-        "good_sort_key": "watches",
-        "associate_good_key": "watches:ultra-max",
-        "language": "ru",
-        "created_time": "2023-09-10T16:13:25.000Z",
-        "updated_time": "2023-09-10T16:13:25.000Z"
-      }
-    ],
     "funcionList": [
       {
         "id": 4933,
@@ -8896,7 +8828,6 @@
         "updated_time": "2023-09-10T16:07:39.000Z"
       }
     ],
-    "reviewsList": [],
     "associationsList": [
       {
         "id": 2723,
@@ -9127,6 +9058,75 @@
         "updated_time": "2023-09-10T16:00:39.000Z"
       }
     ],
+    "sellingList": [
+      {
+        "id": 1219,
+        "light": "входящий звонок",
+        "weight": 8,
+        "good_key": "ultra-max",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:ultra-max",
+        "language": "ru",
+        "created_time": "2023-09-10T16:13:25.000Z",
+        "updated_time": "2023-09-10T16:13:25.000Z"
+      },
+      {
+        "id": 1220,
+        "light": "уведомление о сообщении",
+        "weight": 7,
+        "good_key": "ultra-max",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:ultra-max",
+        "language": "ru",
+        "created_time": "2023-09-10T16:13:25.000Z",
+        "updated_time": "2023-09-10T16:13:25.000Z"
+      },
+      {
+        "id": 1221,
+        "light": "Переключение языка браслета",
+        "weight": 6,
+        "good_key": "ultra-max",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:ultra-max",
+        "language": "ru",
+        "created_time": "2023-09-10T16:13:25.000Z",
+        "updated_time": "2023-09-10T16:13:25.000Z"
+      },
+      {
+        "id": 1222,
+        "light": "Общее позиционирование",
+        "weight": 5,
+        "good_key": "ultra-max",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:ultra-max",
+        "language": "ru",
+        "created_time": "2023-09-10T16:13:25.000Z",
+        "updated_time": "2023-09-10T16:13:25.000Z"
+      },
+      {
+        "id": 1223,
+        "light": "НФК",
+        "weight": 4,
+        "good_key": "ultra-max",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:ultra-max",
+        "language": "ru",
+        "created_time": "2023-09-10T16:13:25.000Z",
+        "updated_time": "2023-09-10T16:13:25.000Z"
+      },
+      {
+        "id": 1224,
+        "light": "Анализ усталости",
+        "weight": 2,
+        "good_key": "ultra-max",
+        "good_sort_key": "watches",
+        "associate_good_key": "watches:ultra-max",
+        "language": "ru",
+        "created_time": "2023-09-10T16:13:25.000Z",
+        "updated_time": "2023-09-10T16:13:25.000Z"
+      }
+    ],
+    "reviewsList": [],
     "path": "/watches/ultra-max"
   },
   {
@@ -9185,10 +9185,10 @@
         "updated_time": "2023-09-24T04:53:07.000Z"
       }
     ],
-    "sellingList": [],
     "funcionList": [],
-    "reviewsList": [],
     "associationsList": [],
+    "sellingList": [],
+    "reviewsList": [],
     "path": "/watches/k8-ultra-max"
   }
 ]

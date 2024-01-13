@@ -580,7 +580,10 @@ export default function Main({
                           });
                       }}
                       onApprove={(data) => {
-                        return Api.confirmPaypal({ id: data.orderID })
+                        return Api.confirmPaypal({
+                          id: data.orderID,
+                          from: "order_page",
+                        })
                           .then((res) => {
                             if (res.code === 0) {
                               tracking.purchase({
@@ -596,7 +599,6 @@ export default function Main({
                               });
                               // 移除订单信息
                               localStorage.removeItem("order");
-
                               setTimeout(() => {
                                 clearOrderList();
                                 location.href = `/store/order/info?secret=${res.data.secret}`;

@@ -15,6 +15,7 @@ import useProductStore from "../../productStore";
 import { useRouter } from "next/navigation";
 import tracking from "../../tracking";
 import GlobalContext from "@/globalContext";
+import COUNTRYLIST from "@/config/COUNTRYLIST";
 
 import Api from "../../api";
 
@@ -98,6 +99,7 @@ function PayButton({
             discount,
           ]}
           createOrder={async () => {
+            console.log();
             // 处理订单
             return Api.createOrder({
               ...userInfo,

@@ -3,7 +3,7 @@
 import React from "react";
 import styles from "./index.module.scss";
 
-const active_icon = `${process.env.NEXT_PUBLIC_IMAGE}/icon/previews_stars_avtice_icon.svg`;
+const active_icon = `${process.env.NEXT_PUBLIC_IMAGE}/icon/previews_stars_active_icon.svg`;
 const no_active_icon = `${process.env.NEXT_PUBLIC_IMAGE}/icon/previews_stars_icon.svg`;
 
 export default function GoodReviewsRate({ LANG, configList }) {

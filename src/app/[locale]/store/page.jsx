@@ -59,14 +59,14 @@ function ProductInfo({ product, productIndex, LANG, goodDiscountFestival }) {
         <div className={styles.mask_top}></div>
         <div className={styles.mask_bottom}></div>
 
-        {goodDiscountFestival && product.areaInfo.good_discount ? (
+        {/* {goodDiscountFestival && product.areaInfo.good_discount ? (
           <div className={styles.good_discount}>
             <div className={styles.off}>{LANG["store.index.off"]}</div>
             <div className={styles.discount}>
               {100 - product.areaInfo.good_discount}%
             </div>
           </div>
-        ) : null}
+        ) : null} */}
 
         <div className={styles.title}>
           <h3>{product.name}</h3>

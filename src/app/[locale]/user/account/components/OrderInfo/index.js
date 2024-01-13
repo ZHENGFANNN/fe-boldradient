@@ -99,6 +99,7 @@ export default function OrderInfo({ LANG }) {
           </div>
           {list.length < 1 ? (
             <Empyt
+              LANG={LANG}
               buttonProps={{
                 text: LANG["www.account.my_order.go_to_buy"],
                 href: "/store",

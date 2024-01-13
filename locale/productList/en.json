@@ -48,6 +48,23 @@
         "updated_time": "2023-09-17T13:28:54.000Z"
       }
     ],
+    "indexConfig": [
+      {
+        "id": 34,
+        "good_key": "n9-ultra-pro",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:n9-ultra-pro",
+        "page_keywords": "N9 ULTRA PRO, Smart Watch, Apple Watch, High Performance Smart Watch, Fashion Smart Watch",
+        "page_title": "N9 ULTRA PRO",
+        "page_description": "N9 ULTRA PRO is a powerful smartwatch with advanced features and innovative design similar to Apple Watch. It combines stylish appearance and high-performance technology to provide users with an excellent smart experience.",
+        "pc_background": null,
+        "mob_background": null,
+        "is_light": null,
+        "created_time": "2023-09-24T04:38:43.000Z",
+        "updated_time": "2023-09-24T04:38:43.000Z"
+      }
+    ],
     "packageList": [
       {
         "id": 568,
@@ -408,23 +425,6 @@
         "weight": 90,
         "created_time": "2023-10-21T09:38:24.000Z",
         "updated_time": "2023-10-21T09:38:24.000Z"
-      }
-    ],
-    "indexConfig": [
-      {
-        "id": 34,
-        "good_key": "n9-ultra-pro",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:n9-ultra-pro",
-        "page_keywords": "N9 ULTRA PRO, Smart Watch, Apple Watch, High Performance Smart Watch, Fashion Smart Watch",
-        "page_title": "N9 ULTRA PRO",
-        "page_description": "N9 ULTRA PRO is a powerful smartwatch with advanced features and innovative design similar to Apple Watch. It combines stylish appearance and high-performance technology to provide users with an excellent smart experience.",
-        "pc_background": null,
-        "mob_background": null,
-        "is_light": null,
-        "created_time": "2023-09-24T04:38:43.000Z",
-        "updated_time": "2023-09-24T04:38:43.000Z"
       }
     ],
     "comboList": [
@@ -1276,6 +1276,7 @@
         ]
       }
     ],
+    "reviewsList": [],
     "sellingList": [
       {
         "id": 1007,
@@ -1353,261 +1354,6 @@
         "language": "en",
         "created_time": "2023-09-10T16:12:29.000Z",
         "updated_time": "2023-10-21T06:52:21.000Z"
-      }
-    ],
-    "reviewsList": [],
-    "associationsList": [
-      {
-        "id": 1992,
-        "good_key": "n9-ultra-pro",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:n9-ultra-pro",
-        "value": "Wearfit OS",
-        "key": "watch system",
-        "weight": 21,
-        "created_time": "2023-09-10T15:50:55.000Z",
-        "updated_time": "2023-09-10T15:50:55.000Z"
-      },
-      {
-        "id": 1993,
-        "good_key": "n9-ultra-pro",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:n9-ultra-pro",
-        "value": "android5.0+/ios10.0+",
-        "key": "System Requirements",
-        "weight": 20,
-        "created_time": "2023-09-10T15:50:55.000Z",
-        "updated_time": "2023-09-10T15:50:55.000Z"
-      },
-      {
-        "id": 1994,
-        "good_key": "n9-ultra-pro",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:n9-ultra-pro",
-        "value": "Hs6621PG",
-        "key": "Master chip",
-        "weight": 19,
-        "created_time": "2023-09-10T15:50:55.000Z",
-        "updated_time": "2023-09-10T15:50:55.000Z"
-      },
-      {
-        "id": 1995,
-        "good_key": "n9-ultra-pro",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:n9-ultra-pro",
-        "value": "128M",
-        "key": "Bracelet memory",
-        "weight": 18,
-        "created_time": "2023-09-10T15:50:55.000Z",
-        "updated_time": "2023-09-10T15:50:55.000Z"
-      },
-      {
-        "id": 1996,
-        "good_key": "n9-ultra-pro",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:n9-ultra-pro",
-        "value": "AB5376A2",
-        "key": "Call bluetooth",
-        "weight": 17,
-        "created_time": "2023-09-10T15:50:55.000Z",
-        "updated_time": "2023-09-10T15:50:55.000Z"
-      },
-      {
-        "id": 1997,
-        "good_key": "n9-ultra-pro",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:n9-ultra-pro",
-        "value": "5.2",
-        "key": "Bluetooth version",
-        "weight": 16,
-        "created_time": "2023-09-10T15:50:55.000Z",
-        "updated_time": "2023-09-10T15:50:55.000Z"
-      },
-      {
-        "id": 1998,
-        "good_key": "n9-ultra-pro",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:n9-ultra-pro",
-        "value": "SC7R30",
-        "key": "Heart rate chip",
-        "weight": 15,
-        "created_time": "2023-09-10T15:50:55.000Z",
-        "updated_time": "2023-09-10T15:50:55.000Z"
-      },
-      {
-        "id": 1999,
-        "good_key": "n9-ultra-pro",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:n9-ultra-pro",
-        "value": "2.1inch-square screen-385*385-TFT",
-        "key": "screen display",
-        "weight": 14,
-        "created_time": "2023-09-10T15:50:55.000Z",
-        "updated_time": "2023-09-10T15:50:55.000Z"
-      },
-      {
-        "id": 2000,
-        "good_key": "n9-ultra-pro",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:n9-ultra-pro",
-        "value": "380mAH",
-        "key": "battery capacity",
-        "weight": 13,
-        "created_time": "2023-09-10T15:50:55.000Z",
-        "updated_time": "2023-09-10T15:50:55.000Z"
-      },
-      {
-        "id": 2001,
-        "good_key": "n9-ultra-pro",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:n9-ultra-pro",
-        "value": "65 days",
-        "key": "Standby time",
-        "weight": 12,
-        "created_time": "2023-09-10T15:50:55.000Z",
-        "updated_time": "2023-09-10T15:50:55.000Z"
-      },
-      {
-        "id": 2002,
-        "good_key": "n9-ultra-pro",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:n9-ultra-pro",
-        "value": "About 10 days",
-        "key": "usage time",
-        "weight": 11,
-        "created_time": "2023-09-10T15:50:55.000Z",
-        "updated_time": "2023-09-10T15:50:55.000Z"
-      },
-      {
-        "id": 2003,
-        "good_key": "n9-ultra-pro",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:n9-ultra-pro",
-        "value": "Full screen touch + three buttons + knob",
-        "key": "Button mode",
-        "weight": 10,
-        "created_time": "2023-09-10T15:50:55.000Z",
-        "updated_time": "2023-09-10T15:50:55.000Z"
-      },
-      {
-        "id": 2004,
-        "good_key": "n9-ultra-pro",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:n9-ultra-pro",
-        "value": "Round cake motor",
-        "key": "motor",
-        "weight": 9,
-        "created_time": "2023-09-10T15:50:55.000Z",
-        "updated_time": "2023-09-10T15:50:55.000Z"
-      },
-      {
-        "id": 2005,
-        "good_key": "n9-ultra-pro",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:n9-ultra-pro",
-        "value": "Wireless charging",
-        "key": "Charging interface",
-        "weight": 8,
-        "created_time": "2023-09-10T15:50:55.000Z",
-        "updated_time": "2023-09-10T15:50:55.000Z"
-      },
-      {
-        "id": 2006,
-        "good_key": "n9-ultra-pro",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:n9-ultra-pro",
-        "value": "IP68",
-        "key": "waterproof level",
-        "weight": 7,
-        "created_time": "2023-09-10T15:50:55.000Z",
-        "updated_time": "2023-09-10T15:50:55.000Z"
-      },
-      {
-        "id": 2007,
-        "good_key": "n9-ultra-pro",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:n9-ultra-pro",
-        "value": "G-sensor 3-axis",
-        "key": "sensor",
-        "weight": 6,
-        "created_time": "2023-09-10T15:50:55.000Z",
-        "updated_time": "2023-09-10T15:50:55.000Z"
-      },
-      {
-        "id": 2008,
-        "good_key": "n9-ultra-pro",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:n9-ultra-pro",
-        "value": "6",
-        "key": "local watch face",
-        "weight": 5,
-        "created_time": "2023-09-10T15:50:55.000Z",
-        "updated_time": "2023-09-10T15:50:55.000Z"
-      },
-      {
-        "id": 2009,
-        "good_key": "n9-ultra-pro",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:n9-ultra-pro",
-        "value": "300+",
-        "key": "dial market",
-        "weight": 4,
-        "created_time": "2023-09-10T15:50:55.000Z",
-        "updated_time": "2023-09-10T15:50:55.000Z"
-      },
-      {
-        "id": 2010,
-        "good_key": "n9-ultra-pro",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:n9-ultra-pro",
-        "value": "4",
-        "key": "menu style",
-        "weight": 3,
-        "created_time": "2023-09-10T15:50:55.000Z",
-        "updated_time": "2023-09-10T15:50:55.000Z"
-      },
-      {
-        "id": 2011,
-        "good_key": "n9-ultra-pro",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:n9-ultra-pro",
-        "value": "WearFit pro",
-        "key": "APP",
-        "weight": 2,
-        "created_time": "2023-09-10T15:50:55.000Z",
-        "updated_time": "2023-09-10T15:50:55.000Z"
-      },
-      {
-        "id": 2012,
-        "good_key": "n9-ultra-pro",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:n9-ultra-pro",
-        "value": "Simplified Chinese, Traditional Chinese, English, French, Hebrew, Persian, German, Japanese, Spanish, Italian, Korean, Russian, Thai, Czech,\nPortuguese, Indonesian, Arabic, Turkish, Greek, Estonian, Bulgarian, Latvian,\nLithuanian, Romanian, Serbian, Slovak",
-        "key": "APP supported languages",
-        "weight": 1,
-        "created_time": "2023-09-10T15:50:55.000Z",
-        "updated_time": "2023-09-10T15:50:55.000Z"
       }
     ],
     "funcionList": [
@@ -2212,6 +1958,260 @@
         "updated_time": "2023-09-10T16:07:02.000Z"
       }
     ],
+    "associationsList": [
+      {
+        "id": 1992,
+        "good_key": "n9-ultra-pro",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:n9-ultra-pro",
+        "value": "Wearfit OS",
+        "key": "watch system",
+        "weight": 21,
+        "created_time": "2023-09-10T15:50:55.000Z",
+        "updated_time": "2023-09-10T15:50:55.000Z"
+      },
+      {
+        "id": 1993,
+        "good_key": "n9-ultra-pro",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:n9-ultra-pro",
+        "value": "android5.0+/ios10.0+",
+        "key": "System Requirements",
+        "weight": 20,
+        "created_time": "2023-09-10T15:50:55.000Z",
+        "updated_time": "2023-09-10T15:50:55.000Z"
+      },
+      {
+        "id": 1994,
+        "good_key": "n9-ultra-pro",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:n9-ultra-pro",
+        "value": "Hs6621PG",
+        "key": "Master chip",
+        "weight": 19,
+        "created_time": "2023-09-10T15:50:55.000Z",
+        "updated_time": "2023-09-10T15:50:55.000Z"
+      },
+      {
+        "id": 1995,
+        "good_key": "n9-ultra-pro",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:n9-ultra-pro",
+        "value": "128M",
+        "key": "Bracelet memory",
+        "weight": 18,
+        "created_time": "2023-09-10T15:50:55.000Z",
+        "updated_time": "2023-09-10T15:50:55.000Z"
+      },
+      {
+        "id": 1996,
+        "good_key": "n9-ultra-pro",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:n9-ultra-pro",
+        "value": "AB5376A2",
+        "key": "Call bluetooth",
+        "weight": 17,
+        "created_time": "2023-09-10T15:50:55.000Z",
+        "updated_time": "2023-09-10T15:50:55.000Z"
+      },
+      {
+        "id": 1997,
+        "good_key": "n9-ultra-pro",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:n9-ultra-pro",
+        "value": "5.2",
+        "key": "Bluetooth version",
+        "weight": 16,
+        "created_time": "2023-09-10T15:50:55.000Z",
+        "updated_time": "2023-09-10T15:50:55.000Z"
+      },
+      {
+        "id": 1998,
+        "good_key": "n9-ultra-pro",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:n9-ultra-pro",
+        "value": "SC7R30",
+        "key": "Heart rate chip",
+        "weight": 15,
+        "created_time": "2023-09-10T15:50:55.000Z",
+        "updated_time": "2023-09-10T15:50:55.000Z"
+      },
+      {
+        "id": 1999,
+        "good_key": "n9-ultra-pro",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:n9-ultra-pro",
+        "value": "2.1inch-square screen-385*385-TFT",
+        "key": "screen display",
+        "weight": 14,
+        "created_time": "2023-09-10T15:50:55.000Z",
+        "updated_time": "2023-09-10T15:50:55.000Z"
+      },
+      {
+        "id": 2000,
+        "good_key": "n9-ultra-pro",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:n9-ultra-pro",
+        "value": "380mAH",
+        "key": "battery capacity",
+        "weight": 13,
+        "created_time": "2023-09-10T15:50:55.000Z",
+        "updated_time": "2023-09-10T15:50:55.000Z"
+      },
+      {
+        "id": 2001,
+        "good_key": "n9-ultra-pro",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:n9-ultra-pro",
+        "value": "65 days",
+        "key": "Standby time",
+        "weight": 12,
+        "created_time": "2023-09-10T15:50:55.000Z",
+        "updated_time": "2023-09-10T15:50:55.000Z"
+      },
+      {
+        "id": 2002,
+        "good_key": "n9-ultra-pro",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:n9-ultra-pro",
+        "value": "About 10 days",
+        "key": "usage time",
+        "weight": 11,
+        "created_time": "2023-09-10T15:50:55.000Z",
+        "updated_time": "2023-09-10T15:50:55.000Z"
+      },
+      {
+        "id": 2003,
+        "good_key": "n9-ultra-pro",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:n9-ultra-pro",
+        "value": "Full screen touch + three buttons + knob",
+        "key": "Button mode",
+        "weight": 10,
+        "created_time": "2023-09-10T15:50:55.000Z",
+        "updated_time": "2023-09-10T15:50:55.000Z"
+      },
+      {
+        "id": 2004,
+        "good_key": "n9-ultra-pro",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:n9-ultra-pro",
+        "value": "Round cake motor",
+        "key": "motor",
+        "weight": 9,
+        "created_time": "2023-09-10T15:50:55.000Z",
+        "updated_time": "2023-09-10T15:50:55.000Z"
+      },
+      {
+        "id": 2005,
+        "good_key": "n9-ultra-pro",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:n9-ultra-pro",
+        "value": "Wireless charging",
+        "key": "Charging interface",
+        "weight": 8,
+        "created_time": "2023-09-10T15:50:55.000Z",
+        "updated_time": "2023-09-10T15:50:55.000Z"
+      },
+      {
+        "id": 2006,
+        "good_key": "n9-ultra-pro",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:n9-ultra-pro",
+        "value": "IP68",
+        "key": "waterproof level",
+        "weight": 7,
+        "created_time": "2023-09-10T15:50:55.000Z",
+        "updated_time": "2023-09-10T15:50:55.000Z"
+      },
+      {
+        "id": 2007,
+        "good_key": "n9-ultra-pro",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:n9-ultra-pro",
+        "value": "G-sensor 3-axis",
+        "key": "sensor",
+        "weight": 6,
+        "created_time": "2023-09-10T15:50:55.000Z",
+        "updated_time": "2023-09-10T15:50:55.000Z"
+      },
+      {
+        "id": 2008,
+        "good_key": "n9-ultra-pro",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:n9-ultra-pro",
+        "value": "6",
+        "key": "local watch face",
+        "weight": 5,
+        "created_time": "2023-09-10T15:50:55.000Z",
+        "updated_time": "2023-09-10T15:50:55.000Z"
+      },
+      {
+        "id": 2009,
+        "good_key": "n9-ultra-pro",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:n9-ultra-pro",
+        "value": "300+",
+        "key": "dial market",
+        "weight": 4,
+        "created_time": "2023-09-10T15:50:55.000Z",
+        "updated_time": "2023-09-10T15:50:55.000Z"
+      },
+      {
+        "id": 2010,
+        "good_key": "n9-ultra-pro",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:n9-ultra-pro",
+        "value": "4",
+        "key": "menu style",
+        "weight": 3,
+        "created_time": "2023-09-10T15:50:55.000Z",
+        "updated_time": "2023-09-10T15:50:55.000Z"
+      },
+      {
+        "id": 2011,
+        "good_key": "n9-ultra-pro",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:n9-ultra-pro",
+        "value": "WearFit pro",
+        "key": "APP",
+        "weight": 2,
+        "created_time": "2023-09-10T15:50:55.000Z",
+        "updated_time": "2023-09-10T15:50:55.000Z"
+      },
+      {
+        "id": 2012,
+        "good_key": "n9-ultra-pro",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:n9-ultra-pro",
+        "value": "Simplified Chinese, Traditional Chinese, English, French, Hebrew, Persian, German, Japanese, Spanish, Italian, Korean, Russian, Thai, Czech,\nPortuguese, Indonesian, Arabic, Turkish, Greek, Estonian, Bulgarian, Latvian,\nLithuanian, Romanian, Serbian, Slovak",
+        "key": "APP supported languages",
+        "weight": 1,
+        "created_time": "2023-09-10T15:50:55.000Z",
+        "updated_time": "2023-09-10T15:50:55.000Z"
+      }
+    ],
     "path": "/watches/n9-ultra-pro"
   },
   {
@@ -2238,6 +2238,23 @@
     "updated_time": "2023-09-18T14:47:40.000Z",
     "associateProduct": [],
     "typeList": [],
+    "indexConfig": [
+      {
+        "id": 36,
+        "good_key": "8-ultra-mini",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:8-ultra-mini",
+        "page_keywords": "8Ultra min, smart watch, compact and lightweight, health monitoring, sports tracking",
+        "page_title": "8Ultra mini",
+        "page_description": "8Ultra min is a small and lightweight smartwatch with great features and sophisticated design. It has a variety of smart functions, such as health monitoring, notification reminders, and exercise tracking, allowing you to stay connected and manage your life anytime, anywhere.",
+        "pc_background": null,
+        "mob_background": null,
+        "is_light": null,
+        "created_time": "2023-09-24T04:43:00.000Z",
+        "updated_time": "2023-09-24T04:43:00.000Z"
+      }
+    ],
     "packageList": [
       {
         "id": 526,
@@ -2327,23 +2344,6 @@
         "weight": 12,
         "created_time": "2023-09-09T14:28:04.000Z",
         "updated_time": "2023-09-24T06:49:22.000Z"
-      }
-    ],
-    "indexConfig": [
-      {
-        "id": 36,
-        "good_key": "8-ultra-mini",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:8-ultra-mini",
-        "page_keywords": "8Ultra min, smart watch, compact and lightweight, health monitoring, sports tracking",
-        "page_title": "8Ultra mini",
-        "page_description": "8Ultra min is a small and lightweight smartwatch with great features and sophisticated design. It has a variety of smart functions, such as health monitoring, notification reminders, and exercise tracking, allowing you to stay connected and manage your life anytime, anywhere.",
-        "pc_background": null,
-        "mob_background": null,
-        "is_light": null,
-        "created_time": "2023-09-24T04:43:00.000Z",
-        "updated_time": "2023-09-24T04:43:00.000Z"
       }
     ],
     "comboList": [
@@ -3182,6 +3182,7 @@
         ]
       }
     ],
+    "reviewsList": [],
     "sellingList": [
       {
         "id": 1014,
@@ -3248,273 +3249,6 @@
         "language": "en",
         "created_time": "2023-09-19T13:12:23.000Z",
         "updated_time": "2023-09-19T13:12:23.000Z"
-      }
-    ],
-    "reviewsList": [],
-    "associationsList": [
-      {
-        "id": 2013,
-        "good_key": "8-ultra-mini",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:8-ultra-mini",
-        "value": "android5.0+/ios10.0+",
-        "key": "System Requirements",
-        "weight": 22,
-        "created_time": "2023-09-09T16:01:26.000Z",
-        "updated_time": "2023-09-09T16:01:26.000Z"
-      },
-      {
-        "id": 2014,
-        "good_key": "8-ultra-mini",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:8-ultra-mini",
-        "value": "OM6621-PG",
-        "key": "Master chip",
-        "weight": 21,
-        "created_time": "2023-09-09T16:01:26.000Z",
-        "updated_time": "2023-09-09T16:01:26.000Z"
-      },
-      {
-        "id": 2015,
-        "good_key": "8-ultra-mini",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:8-ultra-mini",
-        "value": "64M",
-        "key": "Bracelet memory",
-        "weight": 20,
-        "created_time": "2023-09-09T16:01:26.000Z",
-        "updated_time": "2023-09-09T16:01:26.000Z"
-      },
-      {
-        "id": 2016,
-        "good_key": "8-ultra-mini",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:8-ultra-mini",
-        "value": "AB5376A2",
-        "key": "Call bluetooth",
-        "weight": 19,
-        "created_time": "2023-09-09T16:01:26.000Z",
-        "updated_time": "2023-09-09T16:01:26.000Z"
-      },
-      {
-        "id": 2017,
-        "good_key": "8-ultra-mini",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:8-ultra-mini",
-        "value": "5.2",
-        "key": "Bluetooth version",
-        "weight": 18,
-        "created_time": "2023-09-09T16:01:26.000Z",
-        "updated_time": "2023-09-09T16:01:26.000Z"
-      },
-      {
-        "id": 2018,
-        "good_key": "8-ultra-mini",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:8-ultra-mini",
-        "value": "-",
-        "key": "heart rate sensor",
-        "weight": 17,
-        "created_time": "2023-09-09T16:01:26.000Z",
-        "updated_time": "2023-09-09T16:01:26.000Z"
-      },
-      {
-        "id": 2019,
-        "good_key": "8-ultra-mini",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:8-ultra-mini",
-        "value": "SC7R30",
-        "key": "pedometer sensor",
-        "weight": 16,
-        "created_time": "2023-09-09T16:01:26.000Z",
-        "updated_time": "2023-09-09T16:01:26.000Z"
-      },
-      {
-        "id": 2020,
-        "good_key": "8-ultra-mini",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:8-ultra-mini",
-        "value": "1.7inch-full screen\n240*296 resolution",
-        "key": "screen display",
-        "weight": 15,
-        "created_time": "2023-09-09T16:01:26.000Z",
-        "updated_time": "2023-09-09T16:01:26.000Z"
-      },
-      {
-        "id": 2021,
-        "good_key": "8-ultra-mini",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:8-ultra-mini",
-        "value": "200mAh",
-        "key": "battery capacity",
-        "weight": 14,
-        "created_time": "2023-09-09T16:01:26.000Z",
-        "updated_time": "2023-09-09T16:01:26.000Z"
-      },
-      {
-        "id": 2022,
-        "good_key": "8-ultra-mini",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:8-ultra-mini",
-        "value": "5 days",
-        "key": "Standby time",
-        "weight": 13,
-        "created_time": "2023-09-09T16:01:26.000Z",
-        "updated_time": "2023-09-09T16:01:26.000Z"
-      },
-      {
-        "id": 2023,
-        "good_key": "8-ultra-mini",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:8-ultra-mini",
-        "value": "about 3 days",
-        "key": "usage time",
-        "weight": 12,
-        "created_time": "2023-09-09T16:01:26.000Z",
-        "updated_time": "2023-09-09T16:01:26.000Z"
-      },
-      {
-        "id": 2024,
-        "good_key": "8-ultra-mini",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:8-ultra-mini",
-        "value": "Full screen touch",
-        "key": "Button mode",
-        "weight": 11,
-        "created_time": "2023-09-09T16:01:26.000Z",
-        "updated_time": "2023-09-09T16:01:26.000Z"
-      },
-      {
-        "id": 2025,
-        "good_key": "8-ultra-mini",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:8-ultra-mini",
-        "value": "Round cake motor",
-        "key": "motor",
-        "weight": 10,
-        "created_time": "2023-09-09T16:01:26.000Z",
-        "updated_time": "2023-09-09T16:01:26.000Z"
-      },
-      {
-        "id": 2026,
-        "good_key": "8-ultra-mini",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:8-ultra-mini",
-        "value": "Wireless charging",
-        "key": "Charging interface",
-        "weight": 9,
-        "created_time": "2023-09-09T16:01:26.000Z",
-        "updated_time": "2023-09-09T16:01:26.000Z"
-      },
-      {
-        "id": 2027,
-        "good_key": "8-ultra-mini",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:8-ultra-mini",
-        "value": "IP67",
-        "key": "waterproof level",
-        "weight": 8,
-        "created_time": "2023-09-09T16:01:26.000Z",
-        "updated_time": "2023-09-09T16:01:26.000Z"
-      },
-      {
-        "id": 2028,
-        "good_key": "8-ultra-mini",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:8-ultra-mini",
-        "value": "G-sensor 3-axis",
-        "key": "sensor",
-        "weight": 7,
-        "created_time": "2023-09-09T16:01:26.000Z",
-        "updated_time": "2023-09-09T16:01:26.000Z"
-      },
-      {
-        "id": 2029,
-        "good_key": "8-ultra-mini",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:8-ultra-mini",
-        "value": "10+",
-        "key": "local watch face",
-        "weight": 6,
-        "created_time": "2023-09-09T16:01:26.000Z",
-        "updated_time": "2023-09-09T16:01:26.000Z"
-      },
-      {
-        "id": 2030,
-        "good_key": "8-ultra-mini",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:8-ultra-mini",
-        "value": "50+",
-        "key": "dial market",
-        "weight": 5,
-        "created_time": "2023-09-09T16:01:26.000Z",
-        "updated_time": "2023-09-09T16:01:26.000Z"
-      },
-      {
-        "id": 2031,
-        "good_key": "8-ultra-mini",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:8-ultra-mini",
-        "value": "4",
-        "key": "menu style",
-        "weight": 4,
-        "created_time": "2023-09-09T16:01:26.000Z",
-        "updated_time": "2023-09-09T16:01:26.000Z"
-      },
-      {
-        "id": 2032,
-        "good_key": "8-ultra-mini",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:8-ultra-mini",
-        "value": "WearFit pro",
-        "key": "APP",
-        "weight": 3,
-        "created_time": "2023-09-09T16:01:26.000Z",
-        "updated_time": "2023-09-09T16:01:26.000Z"
-      },
-      {
-        "id": 2033,
-        "good_key": "8-ultra-mini",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:8-ultra-mini",
-        "value": "Simplified Chinese, English, French, German, Spanish, Italian, Russian, Malay, Portuguese, Turkish, Hebrew, Ukrainian, Vietnamese, Indonesian, Thai, Arabic, Polish, Dutch, Romanian, Persian",
-        "key": "Push message",
-        "weight": 2,
-        "created_time": "2023-09-09T16:01:26.000Z",
-        "updated_time": "2023-09-09T16:01:26.000Z"
-      },
-      {
-        "id": 2034,
-        "good_key": "8-ultra-mini",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:8-ultra-mini",
-        "value": "Simplified Chinese, Traditional Chinese, English, French, German, Japanese, Spanish, Italian, Korean, Russian, Thai, Czech,\nPortuguese, Indonesian, Arabic, Turkish, Greek, Estonian, Bulgarian, Latvian,\nLithuanian, Persian, Serbian, Slovak (24 subjects)",
-        "key": "APP supported languages",
-        "weight": 1,
-        "created_time": "2023-09-09T16:01:26.000Z",
-        "updated_time": "2023-09-09T16:01:26.000Z"
       }
     ],
     "funcionList": [
@@ -3927,6 +3661,272 @@
         "updated_time": "2023-09-09T15:37:22.000Z"
       }
     ],
+    "associationsList": [
+      {
+        "id": 2013,
+        "good_key": "8-ultra-mini",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:8-ultra-mini",
+        "value": "android5.0+/ios10.0+",
+        "key": "System Requirements",
+        "weight": 22,
+        "created_time": "2023-09-09T16:01:26.000Z",
+        "updated_time": "2023-09-09T16:01:26.000Z"
+      },
+      {
+        "id": 2014,
+        "good_key": "8-ultra-mini",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:8-ultra-mini",
+        "value": "OM6621-PG",
+        "key": "Master chip",
+        "weight": 21,
+        "created_time": "2023-09-09T16:01:26.000Z",
+        "updated_time": "2023-09-09T16:01:26.000Z"
+      },
+      {
+        "id": 2015,
+        "good_key": "8-ultra-mini",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:8-ultra-mini",
+        "value": "64M",
+        "key": "Bracelet memory",
+        "weight": 20,
+        "created_time": "2023-09-09T16:01:26.000Z",
+        "updated_time": "2023-09-09T16:01:26.000Z"
+      },
+      {
+        "id": 2016,
+        "good_key": "8-ultra-mini",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:8-ultra-mini",
+        "value": "AB5376A2",
+        "key": "Call bluetooth",
+        "weight": 19,
+        "created_time": "2023-09-09T16:01:26.000Z",
+        "updated_time": "2023-09-09T16:01:26.000Z"
+      },
+      {
+        "id": 2017,
+        "good_key": "8-ultra-mini",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:8-ultra-mini",
+        "value": "5.2",
+        "key": "Bluetooth version",
+        "weight": 18,
+        "created_time": "2023-09-09T16:01:26.000Z",
+        "updated_time": "2023-09-09T16:01:26.000Z"
+      },
+      {
+        "id": 2018,
+        "good_key": "8-ultra-mini",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:8-ultra-mini",
+        "value": "-",
+        "key": "heart rate sensor",
+        "weight": 17,
+        "created_time": "2023-09-09T16:01:26.000Z",
+        "updated_time": "2023-09-09T16:01:26.000Z"
+      },
+      {
+        "id": 2019,
+        "good_key": "8-ultra-mini",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:8-ultra-mini",
+        "value": "SC7R30",
+        "key": "pedometer sensor",
+        "weight": 16,
+        "created_time": "2023-09-09T16:01:26.000Z",
+        "updated_time": "2023-09-09T16:01:26.000Z"
+      },
+      {
+        "id": 2020,
+        "good_key": "8-ultra-mini",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:8-ultra-mini",
+        "value": "1.7inch-full screen\n240*296 resolution",
+        "key": "screen display",
+        "weight": 15,
+        "created_time": "2023-09-09T16:01:26.000Z",
+        "updated_time": "2023-09-09T16:01:26.000Z"
+      },
+      {
+        "id": 2021,
+        "good_key": "8-ultra-mini",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:8-ultra-mini",
+        "value": "200mAh",
+        "key": "battery capacity",
+        "weight": 14,
+        "created_time": "2023-09-09T16:01:26.000Z",
+        "updated_time": "2023-09-09T16:01:26.000Z"
+      },
+      {
+        "id": 2022,
+        "good_key": "8-ultra-mini",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:8-ultra-mini",
+        "value": "5 days",
+        "key": "Standby time",
+        "weight": 13,
+        "created_time": "2023-09-09T16:01:26.000Z",
+        "updated_time": "2023-09-09T16:01:26.000Z"
+      },
+      {
+        "id": 2023,
+        "good_key": "8-ultra-mini",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:8-ultra-mini",
+        "value": "about 3 days",
+        "key": "usage time",
+        "weight": 12,
+        "created_time": "2023-09-09T16:01:26.000Z",
+        "updated_time": "2023-09-09T16:01:26.000Z"
+      },
+      {
+        "id": 2024,
+        "good_key": "8-ultra-mini",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:8-ultra-mini",
+        "value": "Full screen touch",
+        "key": "Button mode",
+        "weight": 11,
+        "created_time": "2023-09-09T16:01:26.000Z",
+        "updated_time": "2023-09-09T16:01:26.000Z"
+      },
+      {
+        "id": 2025,
+        "good_key": "8-ultra-mini",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:8-ultra-mini",
+        "value": "Round cake motor",
+        "key": "motor",
+        "weight": 10,
+        "created_time": "2023-09-09T16:01:26.000Z",
+        "updated_time": "2023-09-09T16:01:26.000Z"
+      },
+      {
+        "id": 2026,
+        "good_key": "8-ultra-mini",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:8-ultra-mini",
+        "value": "Wireless charging",
+        "key": "Charging interface",
+        "weight": 9,
+        "created_time": "2023-09-09T16:01:26.000Z",
+        "updated_time": "2023-09-09T16:01:26.000Z"
+      },
+      {
+        "id": 2027,
+        "good_key": "8-ultra-mini",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:8-ultra-mini",
+        "value": "IP67",
+        "key": "waterproof level",
+        "weight": 8,
+        "created_time": "2023-09-09T16:01:26.000Z",
+        "updated_time": "2023-09-09T16:01:26.000Z"
+      },
+      {
+        "id": 2028,
+        "good_key": "8-ultra-mini",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:8-ultra-mini",
+        "value": "G-sensor 3-axis",
+        "key": "sensor",
+        "weight": 7,
+        "created_time": "2023-09-09T16:01:26.000Z",
+        "updated_time": "2023-09-09T16:01:26.000Z"
+      },
+      {
+        "id": 2029,
+        "good_key": "8-ultra-mini",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:8-ultra-mini",
+        "value": "10+",
+        "key": "local watch face",
+        "weight": 6,
+        "created_time": "2023-09-09T16:01:26.000Z",
+        "updated_time": "2023-09-09T16:01:26.000Z"
+      },
+      {
+        "id": 2030,
+        "good_key": "8-ultra-mini",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:8-ultra-mini",
+        "value": "50+",
+        "key": "dial market",
+        "weight": 5,
+        "created_time": "2023-09-09T16:01:26.000Z",
+        "updated_time": "2023-09-09T16:01:26.000Z"
+      },
+      {
+        "id": 2031,
+        "good_key": "8-ultra-mini",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:8-ultra-mini",
+        "value": "4",
+        "key": "menu style",
+        "weight": 4,
+        "created_time": "2023-09-09T16:01:26.000Z",
+        "updated_time": "2023-09-09T16:01:26.000Z"
+      },
+      {
+        "id": 2032,
+        "good_key": "8-ultra-mini",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:8-ultra-mini",
+        "value": "WearFit pro",
+        "key": "APP",
+        "weight": 3,
+        "created_time": "2023-09-09T16:01:26.000Z",
+        "updated_time": "2023-09-09T16:01:26.000Z"
+      },
+      {
+        "id": 2033,
+        "good_key": "8-ultra-mini",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:8-ultra-mini",
+        "value": "Simplified Chinese, English, French, German, Spanish, Italian, Russian, Malay, Portuguese, Turkish, Hebrew, Ukrainian, Vietnamese, Indonesian, Thai, Arabic, Polish, Dutch, Romanian, Persian",
+        "key": "Push message",
+        "weight": 2,
+        "created_time": "2023-09-09T16:01:26.000Z",
+        "updated_time": "2023-09-09T16:01:26.000Z"
+      },
+      {
+        "id": 2034,
+        "good_key": "8-ultra-mini",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:8-ultra-mini",
+        "value": "Simplified Chinese, Traditional Chinese, English, French, German, Japanese, Spanish, Italian, Korean, Russian, Thai, Czech,\nPortuguese, Indonesian, Arabic, Turkish, Greek, Estonian, Bulgarian, Latvian,\nLithuanian, Persian, Serbian, Slovak (24 subjects)",
+        "key": "APP supported languages",
+        "weight": 1,
+        "created_time": "2023-09-09T16:01:26.000Z",
+        "updated_time": "2023-09-09T16:01:26.000Z"
+      }
+    ],
     "path": "/watches/8-ultra-mini"
   },
   {
@@ -3950,6 +3950,23 @@
     "updated_time": "2023-09-17T12:10:55.000Z",
     "associateProduct": [],
     "typeList": [],
+    "indexConfig": [
+      {
+        "id": 35,
+        "good_key": "ip8-ultra",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:ip8-ultra",
+        "page_keywords": "IP8 ULTRA, smart watch, high-end watch, HD touch screen, powerful performance",
+        "page_title": "IP8 ULTRA",
+        "page_description": "IP8 ULTRA is a high-end smartwatch known for its excellent performance and exquisite appearance. It has powerful processing power, high-definition touch screen and rich functions, providing users with an excellent smart experience.",
+        "pc_background": null,
+        "mob_background": null,
+        "is_light": null,
+        "created_time": "2023-09-24T04:39:09.000Z",
+        "updated_time": "2023-09-24T04:39:09.000Z"
+      }
+    ],
     "packageList": [
       {
         "id": 667,
@@ -4023,23 +4040,6 @@
       }
     ],
     "mediaList": [],
-    "indexConfig": [
-      {
-        "id": 35,
-        "good_key": "ip8-ultra",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:ip8-ultra",
-        "page_keywords": "IP8 ULTRA, smart watch, high-end watch, HD touch screen, powerful performance",
-        "page_title": "IP8 ULTRA",
-        "page_description": "IP8 ULTRA is a high-end smartwatch known for its excellent performance and exquisite appearance. It has powerful processing power, high-definition touch screen and rich functions, providing users with an excellent smart experience.",
-        "pc_background": null,
-        "mob_background": null,
-        "is_light": null,
-        "created_time": "2023-09-24T04:39:09.000Z",
-        "updated_time": "2023-09-24T04:39:09.000Z"
-      }
-    ],
     "comboList": [
       {
         "id": 64,
@@ -4876,6 +4876,7 @@
         ]
       }
     ],
+    "reviewsList": [],
     "sellingList": [
       {
         "id": 1020,
@@ -4942,237 +4943,6 @@
         "language": "en",
         "created_time": "2023-09-10T16:14:06.000Z",
         "updated_time": "2023-09-10T16:14:06.000Z"
-      }
-    ],
-    "reviewsList": [],
-    "associationsList": [
-      {
-        "id": 2035,
-        "good_key": "ip8-ultra",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:ip8-ultra",
-        "value": "android5.0+/ios10.0+",
-        "key": "System Requirements",
-        "weight": 19,
-        "created_time": "2023-09-10T16:02:11.000Z",
-        "updated_time": "2023-09-10T16:02:11.000Z"
-      },
-      {
-        "id": 2036,
-        "good_key": "ip8-ultra",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:ip8-ultra",
-        "value": "8762DT",
-        "key": "Master chip",
-        "weight": 18,
-        "created_time": "2023-09-10T16:02:11.000Z",
-        "updated_time": "2023-09-10T16:02:11.000Z"
-      },
-      {
-        "id": 2037,
-        "good_key": "ip8-ultra",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:ip8-ultra",
-        "value": "IP8 ULTRA-Audio",
-        "key": "Call bluetooth",
-        "weight": 17,
-        "created_time": "2023-09-10T16:02:11.000Z",
-        "updated_time": "2023-09-10T16:02:11.000Z"
-      },
-      {
-        "id": 2038,
-        "good_key": "ip8-ultra",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:ip8-ultra",
-        "value": "5",
-        "key": "Bluetooth version",
-        "weight": 16,
-        "created_time": "2023-09-10T16:02:11.000Z",
-        "updated_time": "2023-09-10T16:02:11.000Z"
-      },
-      {
-        "id": 2039,
-        "good_key": "ip8-ultra",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:ip8-ultra",
-        "value": "HRS3300",
-        "key": "Heart rate chip",
-        "weight": 15,
-        "created_time": "2023-09-10T16:02:11.000Z",
-        "updated_time": "2023-09-10T16:02:11.000Z"
-      },
-      {
-        "id": 2040,
-        "good_key": "ip8-ultra",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:ip8-ultra",
-        "value": "2.1inch-square screen-320*385-TFT",
-        "key": "screen display",
-        "weight": 14,
-        "created_time": "2023-09-10T16:02:11.000Z",
-        "updated_time": "2023-09-10T16:02:11.000Z"
-      },
-      {
-        "id": 2041,
-        "good_key": "ip8-ultra",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:ip8-ultra",
-        "value": "300mAH",
-        "key": "battery capacity",
-        "weight": 13,
-        "created_time": "2023-09-10T16:02:11.000Z",
-        "updated_time": "2023-09-10T16:02:11.000Z"
-      },
-      {
-        "id": 2042,
-        "good_key": "ip8-ultra",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:ip8-ultra",
-        "value": "7-10 days",
-        "key": "Standby time",
-        "weight": 12,
-        "created_time": "2023-09-10T16:02:11.000Z",
-        "updated_time": "2023-09-10T16:02:11.000Z"
-      },
-      {
-        "id": 2043,
-        "good_key": "ip8-ultra",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:ip8-ultra",
-        "value": "3 to 4 days",
-        "key": "usage time",
-        "weight": 11,
-        "created_time": "2023-09-10T16:02:11.000Z",
-        "updated_time": "2023-09-10T16:02:11.000Z"
-      },
-      {
-        "id": 2044,
-        "good_key": "ip8-ultra",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:ip8-ultra",
-        "value": "Full screen touch",
-        "key": "Button mode",
-        "weight": 10,
-        "created_time": "2023-09-10T16:02:11.000Z",
-        "updated_time": "2023-09-10T16:02:11.000Z"
-      },
-      {
-        "id": 2045,
-        "good_key": "ip8-ultra",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:ip8-ultra",
-        "value": "Round cake motor",
-        "key": "motor",
-        "weight": 9,
-        "created_time": "2023-09-10T16:02:11.000Z",
-        "updated_time": "2023-09-10T16:02:11.000Z"
-      },
-      {
-        "id": 2046,
-        "good_key": "ip8-ultra",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:ip8-ultra",
-        "value": "Wireless charging",
-        "key": "Charging interface",
-        "weight": 8,
-        "created_time": "2023-09-10T16:02:11.000Z",
-        "updated_time": "2023-09-10T16:02:11.000Z"
-      },
-      {
-        "id": 2047,
-        "good_key": "ip8-ultra",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:ip8-ultra",
-        "value": "IP67",
-        "key": "waterproof level",
-        "weight": 7,
-        "created_time": "2023-09-10T16:02:11.000Z",
-        "updated_time": "2023-09-10T16:02:11.000Z"
-      },
-      {
-        "id": 2048,
-        "good_key": "ip8-ultra",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:ip8-ultra",
-        "value": "SC7A20",
-        "key": "pedometer sensor",
-        "weight": 6,
-        "created_time": "2023-09-10T16:02:11.000Z",
-        "updated_time": "2023-09-10T16:02:11.000Z"
-      },
-      {
-        "id": 2049,
-        "good_key": "ip8-ultra",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:ip8-ultra",
-        "value": "8",
-        "key": "local watch face",
-        "weight": 5,
-        "created_time": "2023-09-10T16:02:11.000Z",
-        "updated_time": "2023-09-10T16:02:11.000Z"
-      },
-      {
-        "id": 2050,
-        "good_key": "ip8-ultra",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:ip8-ultra",
-        "value": "500+",
-        "key": "dial market",
-        "weight": 4,
-        "created_time": "2023-09-10T16:02:11.000Z",
-        "updated_time": "2023-09-10T16:02:11.000Z"
-      },
-      {
-        "id": 2051,
-        "good_key": "ip8-ultra",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:ip8-ultra",
-        "value": "5",
-        "key": "menu style",
-        "weight": 3,
-        "created_time": "2023-09-10T16:02:11.000Z",
-        "updated_time": "2023-09-10T16:02:11.000Z"
-      },
-      {
-        "id": 2052,
-        "good_key": "ip8-ultra",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:ip8-ultra",
-        "value": "HD Fit Pro",
-        "key": "APP",
-        "weight": 2,
-        "created_time": "2023-09-10T16:02:11.000Z",
-        "updated_time": "2023-09-10T16:02:11.000Z"
-      },
-      {
-        "id": 2053,
-        "good_key": "ip8-ultra",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:ip8-ultra",
-        "value": "English, Simplified Chinese, Italian, Portuguese, Spanish, French, Persian, Hungarian, Russian, Ukrainian, Turkish, Thai, Vietnamese, Indonesian, Malay, Arabic Default: Simplified Chinese",
-        "key": "APP supported languages",
-        "weight": 1,
-        "created_time": "2023-09-10T16:02:11.000Z",
-        "updated_time": "2023-09-10T16:02:11.000Z"
       }
     ],
     "funcionList": [
@@ -5681,6 +5451,236 @@
         "updated_time": "2023-09-10T16:08:42.000Z"
       }
     ],
+    "associationsList": [
+      {
+        "id": 2035,
+        "good_key": "ip8-ultra",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:ip8-ultra",
+        "value": "android5.0+/ios10.0+",
+        "key": "System Requirements",
+        "weight": 19,
+        "created_time": "2023-09-10T16:02:11.000Z",
+        "updated_time": "2023-09-10T16:02:11.000Z"
+      },
+      {
+        "id": 2036,
+        "good_key": "ip8-ultra",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:ip8-ultra",
+        "value": "8762DT",
+        "key": "Master chip",
+        "weight": 18,
+        "created_time": "2023-09-10T16:02:11.000Z",
+        "updated_time": "2023-09-10T16:02:11.000Z"
+      },
+      {
+        "id": 2037,
+        "good_key": "ip8-ultra",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:ip8-ultra",
+        "value": "IP8 ULTRA-Audio",
+        "key": "Call bluetooth",
+        "weight": 17,
+        "created_time": "2023-09-10T16:02:11.000Z",
+        "updated_time": "2023-09-10T16:02:11.000Z"
+      },
+      {
+        "id": 2038,
+        "good_key": "ip8-ultra",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:ip8-ultra",
+        "value": "5",
+        "key": "Bluetooth version",
+        "weight": 16,
+        "created_time": "2023-09-10T16:02:11.000Z",
+        "updated_time": "2023-09-10T16:02:11.000Z"
+      },
+      {
+        "id": 2039,
+        "good_key": "ip8-ultra",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:ip8-ultra",
+        "value": "HRS3300",
+        "key": "Heart rate chip",
+        "weight": 15,
+        "created_time": "2023-09-10T16:02:11.000Z",
+        "updated_time": "2023-09-10T16:02:11.000Z"
+      },
+      {
+        "id": 2040,
+        "good_key": "ip8-ultra",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:ip8-ultra",
+        "value": "2.1inch-square screen-320*385-TFT",
+        "key": "screen display",
+        "weight": 14,
+        "created_time": "2023-09-10T16:02:11.000Z",
+        "updated_time": "2023-09-10T16:02:11.000Z"
+      },
+      {
+        "id": 2041,
+        "good_key": "ip8-ultra",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:ip8-ultra",
+        "value": "300mAH",
+        "key": "battery capacity",
+        "weight": 13,
+        "created_time": "2023-09-10T16:02:11.000Z",
+        "updated_time": "2023-09-10T16:02:11.000Z"
+      },
+      {
+        "id": 2042,
+        "good_key": "ip8-ultra",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:ip8-ultra",
+        "value": "7-10 days",
+        "key": "Standby time",
+        "weight": 12,
+        "created_time": "2023-09-10T16:02:11.000Z",
+        "updated_time": "2023-09-10T16:02:11.000Z"
+      },
+      {
+        "id": 2043,
+        "good_key": "ip8-ultra",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:ip8-ultra",
+        "value": "3 to 4 days",
+        "key": "usage time",
+        "weight": 11,
+        "created_time": "2023-09-10T16:02:11.000Z",
+        "updated_time": "2023-09-10T16:02:11.000Z"
+      },
+      {
+        "id": 2044,
+        "good_key": "ip8-ultra",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:ip8-ultra",
+        "value": "Full screen touch",
+        "key": "Button mode",
+        "weight": 10,
+        "created_time": "2023-09-10T16:02:11.000Z",
+        "updated_time": "2023-09-10T16:02:11.000Z"
+      },
+      {
+        "id": 2045,
+        "good_key": "ip8-ultra",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:ip8-ultra",
+        "value": "Round cake motor",
+        "key": "motor",
+        "weight": 9,
+        "created_time": "2023-09-10T16:02:11.000Z",
+        "updated_time": "2023-09-10T16:02:11.000Z"
+      },
+      {
+        "id": 2046,
+        "good_key": "ip8-ultra",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:ip8-ultra",
+        "value": "Wireless charging",
+        "key": "Charging interface",
+        "weight": 8,
+        "created_time": "2023-09-10T16:02:11.000Z",
+        "updated_time": "2023-09-10T16:02:11.000Z"
+      },
+      {
+        "id": 2047,
+        "good_key": "ip8-ultra",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:ip8-ultra",
+        "value": "IP67",
+        "key": "waterproof level",
+        "weight": 7,
+        "created_time": "2023-09-10T16:02:11.000Z",
+        "updated_time": "2023-09-10T16:02:11.000Z"
+      },
+      {
+        "id": 2048,
+        "good_key": "ip8-ultra",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:ip8-ultra",
+        "value": "SC7A20",
+        "key": "pedometer sensor",
+        "weight": 6,
+        "created_time": "2023-09-10T16:02:11.000Z",
+        "updated_time": "2023-09-10T16:02:11.000Z"
+      },
+      {
+        "id": 2049,
+        "good_key": "ip8-ultra",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:ip8-ultra",
+        "value": "8",
+        "key": "local watch face",
+        "weight": 5,
+        "created_time": "2023-09-10T16:02:11.000Z",
+        "updated_time": "2023-09-10T16:02:11.000Z"
+      },
+      {
+        "id": 2050,
+        "good_key": "ip8-ultra",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:ip8-ultra",
+        "value": "500+",
+        "key": "dial market",
+        "weight": 4,
+        "created_time": "2023-09-10T16:02:11.000Z",
+        "updated_time": "2023-09-10T16:02:11.000Z"
+      },
+      {
+        "id": 2051,
+        "good_key": "ip8-ultra",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:ip8-ultra",
+        "value": "5",
+        "key": "menu style",
+        "weight": 3,
+        "created_time": "2023-09-10T16:02:11.000Z",
+        "updated_time": "2023-09-10T16:02:11.000Z"
+      },
+      {
+        "id": 2052,
+        "good_key": "ip8-ultra",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:ip8-ultra",
+        "value": "HD Fit Pro",
+        "key": "APP",
+        "weight": 2,
+        "created_time": "2023-09-10T16:02:11.000Z",
+        "updated_time": "2023-09-10T16:02:11.000Z"
+      },
+      {
+        "id": 2053,
+        "good_key": "ip8-ultra",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:ip8-ultra",
+        "value": "English, Simplified Chinese, Italian, Portuguese, Spanish, French, Persian, Hungarian, Russian, Ukrainian, Turkish, Thai, Vietnamese, Indonesian, Malay, Arabic Default: Simplified Chinese",
+        "key": "APP supported languages",
+        "weight": 1,
+        "created_time": "2023-09-10T16:02:11.000Z",
+        "updated_time": "2023-09-10T16:02:11.000Z"
+      }
+    ],
     "path": "/watches/ip8-ultra"
   },
   {
@@ -5704,6 +5704,23 @@
     "updated_time": "2023-09-09T09:53:36.000Z",
     "associateProduct": [],
     "typeList": [],
+    "indexConfig": [
+      {
+        "id": 37,
+        "good_key": "series8-mini",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:series8-mini",
+        "page_keywords": "Series8 mini, smart watch, stylish design, push message, health monitoring",
+        "page_title": "Series8 mini",
+        "page_description": "Series8 mini is a stylish and sophisticated smartwatch that combines stylish design and smart technology. It has a variety of smart functions, such as message push, health monitoring and personalized watch faces, allowing you to enjoy the convenience brought by smart technology in fashion.",
+        "pc_background": null,
+        "mob_background": null,
+        "is_light": null,
+        "created_time": "2023-09-24T04:43:06.000Z",
+        "updated_time": "2023-09-24T04:43:06.000Z"
+      }
+    ],
     "packageList": [
       {
         "id": 672,
@@ -5777,23 +5794,6 @@
       }
     ],
     "mediaList": [],
-    "indexConfig": [
-      {
-        "id": 37,
-        "good_key": "series8-mini",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:series8-mini",
-        "page_keywords": "Series8 mini, smart watch, stylish design, push message, health monitoring",
-        "page_title": "Series8 mini",
-        "page_description": "Series8 mini is a stylish and sophisticated smartwatch that combines stylish design and smart technology. It has a variety of smart functions, such as message push, health monitoring and personalized watch faces, allowing you to enjoy the convenience brought by smart technology in fashion.",
-        "pc_background": null,
-        "mob_background": null,
-        "is_light": null,
-        "created_time": "2023-09-24T04:43:06.000Z",
-        "updated_time": "2023-09-24T04:43:06.000Z"
-      }
-    ],
     "comboList": [
       {
         "id": 74,
@@ -6630,6 +6630,7 @@
         ]
       }
     ],
+    "reviewsList": [],
     "sellingList": [
       {
         "id": 1026,
@@ -6685,261 +6686,6 @@
         "language": "en",
         "created_time": "2023-09-10T16:13:45.000Z",
         "updated_time": "2023-09-10T16:13:45.000Z"
-      }
-    ],
-    "reviewsList": [],
-    "associationsList": [
-      {
-        "id": 2054,
-        "good_key": "series8-mini",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:series8-mini",
-        "value": "android5.0+/ios10.0+",
-        "key": "System Requirements",
-        "weight": 21,
-        "created_time": "2023-09-19T12:47:26.000Z",
-        "updated_time": "2023-09-19T12:47:26.000Z"
-      },
-      {
-        "id": 2055,
-        "good_key": "series8-mini",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:series8-mini",
-        "value": "OM6621-PG",
-        "key": "Master chip",
-        "weight": 20,
-        "created_time": "2023-09-19T12:47:26.000Z",
-        "updated_time": "2023-09-19T12:47:26.000Z"
-      },
-      {
-        "id": 2056,
-        "good_key": "series8-mini",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:series8-mini",
-        "value": "128M",
-        "key": "Bracelet memory",
-        "weight": 19,
-        "created_time": "2023-09-19T12:47:26.000Z",
-        "updated_time": "2023-09-19T12:47:26.000Z"
-      },
-      {
-        "id": 2057,
-        "good_key": "series8-mini",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:series8-mini",
-        "value": "AB5376A2",
-        "key": "Call bluetooth",
-        "weight": 18,
-        "created_time": "2023-09-19T12:47:26.000Z",
-        "updated_time": "2023-09-19T12:47:26.000Z"
-      },
-      {
-        "id": 2058,
-        "good_key": "series8-mini",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:series8-mini",
-        "value": "5",
-        "key": "Bluetooth version",
-        "weight": 17,
-        "created_time": "2023-09-19T12:47:26.000Z",
-        "updated_time": "2023-09-19T12:47:26.000Z"
-      },
-      {
-        "id": 2059,
-        "good_key": "series8-mini",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:series8-mini",
-        "value": "Zhanheng 1662",
-        "key": "Heart rate chip",
-        "weight": 16,
-        "created_time": "2023-09-19T12:47:26.000Z",
-        "updated_time": "2023-09-19T12:47:26.000Z"
-      },
-      {
-        "id": 2060,
-        "good_key": "series8-mini",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:series8-mini",
-        "value": "SC7R30",
-        "key": "Pedometer chip",
-        "weight": 15,
-        "created_time": "2023-09-19T12:47:26.000Z",
-        "updated_time": "2023-09-19T12:47:26.000Z"
-      },
-      {
-        "id": 2061,
-        "good_key": "series8-mini",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:series8-mini",
-        "value": "1.77inch-320*385 narrow bezel full screen",
-        "key": "screen display",
-        "weight": 14,
-        "created_time": "2023-09-19T12:47:26.000Z",
-        "updated_time": "2023-09-19T12:47:26.000Z"
-      },
-      {
-        "id": 2062,
-        "good_key": "series8-mini",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:series8-mini",
-        "value": "230mAH",
-        "key": "battery capacity",
-        "weight": 13,
-        "created_time": "2023-09-19T12:47:26.000Z",
-        "updated_time": "2023-09-19T12:47:26.000Z"
-      },
-      {
-        "id": 2063,
-        "good_key": "series8-mini",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:series8-mini",
-        "value": "7 days",
-        "key": "Standby time",
-        "weight": 12,
-        "created_time": "2023-09-19T12:47:26.000Z",
-        "updated_time": "2023-09-19T12:47:26.000Z"
-      },
-      {
-        "id": 2064,
-        "good_key": "series8-mini",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:series8-mini",
-        "value": "about 5 days",
-        "key": "usage time",
-        "weight": 11,
-        "created_time": "2023-09-19T12:47:26.000Z",
-        "updated_time": "2023-09-19T12:47:26.000Z"
-      },
-      {
-        "id": 2065,
-        "good_key": "series8-mini",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:series8-mini",
-        "value": "Full screen touch",
-        "key": "Button mode",
-        "weight": 10,
-        "created_time": "2023-09-19T12:47:26.000Z",
-        "updated_time": "2023-09-19T12:47:26.000Z"
-      },
-      {
-        "id": 2066,
-        "good_key": "series8-mini",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:series8-mini",
-        "value": "Round cake motor",
-        "key": "motor",
-        "weight": 9,
-        "created_time": "2023-09-19T12:47:26.000Z",
-        "updated_time": "2023-09-19T12:47:26.000Z"
-      },
-      {
-        "id": 2067,
-        "good_key": "series8-mini",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:series8-mini",
-        "value": "Wireless charging",
-        "key": "Charging interface",
-        "weight": 8,
-        "created_time": "2023-09-19T12:47:26.000Z",
-        "updated_time": "2023-09-19T12:47:26.000Z"
-      },
-      {
-        "id": 2068,
-        "good_key": "series8-mini",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:series8-mini",
-        "value": "IP67",
-        "key": "waterproof level",
-        "weight": 7,
-        "created_time": "2023-09-19T12:47:26.000Z",
-        "updated_time": "2023-09-19T12:47:26.000Z"
-      },
-      {
-        "id": 2069,
-        "good_key": "series8-mini",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:series8-mini",
-        "value": "G-sensor 3-axis",
-        "key": "sensor",
-        "weight": 6,
-        "created_time": "2023-09-19T12:47:26.000Z",
-        "updated_time": "2023-09-19T12:47:26.000Z"
-      },
-      {
-        "id": 2070,
-        "good_key": "series8-mini",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:series8-mini",
-        "value": "10+",
-        "key": "local watch face",
-        "weight": 5,
-        "created_time": "2023-09-19T12:47:26.000Z",
-        "updated_time": "2023-09-19T12:47:26.000Z"
-      },
-      {
-        "id": 2071,
-        "good_key": "series8-mini",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:series8-mini",
-        "value": "100+",
-        "key": "dial market",
-        "weight": 4,
-        "created_time": "2023-09-19T12:47:26.000Z",
-        "updated_time": "2023-09-19T12:47:26.000Z"
-      },
-      {
-        "id": 2072,
-        "good_key": "series8-mini",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:series8-mini",
-        "value": "4",
-        "key": "menu style",
-        "weight": 3,
-        "created_time": "2023-09-19T12:47:26.000Z",
-        "updated_time": "2023-09-19T12:47:26.000Z"
-      },
-      {
-        "id": 2073,
-        "good_key": "series8-mini",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:series8-mini",
-        "value": "WearFit pro",
-        "key": "APP",
-        "weight": 2,
-        "created_time": "2023-09-19T12:47:26.000Z",
-        "updated_time": "2023-09-19T12:47:26.000Z"
-      },
-      {
-        "id": 2074,
-        "good_key": "series8-mini",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:series8-mini",
-        "value": "Simplified Chinese, Traditional Chinese, English, French, German, Japanese, Spanish, Italian, Korean, Russian, Thai, Czech,\nPortuguese, Indonesian, Arabic, Turkish, Greek, Estonian, Bulgarian, Latvian,\nLithuanian, Persian, Serbian, Slovak (24 subjects)",
-        "key": "APP supported languages",
-        "weight": 1,
-        "created_time": "2023-09-19T12:47:26.000Z",
-        "updated_time": "2023-09-19T12:47:26.000Z"
       }
     ],
     "funcionList": [
@@ -7388,6 +7134,260 @@
         "updated_time": "2023-09-10T16:08:19.000Z"
       }
     ],
+    "associationsList": [
+      {
+        "id": 2054,
+        "good_key": "series8-mini",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:series8-mini",
+        "value": "android5.0+/ios10.0+",
+        "key": "System Requirements",
+        "weight": 21,
+        "created_time": "2023-09-19T12:47:26.000Z",
+        "updated_time": "2023-09-19T12:47:26.000Z"
+      },
+      {
+        "id": 2055,
+        "good_key": "series8-mini",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:series8-mini",
+        "value": "OM6621-PG",
+        "key": "Master chip",
+        "weight": 20,
+        "created_time": "2023-09-19T12:47:26.000Z",
+        "updated_time": "2023-09-19T12:47:26.000Z"
+      },
+      {
+        "id": 2056,
+        "good_key": "series8-mini",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:series8-mini",
+        "value": "128M",
+        "key": "Bracelet memory",
+        "weight": 19,
+        "created_time": "2023-09-19T12:47:26.000Z",
+        "updated_time": "2023-09-19T12:47:26.000Z"
+      },
+      {
+        "id": 2057,
+        "good_key": "series8-mini",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:series8-mini",
+        "value": "AB5376A2",
+        "key": "Call bluetooth",
+        "weight": 18,
+        "created_time": "2023-09-19T12:47:26.000Z",
+        "updated_time": "2023-09-19T12:47:26.000Z"
+      },
+      {
+        "id": 2058,
+        "good_key": "series8-mini",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:series8-mini",
+        "value": "5",
+        "key": "Bluetooth version",
+        "weight": 17,
+        "created_time": "2023-09-19T12:47:26.000Z",
+        "updated_time": "2023-09-19T12:47:26.000Z"
+      },
+      {
+        "id": 2059,
+        "good_key": "series8-mini",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:series8-mini",
+        "value": "Zhanheng 1662",
+        "key": "Heart rate chip",
+        "weight": 16,
+        "created_time": "2023-09-19T12:47:26.000Z",
+        "updated_time": "2023-09-19T12:47:26.000Z"
+      },
+      {
+        "id": 2060,
+        "good_key": "series8-mini",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:series8-mini",
+        "value": "SC7R30",
+        "key": "Pedometer chip",
+        "weight": 15,
+        "created_time": "2023-09-19T12:47:26.000Z",
+        "updated_time": "2023-09-19T12:47:26.000Z"
+      },
+      {
+        "id": 2061,
+        "good_key": "series8-mini",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:series8-mini",
+        "value": "1.77inch-320*385 narrow bezel full screen",
+        "key": "screen display",
+        "weight": 14,
+        "created_time": "2023-09-19T12:47:26.000Z",
+        "updated_time": "2023-09-19T12:47:26.000Z"
+      },
+      {
+        "id": 2062,
+        "good_key": "series8-mini",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:series8-mini",
+        "value": "230mAH",
+        "key": "battery capacity",
+        "weight": 13,
+        "created_time": "2023-09-19T12:47:26.000Z",
+        "updated_time": "2023-09-19T12:47:26.000Z"
+      },
+      {
+        "id": 2063,
+        "good_key": "series8-mini",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:series8-mini",
+        "value": "7 days",
+        "key": "Standby time",
+        "weight": 12,
+        "created_time": "2023-09-19T12:47:26.000Z",
+        "updated_time": "2023-09-19T12:47:26.000Z"
+      },
+      {
+        "id": 2064,
+        "good_key": "series8-mini",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:series8-mini",
+        "value": "about 5 days",
+        "key": "usage time",
+        "weight": 11,
+        "created_time": "2023-09-19T12:47:26.000Z",
+        "updated_time": "2023-09-19T12:47:26.000Z"
+      },
+      {
+        "id": 2065,
+        "good_key": "series8-mini",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:series8-mini",
+        "value": "Full screen touch",
+        "key": "Button mode",
+        "weight": 10,
+        "created_time": "2023-09-19T12:47:26.000Z",
+        "updated_time": "2023-09-19T12:47:26.000Z"
+      },
+      {
+        "id": 2066,
+        "good_key": "series8-mini",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:series8-mini",
+        "value": "Round cake motor",
+        "key": "motor",
+        "weight": 9,
+        "created_time": "2023-09-19T12:47:26.000Z",
+        "updated_time": "2023-09-19T12:47:26.000Z"
+      },
+      {
+        "id": 2067,
+        "good_key": "series8-mini",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:series8-mini",
+        "value": "Wireless charging",
+        "key": "Charging interface",
+        "weight": 8,
+        "created_time": "2023-09-19T12:47:26.000Z",
+        "updated_time": "2023-09-19T12:47:26.000Z"
+      },
+      {
+        "id": 2068,
+        "good_key": "series8-mini",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:series8-mini",
+        "value": "IP67",
+        "key": "waterproof level",
+        "weight": 7,
+        "created_time": "2023-09-19T12:47:26.000Z",
+        "updated_time": "2023-09-19T12:47:26.000Z"
+      },
+      {
+        "id": 2069,
+        "good_key": "series8-mini",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:series8-mini",
+        "value": "G-sensor 3-axis",
+        "key": "sensor",
+        "weight": 6,
+        "created_time": "2023-09-19T12:47:26.000Z",
+        "updated_time": "2023-09-19T12:47:26.000Z"
+      },
+      {
+        "id": 2070,
+        "good_key": "series8-mini",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:series8-mini",
+        "value": "10+",
+        "key": "local watch face",
+        "weight": 5,
+        "created_time": "2023-09-19T12:47:26.000Z",
+        "updated_time": "2023-09-19T12:47:26.000Z"
+      },
+      {
+        "id": 2071,
+        "good_key": "series8-mini",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:series8-mini",
+        "value": "100+",
+        "key": "dial market",
+        "weight": 4,
+        "created_time": "2023-09-19T12:47:26.000Z",
+        "updated_time": "2023-09-19T12:47:26.000Z"
+      },
+      {
+        "id": 2072,
+        "good_key": "series8-mini",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:series8-mini",
+        "value": "4",
+        "key": "menu style",
+        "weight": 3,
+        "created_time": "2023-09-19T12:47:26.000Z",
+        "updated_time": "2023-09-19T12:47:26.000Z"
+      },
+      {
+        "id": 2073,
+        "good_key": "series8-mini",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:series8-mini",
+        "value": "WearFit pro",
+        "key": "APP",
+        "weight": 2,
+        "created_time": "2023-09-19T12:47:26.000Z",
+        "updated_time": "2023-09-19T12:47:26.000Z"
+      },
+      {
+        "id": 2074,
+        "good_key": "series8-mini",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:series8-mini",
+        "value": "Simplified Chinese, Traditional Chinese, English, French, German, Japanese, Spanish, Italian, Korean, Russian, Thai, Czech,\nPortuguese, Indonesian, Arabic, Turkish, Greek, Estonian, Bulgarian, Latvian,\nLithuanian, Persian, Serbian, Slovak (24 subjects)",
+        "key": "APP supported languages",
+        "weight": 1,
+        "created_time": "2023-09-19T12:47:26.000Z",
+        "updated_time": "2023-09-19T12:47:26.000Z"
+      }
+    ],
     "path": "/watches/series8-mini"
   },
   {
@@ -7411,6 +7411,23 @@
     "updated_time": "2023-09-09T09:53:38.000Z",
     "associateProduct": [],
     "typeList": [],
+    "indexConfig": [
+      {
+        "id": 38,
+        "good_key": "ultra-max",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:ultra-max",
+        "page_keywords": "UltraMax, smart watch, high performance, long battery life, waterproof watch",
+        "page_title": "UltraMax",
+        "page_description": "UltraMax is a comprehensive smartwatch that provides users with excellent performance and diverse functions. It has powerful processing power, long battery life and water resistance, making it suitable for a variety of outdoor and daily activities.",
+        "pc_background": null,
+        "mob_background": null,
+        "is_light": null,
+        "created_time": "2023-09-24T04:43:09.000Z",
+        "updated_time": "2023-09-24T04:43:09.000Z"
+      }
+    ],
     "packageList": [
       {
         "id": 677,
@@ -7512,23 +7529,6 @@
       }
     ],
     "mediaList": [],
-    "indexConfig": [
-      {
-        "id": 38,
-        "good_key": "ultra-max",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:ultra-max",
-        "page_keywords": "UltraMax, smart watch, high performance, long battery life, waterproof watch",
-        "page_title": "UltraMax",
-        "page_description": "UltraMax is a comprehensive smartwatch that provides users with excellent performance and diverse functions. It has powerful processing power, long battery life and water resistance, making it suitable for a variety of outdoor and daily activities.",
-        "pc_background": null,
-        "mob_background": null,
-        "is_light": null,
-        "created_time": "2023-09-24T04:43:09.000Z",
-        "updated_time": "2023-09-24T04:43:09.000Z"
-      }
-    ],
     "comboList": [
       {
         "id": 84,
@@ -8365,6 +8365,7 @@
         ]
       }
     ],
+    "reviewsList": [],
     "sellingList": [
       {
         "id": 1031,
@@ -8431,237 +8432,6 @@
         "language": "en",
         "created_time": "2023-09-10T16:13:25.000Z",
         "updated_time": "2023-09-10T16:13:25.000Z"
-      }
-    ],
-    "reviewsList": [],
-    "associationsList": [
-      {
-        "id": 2075,
-        "good_key": "ultra-max",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:ultra-max",
-        "value": "android5.0+/ios10.0+",
-        "key": "System Requirements",
-        "weight": 19,
-        "created_time": "2023-09-10T16:00:39.000Z",
-        "updated_time": "2023-09-10T16:00:39.000Z"
-      },
-      {
-        "id": 2076,
-        "good_key": "ultra-max",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:ultra-max",
-        "value": "8762DT",
-        "key": "Master chip",
-        "weight": 18,
-        "created_time": "2023-09-10T16:00:39.000Z",
-        "updated_time": "2023-09-10T16:00:39.000Z"
-      },
-      {
-        "id": 2077,
-        "good_key": "ultra-max",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:ultra-max",
-        "value": "UltraMax-Audio",
-        "key": "Call bluetooth",
-        "weight": 17,
-        "created_time": "2023-09-10T16:00:39.000Z",
-        "updated_time": "2023-09-10T16:00:39.000Z"
-      },
-      {
-        "id": 2078,
-        "good_key": "ultra-max",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:ultra-max",
-        "value": "5",
-        "key": "Bluetooth version",
-        "weight": 16,
-        "created_time": "2023-09-10T16:00:39.000Z",
-        "updated_time": "2023-09-10T16:00:39.000Z"
-      },
-      {
-        "id": 2079,
-        "good_key": "ultra-max",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:ultra-max",
-        "value": "HRS3300",
-        "key": "Heart rate chip",
-        "weight": 15,
-        "created_time": "2023-09-10T16:00:39.000Z",
-        "updated_time": "2023-09-10T16:00:39.000Z"
-      },
-      {
-        "id": 2080,
-        "good_key": "ultra-max",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:ultra-max",
-        "value": "2.1inch-square screen-320*385-TFT",
-        "key": "screen display",
-        "weight": 14,
-        "created_time": "2023-09-10T16:00:39.000Z",
-        "updated_time": "2023-09-10T16:00:39.000Z"
-      },
-      {
-        "id": 2081,
-        "good_key": "ultra-max",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:ultra-max",
-        "value": "300mAH",
-        "key": "battery capacity",
-        "weight": 13,
-        "created_time": "2023-09-10T16:00:39.000Z",
-        "updated_time": "2023-09-10T16:00:39.000Z"
-      },
-      {
-        "id": 2082,
-        "good_key": "ultra-max",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:ultra-max",
-        "value": "7-10 days",
-        "key": "Standby time",
-        "weight": 12,
-        "created_time": "2023-09-10T16:00:39.000Z",
-        "updated_time": "2023-09-10T16:00:39.000Z"
-      },
-      {
-        "id": 2083,
-        "good_key": "ultra-max",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:ultra-max",
-        "value": "3 to 4 days",
-        "key": "usage time",
-        "weight": 11,
-        "created_time": "2023-09-10T16:00:39.000Z",
-        "updated_time": "2023-09-10T16:00:39.000Z"
-      },
-      {
-        "id": 2084,
-        "good_key": "ultra-max",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:ultra-max",
-        "value": "Full screen touch",
-        "key": "Button mode",
-        "weight": 10,
-        "created_time": "2023-09-10T16:00:39.000Z",
-        "updated_time": "2023-09-10T16:00:39.000Z"
-      },
-      {
-        "id": 2085,
-        "good_key": "ultra-max",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:ultra-max",
-        "value": "Round cake motor",
-        "key": "motor",
-        "weight": 9,
-        "created_time": "2023-09-10T16:00:39.000Z",
-        "updated_time": "2023-09-10T16:00:39.000Z"
-      },
-      {
-        "id": 2086,
-        "good_key": "ultra-max",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:ultra-max",
-        "value": "Wireless charging",
-        "key": "Charging interface",
-        "weight": 8,
-        "created_time": "2023-09-10T16:00:39.000Z",
-        "updated_time": "2023-09-10T16:00:39.000Z"
-      },
-      {
-        "id": 2087,
-        "good_key": "ultra-max",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:ultra-max",
-        "value": "IP67",
-        "key": "waterproof level",
-        "weight": 7,
-        "created_time": "2023-09-10T16:00:39.000Z",
-        "updated_time": "2023-09-10T16:00:39.000Z"
-      },
-      {
-        "id": 2088,
-        "good_key": "ultra-max",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:ultra-max",
-        "value": "SC7A20",
-        "key": "pedometer sensor",
-        "weight": 6,
-        "created_time": "2023-09-10T16:00:39.000Z",
-        "updated_time": "2023-09-10T16:00:39.000Z"
-      },
-      {
-        "id": 2089,
-        "good_key": "ultra-max",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:ultra-max",
-        "value": "9",
-        "key": "local watch face",
-        "weight": 5,
-        "created_time": "2023-09-10T16:00:39.000Z",
-        "updated_time": "2023-09-10T16:00:39.000Z"
-      },
-      {
-        "id": 2090,
-        "good_key": "ultra-max",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:ultra-max",
-        "value": "500+",
-        "key": "dial market",
-        "weight": 4,
-        "created_time": "2023-09-10T16:00:39.000Z",
-        "updated_time": "2023-09-10T16:00:39.000Z"
-      },
-      {
-        "id": 2091,
-        "good_key": "ultra-max",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:ultra-max",
-        "value": "4",
-        "key": "menu style",
-        "weight": 3,
-        "created_time": "2023-09-10T16:00:39.000Z",
-        "updated_time": "2023-09-10T16:00:39.000Z"
-      },
-      {
-        "id": 2092,
-        "good_key": "ultra-max",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:ultra-max",
-        "value": "HD Fit Pro",
-        "key": "APP",
-        "weight": 2,
-        "created_time": "2023-09-10T16:00:39.000Z",
-        "updated_time": "2023-09-10T16:00:39.000Z"
-      },
-      {
-        "id": 2093,
-        "good_key": "ultra-max",
-        "good_sort_key": "watches",
-        "language": "en",
-        "associate_good_key": "watches:ultra-max",
-        "value": "English, Simplified Chinese, Italian, Portuguese, Spanish, French, Persian, Hungarian, Russian, Ukrainian, Turkish, Thai, Vietnamese, Indonesian, Malay, Arabic Default: Simplified Chinese",
-        "key": "APP supported languages",
-        "weight": 1,
-        "created_time": "2023-09-10T16:00:39.000Z",
-        "updated_time": "2023-09-10T16:00:39.000Z"
       }
     ],
     "funcionList": [
@@ -9170,6 +8940,236 @@
         "updated_time": "2023-09-10T16:07:39.000Z"
       }
     ],
+    "associationsList": [
+      {
+        "id": 2075,
+        "good_key": "ultra-max",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:ultra-max",
+        "value": "android5.0+/ios10.0+",
+        "key": "System Requirements",
+        "weight": 19,
+        "created_time": "2023-09-10T16:00:39.000Z",
+        "updated_time": "2023-09-10T16:00:39.000Z"
+      },
+      {
+        "id": 2076,
+        "good_key": "ultra-max",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:ultra-max",
+        "value": "8762DT",
+        "key": "Master chip",
+        "weight": 18,
+        "created_time": "2023-09-10T16:00:39.000Z",
+        "updated_time": "2023-09-10T16:00:39.000Z"
+      },
+      {
+        "id": 2077,
+        "good_key": "ultra-max",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:ultra-max",
+        "value": "UltraMax-Audio",
+        "key": "Call bluetooth",
+        "weight": 17,
+        "created_time": "2023-09-10T16:00:39.000Z",
+        "updated_time": "2023-09-10T16:00:39.000Z"
+      },
+      {
+        "id": 2078,
+        "good_key": "ultra-max",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:ultra-max",
+        "value": "5",
+        "key": "Bluetooth version",
+        "weight": 16,
+        "created_time": "2023-09-10T16:00:39.000Z",
+        "updated_time": "2023-09-10T16:00:39.000Z"
+      },
+      {
+        "id": 2079,
+        "good_key": "ultra-max",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:ultra-max",
+        "value": "HRS3300",
+        "key": "Heart rate chip",
+        "weight": 15,
+        "created_time": "2023-09-10T16:00:39.000Z",
+        "updated_time": "2023-09-10T16:00:39.000Z"
+      },
+      {
+        "id": 2080,
+        "good_key": "ultra-max",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:ultra-max",
+        "value": "2.1inch-square screen-320*385-TFT",
+        "key": "screen display",
+        "weight": 14,
+        "created_time": "2023-09-10T16:00:39.000Z",
+        "updated_time": "2023-09-10T16:00:39.000Z"
+      },
+      {
+        "id": 2081,
+        "good_key": "ultra-max",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:ultra-max",
+        "value": "300mAH",
+        "key": "battery capacity",
+        "weight": 13,
+        "created_time": "2023-09-10T16:00:39.000Z",
+        "updated_time": "2023-09-10T16:00:39.000Z"
+      },
+      {
+        "id": 2082,
+        "good_key": "ultra-max",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:ultra-max",
+        "value": "7-10 days",
+        "key": "Standby time",
+        "weight": 12,
+        "created_time": "2023-09-10T16:00:39.000Z",
+        "updated_time": "2023-09-10T16:00:39.000Z"
+      },
+      {
+        "id": 2083,
+        "good_key": "ultra-max",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:ultra-max",
+        "value": "3 to 4 days",
+        "key": "usage time",
+        "weight": 11,
+        "created_time": "2023-09-10T16:00:39.000Z",
+        "updated_time": "2023-09-10T16:00:39.000Z"
+      },
+      {
+        "id": 2084,
+        "good_key": "ultra-max",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:ultra-max",
+        "value": "Full screen touch",
+        "key": "Button mode",
+        "weight": 10,
+        "created_time": "2023-09-10T16:00:39.000Z",
+        "updated_time": "2023-09-10T16:00:39.000Z"
+      },
+      {
+        "id": 2085,
+        "good_key": "ultra-max",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:ultra-max",
+        "value": "Round cake motor",
+        "key": "motor",
+        "weight": 9,
+        "created_time": "2023-09-10T16:00:39.000Z",
+        "updated_time": "2023-09-10T16:00:39.000Z"
+      },
+      {
+        "id": 2086,
+        "good_key": "ultra-max",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:ultra-max",
+        "value": "Wireless charging",
+        "key": "Charging interface",
+        "weight": 8,
+        "created_time": "2023-09-10T16:00:39.000Z",
+        "updated_time": "2023-09-10T16:00:39.000Z"
+      },
+      {
+        "id": 2087,
+        "good_key": "ultra-max",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:ultra-max",
+        "value": "IP67",
+        "key": "waterproof level",
+        "weight": 7,
+        "created_time": "2023-09-10T16:00:39.000Z",
+        "updated_time": "2023-09-10T16:00:39.000Z"
+      },
+      {
+        "id": 2088,
+        "good_key": "ultra-max",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:ultra-max",
+        "value": "SC7A20",
+        "key": "pedometer sensor",
+        "weight": 6,
+        "created_time": "2023-09-10T16:00:39.000Z",
+        "updated_time": "2023-09-10T16:00:39.000Z"
+      },
+      {
+        "id": 2089,
+        "good_key": "ultra-max",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:ultra-max",
+        "value": "9",
+        "key": "local watch face",
+        "weight": 5,
+        "created_time": "2023-09-10T16:00:39.000Z",
+        "updated_time": "2023-09-10T16:00:39.000Z"
+      },
+      {
+        "id": 2090,
+        "good_key": "ultra-max",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:ultra-max",
+        "value": "500+",
+        "key": "dial market",
+        "weight": 4,
+        "created_time": "2023-09-10T16:00:39.000Z",
+        "updated_time": "2023-09-10T16:00:39.000Z"
+      },
+      {
+        "id": 2091,
+        "good_key": "ultra-max",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:ultra-max",
+        "value": "4",
+        "key": "menu style",
+        "weight": 3,
+        "created_time": "2023-09-10T16:00:39.000Z",
+        "updated_time": "2023-09-10T16:00:39.000Z"
+      },
+      {
+        "id": 2092,
+        "good_key": "ultra-max",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:ultra-max",
+        "value": "HD Fit Pro",
+        "key": "APP",
+        "weight": 2,
+        "created_time": "2023-09-10T16:00:39.000Z",
+        "updated_time": "2023-09-10T16:00:39.000Z"
+      },
+      {
+        "id": 2093,
+        "good_key": "ultra-max",
+        "good_sort_key": "watches",
+        "language": "en",
+        "associate_good_key": "watches:ultra-max",
+        "value": "English, Simplified Chinese, Italian, Portuguese, Spanish, French, Persian, Hungarian, Russian, Ukrainian, Turkish, Thai, Vietnamese, Indonesian, Malay, Arabic Default: Simplified Chinese",
+        "key": "APP supported languages",
+        "weight": 1,
+        "created_time": "2023-09-10T16:00:39.000Z",
+        "updated_time": "2023-09-10T16:00:39.000Z"
+      }
+    ],
     "path": "/watches/ultra-max"
   },
   {
@@ -9193,6 +9193,23 @@
     "updated_time": "2024-01-11T16:25:54.000Z",
     "associateProduct": [],
     "typeList": [],
+    "indexConfig": [
+      {
+        "id": 101,
+        "good_key": "rhythm-light",
+        "good_sort_key": "ambien-light",
+        "language": "en",
+        "associate_good_key": "ambien-light:rhythm-light",
+        "page_keywords": "",
+        "page_title": "RGB 3D Ambient Light",
+        "page_description": "RGB 3D Ambient Light",
+        "pc_background": null,
+        "mob_background": null,
+        "is_light": null,
+        "created_time": "2023-12-17T05:41:11.000Z",
+        "updated_time": "2023-12-18T15:14:10.000Z"
+      }
+    ],
     "packageList": [],
     "mediaList": [
       {
@@ -9415,23 +9432,6 @@
         "weight": 90,
         "created_time": "2023-12-18T15:07:55.000Z",
         "updated_time": "2024-01-09T14:58:58.000Z"
-      }
-    ],
-    "indexConfig": [
-      {
-        "id": 101,
-        "good_key": "rhythm-light",
-        "good_sort_key": "ambien-light",
-        "language": "en",
-        "associate_good_key": "ambien-light:rhythm-light",
-        "page_keywords": "",
-        "page_title": "RGB 3D Ambient Light",
-        "page_description": "RGB 3D Ambient Light",
-        "pc_background": null,
-        "mob_background": null,
-        "is_light": null,
-        "created_time": "2023-12-17T05:41:11.000Z",
-        "updated_time": "2023-12-18T15:14:10.000Z"
       }
     ],
     "comboList": [
@@ -14440,63 +14440,6 @@
         ]
       }
     ],
-    "sellingList": [
-      {
-        "id": 1247,
-        "light": "Create an electrifying party atmosphere by synchronizing the dynamic RGB lights with the pulsating beats of your favorite music",
-        "weight": 5,
-        "good_key": "rhythm-light",
-        "good_sort_key": "ambien-light",
-        "associate_good_key": "ambien-light:rhythm-light",
-        "language": "en",
-        "created_time": "2023-12-18T14:47:48.000Z",
-        "updated_time": "2023-12-18T14:47:48.000Z"
-      },
-      {
-        "id": 1248,
-        "light": "Illuminate your computer setup, car interior, or desktop with customizable lighting effects to match your mood or enhance the ambiance",
-        "weight": 4,
-        "good_key": "rhythm-light",
-        "good_sort_key": "ambien-light",
-        "associate_good_key": "ambien-light:rhythm-light",
-        "language": "en",
-        "created_time": "2023-12-18T14:47:48.000Z",
-        "updated_time": "2023-12-18T14:47:48.000Z"
-      },
-      {
-        "id": 1249,
-        "light": " Immerse yourself in a kaleidoscope of vibrant colors as the RGB lights paint your surroundings with stunning visual displays",
-        "weight": 3,
-        "good_key": "rhythm-light",
-        "good_sort_key": "ambien-light",
-        "associate_good_key": "ambien-light:rhythm-light",
-        "language": "en",
-        "created_time": "2023-12-18T14:47:48.000Z",
-        "updated_time": "2023-12-18T14:47:48.000Z"
-      },
-      {
-        "id": 1250,
-        "light": "Enjoy an evenly distributed and immersive lighting experience from both sides of the 3D light strip, adding depth and dimension to any space",
-        "weight": 2,
-        "good_key": "rhythm-light",
-        "good_sort_key": "ambien-light",
-        "associate_good_key": "ambien-light:rhythm-light",
-        "language": "en",
-        "created_time": "2023-12-18T14:47:48.000Z",
-        "updated_time": "2023-12-18T14:47:48.000Z"
-      },
-      {
-        "id": 1251,
-        "light": "Take full control of the lighting effects, colors, and modes using the dedicated mobile app, allowing for easy customization and convenience",
-        "weight": 1,
-        "good_key": "rhythm-light",
-        "good_sort_key": "ambien-light",
-        "associate_good_key": "ambien-light:rhythm-light",
-        "language": "en",
-        "created_time": "2023-12-18T14:47:48.000Z",
-        "updated_time": "2023-12-18T14:47:48.000Z"
-      }
-    ],
     "reviewsList": [
       {
         "id": 866,
@@ -14627,126 +14570,61 @@
         "updated_time": "2024-01-08T12:34:49.000Z"
       }
     ],
-    "associationsList": [
+    "sellingList": [
       {
-        "id": 2742,
-        "good_key": "rhythm-light",
-        "good_sort_key": "ambien-light",
-        "language": "en",
-        "associate_good_key": "ambien-light:rhythm-light",
-        "value": "RGB 3D Ambient Light",
-        "key": "Product Name",
-        "weight": 10,
-        "created_time": "2023-12-18T13:58:05.000Z",
-        "updated_time": "2023-12-18T13:58:05.000Z"
-      },
-      {
-        "id": 2743,
-        "good_key": "rhythm-light",
-        "good_sort_key": "ambien-light",
-        "language": "en",
-        "associate_good_key": "ambien-light:rhythm-light",
-        "value": "5V-2A",
-        "key": "Input Voltage",
-        "weight": 9,
-        "created_time": "2023-12-18T13:58:05.000Z",
-        "updated_time": "2023-12-18T13:58:05.000Z"
-      },
-      {
-        "id": 2744,
-        "good_key": "rhythm-light",
-        "good_sort_key": "ambien-light",
-        "language": "en",
-        "associate_good_key": "ambien-light:rhythm-light",
-        "value": " Type-C USB",
-        "key": "Input Interface",
-        "weight": 8,
-        "created_time": "2023-12-18T13:58:05.000Z",
-        "updated_time": "2023-12-18T13:58:05.000Z"
-      },
-      {
-        "id": 2745,
-        "good_key": "rhythm-light",
-        "good_sort_key": "ambien-light",
-        "language": "en",
-        "associate_good_key": "ambien-light:rhythm-light",
-        "value": "18 modes",
-        "key": "Color Modes",
-        "weight": 7,
-        "created_time": "2023-12-18T13:58:05.000Z",
-        "updated_time": "2023-12-18T13:58:05.000Z"
-      },
-      {
-        "id": 2746,
-        "good_key": "rhythm-light",
-        "good_sort_key": "ambien-light",
-        "language": "en",
-        "associate_good_key": "ambien-light:rhythm-light",
-        "value": "Rechargeable",
-        "key": "Power Supply Mode",
-        "weight": 6,
-        "created_time": "2023-12-18T13:58:05.000Z",
-        "updated_time": "2023-12-18T13:58:05.000Z"
-      },
-      {
-        "id": 2747,
-        "good_key": "rhythm-light",
-        "good_sort_key": "ambien-light",
-        "language": "en",
-        "associate_good_key": "ambien-light:rhythm-light",
-        "value": "Approximately 2-4 hours",
-        "key": "Battery Life",
+        "id": 1247,
+        "light": "Create an electrifying party atmosphere by synchronizing the dynamic RGB lights with the pulsating beats of your favorite music",
         "weight": 5,
-        "created_time": "2023-12-18T13:58:05.000Z",
-        "updated_time": "2023-12-18T13:58:05.000Z"
-      },
-      {
-        "id": 2748,
         "good_key": "rhythm-light",
         "good_sort_key": "ambien-light",
-        "language": "en",
         "associate_good_key": "ambien-light:rhythm-light",
-        "value": "64",
-        "key": "Number of Lamp Beads",
+        "language": "en",
+        "created_time": "2023-12-18T14:47:48.000Z",
+        "updated_time": "2023-12-18T14:47:48.000Z"
+      },
+      {
+        "id": 1248,
+        "light": "Illuminate your computer setup, car interior, or desktop with customizable lighting effects to match your mood or enhance the ambiance",
         "weight": 4,
-        "created_time": "2023-12-18T13:58:05.000Z",
-        "updated_time": "2023-12-18T13:58:05.000Z"
-      },
-      {
-        "id": 2749,
         "good_key": "rhythm-light",
         "good_sort_key": "ambien-light",
-        "language": "en",
         "associate_good_key": "ambien-light:rhythm-light",
-        "value": "25cm * 2.5cm * 2.2cm",
-        "key": "Dimensions",
+        "language": "en",
+        "created_time": "2023-12-18T14:47:48.000Z",
+        "updated_time": "2023-12-18T14:47:48.000Z"
+      },
+      {
+        "id": 1249,
+        "light": " Immerse yourself in a kaleidoscope of vibrant colors as the RGB lights paint your surroundings with stunning visual displays",
         "weight": 3,
-        "created_time": "2023-12-18T13:58:05.000Z",
-        "updated_time": "2023-12-18T13:58:05.000Z"
-      },
-      {
-        "id": 2750,
         "good_key": "rhythm-light",
         "good_sort_key": "ambien-light",
-        "language": "en",
         "associate_good_key": "ambien-light:rhythm-light",
-        "value": "Black/White",
-        "key": "Colors",
+        "language": "en",
+        "created_time": "2023-12-18T14:47:48.000Z",
+        "updated_time": "2023-12-18T14:47:48.000Z"
+      },
+      {
+        "id": 1250,
+        "light": "Enjoy an evenly distributed and immersive lighting experience from both sides of the 3D light strip, adding depth and dimension to any space",
         "weight": 2,
-        "created_time": "2023-12-18T13:58:05.000Z",
-        "updated_time": "2023-12-18T13:58:05.000Z"
-      },
-      {
-        "id": 2751,
         "good_key": "rhythm-light",
         "good_sort_key": "ambien-light",
-        "language": "en",
         "associate_good_key": "ambien-light:rhythm-light",
-        "value": "90g",
-        "key": "Net Weight",
+        "language": "en",
+        "created_time": "2023-12-18T14:47:48.000Z",
+        "updated_time": "2023-12-18T14:47:48.000Z"
+      },
+      {
+        "id": 1251,
+        "light": "Take full control of the lighting effects, colors, and modes using the dedicated mobile app, allowing for easy customization and convenience",
         "weight": 1,
-        "created_time": "2023-12-18T13:58:05.000Z",
-        "updated_time": "2023-12-18T13:58:05.000Z"
+        "good_key": "rhythm-light",
+        "good_sort_key": "ambien-light",
+        "associate_good_key": "ambien-light:rhythm-light",
+        "language": "en",
+        "created_time": "2023-12-18T14:47:48.000Z",
+        "updated_time": "2023-12-18T14:47:48.000Z"
       }
     ],
     "funcionList": [
@@ -14871,6 +14749,128 @@
         "updated_time": "2023-12-18T14:16:20.000Z"
       }
     ],
+    "associationsList": [
+      {
+        "id": 2742,
+        "good_key": "rhythm-light",
+        "good_sort_key": "ambien-light",
+        "language": "en",
+        "associate_good_key": "ambien-light:rhythm-light",
+        "value": "RGB 3D Ambient Light",
+        "key": "Product Name",
+        "weight": 10,
+        "created_time": "2023-12-18T13:58:05.000Z",
+        "updated_time": "2023-12-18T13:58:05.000Z"
+      },
+      {
+        "id": 2743,
+        "good_key": "rhythm-light",
+        "good_sort_key": "ambien-light",
+        "language": "en",
+        "associate_good_key": "ambien-light:rhythm-light",
+        "value": "5V-2A",
+        "key": "Input Voltage",
+        "weight": 9,
+        "created_time": "2023-12-18T13:58:05.000Z",
+        "updated_time": "2023-12-18T13:58:05.000Z"
+      },
+      {
+        "id": 2744,
+        "good_key": "rhythm-light",
+        "good_sort_key": "ambien-light",
+        "language": "en",
+        "associate_good_key": "ambien-light:rhythm-light",
+        "value": " Type-C USB",
+        "key": "Input Interface",
+        "weight": 8,
+        "created_time": "2023-12-18T13:58:05.000Z",
+        "updated_time": "2023-12-18T13:58:05.000Z"
+      },
+      {
+        "id": 2745,
+        "good_key": "rhythm-light",
+        "good_sort_key": "ambien-light",
+        "language": "en",
+        "associate_good_key": "ambien-light:rhythm-light",
+        "value": "18 modes",
+        "key": "Color Modes",
+        "weight": 7,
+        "created_time": "2023-12-18T13:58:05.000Z",
+        "updated_time": "2023-12-18T13:58:05.000Z"
+      },
+      {
+        "id": 2746,
+        "good_key": "rhythm-light",
+        "good_sort_key": "ambien-light",
+        "language": "en",
+        "associate_good_key": "ambien-light:rhythm-light",
+        "value": "Rechargeable",
+        "key": "Power Supply Mode",
+        "weight": 6,
+        "created_time": "2023-12-18T13:58:05.000Z",
+        "updated_time": "2023-12-18T13:58:05.000Z"
+      },
+      {
+        "id": 2747,
+        "good_key": "rhythm-light",
+        "good_sort_key": "ambien-light",
+        "language": "en",
+        "associate_good_key": "ambien-light:rhythm-light",
+        "value": "Approximately 2-4 hours",
+        "key": "Battery Life",
+        "weight": 5,
+        "created_time": "2023-12-18T13:58:05.000Z",
+        "updated_time": "2023-12-18T13:58:05.000Z"
+      },
+      {
+        "id": 2748,
+        "good_key": "rhythm-light",
+        "good_sort_key": "ambien-light",
+        "language": "en",
+        "associate_good_key": "ambien-light:rhythm-light",
+        "value": "64",
+        "key": "Number of Lamp Beads",
+        "weight": 4,
+        "created_time": "2023-12-18T13:58:05.000Z",
+        "updated_time": "2023-12-18T13:58:05.000Z"
+      },
+      {
+        "id": 2749,
+        "good_key": "rhythm-light",
+        "good_sort_key": "ambien-light",
+        "language": "en",
+        "associate_good_key": "ambien-light:rhythm-light",
+        "value": "25cm * 2.5cm * 2.2cm",
+        "key": "Dimensions",
+        "weight": 3,
+        "created_time": "2023-12-18T13:58:05.000Z",
+        "updated_time": "2023-12-18T13:58:05.000Z"
+      },
+      {
+        "id": 2750,
+        "good_key": "rhythm-light",
+        "good_sort_key": "ambien-light",
+        "language": "en",
+        "associate_good_key": "ambien-light:rhythm-light",
+        "value": "Black/White",
+        "key": "Colors",
+        "weight": 2,
+        "created_time": "2023-12-18T13:58:05.000Z",
+        "updated_time": "2023-12-18T13:58:05.000Z"
+      },
+      {
+        "id": 2751,
+        "good_key": "rhythm-light",
+        "good_sort_key": "ambien-light",
+        "language": "en",
+        "associate_good_key": "ambien-light:rhythm-light",
+        "value": "90g",
+        "key": "Net Weight",
+        "weight": 1,
+        "created_time": "2023-12-18T13:58:05.000Z",
+        "updated_time": "2023-12-18T13:58:05.000Z"
+      }
+    ],
     "path": "/ambien-light/rhythm-light"
   },
   {
@@ -14894,8 +14894,6 @@
     "updated_time": "2023-09-09T09:53:40.000Z",
     "associateProduct": [],
     "typeList": [],
-    "packageList": [],
-    "mediaList": [],
     "indexConfig": [
       {
         "id": 39,
@@ -14913,11 +14911,13 @@
         "updated_time": "2023-09-24T04:43:12.000Z"
       }
     ],
+    "packageList": [],
+    "mediaList": [],
     "comboList": [],
-    "sellingList": [],
     "reviewsList": [],
-    "associationsList": [],
+    "sellingList": [],
     "funcionList": [],
+    "associationsList": [],
     "path": "/watches/k8-ultra-max"
   }
 ]

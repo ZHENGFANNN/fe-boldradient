@@ -325,23 +325,6 @@
         "updated_time": "2023-09-24T08:18:15.000Z"
       }
     ],
-    "indexConfig": [
-      {
-        "id": 46,
-        "good_key": "n9-ultra-pro",
-        "good_sort_key": "watches",
-        "language": "de",
-        "associate_good_key": "watches:n9-ultra-pro",
-        "page_keywords": "N9 ULTRA PRO, Smartwatch, Apple Watch, Hochleistungs-Smartwatch, Fashion-Smartwatch",
-        "page_title": "N9 ULTRA PRO",
-        "page_description": "N9 ULTRA PRO ist eine leistungsstarke Smartwatch mit erweiterten Funktionen und innovativem Design, ähnlich der Apple Watch. Es kombiniert stilvolles Aussehen und leistungsstarke Technologie, um Benutzern ein hervorragendes Smart-Erlebnis zu bieten.",
-        "pc_background": null,
-        "mob_background": null,
-        "is_light": null,
-        "created_time": "2023-09-24T04:43:38.000Z",
-        "updated_time": "2023-09-24T04:43:38.000Z"
-      }
-    ],
     "comboList": [
       {
         "id": 106,
@@ -2139,6 +2122,23 @@
       }
     ],
     "reviewsList": [],
+    "indexConfig": [
+      {
+        "id": 46,
+        "good_key": "n9-ultra-pro",
+        "good_sort_key": "watches",
+        "language": "de",
+        "associate_good_key": "watches:n9-ultra-pro",
+        "page_keywords": "N9 ULTRA PRO, Smartwatch, Apple Watch, Hochleistungs-Smartwatch, Fashion-Smartwatch",
+        "page_title": "N9 ULTRA PRO",
+        "page_description": "N9 ULTRA PRO ist eine leistungsstarke Smartwatch mit erweiterten Funktionen und innovativem Design, ähnlich der Apple Watch. Es kombiniert stilvolles Aussehen und leistungsstarke Technologie, um Benutzern ein hervorragendes Smart-Erlebnis zu bieten.",
+        "pc_background": null,
+        "mob_background": null,
+        "is_light": null,
+        "created_time": "2023-09-24T04:43:38.000Z",
+        "updated_time": "2023-09-24T04:43:38.000Z"
+      }
+    ],
     "path": "/watches/n9-ultra-pro"
   },
   {
@@ -2251,23 +2251,6 @@
         "weight": 12,
         "created_time": "2023-09-09T14:28:04.000Z",
         "updated_time": "2023-09-09T14:31:51.000Z"
-      }
-    ],
-    "indexConfig": [
-      {
-        "id": 47,
-        "good_key": "8-ultra-mini",
-        "good_sort_key": "watches",
-        "language": "de",
-        "associate_good_key": "watches:8-ultra-mini",
-        "page_keywords": "8Ultra min, Smartwatch, kompakt und leicht, Gesundheitsüberwachung, Sport-Tracking",
-        "page_title": "8Ultra mini",
-        "page_description": "8Ultra min ist eine kleine und leichte Smartwatch mit tollen Funktionen und anspruchsvollem Design. Es verfügt über eine Vielzahl intelligenter Funktionen wie Gesundheitsüberwachung, Benachrichtigungserinnerungen und Trainingsverfolgung, sodass Sie jederzeit und überall in Verbindung bleiben und Ihr Leben verwalten können.",
-        "pc_background": null,
-        "mob_background": null,
-        "is_light": null,
-        "created_time": "2023-09-24T04:48:26.000Z",
-        "updated_time": "2023-09-24T04:48:26.000Z"
       }
     ],
     "comboList": [
@@ -3851,6 +3834,23 @@
       }
     ],
     "reviewsList": [],
+    "indexConfig": [
+      {
+        "id": 47,
+        "good_key": "8-ultra-mini",
+        "good_sort_key": "watches",
+        "language": "de",
+        "associate_good_key": "watches:8-ultra-mini",
+        "page_keywords": "8Ultra min, Smartwatch, kompakt und leicht, Gesundheitsüberwachung, Sport-Tracking",
+        "page_title": "8Ultra mini",
+        "page_description": "8Ultra min ist eine kleine und leichte Smartwatch mit tollen Funktionen und anspruchsvollem Design. Es verfügt über eine Vielzahl intelligenter Funktionen wie Gesundheitsüberwachung, Benachrichtigungserinnerungen und Trainingsverfolgung, sodass Sie jederzeit und überall in Verbindung bleiben und Ihr Leben verwalten können.",
+        "pc_background": null,
+        "mob_background": null,
+        "is_light": null,
+        "created_time": "2023-09-24T04:48:26.000Z",
+        "updated_time": "2023-09-24T04:48:26.000Z"
+      }
+    ],
     "path": "/watches/8-ultra-mini"
   },
   {
@@ -3947,23 +3947,6 @@
       }
     ],
     "mediaList": [],
-    "indexConfig": [
-      {
-        "id": 48,
-        "good_key": "ip8-ultra",
-        "good_sort_key": "watches",
-        "language": "de",
-        "associate_good_key": "watches:ip8-ultra",
-        "page_keywords": "IP8 ULTRA, Smartwatch, High-End-Uhr, HD-Touchscreen, leistungsstarke Leistung",
-        "page_title": "IP8 ULTRA",
-        "page_description": "IP8 ULTRA ist eine High-End-Smartwatch, die für ihre hervorragende Leistung und ihr exquisites Erscheinungsbild bekannt ist. Es verfügt über eine leistungsstarke Rechenleistung, einen hochauflösenden Touchscreen und umfangreiche Funktionen und bietet Benutzern ein hervorragendes Smart-Erlebnis.",
-        "pc_background": null,
-        "mob_background": null,
-        "is_light": null,
-        "created_time": "2023-09-24T04:48:29.000Z",
-        "updated_time": "2023-09-24T04:48:29.000Z"
-      }
-    ],
     "comboList": [
       {
         "id": 66,
@@ -5605,6 +5588,23 @@
       }
     ],
     "reviewsList": [],
+    "indexConfig": [
+      {
+        "id": 48,
+        "good_key": "ip8-ultra",
+        "good_sort_key": "watches",
+        "language": "de",
+        "associate_good_key": "watches:ip8-ultra",
+        "page_keywords": "IP8 ULTRA, Smartwatch, High-End-Uhr, HD-Touchscreen, leistungsstarke Leistung",
+        "page_title": "IP8 ULTRA",
+        "page_description": "IP8 ULTRA ist eine High-End-Smartwatch, die für ihre hervorragende Leistung und ihr exquisites Erscheinungsbild bekannt ist. Es verfügt über eine leistungsstarke Rechenleistung, einen hochauflösenden Touchscreen und umfangreiche Funktionen und bietet Benutzern ein hervorragendes Smart-Erlebnis.",
+        "pc_background": null,
+        "mob_background": null,
+        "is_light": null,
+        "created_time": "2023-09-24T04:48:29.000Z",
+        "updated_time": "2023-09-24T04:48:29.000Z"
+      }
+    ],
     "path": "/watches/ip8-ultra"
   },
   {
@@ -5701,23 +5701,6 @@
       }
     ],
     "mediaList": [],
-    "indexConfig": [
-      {
-        "id": 49,
-        "good_key": "series8-mini",
-        "good_sort_key": "watches",
-        "language": "de",
-        "associate_good_key": "watches:series8-mini",
-        "page_keywords": "Series8 mini, Smartwatch, stilvolles Design, Push-Nachricht, Gesundheitsüberwachung",
-        "page_title": "Serie8 Mini",
-        "page_description": "Series8 mini ist eine stilvolle und anspruchsvolle Smartwatch, die stilvolles Design und intelligente Technologie vereint. Es verfügt über eine Vielzahl intelligenter Funktionen wie Nachrichten-Push, Gesundheitsüberwachung und personalisierte Zifferblätter, sodass Sie den Komfort intelligenter Technologie in der Mode genießen können.",
-        "pc_background": null,
-        "mob_background": null,
-        "is_light": null,
-        "created_time": "2023-09-24T04:48:32.000Z",
-        "updated_time": "2023-09-24T04:48:32.000Z"
-      }
-    ],
     "comboList": [
       {
         "id": 76,
@@ -7312,6 +7295,23 @@
       }
     ],
     "reviewsList": [],
+    "indexConfig": [
+      {
+        "id": 49,
+        "good_key": "series8-mini",
+        "good_sort_key": "watches",
+        "language": "de",
+        "associate_good_key": "watches:series8-mini",
+        "page_keywords": "Series8 mini, Smartwatch, stilvolles Design, Push-Nachricht, Gesundheitsüberwachung",
+        "page_title": "Serie8 Mini",
+        "page_description": "Series8 mini ist eine stilvolle und anspruchsvolle Smartwatch, die stilvolles Design und intelligente Technologie vereint. Es verfügt über eine Vielzahl intelligenter Funktionen wie Nachrichten-Push, Gesundheitsüberwachung und personalisierte Zifferblätter, sodass Sie den Komfort intelligenter Technologie in der Mode genießen können.",
+        "pc_background": null,
+        "mob_background": null,
+        "is_light": null,
+        "created_time": "2023-09-24T04:48:32.000Z",
+        "updated_time": "2023-09-24T04:48:32.000Z"
+      }
+    ],
     "path": "/watches/series8-mini"
   },
   {
@@ -7436,23 +7436,6 @@
       }
     ],
     "mediaList": [],
-    "indexConfig": [
-      {
-        "id": 50,
-        "good_key": "ultra-max",
-        "good_sort_key": "watches",
-        "language": "de",
-        "associate_good_key": "watches:ultra-max",
-        "page_keywords": "UltraMax, Smartwatch, hohe Leistung, lange Akkulaufzeit, wasserdichte Uhr",
-        "page_title": "UltraMax",
-        "page_description": "UltraMax ist eine umfassende Smartwatch, die Benutzern hervorragende Leistung und vielfältige Funktionen bietet. Es verfügt über eine leistungsstarke Rechenleistung, eine lange Akkulaufzeit und Wasserbeständigkeit und eignet sich daher für eine Vielzahl von Outdoor- und Alltagsaktivitäten.",
-        "pc_background": null,
-        "mob_background": null,
-        "is_light": null,
-        "created_time": "2023-09-24T04:48:35.000Z",
-        "updated_time": "2023-09-24T04:48:35.000Z"
-      }
-    ],
     "comboList": [
       {
         "id": 86,
@@ -9094,6 +9077,23 @@
       }
     ],
     "reviewsList": [],
+    "indexConfig": [
+      {
+        "id": 50,
+        "good_key": "ultra-max",
+        "good_sort_key": "watches",
+        "language": "de",
+        "associate_good_key": "watches:ultra-max",
+        "page_keywords": "UltraMax, Smartwatch, hohe Leistung, lange Akkulaufzeit, wasserdichte Uhr",
+        "page_title": "UltraMax",
+        "page_description": "UltraMax ist eine umfassende Smartwatch, die Benutzern hervorragende Leistung und vielfältige Funktionen bietet. Es verfügt über eine leistungsstarke Rechenleistung, eine lange Akkulaufzeit und Wasserbeständigkeit und eignet sich daher für eine Vielzahl von Outdoor- und Alltagsaktivitäten.",
+        "pc_background": null,
+        "mob_background": null,
+        "is_light": null,
+        "created_time": "2023-09-24T04:48:35.000Z",
+        "updated_time": "2023-09-24T04:48:35.000Z"
+      }
+    ],
     "path": "/watches/ultra-max"
   },
   {
@@ -9119,6 +9119,11 @@
     "typeList": [],
     "packageList": [],
     "mediaList": [],
+    "comboList": [],
+    "funcionList": [],
+    "associationsList": [],
+    "sellingList": [],
+    "reviewsList": [],
     "indexConfig": [
       {
         "id": 51,
@@ -9136,11 +9141,6 @@
         "updated_time": "2023-09-24T04:48:38.000Z"
       }
     ],
-    "comboList": [],
-    "funcionList": [],
-    "associationsList": [],
-    "sellingList": [],
-    "reviewsList": [],
     "path": "/watches/k8-ultra-max"
   }
 ]

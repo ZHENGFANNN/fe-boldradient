@@ -340,7 +340,9 @@ export default function Main({ secret, locale, LANG, CONFIG }) {
                     <p>{order.email}</p>
                   </li>
                   <li>
-                    <p>{`(${order.short_phone}) ${order.phone}`}</p>
+                    <p>{`${order.short_phone ? `(${order.short_phone}) ` : ""}${
+                      order.phone
+                    }`}</p>
                   </li>
                   <li>
                     <p>{`(${order.zip_code}) ${order.area_text} ${order.address1} ${order.address2}`}</p>
@@ -356,6 +358,7 @@ export default function Main({ secret, locale, LANG, CONFIG }) {
                   locale={locale}
                   order_number={order.order_number}
                   currency={order.order_list[0].priceCurrency}
+                  pre
                   onError={(error) => {
                     showTip({
                       text: LANG["store.order_info.pay_error"],
@@ -374,7 +377,11 @@ export default function Main({ secret, locale, LANG, CONFIG }) {
                     return order.order_number;
                   }}
                   onApprove={(data) => {
-                    return Api.confirmPaypal({ id: data.orderID })
+                    return Api.confirmPaypal({
+                      id: data.orderID,
+                      from:
+                        order.first_name && order.address1 ? "order_page" : "",
+                    })
                       .then((res) => {
                         if (res.code === 0) {
                           tracking.purchase({

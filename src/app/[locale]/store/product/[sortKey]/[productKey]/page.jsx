@@ -255,6 +255,12 @@ export default async function Product({ params: { locale, productKey } }) {
             productInfo={productInfo}
             goodDiscountFestival={GOODDISCOUNTFESTIVAL}
           />
+          {/* <Script
+            id="product-3d-script"
+            defer
+            type="module"
+            src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.3.0/model-viewer.min.js"
+          ></Script> */}
           <Script
             id="store-product-ld-json"
             type="application/ld+json"

@@ -2,6 +2,33 @@ import React from "react";
 import Script from "next/script";
 import styles from "./index.module.scss";
 import Link from "next/link";
+const active_icon = `${process.env.NEXT_PUBLIC_IMAGE}/icon/previews_stars_active_icon.svg`;
+const no_active_icon = `${process.env.NEXT_PUBLIC_IMAGE}/icon/previews_stars_icon.svg`;
+function ReviewRate({ scoreRate = 1 }) {
+  return (
+    <div className={styles.stars_container}>
+      <div className={styles.no_active_stars}>
+        <img alt="no_active_icon" src={no_active_icon} />
+        <img alt="no_active_icon" src={no_active_icon} />
+        <img alt="no_active_icon" src={no_active_icon} />
+        <img alt="no_active_icon" src={no_active_icon} />
+        <img alt="no_active_icon" src={no_active_icon} />
+      </div>
+      <div
+        className={styles.active_stars}
+        style={{
+          width: 90 * scoreRate,
+        }}
+      >
+        <img alt="active_icon" src={active_icon} />
+        <img alt="active_icon" src={active_icon} />
+        <img alt="active_icon" src={active_icon} />
+        <img alt="active_icon" src={active_icon} />
+        <img alt="active_icon" src={active_icon} />
+      </div>
+    </div>
+  );
+}
 
 export default function ProductList({
   CONFIG,
@@ -23,6 +50,11 @@ export default function ProductList({
                   <img alt={product.name} src={product.image_list[0].src} />
                 </div>
                 <div className={styles.content_container}>
+                  {/* 产品评分 */}
+                  {!isNaN(product.reviewScore) ? (
+                    <ReviewRate scoreRate={product.reviewScore / 5} />
+                  ) : null}
+
                   {/* 产品名称 */}
                   <h3 className={styles.product_name}>{product.name}</h3>
                   {/* 产品优惠 */}

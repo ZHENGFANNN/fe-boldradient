@@ -13,7 +13,7 @@ export default function GoodPrice({ goodDiscountFestival, comboList }) {
           {`${productCurCombo.areaInfo.currency_symbol}${
             productCurCombo.areaInfo.currency
           } ${Math.ceil(
-            (100 - goodDiscountFestival.discount) *
+            (100 - productCurCombo.areaInfo.good_discount) *
               0.01 *
               productCurCombo.areaInfo.price
           )}`}

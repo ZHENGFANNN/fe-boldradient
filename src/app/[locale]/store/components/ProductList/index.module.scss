@@ -40,7 +40,8 @@
         }
         .content_container {
             display: flex;
-            padding: 16px 24px 84px;
+            flex-direction: column;
+            padding: 18px 24px 84px;
             .product_name {
                 font-size: 20px;
                 line-height: 28px;
@@ -210,5 +211,30 @@
                 }
             }
         }
+    }
+}
+
+.stars_container {
+    position: relative;
+    height: 16px;
+    user-select: none;
+    width: 90px;
+
+    margin-bottom: 8px;
+    .active_stars, .no_active_stars {
+        position: absolute;
+        left: 0;
+        top: 0;
+
+        display: flex;
+        img {
+            margin: 0 1px;
+            width: 16px;
+            height: 16px;
+        }
+    }
+
+    .active_stars {
+        overflow: hidden;
     }
 }

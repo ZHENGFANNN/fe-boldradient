@@ -13,6 +13,11 @@ export const runtime = "edge";
 async function getSortList({ productSort, area }) {
   return productSort.map((item) => {
     const goodList = item.goodList.map((good) => {
+      const totalValue = good.reviewsList.reduce(
+        (pre, cur) => pre + cur.score,
+        0
+      );
+      const avertValue = totalValue / good.reviewsList.length;
       const areaInfo =
         good.comboList[0]?.areaList?.find((item) => {
           return item.country_code === area;
@@ -20,6 +25,7 @@ async function getSortList({ productSort, area }) {
       return {
         ...good,
         areaInfo,
+        reviewScore: avertValue,
       };
     });
     return {

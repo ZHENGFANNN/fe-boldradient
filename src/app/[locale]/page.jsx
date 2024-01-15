@@ -17,15 +17,7 @@ export async function generateMetadata({ params: { locale } }) {
 }
 
 // 首页产品列表组件
-function ProductItem({
-  title,
-  description,
-  href,
-  img_title,
-  img_src,
-  LANG,
-  locale,
-}) {
+function ProductItem({ title, description, href, img_title, img_src, LANG }) {
   return (
     <div className={styles.main_list_img}>
       {href?.startsWith("http") ? (

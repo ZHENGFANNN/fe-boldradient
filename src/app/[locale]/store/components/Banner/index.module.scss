@@ -1,3 +1,12 @@
+@keyframes widthLinear {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 42px;
+  }
+}
+
 .splide {
     .splide_item {
       cursor: pointer;

@@ -3,6 +3,7 @@ import React from "react";
 import styles from "./page.module.scss";
 import getAllConfigData from "@/utils/getAllConfigData";
 import LoginForm from "./components/LoginForm";
+import background from "../bg.webp";
 
 export const runtime = "edge";
 
@@ -17,8 +18,14 @@ export async function generateMetadata({ params: { locale } }) {
 
 export default async function Login({ params: { locale } }) {
   const { LANG, CONFIG } = await getAllConfigData(locale);
+  console.log(background);
   return (
-    <div className={styles.container}>
+    <div
+      className={styles.container}
+      style={{
+        backgroundImage: `url(${background.src})`,
+      }}
+    >
       <main className={styles.main}>
         <img
           alt={CONFIG["company.basic.company_name"]}

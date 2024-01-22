@@ -4,8 +4,6 @@ import React from "react";
 import getAllConfigData from "@/utils/getAllConfigData";
 import RegisterForm from "./components/RegisterForm";
 
-import background from "../bg.webp";
-
 export const runtime = "edge";
 export async function generateMetadata({ params: { locale } }) {
   const { LANG, CONFIG } = await getAllConfigData(locale);
@@ -22,7 +20,7 @@ export default async function Register({ params: { locale } }) {
     <div
       className={styles.container}
       style={{
-        backgroundImage: `url(${background.src})`,
+        backgroundImage: `url(${process.env.NEXT_PUBLIC_IMAGE}/icon/bg.webp)`,
       }}
     >
       <main className={styles.main}>

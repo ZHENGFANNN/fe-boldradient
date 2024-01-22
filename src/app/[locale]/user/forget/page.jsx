@@ -3,8 +3,6 @@ import React from "react";
 
 import getAllConfigData from "@/utils/getAllConfigData";
 import ForgetForm from "./components/ForgetForm";
-import background from "../bg.webp";
-
 export const runtime = "edge";
 
 export async function generateMetadata({ params: { locale } }) {
@@ -22,7 +20,7 @@ export default async function Forget({ params: { locale } }) {
     <div
       className={styles.container}
       style={{
-        backgroundImage: `url(${background.src})`,
+        backgroundImage: `url(${process.env.NEXT_PUBLIC_IMAGE}/icon/bg.webp)`,
       }}
     >
       <main className={styles.main}>

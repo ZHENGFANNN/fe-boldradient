@@ -102,7 +102,7 @@ export default function OrderInfo({ LANG }) {
               LANG={LANG}
               buttonProps={{
                 text: LANG["www.account.my_order.go_to_buy"],
-                href: "/store",
+                href: "/",
               }}
             />
           ) : null}

@@ -30,7 +30,8 @@ export default async function Market({ params: { locale } }) {
         </div>
         <img
           alt={LANG["www.company_market.contact"]}
-          src={CONFIG["www.cooperate.market_img"]}
+          src={`${process.env.NEXT_PUBLIC_IMAGE}/icon/bg.webp`}
+          // CONFIG["www.cooperate.market_img"]
         />
       </section>
 

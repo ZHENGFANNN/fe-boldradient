@@ -55,11 +55,17 @@
             color: #7d7f82;
             text-decoration: none;
             a {
-              display: flex;
-              width: 100%;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              width: 240px;
+
+              display: block;
               color: #7d7f82;
               text-decoration: none;
               transition: all 200ms;
+              padding-right: 24px;
+              box-sizing: border-box;
             }
           }
           li:hover {
@@ -411,9 +417,12 @@
               padding-bottom: 16px;
               padding: 16px 30px;
               color: #909699;
+
               a {
                 color: #909699;
                 text-decoration: none;
+                width: 100%;
+                padding-right: 0;
               }
             }
             li:hover {

@@ -314,7 +314,7 @@ export default function NavBar({ CONFIG, LANG, GOODSORTLIST, GOODLIST }) {
           </div>
           <ul className={styles.header_right}>
             <li>
-              <Link className={styles.header_store_container} href={`/store`}>
+              <Link className={styles.header_store_container} href={`/`}>
                 <img
                   src={`${process.env.NEXT_PUBLIC_IMAGE}/icon/min-store.svg`}
                   alt="store"

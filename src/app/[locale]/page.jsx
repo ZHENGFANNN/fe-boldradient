@@ -1,154 +1,80 @@
-import React from "react";
-import Script from "next/script";
-
-import getAllConfigData from "@/utils/getAllConfigData";
 import styles from "./page.module.scss";
-import Link from "next/link";
+import React from "react";
+
+import Advantage from "@/components/Layout/Advantage";
+import getAllConfigData from "@/utils/getAllConfigData";
+
+import ProductList from "./components/ProductList";
+import Banner from "./components/Banner";
+import { cookies } from "next/headers";
 
 export const runtime = "edge";
+
+async function getSortList({ productSort, area }) {
+  return productSort.map((item) => {
+    const goodList = item.goodList.map((good) => {
+      const totalValue = good.reviewsList.reduce(
+        (pre, cur) => pre + cur.score,
+        0
+      );
+      const avertValue = totalValue / good.reviewsList.length;
+      const areaInfo =
+        good.comboList[0]?.areaList?.find((item) => {
+          return item.country_code === area;
+        }) ?? {};
+      return {
+        ...good,
+        areaInfo,
+        reviewScore: avertValue,
+      };
+    });
+    return {
+      ...item,
+      goodList,
+    };
+  });
+}
 
 export async function generateMetadata({ params: { locale } }) {
   const { LANG, CONFIG } = await getAllConfigData(locale);
   return {
-    title: `${CONFIG["company.basic.company_name"]} - ${LANG["www.index.title"]}`,
-    description: LANG["www.index.description"],
-    keywords: LANG["www.index.keywords"],
+    title: `${CONFIG["company.basic.company_name"]} - ${LANG["store.index.title"]}`,
+    description: LANG["store.index.description"],
+    keywords: LANG["store.index.keywords"],
   };
 }
 
-// 首页产品列表组件
-function ProductItem({ title, description, href, img_title, img_src, LANG }) {
-  return (
-    <div className={styles.main_list_img}>
-      {href?.startsWith("http") ? (
-        <a href={href} target="_blank" rel="noreferrer"></a>
-      ) : (
-        <Link href={`${href}`}></Link>
-      )}
-      <div className={styles.main_list_text}>
-        <div className={styles.main_list_text_title}>{title}</div>
-        <div className={styles.main_list_text_description}>{description}</div>
-        <div className={styles.main_list_text_buy}>
-          <div className={styles.main_list_text_buy_container}>
-            <span>{LANG["www.index.buy_now"]}</span>
-            <div className={styles.arrow_icon}></div>
-          </div>
-        </div>
-      </div>
-      <img alt={img_title} src={img_src} />
-    </div>
-  );
-}
-
 export default async function Home({ params: { locale } }) {
-  const { CONFIG, LANG, GOODLIST } = await getAllConfigData(locale);
+  const area = cookies().get("area")?.value || "us";
+  const { CONFIG, LANG, GOODSORTLIST, GOODDISCOUNTFESTIVAL } =
+    await getAllConfigData(locale);
+  const sortList = await getSortList({
+    productSort: GOODSORTLIST,
+    locale,
+    area,
+  });
+
   return (
-    <div className={styles.container}>
-      <main className={styles.main}>
-        <section
-          className={styles.main_kv}
-          style={{
-            "--kv-img-pc": `url(${CONFIG["www.index.kv_img_pc"]})`,
-            "--kv-img-ipad": `url(${CONFIG["www.index.kv_img_ipad"]})`,
-            "--kv-img-mob": `url(${CONFIG["www.index.kv_img_mob"]})`,
-          }}
-        >
-          {CONFIG["www.index.kv_link"]?.startsWith("http") ? (
-            <a
-              href={CONFIG["www.index.kv_link"]}
-              target="_blank"
-              rel="noreferrer"
-            ></a>
-          ) : (
-            <Link href={`${CONFIG["www.index.kv_link"]}`}></Link>
-          )}
-          <div className={styles.main_kv_text}>
-            <div className={styles.main_kv_text_title}>
-              {CONFIG["www.index.kv_title"]}
+    <main className={styles.container}>
+      <Banner CONFIG={CONFIG} LANG={LANG} />
+      {/* 产品列表 */}
+      {sortList.map((item, index) => {
+        return (
+          <div className={styles.sort_container} key={index}>
+            <div className={styles.sort_header}>
+              <h2>{item.name}</h2>
             </div>
-            <div className={styles.main_kv_text_description}>
-              {CONFIG["www.index.kv_description"]}
-            </div>
-            <div className={styles.main_kv_text_buy}>
-              <div className={styles.main_kv_text_buy_container}>
-                <span>{LANG["www.index.buy_now"]}</span>
-                <div className={styles.arrow_icon}></div>
-              </div>
-            </div>
+            <ProductList
+              key={index}
+              CONFIG={CONFIG}
+              LANG={LANG}
+              goodList={item.goodList}
+              goodDiscountFestival={GOODDISCOUNTFESTIVAL}
+            />
           </div>
-        </section>
-        <section className={styles.main_list}>
-          <div className={styles.main_list_img_container}>
-            {CONFIG["www.index.imgs"] &&
-              CONFIG["www.index.imgs"]?.map((item, index) => {
-                return (
-                  <ProductItem
-                    key={index}
-                    sub_title={item.sub_title}
-                    title={item.title}
-                    description={item.description}
-                    img_title={item.title}
-                    img_src={item.src}
-                    locale={locale}
-                    href={item.href}
-                    LANG={LANG}
-                  />
-                );
-              })}
-          </div>
-        </section>
-        <Link
-          style={{
-            "--about-us-mob": `url(${CONFIG["www.index.about_us_img_mob"]})`,
-            "--about-us-pc": `url(${CONFIG["www.index.about_us_img_pc"]})`,
-          }}
-          href={`/company/introduce`}
-          className={styles.footer_container}
-        >
-          <div className={styles.footer_content}>
-            <h3 className={styles.footer_content_title}>
-              {LANG["www.index.about_us"]}
-            </h3>
-            <div className={styles.footer_content_description_container}>
-              <div className={styles.footer_content_description}>
-                {LANG["www.index.learn_more"]}
-              </div>
-              <div className={styles.arrow_icon}></div>
-            </div>
-          </div>
-        </Link>
-      </main>
-      <Script
-        id="www-index-ld-json"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(
-            {
-              "@context": "https://schema.org",
-              "@type": "ItemList",
-              itemListElement: GOODLIST.map((item, index) => {
-                return {
-                  "@type": "ListItem",
-                  position: index,
-                  item: {
-                    "@type": "Course",
-                    url: `/store/product/${item.path}`,
-                    name: item.name,
-                    description: item.description,
-                    provider: {
-                      "@type": "Organization",
-                      name: `${CONFIG["company.basic.company_name"]}`,
-                      sameAs: process.env.NEXT_PUBLIC_WWW,
-                    },
-                  },
-                };
-              }),
-            },
-            null,
-            "\t"
-          ),
-        }}
-      />
-    </div>
+        );
+      })}
+      <Advantage LANG={LANG} />
+    </main>
   );
 }

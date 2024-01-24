@@ -110,7 +110,8 @@ export default async function Introduce({ params: { locale } }) {
           </div>
           <img
             alt={LANG["www.company_introduce.contact_us"]}
-            src={CONFIG["www.company.contact_img"]}
+            // src={CONFIG["www.company.contact_img"]}
+            src={`${process.env.NEXT_PUBLIC_IMAGE}/icon/bg.webp`}
           />
         </section>
       </Link>

@@ -30,7 +30,8 @@ export default async function Technology({ params: { locale } }) {
         </div>
         <img
           alt={LANG["www.company_technology.contact"]}
-          src={CONFIG["www.cooperate.technology_img"]}
+          src={`${process.env.NEXT_PUBLIC_IMAGE}/icon/bg.webp`}
+          // src={CONFIG["www.cooperate.technology_img"]}
         />
       </section>
 

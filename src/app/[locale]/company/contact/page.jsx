@@ -22,7 +22,7 @@ export default async function Contact({ params: { locale } }) {
       <div className={styles.img_container}>
         <img
           alt={LANG["www.company_contact.contact_us"]}
-          src="https://image.sslfly.com/base/2023/4/5/E81C2DEC5F93608243E2D989B3778CB6/contact_us.jpg"
+          src={`${process.env.NEXT_PUBLIC_IMAGE}/icon/bg.webp`}
         />
       </div>
       <ul className={styles.media_list}>

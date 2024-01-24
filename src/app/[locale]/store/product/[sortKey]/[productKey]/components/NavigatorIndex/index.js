@@ -7,7 +7,7 @@ export default function NavigatorIndex() {
   const router = useRouter();
   React.useEffect(() => {
     const t = setTimeout(() => {
-      router.push("/store");
+      router.push("/");
     }, 2000);
     return () => {
       clearTimeout(t);

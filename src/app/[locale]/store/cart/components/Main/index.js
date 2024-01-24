@@ -21,7 +21,7 @@ const EmpytCart = function ({ LANG }) {
         />
       </div>
       <p>{LANG["store.cart.cart_empyt"]}</p>
-      <Link href={`/store`} className={styles.button_order}>
+      <Link href={`/`} className={styles.button_order}>
         {LANG["store.cart.continue_order"]}
       </Link>
     </div>
@@ -589,7 +589,7 @@ export default function Main({
                   )}
                 </div>
                 <div className={styles.balance_btn}>
-                  <a href={`/${locale}/store`} className={styles.contiun_order}>
+                  <a href={`/${locale}`} className={styles.contiun_order}>
                     {LANG["store.cart.continue_order"]}
                   </a>
                   <a

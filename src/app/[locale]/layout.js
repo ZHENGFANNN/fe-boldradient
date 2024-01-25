@@ -9,6 +9,14 @@ import getAllConfigData from "@/utils/getAllConfigData";
 import React from "react";
 import Layout from "@/components/Layout";
 
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  minimumScale: 1,
+  userScalable: "no",
+};
+
 export default async function RootLayout(props) {
   const {
     children,

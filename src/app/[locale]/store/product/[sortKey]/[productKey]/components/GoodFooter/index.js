@@ -5,7 +5,6 @@ import styles from "./index.module.scss";
 import useProductStore from "../../productStore";
 import ProductContext from "../../productContext";
 import tracking from "../../tracking";
-import $ from "jquery";
 
 export default function GoodFooter({
   LANG,

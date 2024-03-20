@@ -1,0 +1,10 @@
+.container {
+    white-space: pre-line;
+    font-size: 14px;
+    color: #898a8e;
+    line-height: 1.2;
+
+    padding: 4px 0;
+    max-height: calc(80vh - 64px);
+    overflow: auto;
+}

@@ -23,13 +23,18 @@ export const viewport = {
  */
 async function getData({ locale, area, configList }) {
   const result = await getConfigDataV2({ locale, area, configList });
-  result.GOODLIST = result.GOODLIST.map(({ name, path, image_list }) => {
-    return {
-      name,
-      path,
-      image_list,
-    };
-  });
+  result.GOODLIST = result.GOODLIST.map(
+    ({ name, path, image_list, sort_key, key, comboList }) => {
+      return {
+        name,
+        path,
+        image_list,
+        sort_key,
+        key,
+        comboList,
+      };
+    }
+  );
   result.GOODSORTLIST = result.GOODSORTLIST.map(({ name, key, image_src }) => {
     return {
       name,
@@ -46,16 +51,28 @@ export default async function RootLayout(props) {
     params: { locale },
   } = props;
   const area = cookies().get("area")?.value || "us";
-  const { CONFIG, LANG, GOODLIST, GOODSORTLIST } = await getData({
-    locale,
-    area,
-    configList: ["config", "language", "goodSort", "good"],
-  });
+  const { CONFIG, LANG, GOODLIST, GOODSORTLIST, GOODDISCOUNTFESTIVAL } =
+    await getData({
+      locale,
+      area,
+      configList: [
+        "config",
+        "language",
+        "goodSort",
+        "good",
+        "goodDiscountFestival",
+      ],
+    });
   return (
     <html lang="en">
       <body>
-        <Layout>
+        <Layout
+          GOODDISCOUNTFESTIVAL={GOODDISCOUNTFESTIVAL}
+          GOODLIST={GOODLIST}
+          LANG={LANG}
+        >
           <Navbar
+            locale={locale}
             LANG={LANG}
             CONFIG={CONFIG}
             GOODLIST={GOODLIST}

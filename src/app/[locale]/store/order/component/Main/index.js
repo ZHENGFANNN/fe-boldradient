@@ -35,7 +35,6 @@ export default function Main({
   const router = useRouter();
   const { locale } = useParams();
   const searchParams = useSearchParams();
-  const singleGood = searchParams.get("single_good");
 
   const { userInfo } = React.useContext(GlobalContext);
   const [orderLoading, setOrderLoading] = React.useState(false);
@@ -106,15 +105,12 @@ export default function Main({
   const [orderList, setOrderList] = React.useState([]);
   React.useEffect(() => {
     // 获取购物车列表
-    let localStoreList = singleGood
-      ? window.localStorage.getItem("single_store_shopping")
-      : window.localStorage.getItem("store_shopping");
+    let localStoreList = window.localStorage.getItem("store_shopping");
     try {
       localStoreList = JSON.parse(localStoreList ?? []);
       const list = [];
       localStoreList.forEach((item) => {
-        if (!item.selected) return;
-        let comboInfo, areaInfo;
+        let comboInfo;
         const product = GOODLIST.find(
           (product) =>
             item.productKey === product.key && item.sortKey === product.sort_key
@@ -162,7 +158,6 @@ export default function Main({
             comboKey: comboInfo.key,
             // 其他
             productNum: item.productNum,
-            selected: item.selected,
             options,
           };
           list.push(itemData);
@@ -176,7 +171,7 @@ export default function Main({
       localStorage.setItem("store_shopping", JSON.stringify([]));
       console.log("【购物列表解析失败】", err);
     }
-  }, [payKey, singleGood]);
+  }, [payKey]);
 
   // 计算总价
   const totalPrice = React.useMemo(() => {
@@ -244,18 +239,9 @@ export default function Main({
 
   // 清空购物车
   const clearOrderList = React.useCallback(() => {
-    if (singleGood) return;
     // 获取购物车列表
-    try {
-      let localStoreList = window.localStorage.getItem("store_shopping");
-      localStoreList = JSON.parse(localStoreList ?? []);
-      localStoreList = localStoreList.filter((item) => !item.selected);
-      window.localStorage.setItem(
-        "store_shopping",
-        JSON.stringify(localStoreList)
-      );
-    } catch {}
-  }, [singleGood]);
+    window.localStorage.removeItem("store_shopping");
+  }, []);
 
   const secret = React.useRef();
 
@@ -380,13 +366,13 @@ export default function Main({
                           {GOODDISCOUNTFESTIVAL && item.good_discount ? (
                             <div className={styles.discount}>{`${
                               item.priceSymbol
-                            }${item.priceCurrency} ${
+                            }${
                               Math.floor(
                                 item.price * item.good_discount * 0.01
                               ) * item.productNum
                             }`}</div>
                           ) : null}
-                          <div>{`${item.priceSymbol}${item.priceCurrency} ${
+                          <div>{`${item.priceSymbol}${
                             item.price * item.productNum
                           }`}</div>
                         </div>
@@ -398,8 +384,8 @@ export default function Main({
                   <div className={styles.price_item}>
                     <h3>{LANG["store.order.good_total"]}</h3>
                     <span>{`${orderList[0]?.priceSymbol}${
-                      orderList[0]?.priceCurrency
-                    } ${totalPrice - discount}`}</span>
+                      totalPrice - discount
+                    }`}</span>
                   </div>
                   <div className={styles.price_item}>
                     <h3>{LANG["store.order.express_price"]}</h3>
@@ -412,9 +398,9 @@ export default function Main({
                 </div>
                 <div className={styles.price_total}>
                   <h3>{LANG["store.order.total_price"]}</h3>
-                  <span>{`${orderList[0]?.priceSymbol}${
-                    orderList[0]?.priceCurrency
-                  } ${formatPrice(totalPrice - discount)}`}</span>
+                  <span>{`${orderList[0]?.priceSymbol}${formatPrice(
+                    totalPrice - discount
+                  )}`}</span>
                 </div>
               </>
             ) : (

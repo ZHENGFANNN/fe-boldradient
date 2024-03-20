@@ -5,36 +5,46 @@ import styles from "./index.module.scss";
 import useProductStore from "../../productStore";
 
 export default function GoodComboList({
-  title = "",
   options = [],
   defaultActive,
   LANG,
   goodDiscountFestival,
+  from = "product",
 }) {
   const setProductCurCombo = useProductStore(
     (state) => state.setProductCurCombo
   );
+
+  const productCurCombo = useProductStore((state) => state.productCurCombo);
 
   const [active, setActive] = React.useState(() => {
     return defaultActive || options[0]?.key;
   });
 
   React.useEffect(() => {
-    setProductCurCombo(
-      options[0] || {
-        areaInfo: {},
-      }
-    );
-  }, []);
+    setActive(productCurCombo.key);
+  }, [productCurCombo]);
+
+  React.useEffect(() => {
+    // 来自首页的进行初始化
+    if (from === "product") {
+      setProductCurCombo(
+        options[0] || {
+          areaInfo: {},
+        }
+      );
+    }
+  }, [from]);
 
   if (options.length < 1) return null;
   return (
     <div className={styles.container}>
-      <h2>{title}</h2>
+      <h2>{LANG["store.product.combo"]}</h2>
       <div data-role="productCombo">
         {options.map((item) => {
           return (
             <div
+              data-img={!!item.smart_img}
               className={`${styles.list} ${
                 active === item.key ? styles.active : ""
               }`}
@@ -58,20 +68,26 @@ export default function GoodComboList({
                   </div>
                 ) : null}
                 {/* 套餐标题 */}
-                <div className={styles.list_item_left}>{item.title}</div>
+                <div className={styles.list_item_left}>
+                  {item.smart_img ? (
+                    <div className={styles.item_left_img}>
+                      <img src={item.smart_img} />
+                    </div>
+                  ) : null}
+
+                  <div>{item.title}</div>
+                </div>
                 {/* 套餐价格 */}
                 {item.areaInfo?.price ? (
                   <div className={styles.list_item_right}>
                     {goodDiscountFestival && item.areaInfo?.good_discount ? (
-                      <div>{`${item.areaInfo.currency_symbol}${
-                        item.areaInfo.currency
-                      } ${Math.floor(
+                      <div>{`${item.areaInfo.currency_symbol}${Math.floor(
                         item.areaInfo.price *
                           item.areaInfo?.good_discount *
                           0.01
                       )}`}</div>
                     ) : (
-                      <div>{`${item.areaInfo?.currency_symbol}${item.areaInfo?.currency} ${item.areaInfo?.price}`}</div>
+                      <div>{`${item.areaInfo?.currency_symbol}${item.areaInfo?.price}`}</div>
                     )}
                   </div>
                 ) : null}

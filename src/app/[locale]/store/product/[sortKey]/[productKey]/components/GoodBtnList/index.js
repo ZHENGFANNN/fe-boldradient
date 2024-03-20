@@ -79,6 +79,7 @@ function PayButton({
       },
     ];
   }, [productNum, productCurCombo, productInfo, productOptions, locale]);
+
   return (
     <>
       {isPending ? (
@@ -202,6 +203,7 @@ export default function GoodBtnList({
   goodDiscountFestival,
   LANG,
 }) {
+  const { showCartModal } = React.useContext(GlobalContext);
   const productNum = useProductStore((state) => state.productNum);
   const productCurCombo = useProductStore((state) => state.productCurCombo);
   const productOptions = useProductStore((state) => state.productOptions);
@@ -258,9 +260,9 @@ export default function GoodBtnList({
                 comboKey: productCurCombo.key,
                 productNum,
                 options: productOptions,
-                selected: true,
               },
             ];
+            console.log("newCart", newCart);
             // 购物车是否存在
             if (cartList?.length > 0) {
               let includeCurCombo = false;
@@ -294,7 +296,7 @@ export default function GoodBtnList({
               "store_shopping",
               JSON.stringify(newCart)
             );
-            router.push(`/store/cart`);
+            showCartModal();
           }}
           className={styles.btn_add_to_cart}
         >

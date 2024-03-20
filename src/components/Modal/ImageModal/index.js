@@ -38,7 +38,17 @@ export default function ImageModal({
               onClick={() => setShow(false)}
               className={styles.fixed_container}
             >
-              <div className={styles.media}>
+              <div
+                className={styles.media}
+                onClick={(e) => {
+                  const event = e || window.event;
+                  if (event.stopPropagation) {
+                    event.stopPropagation();
+                  } else {
+                    event.cancelBubble = true;
+                  }
+                }}
+              >
                 <div className={styles.close} onClick={() => setShow(false)}>
                   ×
                 </div>

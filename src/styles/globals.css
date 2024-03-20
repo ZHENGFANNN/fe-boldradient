@@ -29,6 +29,10 @@ img {
   -webkit-user-select: none;
   -moz-user-select: none;
   -moz-user-focus: none;
+  &[data-src] {
+    background: #e5e5e5;
+    border: 1px solid #e5e5e5;
+  }
 }
 
 input[type='number'] {

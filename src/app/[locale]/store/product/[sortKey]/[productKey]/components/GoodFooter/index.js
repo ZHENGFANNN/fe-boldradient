@@ -5,12 +5,18 @@ import styles from "./index.module.scss";
 import useProductStore from "../../productStore";
 import ProductContext from "../../productContext";
 import tracking from "../../tracking";
+import ComboModal from "./components/ComboModal";
 
 export default function GoodFooter({
   LANG,
+  area,
+  locale,
   productInfo,
   goodDiscountFestival,
+  options,
 }) {
+  const comboModalRef = React.useRef(null);
+
   const { lazyLoading } = React.useContext(ProductContext);
   const productNum = useProductStore((state) => state.productNum);
   const productCurCombo = useProductStore((state) => state.productCurCombo);
@@ -65,22 +71,31 @@ export default function GoodFooter({
       {/* 底部 - 加入购物车 */}
       <div className={styles.footer_content}>
         <div className={styles.footer_left}>
-          <h3>
-            {productInfo.name}{" "}
-            {productNum > 1 ? <span>{` × ${productNum}`}</span> : null}
-          </h3>
-          <div className={styles.express_time}>
-            <img
-              alt="express"
-              src={`${process.env.NEXT_PUBLIC_IMAGE}/icon/min-express.png`}
-            />
-            <span
-              dangerouslySetInnerHTML={{
-                __html: LANG["store.product.deliver_time"]
-                  ?.split("${1}")
-                  ?.join("7"),
-              }}
-            />
+          <h3>{productInfo.name}</h3>
+          <div className={styles.combo}>
+            {productCurCombo?.title ? (
+              <>
+                <div
+                  onClick={() => {
+                    tracking.clickProductFooterBtn({
+                      productName: productInfo.key,
+                      type: "combo",
+                    });
+                    comboModalRef.current.show();
+                  }}
+                  className={styles.combo_name}
+                >
+                  <img
+                    alt="combo"
+                    src={`${process.env.NEXT_PUBLIC_IMAGE}/icon/product-combo.svg`}
+                  />
+                  <span>{productCurCombo.title}</span>
+                </div>
+                {productNum > 1 ? (
+                  <span className={styles.num}>{` × ${productNum}`}</span>
+                ) : null}
+              </>
+            ) : null}
           </div>
         </div>
         <div className={styles.footer_right}>
@@ -90,8 +105,6 @@ export default function GoodFooter({
                 {goodDiscountFestival &&
                 productCurCombo.areaInfo.good_discount ? (
                   <div>{`${productCurCombo.areaInfo.currency_symbol}${
-                    productCurCombo.areaInfo.currency
-                  } ${
                     Math.floor(
                       productCurCombo.areaInfo.price *
                         productCurCombo.areaInfo.good_discount *
@@ -100,16 +113,14 @@ export default function GoodFooter({
                   }`}</div>
                 ) : null}
                 <div>{`${productCurCombo.areaInfo.currency_symbol}${
-                  productCurCombo.areaInfo.currency
-                } ${productCurCombo.areaInfo.price * productNum}`}</div>
+                  productCurCombo.areaInfo.price * productNum
+                }`}</div>
               </div>
             ) : null}
             {goodDiscountFestival && productCurCombo.areaInfo?.good_discount ? (
               <div className={styles.save_price}>
                 -{" "}
                 {`${productCurCombo.areaInfo.currency_symbol}${
-                  productCurCombo.areaInfo.currency
-                } ${
                   Math.ceil(
                     (100 - productCurCombo.areaInfo.good_discount) *
                       0.01 *
@@ -124,18 +135,11 @@ export default function GoodFooter({
             <>
               <div
                 onClick={() => {
-                  const $btnDom = $("[data-role='buy-btn-list']");
-                  const domHeight = $btnDom.height();
-                  const domTop = $btnDom.offset().top;
-                  const screenHeight = $(window).height();
-
-                  window.scrollTo({
-                    left: 0,
-                    top: domTop - screenHeight + domHeight,
-                    behavior: "smooth",
+                  comboModalRef.current.show();
+                  tracking.clickProductFooterBtn({
+                    productName: productInfo.key,
+                    type: "buy",
                   });
-
-                  tracking.clickFooterBtn({ productName: productInfo.key });
                 }}
                 className={`${styles.footer_button} ${
                   !productCurCombo?.areaInfo?.price ||
@@ -161,6 +165,15 @@ export default function GoodFooter({
           )}
         </div>
       </div>
+      <ComboModal
+        area={area}
+        locale={locale}
+        productInfo={productInfo}
+        options={options}
+        GOODDISCOUNTFESTIVAL={goodDiscountFestival}
+        LANG={LANG}
+        ref={comboModalRef}
+      />
     </section>
   );
 }

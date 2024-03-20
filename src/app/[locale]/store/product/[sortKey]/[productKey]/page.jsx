@@ -25,6 +25,8 @@ import GoodReviewsRate from "./components/GoodReviewsRate";
 import GoodReviewsContent from "./components/GoodReviewsContent";
 
 import getConfigDataV2 from "@/utils/getConfigDataV2";
+import GoodGuarantee from "./components/GoodGuarantee";
+import GoodFaq from "./components/GoodFaq";
 export const runtime = "edge";
 
 // 匹配产品信息
@@ -209,7 +211,6 @@ export default async function Product({ params: { locale, productKey } }) {
                 <GoodComboList
                   goodDiscountFestival={GOODDISCOUNTFESTIVAL}
                   LANG={LANG}
-                  title={LANG["store.product.combo"]}
                   options={productInfo.comboList}
                 />
               </div>
@@ -222,6 +223,7 @@ export default async function Product({ params: { locale, productKey } }) {
                   locale={locale}
                   productInfo={productInfo}
                 />
+                <GoodGuarantee LANG={LANG} CONFIG={CONFIG} />
               </div>
             </div>
           </section>
@@ -237,6 +239,12 @@ export default async function Product({ params: { locale, productKey } }) {
           />
           {/* 产品包装列表 */}
           <GoodPackageList configList={productInfo.packageList} LANG={LANG} />
+          {/* 产品FAQ */}
+          <GoodFaq
+            LANG={LANG}
+            CONFIG={CONFIG}
+            configList={productInfo.faqList}
+          />
           {/* 产品评论 */}
           <GoodReviewsContent
             configList={productInfo.reviewsList}
@@ -254,11 +262,12 @@ export default async function Product({ params: { locale, productKey } }) {
           ) : null} */}
           {/* 产品底部 */}
           <GoodFooter
-            areaCode={area}
+            area={area}
             locale={locale}
             LANG={LANG}
             productInfo={productInfo}
             goodDiscountFestival={GOODDISCOUNTFESTIVAL}
+            options={productInfo.comboList}
           />
           {/* <Script
             id="product-3d-script"

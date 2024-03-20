@@ -10,8 +10,14 @@ import GlobalContext from "@/globalContext";
 import Cookies from "js-cookie";
 import Api from "@/api";
 import Script from "next/script";
+import CartModal from "./CartModal";
 
-export default function Layout({ children }) {
+export default function Layout({
+  GOODDISCOUNTFESTIVAL,
+  GOODLIST,
+  LANG,
+  children,
+}) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -63,6 +69,7 @@ export default function Layout({ children }) {
   /**
    * 处理购物车数量
    */
+  const cartRef = React.useRef(null);
   const [productNum, setProductNum] = React.useState(0);
   React.useEffect(() => {
     try {
@@ -95,8 +102,20 @@ export default function Layout({ children }) {
         setProductNum,
         // 语言
         locale,
+        // 展示购物车,
+        showCartModal: () => {
+          cartRef.current.show();
+        },
       }}
     >
+      {/* 购物车 */}
+      <CartModal
+        GOODDISCOUNTFESTIVAL={GOODDISCOUNTFESTIVAL}
+        GOODLIST={GOODLIST}
+        locale={locale}
+        LANG={LANG}
+        ref={cartRef}
+      />
       {/* 谷歌GTM */}
       <noscript>
         <iframe

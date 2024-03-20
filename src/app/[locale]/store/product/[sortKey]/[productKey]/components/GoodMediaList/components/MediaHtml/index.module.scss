@@ -1,0 +1,82 @@
+.media_container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 40px 0px;
+
+
+    color: #262629;
+    line-height: 1.2;
+    font-size: auto;
+    video,img,iframe {
+        max-width: 100%;
+        margin: 0 auto;
+    }
+    h1, h2, h3, h4, h5, h6 {
+        margin: 48px 0;
+    }
+    h1 {
+        font-size: 2em; /* 设置 h1 字体大小 */
+        color: #333; /* 设置 h1 文字颜色 */
+    }
+    
+    h2 {
+        font-size: 1.5em; /* 设置 h2 字体大小 */
+        color: #555; /* 设置 h2 文字颜色 */
+    }
+    
+    h3 {
+        font-size: 1.17em; /* 设置 h3 字体大小 */
+        color: #777; /* 设置 h3 文字颜色 */
+    }
+    
+    h4 {
+        font-size: 1em; /* 设置 h4 字体大小 */
+        color: #999; /* 设置 h4 文字颜色 */
+    }
+    
+    h5 {
+        font-size: 0.83em; /* 设置 h5 字体大小 */
+        color: #aaa; /* 设置 h5 文字颜色 */
+    }
+    
+    h6 {
+        font-size: 0.67em; /* 设置 h6 字体大小 */
+        color: #bbb; /* 设置 h6 文字颜色 */
+    }
+    /* 样式化有序列表和无序列表 */
+    ol, ul {
+        margin: 0;
+        padding: 0;
+    }
+
+    /* 样式化列表项 */
+    li {
+        margin-bottom: 5px; /* 设置列表项间距 */
+    }
+
+    /* 样式化有序列表 */
+    ol {
+        list-style-type: decimal; /* 设置有序列表的标记为数字 */
+    }
+
+    /* 样式化无序列表 */
+    ul {
+        list-style-type: disc; /* 设置无序列表的标记为实心圆点 */
+    }
+    p {
+        margin: 48px 0;
+        font-size: 16px;
+        line-height: 24px;
+    }
+    a {
+        color: #4795e9;
+        text-decoration: none;
+    }
+}
+
+
+@media screen and (max-width: 780px) {
+    .media_container {
+      padding: 12px 0;
+    }
+}

@@ -13,8 +13,18 @@ export default function Modal({ show, setShow, languageMap, LANG }) {
   return (
     <>
       {ReactDOM.createPortal(
-        <div className={`${styles.modal} ${show ? styles.show : ""}`}>
-          <div className={styles.modal_content}>
+        <div
+          className={`${styles.modal} ${show ? styles.show : ""}`}
+          onClick={() => {
+            setShow(false);
+          }}
+        >
+          <div
+            className={styles.modal_content}
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
+          >
             <div className={styles.header}>
               <div className={styles.title}>
                 {LANG["common.other.please_select_area"]}

@@ -74,31 +74,31 @@ export default function Main({
 
           if (comboInfo?.areaInfo && comboInfo && product) {
             // 库存不存在的情况下，不允许点击
-            if (!comboInfo.areaInfo.stock) item.selected = false;
-            list.push({
-              // 套餐相关
-              id: comboInfo.id,
-              comboName: comboInfo.title,
-              // 地区相关
-              currency: comboInfo.areaInfo.currency,
-              priceSymbol:
-                comboInfo.areaInfo.currency_symbol +
-                comboInfo.areaInfo.currency,
-              price: comboInfo.areaInfo.price,
-              good_discount: comboInfo.areaInfo.good_discount,
-              stock: comboInfo.areaInfo.stock,
-              // 产品相关
-              name: product.name,
-              image: product.image_list[0].src,
-              href: `/${locale}/store/product/${product.sort_key}/${product.key}`,
-              sortKey: product.sort_key,
-              productKey: product.key,
-              comboKey: comboInfo.key,
-              // 其他
-              productNum: item.productNum,
-              selected: item.selected,
-              options,
-            });
+            if (comboInfo.areaInfo.stock) {
+              list.push({
+                // 套餐相关
+                id: comboInfo.id,
+                comboName: comboInfo.title,
+                // 地区相关
+                currency: comboInfo.areaInfo.currency,
+                priceSymbol:
+                  comboInfo.areaInfo.currency_symbol +
+                  comboInfo.areaInfo.currency,
+                price: comboInfo.areaInfo.price,
+                good_discount: comboInfo.areaInfo.good_discount,
+                stock: comboInfo.areaInfo.stock,
+                // 产品相关
+                name: product.name,
+                image: product.image_list[0].src,
+                href: `/${locale}/store/product/${product.sort_key}/${product.key}`,
+                sortKey: product.sort_key,
+                productKey: product.key,
+                comboKey: comboInfo.key,
+                // 其他
+                productNum: item.productNum,
+                options,
+              });
+            }
           }
         });
         setCartList(list);
@@ -116,17 +116,13 @@ export default function Main({
     let productNum = 0;
     const price = cartList.reduce((pre, cur) => {
       productNum = productNum + cur.productNum;
-      if (cur.selected) {
-        if (goodDiscountFestival && cur.good_discount) {
-          return (
-            pre +
-            Math.floor(cur.price * 0.01 * cur.good_discount) * cur.productNum
-          );
-        } else {
-          return pre + cur.price * cur.productNum;
-        }
+      if (goodDiscountFestival && cur.good_discount) {
+        return (
+          pre +
+          Math.floor(cur.price * 0.01 * cur.good_discount) * cur.productNum
+        );
       } else {
-        return pre;
+        return pre + cur.price * cur.productNum;
       }
     }, 0);
     setProductNum(productNum > 99 ? "99+" : productNum);
@@ -162,53 +158,6 @@ export default function Main({
                 return (
                   <section key={index} className={styles.table_body_item}>
                     <div className={styles.table_body_goods}>
-                      <input
-                        disabled={!item.stock}
-                        checked={item.selected}
-                        onChange={(e) => {
-                          const list = cartList.map((item2) => {
-                            if (
-                              item.id === item2.id &&
-                              JSON.stringify(item.options) ===
-                                JSON.stringify(item2.options)
-                            ) {
-                              return {
-                                ...item2,
-                                selected: e.target.checked,
-                              };
-                            } else {
-                              return item2;
-                            }
-                          });
-                          setCartList(list);
-                          window.localStorage.setItem(
-                            "store_shopping",
-                            JSON.stringify(
-                              list.map(
-                                ({
-                                  comboKey,
-                                  options = "[]",
-                                  productKey,
-                                  productNum,
-                                  selected,
-                                  sortKey,
-                                }) => {
-                                  return {
-                                    comboKey,
-                                    options,
-                                    productKey,
-                                    productNum,
-                                    selected,
-                                    sortKey,
-                                  };
-                                }
-                              )
-                            )
-                          );
-                        }}
-                        className={styles.checkout_box}
-                        type="checkbox"
-                      />
                       <Link href={item.href} className={styles.body_goods_img}>
                         <img alt={item.name} src={item.image} />
                       </Link>
@@ -265,7 +214,6 @@ export default function Main({
                                   options = "[]",
                                   productKey,
                                   productNum,
-                                  selected,
                                   sortKey,
                                 }) => {
                                   return {
@@ -273,7 +221,6 @@ export default function Main({
                                     options,
                                     productKey,
                                     productNum,
-                                    selected,
                                     sortKey,
                                   };
                                 }
@@ -318,7 +265,6 @@ export default function Main({
                                   options = "[]",
                                   productKey,
                                   productNum,
-                                  selected,
                                   sortKey,
                                 }) => {
                                   return {
@@ -326,7 +272,6 @@ export default function Main({
                                     options,
                                     productKey,
                                     productNum,
-                                    selected,
                                     sortKey,
                                   };
                                 }
@@ -364,7 +309,6 @@ export default function Main({
                                   options = "[]",
                                   productKey,
                                   productNum,
-                                  selected,
                                   sortKey,
                                 }) => {
                                   return {
@@ -372,7 +316,6 @@ export default function Main({
                                     options,
                                     productKey,
                                     productNum,
-                                    selected,
                                     sortKey,
                                   };
                                 }
@@ -441,7 +384,6 @@ export default function Main({
                                   options = "[]",
                                   productKey,
                                   productNum,
-                                  selected,
                                   sortKey,
                                 }) => {
                                   return {
@@ -449,7 +391,6 @@ export default function Main({
                                     options,
                                     productKey,
                                     productNum,
-                                    selected,
                                     sortKey,
                                   };
                                 }

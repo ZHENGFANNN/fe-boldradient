@@ -10,9 +10,7 @@ export default function GoodPrice({ goodDiscountFestival, comboList }) {
       {goodDiscountFestival && productCurCombo.areaInfo?.good_discount ? (
         <div className={styles.discount_price}>
           -{" "}
-          {`${productCurCombo.areaInfo.currency_symbol}${
-            productCurCombo.areaInfo.currency
-          } ${Math.ceil(
+          {`${productCurCombo.areaInfo.currency_symbol}${Math.ceil(
             (100 - productCurCombo.areaInfo.good_discount) *
               0.01 *
               productCurCombo.areaInfo.price
@@ -23,16 +21,14 @@ export default function GoodPrice({ goodDiscountFestival, comboList }) {
       {productCurCombo.areaInfo?.price ? (
         <div className={styles.product_price}>
           {goodDiscountFestival && productCurCombo.areaInfo?.good_discount ? (
-            <div>{`${productCurCombo.areaInfo.currency_symbol}${
-              productCurCombo.areaInfo.currency
-            } ${Math.floor(
+            <div>{`${productCurCombo.areaInfo.currency_symbol}${Math.floor(
               productCurCombo.areaInfo.price *
                 productCurCombo.areaInfo.good_discount *
                 0.01
             )}`}</div>
           ) : null}
           <div>
-            {`${productCurCombo.areaInfo.currency_symbol}${productCurCombo.areaInfo.currency} ${productCurCombo.areaInfo.price}`}
+            {`${productCurCombo.areaInfo.currency_symbol}${productCurCombo.areaInfo.price}`}
           </div>
         </div>
       ) : null}

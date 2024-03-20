@@ -1,5 +1,5 @@
 "use client";
-import styles from "../../page.module.scss";
+import styles from "./index.module.scss";
 import React from "react";
 import useProductStore from "../../productStore";
 

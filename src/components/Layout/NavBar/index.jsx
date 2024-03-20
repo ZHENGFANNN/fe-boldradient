@@ -16,11 +16,14 @@ import TipModal from "@/components/Modal/FunctionTipModal";
 import Api from "../api";
 
 import tracking from "../tracking";
+import CartModal from "../CartModal";
 
 export default function NavBar({ CONFIG, LANG, GOODSORTLIST, GOODLIST }) {
-  const { userInfo, productNum } = React.useContext(GlobalContext);
+  const { userInfo, productNum, showCartModal } =
+    React.useContext(GlobalContext);
   const pathname = usePathname();
   const ModalRef = React.useRef(null);
+
   const NAVLIST = React.useMemo(() => {
     return NAVFUNC({ LANG, CONFIG, GOODLIST, GOODSORTLIST });
   }, [LANG, CONFIG, GOODLIST, GOODSORTLIST]);
@@ -330,8 +333,13 @@ export default function NavBar({ CONFIG, LANG, GOODSORTLIST, GOODLIST }) {
                 </div>
               </Link>
             </li>
-            <li className={styles.header_cart}>
-              <Link href="/store/cart">
+            <li
+              className={styles.header_cart}
+              onClick={() => {
+                showCartModal();
+              }}
+            >
+              <div href="/store/cart">
                 {productNum !== 0 ? (
                   <div className={styles.num}>{productNum}</div>
                 ) : null}
@@ -341,7 +349,7 @@ export default function NavBar({ CONFIG, LANG, GOODSORTLIST, GOODLIST }) {
                   height={24}
                   src={`${process.env.NEXT_PUBLIC_IMAGE}/icon/min-cart.svg`}
                 />
-              </Link>
+              </div>
             </li>
             <li className={styles.header_user}>
               <DropSelect

@@ -10,9 +10,10 @@
     flex-direction: column;
     .img_container {
       width: 100%;
+      border-radius: 8px;
+      overflow: hidden;
       img {
         object-fit: cover;
-        border-radius: 8px;
         height: 100%;
         width: 100%;
       }

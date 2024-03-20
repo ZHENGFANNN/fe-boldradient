@@ -11,6 +11,7 @@ import MediaImage from "./components/MediaImage";
 
 import { lazyLoadImages, lazyLoadVideos } from "@/utils/optimization";
 import ProductContext from "../../productContext";
+import MediaHtml from "./components/MediaHtml";
 
 export default function GoodMediaList({ configList = [] }) {
   const { lazyLoading } = React.useContext(ProductContext);
@@ -38,6 +39,8 @@ export default function GoodMediaList({ configList = [] }) {
           return <MediaFacebook key={index} facebookInfo={item} />;
         } else if (item.type === "image") {
           return <MediaImage key={index} imageInfo={item} />;
+        } else if (item.type === "html") {
+          return <MediaHtml key={index} htmlInfo={item} />;
         }
       })}
     </section>

@@ -3,31 +3,20 @@ import React from "react";
 import styles from "./index.module.scss";
 import useProductStore from "../../productStore";
 
-export default function GoodType({
+export default function GoodOptionList({
   title = "",
   options = [],
   type,
   defaultActive,
 }) {
   const setProductOptions = useProductStore((state) => state.setProductOptions);
+  const productOptions = useProductStore((state) => state.productOptions);
   const [active, setActive] = React.useState(() => {
     return defaultActive || 0;
   });
 
   const onChange = React.useCallback((item) => {
-    setProductOptions((state) => {
-      let existItem = false;
-      const list = state.map((stateItem) => {
-        if (stateItem.name === item.name) {
-          existItem = true;
-          return item;
-        } else {
-          return stateItem;
-        }
-      });
-      if (!existItem) list.push(item);
-      return list;
-    });
+    setProductOptions(item);
   });
 
   React.useEffect(() => {

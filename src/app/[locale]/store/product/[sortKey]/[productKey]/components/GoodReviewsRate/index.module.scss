@@ -3,6 +3,7 @@
     height: 14px;
     user-select: none;
     cursor: pointer;
+    display: inline-block;
     .active_stars, .no_active_stars {
         position: absolute;
         left: 0;

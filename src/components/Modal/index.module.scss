@@ -1,0 +1,132 @@
+@keyframes translateY100 {
+    from {
+      transform: translateY(100%) scale(1);
+    }
+    to {
+      transform: translateY(0);
+    }
+}
+
+@keyframes scaleAnimation {
+    from {
+      transform: scale(0.68);
+    }
+    to {
+      transform: scale(1);
+    }
+
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+      opacity: 1;
+      z-index: 9999999999;
+    }
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    background-color: rgba(0,0,0,.4);
+    transition: all 300ms;
+    z-index: -1;
+    opacity: 0;
+    height: 100%;
+
+    margin: auto;
+    animation: fadeIn 0.3s ease;
+    &[data-show="true"] {
+        opacity: 1;
+        z-index: 9999999999;
+        .modal_container {
+            .modal_content {
+                transform: scale(1);
+            }
+        }
+    }
+    .modal_container {
+        width: 100%;
+        height: 100%;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        .modal_content {
+            min-width: 351px;
+            max-width: calc(100% - 48px);
+            box-sizing: border-box;
+            width: 600px;
+            background: #fff;
+
+            padding: 24px;
+            border-radius: 20px;
+            position: relative;
+
+            padding-top: 72px;
+            transition: all 300ms;
+            transform: scale(0.68);
+            animation: scaleAnimation 0.3s;
+            .header {
+                position: absolute;
+                left: 0;
+                right: 0;
+                top: 0;
+                display: flex;
+                justify-content: center;
+                padding: 24px;
+                .title {
+                    font-size: 20px;
+                    color: #494b4d;
+                    font-weight: 400;
+                    width: calc(100% - 48px);
+
+                    display: flex;
+                    justify-content: center;
+                }
+                .close {
+                    position: absolute;
+                    right: 0;
+                    top: 0;
+
+                    font-size: 20px;
+                    color: #494b4d;
+                    font-weight: 400;
+
+                    cursor: pointer;
+                    border: 24px solid transparent;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .modal {
+        &[data-show="true"] {
+            .modal_container {
+                .modal_content {
+                    transform: translateY(0);
+                }
+            }
+        } 
+       .modal_container {
+         align-items: flex-end;
+         .modal_content {
+            max-width: 100%;
+            width: 100%;
+            border-radius: 20px 20px 0 0;
+            transform: translateY(100%) scale(1);
+            transition: all 300ms;
+
+            animation: translateY100 0.3s;
+         }
+       }
+    }
+}

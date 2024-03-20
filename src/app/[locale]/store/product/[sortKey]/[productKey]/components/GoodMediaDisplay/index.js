@@ -8,7 +8,7 @@ import Splide from "@splidejs/splide";
 import useProductStore from "../../productStore";
 import ProductContext from "../../productContext";
 
-export default function ContentDisplay({ options = [], productInfo, LANG }) {
+export default function ContentDisplay({ options = [], productInfo }) {
   const { lazyLoading } = React.useContext(ProductContext);
   const productCurCombo = useProductStore((state) => state.productCurCombo);
   const productShowType = useProductStore((state) => state.productShowType);
@@ -20,14 +20,11 @@ export default function ContentDisplay({ options = [], productInfo, LANG }) {
       const splide = new Splide(".splide", {
         type: "fade",
         rewind: true,
-        interval: 5000,
-        autoplay:
-          productCurCombo.img_list?.length > 0 ||
-          productCurCombo.img_list?.length > 0,
+        interval: 3000,
         pagination: false,
-        arrows:
-          productCurCombo.img_list?.length > 0 ||
-          productCurCombo.img_list?.length > 0,
+        autoplay: true,
+        arrows: true,
+        pauseOnHover: true,
         classes: {
           arrow: `splide__arrow ${styles.splide__arrow}`,
         },

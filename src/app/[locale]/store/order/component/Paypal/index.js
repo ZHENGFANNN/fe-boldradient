@@ -42,7 +42,6 @@ export default function Paypal({
   onCancel,
   onError,
 }) {
-  console.log("currency", currency, area);
   const countryCode = React.useMemo(() => {
     let countryCode = area;
     if (area === "hk_en") {

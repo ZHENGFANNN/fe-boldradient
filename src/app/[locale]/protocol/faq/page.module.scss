@@ -66,6 +66,20 @@
         display: flex;
         .nav_list {
           width: 100%;
+
+          position: relative;
+          &::after {
+            display: block;
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 20px;
+            right: 20px;
+            height: 1px;
+            width: auto;
+            background-color: #494b4d;
+            opacity: 0.5;
+          }
           .nav_title {
             display: flex;
             align-items: center;
@@ -83,18 +97,7 @@
             span:first-child {
               margin-right: 8px;
             }
-            &::after {
-              display: block;
-              content: '';
-              position: absolute;
-              bottom: 0;
-              left: 20px;
-              right: 20px;
-              height: 1px;
-              width: auto;
-              background-color: #494b4d;
-              opacity: 0.5;
-            }
+           
             .mobile_icon {
               position: relative;
               display: block;
@@ -135,7 +138,8 @@
             overflow: hidden;
             transition: all 400ms;
             .nav_items {
-              padding: 16px 20px;
+              padding: 0 20px;
+              padding-bottom: 24px;
               transition: all 400ms;
               white-space: pre-line;
 

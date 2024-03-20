@@ -18,6 +18,20 @@
     position: relative;
     overflow: hidden;
     cursor: pointer;
+    &[data-img="true"] {
+      padding: 0 16px 0 92px!important;
+      .list_item {
+        height: 80px;
+        .list_item_left {
+          max-height: 54px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          display: -webkit-box;
+          -webkit-line-clamp: 3;
+          -webkit-box-orient: vertical;
+        }
+      }
+    }
     &:hover {
       border: 1px solid #000;
     }
@@ -77,13 +91,33 @@
         font-size: 11px;
         line-height: 12px;
         padding: 4px 8px;
+        z-index: 9;
       }
       .list_item_left {
         font-weight: 700;
         font-size: 14px;
         line-height: 18px;
 
-        margin-right: 4px;
+
+        margin-right: 8px;
+        display: flex;
+        align-items: center;
+
+        .item_left_img {
+          width: 80px;
+          height: 80px;
+          overflow: hidden;
+          margin-right: 8px;
+
+          position: absolute;
+          left: 0;
+          top: 0;
+          img {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+          }
+        }
       }
       .list_item_right {
         font-size: 14px;

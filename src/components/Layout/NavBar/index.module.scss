@@ -276,7 +276,7 @@
 @media screen and (max-width: 1080px) {
   .container {
     height: 90px;
-    z-index: 999999999;
+    z-index: 9999;
     .top_header {
       .top_header_container {
         padding: 0 16px;
@@ -540,16 +540,18 @@
         }
       }
       .header_right {
-        .header_store_container {
-          padding: 8px 18px;
-          font-size: 12px;
+        .header_cart {
+          .num {
+            display: none;
+          }
           img {
-            width: 16px;
-            height: 16px;
+          border-right: 0;
+            width: 40px;
+            height: 40px;
           }
         }
         .header_user,
-        .header_cart {
+        .header_store_container {
           display: none;
         }
       }

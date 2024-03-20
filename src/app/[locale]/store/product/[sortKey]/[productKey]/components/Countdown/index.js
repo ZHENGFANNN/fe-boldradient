@@ -52,14 +52,12 @@ export default function Countdown({ goodDiscountFestival, LANG }) {
         <div className={styles.price}>
           {productCurCombo.areaInfo?.price ? (
             <>
-              <div>{`${productCurCombo.areaInfo.currency_symbol}${
-                productCurCombo.areaInfo.currency
-              } ${Math.floor(
+              <div>{`${productCurCombo.areaInfo.currency_symbol}${Math.floor(
                 productCurCombo.areaInfo.price *
                   productCurCombo.areaInfo.good_discount *
                   0.01
               )}`}</div>
-              <div>{`${productCurCombo.areaInfo.currency_symbol}${productCurCombo.areaInfo.currency} ${productCurCombo.areaInfo.price}`}</div>
+              <div>{`${productCurCombo.areaInfo.currency_symbol}${productCurCombo.areaInfo.price}`}</div>
             </>
           ) : null}
         </div>

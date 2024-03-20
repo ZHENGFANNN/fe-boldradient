@@ -49,53 +49,7 @@
 
         margin-bottom: 12px;
       }
-      .product_num {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-
-        margin-top: 0;
-        h3 {
-          font-size: 16px;
-          font-weight: 700;
-          line-height: 16px;
-          color: #534040;
-        }
-        .product_num_operation {
-          display: flex;
-          align-items: center;
-
-          padding: 0 16px;
-          border: 1px solid #e1e3e6;
-          border-radius: 100px;
-          text-align: center;
-          .product_num_text {
-            width: 56px;
-            text-align: center;
-            font-size: 14px;
-            line-height: 40px;
-            color: #191c21;
-            font-weight: 700;
-            outline: none;
-            border: 0;
-          }
-          .product_num_symbol {
-            font-size: 22px;
-            width: 34px;
-            height: 40px;
-            line-height: 37.5px;
-            color: #8c8d8f;
-            cursor: pointer;
-            transition: all 250ms;
-
-            user-select: none;
-            &:hover {
-              font-weight: 700px;
-              color: #000;
-            }
-          }
-        }
-      }
+      
       .product_advantage {
         line-height: 20px;
         font-size: 14px;
@@ -235,52 +189,7 @@
           margin-bottom: 8px;
         }
 
-        .product_num {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-
-          margin-top: 0;
-          h3 {
-            font-size: 16px;
-            font-weight: 700;
-            line-height: 16px;
-          }
-          .product_num_operation {
-            display: flex;
-            align-items: center;
-
-            padding: 0 16px;
-            border: 1px solid #e1e3e6;
-            border-radius: 100px;
-            text-align: center;
-            .product_num_text {
-              width: 56px;
-              text-align: center;
-              font-size: 14px;
-              line-height: 40px;
-              color: #191c21;
-              font-weight: 700;
-              outline: none;
-              border: 0;
-            }
-            .product_num_symbol {
-              font-size: 22px;
-              width: 34px;
-              height: 40px;
-              line-height: 37.5px;
-              color: #8c8d8f;
-              cursor: pointer;
-              transition: all 250ms;
-
-              user-select: none;
-              &:hover {
-                font-weight: 700px;
-                color: #000;
-              }
-            }
-          }
-        }
+        
         .product_advantage {
           font-size: 12px;
           line-height: 20px;

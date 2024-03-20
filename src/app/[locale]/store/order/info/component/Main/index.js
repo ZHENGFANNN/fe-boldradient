@@ -268,6 +268,19 @@ export default function Main({ secret, locale, area, LANG, CONFIG }) {
                 </li>
               ) : null}
 
+              {order.express_link ? (
+                <li>
+                  <h3 className={styles.flex_2}>
+                    {LANG["store.order_info.express_link"]}
+                  </h3>
+                  <a
+                    target="_blank"
+                    href={order.express_link}
+                    className={styles.flex_3}
+                  >{`${order.express_link}`}</a>
+                </li>
+              ) : null}
+
               {order.user_remark ? (
                 <li>
                   <h3 className={styles.flex_2}>

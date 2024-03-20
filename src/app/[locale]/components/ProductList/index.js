@@ -88,15 +88,13 @@ export default function ProductList({
                 ) : (
                   <div className={styles.product_price_container}>
                     {goodDiscountFestival && product.areaInfo?.good_discount ? (
-                      <div>{`${product.areaInfo?.currency_symbol}${
-                        product.areaInfo?.currency
-                      } ${Math.floor(
+                      <div>{`${product.areaInfo?.currency_symbol}${Math.floor(
                         product.areaInfo?.price *
                           product.areaInfo?.good_discount *
                           0.01
                       )}`}</div>
                     ) : null}
-                    <div>{`${product.areaInfo?.currency_symbol}${product.areaInfo?.currency}  ${product.areaInfo?.price}`}</div>
+                    <div>{`${product.areaInfo?.currency_symbol}${product.areaInfo?.price}`}</div>
                   </div>
                 )}
               </div>

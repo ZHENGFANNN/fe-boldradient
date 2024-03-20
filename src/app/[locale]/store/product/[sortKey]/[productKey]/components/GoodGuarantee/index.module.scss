@@ -1,0 +1,70 @@
+.container {
+    margin-top: 20px;
+    .list {
+        .item {
+            &:first-child {
+                border-top: 0;
+            }
+            border-top: 1px solid #e8e8e1;
+            padding: 20px 0;
+            display: flex;  
+            align-items: center;
+            width: 100%;
+            justify-content: space-between;
+            cursor: pointer;
+            .left_content {
+                display: flex;
+                align-items: center;
+                .icon {
+                    margin-right: 16px;
+                    display: flex;
+                    align-items: center;
+                    img {
+                        width: 20px;
+                        height: 20px;
+                    }
+                }
+                .text {
+                    font-size: 14px;
+                    color: #262629;
+                    line-height: 16px;
+                }
+            }
+            .arrow_icon {
+                position: relative;
+                width: 20px;
+                height: 20px;
+                transform: rotate(45deg) translateY(2px) scale(0.8);
+  
+                &::after {
+                  display: block;
+                  content: "";
+                  position: absolute;
+                  transform-origin: top;
+                  transform: rotate(360deg);
+  
+                  bottom: 5px;
+                  left: 10px;
+  
+                  height: 9px;
+                  width: 2px;
+                  background-color: #262629;
+                }
+                &::before {
+                  display: block;
+                  content: "";
+                  position: absolute;
+                  transform-origin: top;
+                  transform: rotate(90deg);
+  
+                  bottom: 5px;
+                  left: 10px;
+  
+                  height: 8px;
+                  width: 2px;
+                  background-color: #262629;
+                }
+              }
+        }
+    }
+}

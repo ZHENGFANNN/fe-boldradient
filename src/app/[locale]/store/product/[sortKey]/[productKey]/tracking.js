@@ -37,9 +37,10 @@ export default {
     });
   },
   // Footer按钮
-  clickFooterBtn: function ({ productName }) {
-    commonTracking("ClickFooterBtn", {
+  clickProductFooterBtn: function ({ productName, type }) {
+    commonTracking("clickProductFooterBtn", {
       product_name: productName,
+      type,
     });
   },
 };

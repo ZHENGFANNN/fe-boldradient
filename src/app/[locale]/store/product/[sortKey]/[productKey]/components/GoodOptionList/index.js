@@ -7,21 +7,32 @@ export default function GoodOptionList({
   title = "",
   options = [],
   type,
-  defaultActive,
+  from = "product",
 }) {
   const setProductOptions = useProductStore((state) => state.setProductOptions);
   const productOptions = useProductStore((state) => state.productOptions);
-  const [active, setActive] = React.useState(() => {
-    return defaultActive || 0;
-  });
+  const [active, setActive] = React.useState(options[0].title);
 
   const onChange = React.useCallback((item) => {
     setProductOptions(item);
   });
 
   React.useEffect(() => {
-    onChange({ name: title, value: options[0].title });
-  }, []);
+    if (from !== "components") {
+      onChange({ name: title, value: options[0].title });
+    }
+  }, [from]);
+
+  const currentItem = React.useMemo(() => {
+    let value;
+    Object.keys(productOptions).forEach((key) => {
+      if (productOptions[key].name === title) {
+        value = productOptions[key].value;
+      }
+    });
+    return value;
+  }, [productOptions, title]);
+
   return (
     <div className={styles.container}>
       <h2>{title}</h2>
@@ -33,10 +44,10 @@ export default function GoodOptionList({
                 key={index}
                 className={`
                     ${styles.list_item}
-                    ${active === index ? styles.active : ""}
+                    ${item.title === currentItem ? styles.active : ""}
                 `}
                 onClick={() => {
-                  setActive(index);
+                  setActive(item.title);
                   onChange({
                     name: title,
                     value: item.title,
@@ -52,10 +63,10 @@ export default function GoodOptionList({
                 key={index}
                 className={`
                     ${styles.list_item_image}
-                    ${active === index ? styles.active : ""}
+                    ${active === currentItem ? styles.active : ""}
                 `}
                 onClick={() => {
-                  setActive(index);
+                  setActive(item.title);
                   onChange({
                     name: title,
                     value: item.title,

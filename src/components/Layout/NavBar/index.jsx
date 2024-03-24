@@ -21,7 +21,6 @@ import CartModal from "../CartModal";
 export default function NavBar({ CONFIG, LANG, GOODSORTLIST, GOODLIST }) {
   const { userInfo, productNum, showCartModal } =
     React.useContext(GlobalContext);
-  const pathname = usePathname();
   const ModalRef = React.useRef(null);
 
   const NAVLIST = React.useMemo(() => {
@@ -29,18 +28,6 @@ export default function NavBar({ CONFIG, LANG, GOODSORTLIST, GOODLIST }) {
   }, [LANG, CONFIG, GOODLIST, GOODSORTLIST]);
 
   const router = useRouter();
-
-  // 展示移动端购物车
-  const showFixedCart = React.useMemo(() => {
-    return ![
-      "/store/cart",
-      "/store/order",
-      "/store/order/info",
-      "/store/product/",
-    ].some((item) => {
-      return pathname.includes(item);
-    });
-  }, [pathname]);
 
   // 逻辑处理
   // 展开导航栏屏幕（小于1080）
@@ -95,8 +82,11 @@ export default function NavBar({ CONFIG, LANG, GOODSORTLIST, GOODLIST }) {
         document.getElementsByClassName(
           `${styles.container}`
         )[0].style.transform = "translateY(0)";
+        document.getElementById("app-content").style.marginTop =
+          document.body.clientWidth <= 1080 ? "90px" : "100px";
       }
     }
+    scrollEvent();
     window.addEventListener("scroll", scrollEvent);
     return () => {
       window.removeEventListener("scroll", scrollEvent);
@@ -150,7 +140,7 @@ export default function NavBar({ CONFIG, LANG, GOODSORTLIST, GOODLIST }) {
             </div>
           </div>
         </div>
-        <div className={styles.header}>
+        <div className={styles.header + ` ${navActive ? styles.active : ""}`}>
           <div
             className={
               styles.header_mobile_btn +
@@ -399,44 +389,6 @@ export default function NavBar({ CONFIG, LANG, GOODSORTLIST, GOODLIST }) {
         </div>
       </nav>
       <TipModal LANG={LANG} ref={ModalRef} />
-      {showFixedCart ? (
-        <div
-          onClick={() => {
-            location.href = "/store/cart";
-          }}
-          className={`${styles.fixed_cart}`}
-        >
-          <svg
-            style={{
-              opacity: 0,
-              position: "fixed",
-              left: "-1000px",
-              top: "-1000px",
-            }}
-          >
-            <defs>
-              <filter id="headerMinCartIcon">
-                <feFlood
-                  floodColor="rgba(255, 255, 255)"
-                  floodOpacity="1"
-                  result="color"
-                />
-                <feComposite in="color" in2="SourceGraphic" operator="in" />
-              </filter>
-            </defs>
-          </svg>
-          <img
-            style={{
-              filter: "url('#headerMinCartIcon')",
-            }}
-            alt="cart"
-            width={20}
-            height={20}
-            src={`${process.env.NEXT_PUBLIC_IMAGE}/icon/min-cart.svg`}
-          />
-          {/* {productNum !== 0 ? <div className={styles.num}>{productNum}</div> : null} */}
-        </div>
-      ) : null}
     </>
   );
 }

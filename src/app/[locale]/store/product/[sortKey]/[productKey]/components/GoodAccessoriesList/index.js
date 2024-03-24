@@ -3,7 +3,7 @@ import styles from "./index.module.scss";
 export default function Accessories({ configList = [], LANG = () => {} }) {
   if (configList.length < 1) return null;
   return (
-    <section className={`${styles.accessories}`} id="productAccessories">
+    <section className={`${styles.accessories}`} id="product_specs">
       <div className={styles.accessories_container}>
         <h2>{LANG["store.product.specifiche"]}</h2>
         <div className={styles.accessories_item}>

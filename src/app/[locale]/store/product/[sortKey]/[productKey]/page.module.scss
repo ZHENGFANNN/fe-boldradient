@@ -47,14 +47,14 @@
         font-weight: 900;
         color: #1a0000;
 
-        margin-bottom: 12px;
+        margin-bottom: 14px;
       }
       
       .product_advantage {
         line-height: 20px;
         font-size: 14px;
         font-weight: 400;
-        color: rgba(0, 0, 0, 0.65);
+        color: #1b1b1b;
         margin-bottom: 12px;
 
         display: flex;
@@ -135,24 +135,6 @@
       }
     }
   }
-
-  .sec_line {
-    height: 128px;
-    position: relative;
-    width: 100%;
-    &::after {
-      content: ' ';
-      position: absolute;
-      left: 0;
-      top: 50%;
-      right: 0;
-      height: 0;
-      border-top: 1px solid #f0f1f2;
-      -webkit-transform: translateY(-50%);
-      transform: translateY(-50%);
-    }
-  }
-
   
 }
 
@@ -191,7 +173,7 @@
 
         
         .product_advantage {
-          font-size: 12px;
+          font-size: 14px;
           line-height: 20px;
           color: rgba(0, 0, 0, 0.65);
           margin-bottom: 12px;
@@ -242,22 +224,5 @@
         }
       }
     }
-    .sec_line {
-      height: 64px;
-      position: relative;
-      width: 100%;
-      &::after {
-        content: ' ';
-        position: absolute;
-        left: 0;
-        top: 50%;
-        right: 0;
-        height: 0;
-        border-top: 1px solid #f0f1f2;
-        -webkit-transform: translateY(-50%);
-        transform: translateY(-50%);
-      }
-    }
-    
   }
 }

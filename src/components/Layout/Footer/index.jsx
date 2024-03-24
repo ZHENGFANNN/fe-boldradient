@@ -223,7 +223,7 @@ export default function Footer({ CONFIG, LANG, GOODSORTLIST, GOODLIST }) {
               );
             })}
           </div>
-          <div>
+          <div className={styles.contact_email}>
             <span>{LANG["common.footer.contact_email"]}：</span>
             <div>{CONFIG["company.basic.customer_service"]}</div>
           </div>

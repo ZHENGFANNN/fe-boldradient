@@ -11,7 +11,6 @@
   }
   .list {
     margin-bottom: 12px;
-    padding: 32px 24px;
     border-radius: 8px;
 
     border: 1px solid #ddd;
@@ -19,16 +18,23 @@
     overflow: hidden;
     cursor: pointer;
     &[data-img="true"] {
-      padding: 0 16px 0 92px!important;
       .list_item {
-        height: 80px;
-        .list_item_left {
-          max-height: 54px;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          display: -webkit-box;
-          -webkit-line-clamp: 3;
-          -webkit-box-orient: vertical;
+        .top_container {
+          padding: 16px;
+        }
+       
+        .bottom_container {
+          margin: 0 16px; 
+          .description {
+            padding: 16px 0;
+          }
+        }
+      }
+    }
+    &[data-padding="true"] {
+      .list_item {
+        .top_container {
+          padding-top: 24px;
         }
       }
     }
@@ -43,135 +49,118 @@
     }
 
     .list_item {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-
-      .discount_tip {
-        text-transform: uppercase;
-        transform: scale(.9);
-        transform-origin: top right;
-
-        position: absolute;
-        right: 0;
-        top: 0;
-
-        font-size: 12px;
-        line-height: 12px;
-        text-align: center;
-        color: #fff;
-        overflow: hidden;
-        border-bottom-left-radius: 8px;
-
-        background: #000;
-
-        font-size: 11px;
-        line-height: 12px;
-        padding: 4px 16px;
-      }
-
-      .stock_tip {
-        transform: scale(.9);
-        transform-origin: top right;
-
-        position: absolute;
-        right: 0;
-        top: 0;
-
-        font-size: 12px;
-        line-height: 12px;
-        text-align: center;
-        color: #302802;
-        overflow: hidden;
-        border-bottom-left-radius: 8px;
-
-        background: rgb(175, 177, 180);
-        color: rgb(255, 255, 255);
-
-        font-size: 11px;
-        line-height: 12px;
-        padding: 4px 8px;
-        z-index: 9;
-      }
-      .list_item_left {
-        font-weight: 700;
-        font-size: 14px;
-        line-height: 18px;
-
-
-        margin-right: 8px;
+      .top_container {
         display: flex;
-        align-items: center;
-
-        .item_left_img {
-          width: 80px;
-          height: 80px;
-          overflow: hidden;
-          margin-right: 8px;
-
+        justify-content: space-between;
+        position: relative;
+        padding: 24px;
+        .discount_tip {
+          text-transform: uppercase;
+          transform: scale(.9);
+          transform-origin: top right;
+  
           position: absolute;
-          left: 0;
+          right: 0;
           top: 0;
-          img {
-            height: 100%;
-            width: 100%;
-            object-fit: cover;
+  
+          font-size: 12px;
+          line-height: 12px;
+          text-align: center;
+          color: #fff;
+          overflow: hidden;
+          border-bottom-left-radius: 8px;
+  
+          background: #000;
+  
+          font-size: 11px;
+          line-height: 12px;
+          padding: 4px 16px;
+        }
+  
+        .stock_tip {
+          transform: scale(.9);
+          transform-origin: top right;
+  
+          position: absolute;
+          right: 0;
+          top: 0;
+  
+          font-size: 12px;
+          line-height: 12px;
+          text-align: center;
+          color: #302802;
+          overflow: hidden;
+          border-bottom-left-radius: 8px;
+  
+          background: rgb(175, 177, 180);
+          color: rgb(255, 255, 255);
+  
+          font-size: 11px;
+          line-height: 12px;
+          padding: 4px 8px;
+          z-index: 9;
+        }
+        .top_container_left {
+          font-weight: 700;
+          font-size: 14px;
+          line-height: 18px;
+          margin-right: 8px;
+          display: flex;
+          .item_left_title {
+            display: flex;
+            align-items: center;
+          }
+          .item_left_img {
+            width: 80px;
+            min-width: 80px;
+            height: 80px;
+            margin-right: 8px;
+            overflow: hidden;
+            border-radius: 4px;
+            img {
+              height: 100%;
+              width: 100%;
+              object-fit: cover;
+            }
+          }
+        }
+        .top_container_right {
+          display: flex;
+          align-items: center;
+          font-size: 14px;
+          line-height: 20px;
+          color: #191c21;
+          letter-spacing: 1.2px;
+          display: flex;
+          flex-direction: row-reverse;
+  
+          white-space: nowrap;
+          div:nth-child(2) {
+            color: #898a8e;
+            font-size: 12px;
+            margin-right: 8px;
+            text-decoration: line-through;
+  
+            white-space: nowrap;
           }
         }
       }
-      .list_item_right {
-        font-size: 14px;
-        line-height: 20px;
-        color: #191c21;
-        display: flex;
-        flex-direction: row-reverse;
-
-        white-space: nowrap;
-        div:nth-child(2) {
-          color: #898a8e;
-          font-size: 12px;
-          margin-right: 8px;
-          text-decoration: line-through;
-
-          white-space: nowrap;
+      .bottom_container {
+        margin: 0 24px;
+        border-top: 1px solid #f0f1f2;
+        .description {
+          padding: 24px 0;
+          font-size: 14px;
+          line-height: 20px;
+          color: #4b4d50;
+          white-space: pre-wrap;
+    
+          text-transform: capitalize;
         }
       }
     }
 
-    .line {
-      height: 32px;
-      position: relative;
-      &::before {
-        content: ' ';
-        position: absolute;
-        left: 0;
-        top: 50%;
-        right: 0;
-        height: 0;
-        border-top: 1px solid #f0f1f2;
-        -webkit-transform: translateY(-50%);
-        transform: translateY(-50%);
-      }
-    }
-    .description {
-      font-size: 14px;
-      line-height: 20px;
-      color: #4b4d50;
-      white-space: pre-wrap;
-
-      text-transform: capitalize;
-    }
-  }
-}
-
-@media screen and (max-width: 1050px) {
-  .container {
-    .list {
-      padding: 24px 16px;
-      .line {
-        height: 26px;
-      }
-    }
+    
   }
 }
 
@@ -186,11 +175,7 @@
         border: 1px solid #000;
       }
       .list_item {
-        .list_item_left {
-          font-size: 12px;
-        }
-        .list_item_right {
-          font-size: 12px;
+        .top_container {
         }
       }
       

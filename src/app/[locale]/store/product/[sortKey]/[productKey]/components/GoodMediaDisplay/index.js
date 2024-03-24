@@ -103,11 +103,11 @@ export default function ContentDisplay({ options = [], productInfo }) {
 
   return (
     <div className={styles.left_content_top}>
-      {options.map((item) => {
+      {options.map((item, index) => {
         if (item.type === "image") {
           return (
             <div
-              key={item.type}
+              key={index}
               className={`splide ${styles.splide}`}
               style={{
                 display: productShowType === "image" ? "block" : "none",
@@ -130,10 +130,10 @@ export default function ContentDisplay({ options = [], productInfo }) {
                     : null}
                   {/* 产品图 */}
                   {productInfo.image_list?.length > 0
-                    ? productInfo.image_list.map((item) => {
+                    ? productInfo.image_list.map((item, index) => {
                         return (
                           <li
-                            key={item.src}
+                            key={index}
                             className={`splide__slide ${styles.splide__slide}`}
                           >
                             <img alt={productInfo.name} src={item.src} />
@@ -147,16 +147,16 @@ export default function ContentDisplay({ options = [], productInfo }) {
               productInfo.image_list?.length > 0 ? (
                 <div className={styles.splide_image_list}>
                   <ul>
-                    {productCurCombo.img_list?.map((item) => {
+                    {productCurCombo.img_list?.map((item, index) => {
                       return (
-                        <li key={item.src}>
+                        <li key={index}>
                           <img alt={productInfo.name} src={item.src} />
                         </li>
                       );
                     })}
-                    {productInfo.image_list?.map((item) => {
+                    {productInfo.image_list?.map((item, index) => {
                       return (
-                        <li key={item.src}>
+                        <li key={index}>
                           <img alt={productInfo.name} src={item.src} />
                         </li>
                       );

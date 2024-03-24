@@ -3,14 +3,16 @@ import styles from "./index.module.scss";
 import useProductStore from "../../productStore";
 import formatCurrency from "@/utils/formatCurrency";
 
-export default function GoodPrice({ goodDiscountFestival, comboList }) {
+export default function GoodPrice({ goodDiscountFestival, LANG }) {
   const productCurCombo = useProductStore((state) => state.productCurCombo);
   return (
     <>
       {/* 优惠金额 */}
       {goodDiscountFestival && productCurCombo.areaInfo?.product_discount ? (
         <div className={styles.discount_price}>
-          {`- ${productCurCombo.areaInfo.currency_symbol}${formatCurrency(
+          {`${LANG["store.product.saved"]} ${
+            productCurCombo.areaInfo.currency_symbol
+          }${formatCurrency(
             productCurCombo.areaInfo?.product_price -
               productCurCombo.areaInfo?.selling_price
           )}`}

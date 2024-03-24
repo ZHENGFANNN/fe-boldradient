@@ -1,8 +1,11 @@
-import Modal from "@/components/Modal";
 import React from "react";
+import Modal from "@/components/Modal";
+
 import GoodNumber from "../../GoodNumber";
+import GoodOptionList from "../../GoodOptionList";
 import GoodComboList from "../../GoodComboList";
 import GoodBtnList from "../../GoodBtnList";
+
 import styles from "./index.module.scss";
 
 function ComboModal(
@@ -20,6 +23,20 @@ function ComboModal(
   return (
     <Modal ref={modalRef}>
       <div className={styles.container}>
+        {/* 产品选项 */}
+        {productInfo.typeList?.length > 0
+          ? productInfo.typeList.map((item, index) => {
+              return (
+                <GoodOptionList
+                  from="components"
+                  key={index}
+                  title={item.title}
+                  options={item.options}
+                  type={item.type}
+                />
+              );
+            })
+          : null}
         <GoodComboList
           from="components"
           goodDiscountFestival={GOODDISCOUNTFESTIVAL}

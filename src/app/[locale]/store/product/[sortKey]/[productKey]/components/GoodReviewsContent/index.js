@@ -121,7 +121,7 @@ export default function GoodReviewsContent({ LANG, configList }) {
 
   if (configList.length < 1) return null;
   return (
-    <section className={styles.reviews} id="productReviews">
+    <section className={styles.reviews} id="product_reviews">
       <div className={styles.reviews_container}>
         <div className={styles.review_top}>
           <div className={styles.reviews_total}>

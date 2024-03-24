@@ -62,7 +62,7 @@ export default function GoodFaq({ LANG, CONFIG, configList }) {
   });
 
   return (
-    <section className={styles.faq}>
+    <section className={styles.faq} id="product_faq">
       <div className={styles.faq_container}>
         <h2>{LANG["store.product.faq"]}</h2>
         <div className={styles.content_list}>

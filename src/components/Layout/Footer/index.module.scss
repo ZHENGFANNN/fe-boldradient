@@ -123,13 +123,13 @@
     .content_subscription {
       .content_title {
         color: #191c21;
-        font-size: 14px;
+        font-size: 16px;
         margin-bottom: 16px;
       }
       .content_description {
         min-width: 320px;
         color: #7d7f82;
-        font-size: 12px;
+        font-size: 14px;
         line-height: 17px;
         margin-bottom: 18px;
       }
@@ -145,7 +145,7 @@
           input {
             border: 0;
             width: 180px;
-            font-size: 12px;
+            font-size: 14px;
             line-height: 21px;
             margin-left: 8px;
             color: #191c21;
@@ -157,6 +157,7 @@
             }
             &::placeholder {
               color: #7d7f82;
+              font-size: 14px;
             }
           }
           button {
@@ -290,7 +291,7 @@
       justify-content: center;
       align-items: center;
       padding: 14px 20px;
-      font-size: 12px;
+      font-size: 14px;
       line-height: 20px;
       color: #606466;
       width: 100%;
@@ -350,7 +351,7 @@
         .nav_title {
           cursor: pointer;
           position: relative;
-          font-size: 12px;
+          font-size: 14px;
           line-height: 20px;
           color: #ebeff2;
           padding: 18px 20px;
@@ -422,6 +423,7 @@
                 color: #909699;
                 text-decoration: none;
                 width: 100%;
+                font-size: 14px;
                 padding-right: 0;
               }
             }
@@ -462,6 +464,9 @@
             opacity: 1;
           }
         }
+        .contact_email {
+          margin-bottom: 4px;
+        }
 
         div,
         time {
@@ -486,12 +491,13 @@
         margin-top: 32px;
         padding: 0 20px;
         .content_title {
-          font-size: 12px;
+          font-size: 14px;
           color: #ebeff2;
         }
         .content_description {
           margin-bottom: 12px;
           line-height: 17px;
+          font-size: 14px;
         }
         .content_email {
           .content_input_btn {
@@ -501,6 +507,10 @@
             input {
               color: #ebeff2;
               background: #272727;
+              font-size: 14px;
+              &::placeholder {
+                font-size: 14px;
+              }
             }
             button {
               border-radius: 0 4px 4px 0;

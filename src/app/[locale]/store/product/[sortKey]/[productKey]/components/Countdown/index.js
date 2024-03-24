@@ -26,9 +26,19 @@ function updateCountdown(endTime) {
   const hours = Math.floor(minutes / 60);
 
   // 更新倒计时元素的值
-  $(`#countdown-hours`).text(Math.max(formatTime(hours), 0));
-  $(`#countdown-minutes`).text(Math.max(formatTime(minutes % 60), 0));
-  $(`#countdown-seconds`).text(Math.max(formatTime(seconds % 60), 0));
+  $(`#countdown-hours`).text(
+    Math.max(formatTime(hours), 0).toString().padStart(2, "0")
+  );
+  $(`#countdown-minutes`).text(
+    Math.max(formatTime(minutes % 60), 0)
+      .toString()
+      .padStart(2, "0")
+  );
+  $(`#countdown-seconds`).text(
+    Math.max(formatTime(seconds % 60), 0)
+      .toString()
+      .padStart(2, "0")
+  );
 }
 
 export default function Countdown({ goodDiscountFestival, LANG }) {
@@ -44,20 +54,16 @@ export default function Countdown({ goodDiscountFestival, LANG }) {
       };
     }
   }, [lazyLoading]);
-  if (!goodDiscountFestival || !productCurCombo.areaInfo?.good_discount)
+  if (!goodDiscountFestival || !productCurCombo.areaInfo?.product_discount)
     return null;
   return (
     <div className={styles.container}>
       <div className={styles.content}>
         <div className={styles.price}>
-          {productCurCombo.areaInfo?.price ? (
+          {productCurCombo.areaInfo?.product_price ? (
             <>
-              <div>{`${productCurCombo.areaInfo.currency_symbol}${Math.floor(
-                productCurCombo.areaInfo.price *
-                  productCurCombo.areaInfo.good_discount *
-                  0.01
-              )}`}</div>
-              <div>{`${productCurCombo.areaInfo.currency_symbol}${productCurCombo.areaInfo.price}`}</div>
+              <div>{`${productCurCombo.areaInfo.currency_symbol}${productCurCombo.areaInfo.selling_price}`}</div>
+              <div>{`${productCurCombo.areaInfo.currency_symbol}${productCurCombo.areaInfo.product_price}`}</div>
             </>
           ) : null}
         </div>

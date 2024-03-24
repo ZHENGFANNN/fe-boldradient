@@ -3,13 +3,45 @@ import React from "react";
 import styles from "./index.module.scss";
 
 import ShowTipModal from "@/components/Modal/ShowTipModal";
-import Loading from "@/components/Loading";
 import tracking from "../tracking";
 
 import Link from "next/link";
 
 import GlobalContext from "@/globalContext";
 import formatCurrency from "@/utils/formatCurrency";
+
+import { useRouter } from "next/navigation";
+
+// 格式化时间，保证显示为两位数
+function formatTime(time) {
+  return time.toString().padStart(2, "0");
+}
+
+function updateCountdown(endTime) {
+  if (!endTime) return;
+  // 获取当前时间
+  const currentTime = Date.now();
+  // 计算剩余时间
+  const milliseconds = endTime - currentTime;
+  if (milliseconds < 0) {
+    location.reload();
+    return;
+  }
+
+  const seconds = Math.floor(milliseconds / 1000);
+  const minutes = Math.floor(seconds / 60);
+  const hours = Math.floor(minutes / 60);
+
+  return {
+    hours: Math.max(formatTime(hours), 0).toString().padStart(2, "0"),
+    minutes: Math.max(formatTime(minutes % 60), 0)
+      .toString()
+      .padStart(2, "0"),
+    seconds: Math.max(formatTime(seconds % 60), 0)
+      .toString()
+      .padStart(2, "0"),
+  };
+}
 
 const EmptyCart = function ({ LANG, handleClose }) {
   return (
@@ -113,78 +145,90 @@ const CartMain = function ({
 }) {
   const { setProductNum } = React.useContext(GlobalContext);
   const [cartList, setCartList] = React.useState([]);
-  const [loading, setLoading] = React.useState(true);
+  const [hours, setHours] = React.useState("00");
+  const [minutes, setMinutes] = React.useState("00");
+  const [seconds, setSeconds] = React.useState("00");
   const tipRef = React.useRef();
+  const router = useRouter();
 
   React.useEffect(() => {
-    setLoading(true);
-    setTimeout(() => {
-      let localStoreList = window.localStorage.getItem("store_shopping");
-      try {
-        localStoreList = JSON.parse(localStoreList ?? []);
-        const list = [];
-        localStoreList.forEach((item) => {
-          let comboInfo;
-          // 查找该语言的商品
-          const product = GOODLIST.find(
-            (product) =>
-              item.productKey === product.key &&
-              item.sortKey === product.sort_key
-          );
-          if (product) {
-            // 查找当前语言的套餐
-            comboInfo = product.comboList.find(
-              (combo) => combo.key === item.comboKey
-            );
-          }
-          // 处理选项
-          let options;
-          try {
-            if (typeof item.options === "object") {
-              options = item.options;
-            } else {
-              options = JSON.parse(item.options);
-            }
-          } catch {
-            options = [];
-          }
-
-          if (comboInfo?.areaInfo && comboInfo && product) {
-            // 库存存在，才放入列表
-            if (comboInfo.areaInfo.stock) {
-              list.push({
-                // 套餐相关
-                id: comboInfo.id,
-                comboName: comboInfo.title,
-                // 地区相关
-                currency: comboInfo.areaInfo.currency,
-                priceSymbol: comboInfo.areaInfo.currency_symbol,
-                product_price: comboInfo.areaInfo.product_price,
-                selling_price: comboInfo.areaInfo.selling_price,
-                product_discount: comboInfo.areaInfo.product_discount,
-                stock: comboInfo.areaInfo.stock,
-                // 产品相关
-                name: product.name,
-                image: product.image_list[0].src,
-                href: `/${locale}/store/product/${product.sort_key}/${product.key}`,
-                sortKey: product.sort_key,
-                productKey: product.key,
-                comboKey: comboInfo.key,
-                // 其他
-                productNum: item.productNum,
-                options,
-              });
-            }
-          }
-        });
-        setCartList(list);
-        setLoading(false);
-      } catch (err) {
-        localStorage.setItem("store_shopping", JSON.stringify([]));
-        setLoading(false);
-        console.warn("【购物列表解析失败】", err);
-      }
+    if (!goodDiscountFestival) return;
+    const t = setInterval(() => {
+      const { hours, minutes, seconds } = updateCountdown(
+        goodDiscountFestival?.end_time
+      );
+      setHours(hours);
+      setMinutes(minutes);
+      setSeconds(seconds);
     }, 500);
+    return () => {
+      clearInterval(t);
+    };
+  }, [goodDiscountFestival]);
+
+  React.useEffect(() => {
+    let localStoreList = window.localStorage.getItem("store_shopping");
+    try {
+      localStoreList = JSON.parse(localStoreList ?? []);
+      const list = [];
+      localStoreList.forEach((item) => {
+        let comboInfo;
+        // 查找该语言的商品
+        const product = GOODLIST.find(
+          (product) =>
+            item.productKey === product.key && item.sortKey === product.sort_key
+        );
+        if (product) {
+          // 查找当前语言的套餐
+          comboInfo = product.comboList.find(
+            (combo) => combo.key === item.comboKey
+          );
+        }
+        // 处理选项
+        let options;
+        try {
+          if (typeof item.options === "object") {
+            options = item.options;
+          } else {
+            options = JSON.parse(item.options);
+          }
+        } catch {
+          options = [];
+        }
+
+        if (comboInfo?.areaInfo && comboInfo && product) {
+          // 库存存在，才放入列表
+          if (comboInfo.areaInfo.stock) {
+            list.push({
+              // 套餐相关
+              id: comboInfo.id,
+              comboName: comboInfo.title,
+              // 地区相关
+              currency: comboInfo.areaInfo.currency,
+              priceSymbol: comboInfo.areaInfo.currency_symbol,
+              product_price: comboInfo.areaInfo.product_price,
+              selling_price: comboInfo.areaInfo.selling_price,
+              product_discount: comboInfo.areaInfo.product_discount,
+              stock: comboInfo.areaInfo.stock,
+              // 产品相关
+              name: product.name,
+              image: product.image_list[0].src,
+              href: `/${locale}/store/product/${product.sort_key}/${product.key}`,
+              sortKey: product.sort_key,
+              productKey: product.key,
+              comboKey: comboInfo.key,
+              // 其他
+              productNum: item.productNum,
+              options,
+            });
+          }
+        }
+      });
+      setCartList(list);
+    } catch (err) {
+      localStorage.setItem("store_shopping", JSON.stringify([]));
+      console.warn("【购物列表解析失败】", err);
+    }
   }, []);
 
   const [totalPrice, setTotalPrice] = React.useState(0);
@@ -207,25 +251,59 @@ const CartMain = function ({
       <div className={styles.content}>
         <div className={styles.top_content}>
           {!cartList || cartList.length === 0 ? (
-            <>
-              {loading ? (
-                <Loading height={560} />
-              ) : (
-                <EmptyCart LANG={LANG} handleClose={handleClose} />
-              )}
-            </>
+            <EmptyCart LANG={LANG} handleClose={handleClose} />
           ) : (
             <>
+              <div
+                className={styles.shipping_free}
+                data-discount={!!goodDiscountFestival}
+              >
+                {LANG["common.cart.free_shipping"]}
+              </div>
+              {goodDiscountFestival ? (
+                <div className={styles.festival_discount_container}>
+                  <div className={styles.festival_discount}>
+                    <div className={styles.festival_discount_title}>
+                      {goodDiscountFestival.title}
+                    </div>
+                    <div className={styles.festival_discount_tip}>
+                      {LANG["common.cart.festival_tip"]}
+                    </div>
+                    <div className={styles.countdown}>
+                      <div className={styles.countdown_time}>
+                        <div className={styles.countdown_item}>
+                          <div>{hours}</div>
+                        </div>
+                        <div className={styles.countdown_symbol}>:</div>
+                        <div className={styles.countdown_item}>
+                          <div>{minutes}</div>
+                        </div>
+                        <div className={styles.countdown_symbol}>:</div>
+                        <div className={styles.countdown_item}>
+                          <div>{seconds}</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ) : null}
               <div className={styles.table_body}>
                 {cartList.map((item, index) => {
                   return (
                     <section key={index} className={styles.table_body_item}>
                       <div className={styles.table_body_goods}>
                         <div className={styles.good_item}>
-                          <div className={styles.body_goods_img}>
+                          <div
+                            className={styles.body_goods_img}
+                            onClick={() => {
+                              handleClose();
+                              router.push(
+                                `/store/product/${item.sortKey}/${item.productKey}`
+                              );
+                            }}
+                          >
                             <img alt={item.name} src={item.image} />
                           </div>
-
                           <div className={styles.product_info}>
                             <div className={styles.product_content}>
                               <div className={styles.title}>
@@ -245,17 +323,6 @@ const CartMain = function ({
                               </div>
                             </div>
                             <div className={styles.table_body_price}>
-                              {/* {goodDiscountFestival && item.good_discount ? (
-                                <div className={styles.discount}>{`- ${
-                                  item.priceSymbol
-                                }${
-                                  Math.ceil(
-                                    item.price *
-                                      (100 - item.good_discount) *
-                                      0.01
-                                  ) * item.productNum
-                                }`}</div>
-                              ) : null} */}
                               <div className={styles.price}>
                                 {goodDiscountFestival &&
                                 item.product_discount ? (
@@ -474,6 +541,9 @@ const CartMain = function ({
               <div className={styles.total_price_num}>
                 {`${cartList[0]?.priceSymbol}${totalPrice}`}
               </div>
+            </div>
+            <div className={styles.checkout_tip}>
+              {LANG["common.cart.checkout_tip"]}
             </div>
             <div className={styles.btn_container}>
               <div

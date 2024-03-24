@@ -11,13 +11,25 @@ body {
 }
 
 #app-content {
-  margin-top: 100px;
+  margin-top: 60px;
   min-height: calc(100vh - 560px);
+  transition: all 300ms;
 }
 @media screen and (max-width: 1080px) {
   #app-content {
-    margin-top: 90px;
+    margin-top: 50px;
     min-height: calc(100vh - 550px);
+  }
+}
+
+div {
+  &::-webkit-scrollbar {
+    height: 80px;
+    width: 6px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #c8c9cd;
+    border-radius: 4px;
   }
 }
 
@@ -30,8 +42,8 @@ img {
   -moz-user-select: none;
   -moz-user-focus: none;
   &[data-src] {
-    background: #e5e5e5;
-    border: 1px solid #e5e5e5;
+    background: #f7f8f9;
+    border: 1px solid #f7f8f9;
   }
 }
 

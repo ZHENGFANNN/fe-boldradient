@@ -22,6 +22,22 @@ export default function GoodFooter({
   const { lazyLoading } = React.useContext(ProductContext);
   const productNum = useProductStore((state) => state.productNum);
   const productCurCombo = useProductStore((state) => state.productCurCombo);
+  const productOptions = useProductStore((state) => state.productOptions);
+  // 处理选项Options
+  const optionString = React.useMemo(() => {
+    let optString = "";
+    if (Object.keys(productOptions).length > 0) {
+      Object.keys(productOptions).forEach((key) => {
+        optString =
+          optString +
+          ` ${productOptions[key].name}:${productOptions[key].value}`;
+      });
+      return optString.trimStart();
+    } else {
+      return null;
+    }
+  }, [productOptions]);
+
   // Footer处理
   React.useEffect(() => {
     if (!lazyLoading) {
@@ -58,9 +74,9 @@ export default function GoodFooter({
         }
       }
       computedFooterBottom();
-      $(window).on("scroll", () => computedFooterBottom());
+      $(window).on("scroll", computedFooterBottom);
       return () => {
-        $(window).off("scroll", () => computedFooterBottom());
+        $(window).off("scroll", computedFooterBottom);
         $("[data-role='footer-info']").css({
           paddingBottom: 0,
         });
@@ -73,9 +89,8 @@ export default function GoodFooter({
       {/* 底部 - 加入购物车 */}
       <div className={styles.footer_content}>
         <div className={styles.footer_left}>
-          <h3>{productInfo.name}</h3>
-          <div className={styles.combo}>
-            {productCurCombo?.title ? (
+          <div className={styles.combo_option_container}>
+            {productCurCombo?.title || optionString ? (
               <>
                 <div
                   onClick={() => {
@@ -91,10 +106,17 @@ export default function GoodFooter({
                     alt="combo"
                     src={`${process.env.NEXT_PUBLIC_IMAGE}/icon/product-combo.svg`}
                   />
-                  <span>{productCurCombo.title}</span>
+                  <div className={styles.name_container}>
+                    <h3>{productInfo.name}</h3>
+                    <div>{productCurCombo.title}</div>
+                    {optionString ? (
+                      <div className={styles.option_name}>{optionString}</div>
+                    ) : null}
+                  </div>
+                  <div className={styles.arrow_icon}></div>
                 </div>
                 {productNum > 1 ? (
-                  <span className={styles.num}>{` × ${productNum}`}</span>
+                  <span className={styles.num}>{` ×${productNum}`}</span>
                 ) : null}
               </>
             ) : null}
@@ -104,26 +126,19 @@ export default function GoodFooter({
           <div className={styles.footer_price}>
             {productCurCombo.areaInfo?.product_price ? (
               <div className={styles.price}>
-                {goodDiscountFestival &&
-                productCurCombo.areaInfo.product_discount ? (
-                  <div>{`${
-                    productCurCombo.areaInfo.currency_symbol
-                  }${formatCurrency(
-                    productCurCombo.areaInfo.selling_price * productNum
-                  )}`}</div>
-                ) : null}
                 <div>{`${
                   productCurCombo.areaInfo.currency_symbol
                 }${formatCurrency(
-                  productCurCombo.areaInfo.product_price * productNum
+                  productCurCombo.areaInfo.selling_price * productNum
                 )}`}</div>
               </div>
             ) : null}
             {goodDiscountFestival &&
             productCurCombo.areaInfo?.product_discount ? (
               <div className={styles.save_price}>
-                -{" "}
-                {`${productCurCombo.areaInfo.currency_symbol}${formatCurrency(
+                {`${LANG["store.product.saved"]} ${
+                  productCurCombo.areaInfo.currency_symbol
+                }${formatCurrency(
                   (productCurCombo.areaInfo.product_price -
                     productCurCombo.areaInfo.selling_price) *
                     productNum

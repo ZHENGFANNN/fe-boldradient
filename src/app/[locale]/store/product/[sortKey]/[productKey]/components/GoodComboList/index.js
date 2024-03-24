@@ -45,6 +45,10 @@ export default function GoodComboList({
         {options.map((item) => {
           return (
             <div
+              data-padding={
+                !!(goodDiscountFestival && item.areaInfo?.product_discount) ||
+                !!(!item.areaInfo?.product_price || !item.areaInfo?.stock)
+              }
               data-img={!!item.smart_img}
               className={`${styles.list} ${
                 active === item.key ? styles.active : ""
@@ -56,50 +60,52 @@ export default function GoodComboList({
               }}
             >
               <div className={styles.list_item}>
-                {/* 提示 */}
-                {!item.areaInfo?.product_price || !item.areaInfo?.stock ? (
-                  <div className={styles.stock_tip}>
-                    {LANG["store.product.no_stock"]}
-                  </div>
-                ) : null}
-                {goodDiscountFestival && item.areaInfo?.product_discount ? (
-                  <div className={styles.discount_tip}>
-                    {LANG["store.product.off"]}{" "}
-                    {100 - item.areaInfo?.product_discount}%
-                  </div>
-                ) : null}
-                {/* 套餐标题 */}
-                <div className={styles.list_item_left}>
-                  {item.smart_img ? (
-                    <div className={styles.item_left_img}>
-                      <img src={item.smart_img} />
+                <div className={styles.top_container}>
+                  {/* 提示 */}
+                  {!item.areaInfo?.product_price || !item.areaInfo?.stock ? (
+                    <div className={styles.stock_tip}>
+                      {LANG["store.product.no_stock"]}
                     </div>
                   ) : null}
+                  {goodDiscountFestival && item.areaInfo?.product_discount ? (
+                    <div className={styles.discount_tip}>
+                      {LANG["store.product.off"]}{" "}
+                      {100 - item.areaInfo?.product_discount}%
+                    </div>
+                  ) : null}
+                  {/* 套餐缩略图/标题 */}
+                  <div className={styles.top_container_left}>
+                    {item.smart_img ? (
+                      <div className={styles.item_left_img}>
+                        <img src={item.smart_img} />
+                      </div>
+                    ) : null}
 
-                  <div>{item.title}</div>
+                    <div className={styles.item_left_title}>{item.title}</div>
+                  </div>
+                  {/* 套餐价格 */}
+                  {item.areaInfo?.product_price ? (
+                    <div className={styles.top_container_right}>
+                      {goodDiscountFestival &&
+                      item.areaInfo?.product_discount ? (
+                        <div>{`${item.areaInfo.currency_symbol}${formatCurrency(
+                          item.areaInfo?.selling_price
+                        )}`}</div>
+                      ) : (
+                        <div>{`${
+                          item.areaInfo?.currency_symbol
+                        }${formatCurrency(item.areaInfo?.product_price)}`}</div>
+                      )}
+                    </div>
+                  ) : null}
                 </div>
-                {/* 套餐价格 */}
-                {item.areaInfo?.product_price ? (
-                  <div className={styles.list_item_right}>
-                    {goodDiscountFestival && item.areaInfo?.product_discount ? (
-                      <div>{`${item.areaInfo.currency_symbol}${formatCurrency(
-                        item.areaInfo?.selling_price
-                      )}`}</div>
-                    ) : (
-                      <div>{`${item.areaInfo?.currency_symbol}${formatCurrency(
-                        item.areaInfo?.product_price
-                      )}`}</div>
-                    )}
+                {/* 套餐描述 */}
+                {item.description ? (
+                  <div className={styles.bottom_container}>
+                    <div className={styles.description}>{item.description}</div>
                   </div>
                 ) : null}
               </div>
-              {/* 套餐描述 */}
-              {item.description ? (
-                <>
-                  <div className={styles.line}></div>
-                  <div className={styles.description}>{item.description}</div>
-                </>
-              ) : null}
             </div>
           );
         })}

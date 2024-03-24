@@ -27,7 +27,7 @@ export default function GoodNumber({ LANG }) {
           type="number"
           onChange={(e) => {
             const number = Number(e.target.value);
-            if (number > 99998) setProductNum(99999);
+            if (number > 9998) setProductNum(9999);
             else if (number < 2) setProductNum(1);
             else setProductNum(number);
           }}

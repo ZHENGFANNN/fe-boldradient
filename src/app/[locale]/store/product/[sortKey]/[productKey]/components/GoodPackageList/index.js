@@ -27,7 +27,7 @@ export default function Package({ configList = [], LANG = () => {} }) {
 
   if (configList.length < 1) return null;
   return (
-    <section className={`${styles.package}`} id="productPackage">
+    <section className={`${styles.package}`} id="product_package">
       <div className={styles.package_container}>
         <h2>{LANG["store.product.packaging_list"]}</h2>
 

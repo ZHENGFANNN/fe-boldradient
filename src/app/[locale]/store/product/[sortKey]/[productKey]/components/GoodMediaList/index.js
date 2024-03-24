@@ -29,7 +29,7 @@ export default function GoodMediaList({ configList = [] }) {
 
   if (configList.length < 1) return null;
   return (
-    <section className={`${styles.media}`} id="productMedia">
+    <section className={`${styles.media}`} id="product_overview">
       {configList.map((item, index) => {
         if (item.type === "video") {
           return <MediaVideo key={index} videoInfo={item} />;

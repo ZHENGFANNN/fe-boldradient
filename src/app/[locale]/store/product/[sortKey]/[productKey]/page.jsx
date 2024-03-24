@@ -29,6 +29,7 @@ import GoodGuarantee from "./components/GoodGuarantee";
 import GoodFaq from "./components/GoodFaq";
 
 import formatCurrency from "@/utils/formatCurrency";
+import GoodNav from "./components/GoodNav";
 
 export const runtime = "edge";
 
@@ -44,15 +45,118 @@ async function getProductInfo({ productList, productKey }) {
  */
 async function getData({ productKey, locale, area, configList }) {
   const result = await getConfigDataV2({ locale, area, configList });
+  // 获取产品信息
   result.productInfo = await getProductInfo({
     productList: result.GOODLIST,
     productKey,
   });
-  result.typeList = await getTypeList({
-    productInfo: result.productInfo,
-    LANG: result.LANG,
-  });
+  const [mediaDisplayList, navList, associateProduct] = await Promise.all([
+    // 获取产品参数
+    await getMediaDisplayList({
+      productInfo: result.productInfo,
+      LANG: result.LANG,
+    }),
+    // 获取产品导航栏
+    await getProductNavList({
+      productInfo: result.productInfo,
+      LANG: result.LANG,
+    }),
+    // 获取关联产品
+    await getAssociateProduct({
+      productInfo: result.productInfo,
+    }),
+  ]);
+  result.productInfo.associateProduct = associateProduct;
+  result.mediaDisplayList = mediaDisplayList;
+  result.navList = navList;
   return result;
+}
+
+// 获取类型
+async function getMediaDisplayList({ productInfo, LANG }) {
+  if (productInfo) {
+    const list = [];
+    if (productInfo.image_list.length > 0) {
+      list.push({
+        type: "image",
+        icon_src: `${process.env.NEXT_PUBLIC_IMAGE}/icon/media-image.svg`,
+        text: LANG["store.product.image"],
+        image_list: productInfo.image_list,
+      });
+    }
+    if (productInfo.video_url) {
+      list.push({
+        type: "video",
+        icon_src: `${process.env.NEXT_PUBLIC_IMAGE}/icon/media-play.svg`,
+        text: LANG["store.product.product_introduce"],
+        video_url: productInfo.video_url,
+        video_cover: productInfo.video_cover,
+      });
+    }
+    if (productInfo.three_d) {
+      list.push({
+        type: "3d",
+        icon_src: `${process.env.NEXT_PUBLIC_IMAGE}/icon/media-three-3d.svg`,
+        text: "3D",
+        three_d: productInfo.three_d,
+        three_d_background: productInfo.three_d_background,
+      });
+    }
+    return list;
+  } else {
+    return null;
+  }
+}
+
+// 生成产品Nav
+async function getProductNavList({ productInfo, LANG }) {
+  let navList = [];
+  if (productInfo.mediaList?.length > 0) {
+    navList.push({
+      title: LANG["store.product.nav.overview"],
+      href: "#product_overview",
+    });
+  }
+  if (productInfo.associationsList?.length > 0) {
+    navList.push({
+      title: LANG["store.product.nav.specs"],
+      href: "#product_specs",
+    });
+  }
+  if (productInfo.associationsList?.length > 0) {
+    navList.push({
+      title: LANG["store.product.nav.package"],
+      href: "#product_package",
+    });
+  }
+  navList.push({
+    title: LANG["store.product.nav.faq"],
+    href: "#product_faq",
+  });
+  if (productInfo.reviewsList?.length > 0) {
+    navList.push({
+      title: LANG["store.product.nav.reviews"],
+      href: "#product_reviews",
+    });
+  }
+  return navList;
+}
+
+// 关联产品
+async function getAssociateProduct({ productInfo }) {
+  let newAssociateProduct = productInfo.associateProduct.filter(
+    (item) => item.key !== productInfo.key
+  );
+  newAssociateProduct = newAssociateProduct.map(
+    ({ reviewsList, image_list, ...item }) => {
+      const totalScore = reviewsList.reduce((pre, cur) => pre + cur.score, 0);
+      item.reviewScore = totalScore / reviewsList.length;
+      item.reviewsNum = reviewsList.length;
+      item.image = image_list[0].src;
+      return item;
+    }
+  );
+  return newAssociateProduct;
 }
 
 // 设置元信息
@@ -92,51 +196,21 @@ export async function generateMetadata({ params: { locale, productKey } }) {
   }
 }
 
-// 获取类型
-async function getTypeList({ productInfo, LANG }) {
-  if (productInfo) {
-    const list = [];
-    if (productInfo.image_list.length > 0) {
-      list.push({
-        type: "image",
-        icon_src: `${process.env.NEXT_PUBLIC_IMAGE}/icon/media-image.svg`,
-        text: LANG["store.product.image"],
-        image_list: productInfo.image_list,
-      });
-    }
-    if (productInfo.video_url) {
-      list.push({
-        type: "video",
-        icon_src: `${process.env.NEXT_PUBLIC_IMAGE}/icon/media-play.svg`,
-        text: LANG["store.product.product_introduce"],
-        video_url: productInfo.video_url,
-        video_cover: productInfo.video_cover,
-      });
-    }
-    if (productInfo.three_d) {
-      list.push({
-        type: "3d",
-        icon_src: `${process.env.NEXT_PUBLIC_IMAGE}/icon/media-three-3d.svg`,
-        text: "3D",
-        three_d: productInfo.three_d,
-        three_d_background: productInfo.three_d_background,
-      });
-    }
-    return list;
-  } else {
-    return null;
-  }
-}
-
 export default async function Product({ params: { locale, productKey } }) {
   const area = cookies().get("area")?.value || "us";
-  const { LANG, CONFIG, GOODDISCOUNTFESTIVAL, productInfo, typeList } =
-    await getData({
-      locale,
-      area,
-      productKey,
-      configList: ["config", "language", "good", "goodDiscountFestival"],
-    });
+  const {
+    LANG,
+    CONFIG,
+    GOODDISCOUNTFESTIVAL,
+    productInfo,
+    mediaDisplayList,
+    navList,
+  } = await getData({
+    locale,
+    area,
+    productKey,
+    configList: ["config", "language", "good", "goodDiscountFestival"],
+  });
 
   return (
     <div className={styles.container}>
@@ -152,7 +226,7 @@ export default async function Product({ params: { locale, productKey } }) {
             <div className={styles.left_content}>
               <GoodMediaDisplay
                 LANG={LANG}
-                options={typeList}
+                options={mediaDisplayList}
                 goodDiscountFestival={GOODDISCOUNTFESTIVAL}
                 productInfo={productInfo}
               />
@@ -160,7 +234,7 @@ export default async function Product({ params: { locale, productKey } }) {
                 goodDiscountFestival={GOODDISCOUNTFESTIVAL}
                 LANG={LANG}
               />
-              <GoodMediaTabs options={typeList} />
+              <GoodMediaTabs options={mediaDisplayList} />
             </div>
             <div className={styles.right_content}>
               <div>
@@ -187,7 +261,7 @@ export default async function Product({ params: { locale, productKey } }) {
                 {/* 价格配置 */}
                 <GoodPrice
                   goodDiscountFestival={GOODDISCOUNTFESTIVAL}
-                  comboList={productInfo.comboList}
+                  LANG={LANG}
                 />
                 {/* 产品评价 */}
                 {productInfo.reviewsList.length || productInfo.reviews_score ? (
@@ -233,7 +307,8 @@ export default async function Product({ params: { locale, productKey } }) {
               </div>
             </div>
           </section>
-          <div className={styles.sec_line}></div>
+          <GoodNav navList={navList} />
+          {/* <div className={styles.sec_line}></div> */}
           {/* 产品媒体列表 */}
           <GoodMediaList configList={productInfo.mediaList} LANG={LANG} />
           {/* 产品功能 */}
@@ -257,15 +332,12 @@ export default async function Product({ params: { locale, productKey } }) {
             LANG={LANG}
           />
           {/* 关联产品列表 */}
-          {/* {productInfo.associateProduct.length > 0 ? (
-            <>
-              <div className={styles.sec_line}></div>
-              <AssociateProductList
-                products={productInfo.associateProduct}
-                title={LANG["store.product.maybe_you_like"]}
-              />
-            </>
-          ) : null} */}
+          {productInfo.associateProduct.length > 0 ? (
+            <AssociateProductList
+              products={productInfo.associateProduct}
+              title={LANG["store.product.maybe_you_like"]}
+            />
+          ) : null}
           {/* 产品底部 */}
           <GoodFooter
             area={area}

@@ -74,23 +74,25 @@ export default function PcProductList({ products, title }) {
       <div className={styles.splide_container}>
         <ul className={styles.list_container}>
           {products.map((item, index) => (
-            <li className={styles.list_item} key={index}>
-              <Link
-                className={styles.item_content}
-                href={`/product/${item.sort_key}/${item.key}`}
-                target="_blank"
-              >
-                <div className={styles.image_container}>
-                  <img alt={item.name} src={item.image_list[0].src}></img>
-                  {<div className={styles.product_name}>{item.name}</div>}
-                </div>
-                {item.image_scenes ? (
-                  <div className={styles.image_container_hover}>
-                    <img alt={item.name} src={item.image_scenes}></img>
+            <React.Fragment key={index}>
+              <li className={styles.list_item}>
+                <Link
+                  className={styles.item_content}
+                  href={`/product/${item.sort_key}/${item.key}`}
+                  target="_blank"
+                >
+                  <div className={styles.image_container}>
+                    <img alt={item.name} src={item.image}></img>
+                    {<div className={styles.product_name}>{item.name}</div>}
                   </div>
-                ) : null}
-              </Link>
-            </li>
+                  {item.image_scenes ? (
+                    <div className={styles.image_container_hover}>
+                      <img alt={item.name} src={item.image_scenes}></img>
+                    </div>
+                  ) : null}
+                </Link>
+              </li>
+            </React.Fragment>
           ))}
         </ul>
         <div

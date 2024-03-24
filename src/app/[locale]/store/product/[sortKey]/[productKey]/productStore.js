@@ -6,16 +6,24 @@ const useProductStore = create((set) => ({
   setProductNum: (productNum) => set({ productNum }),
   // 当前产品选项
   productOptions: [],
-  setProductOptions: (newItem) =>
-    set((state) => ({
-      productOptions: state.productOptions.some(
-        (item) => item.name === newItem.name
-      )
-        ? state.productOptions.map((item) =>
-            item.name === newItem.name ? newItem : item
-          )
-        : [...state.productOptions, newItem],
-    })),
+  setProductOptions: (newItem) => {
+    if (newItem) {
+      set((state) => ({
+        productOptions: state.productOptions.some(
+          (item) => item.name === newItem.name
+        )
+          ? state.productOptions.map((item) =>
+              item.name === newItem.name ? newItem : item
+            )
+          : [...state.productOptions, newItem],
+      }));
+    } else {
+      set(() => ({
+        productOptions: [],
+      }));
+    }
+  },
+
   // 当前产品套餐
   productCurCombo: { areaInfo: {} },
   setProductCurCombo: (productCurCombo) => set({ productCurCombo }),

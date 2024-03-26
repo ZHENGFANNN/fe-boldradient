@@ -1,28 +1,40 @@
 import React from "react";
 
+import formatCurrency from "@/utils/formatCurrency";
 import ProductContext from "../../productContext";
 import styles from "./index.module.scss";
 import Link from "next/link";
 
-export default function PcProductList({ products, title }) {
+import Image from "@/components/Image";
+import { lazyLoadImages } from "@/utils/optimization";
+
+import GoodReviewsRate from "../GoodReviewsRate";
+
+export default function PcProductList({
+  LANG,
+  goodDiscountFestival,
+  products,
+  title,
+}) {
   const { lazyLoading } = React.useContext(ProductContext);
   const [active, setActive] = React.useState(0);
   const [showArrow, setShowArrow] = React.useState(true);
 
   const initList = React.useCallback(() => {
     const computedWidth = function () {
-      const index = Math.ceil($(this).scrollLeft() / 412);
+      const index = Math.ceil($(this).scrollLeft() / 382);
       setActive(index);
 
       // 计算滑倒最后的
       const translateX = $(`.${styles.item_content}`)
         .css("transform")
         ?.split(",")[4];
+      console.log("transform:", translateX);
       // 计算出最后的（误差）
       if (
         Math.abs(
           $(this).scrollLeft() -
-            412 * products.length +
+            382 * products.length +
             $(this).width() -
             translateX
         ) < 10
@@ -35,7 +47,7 @@ export default function PcProductList({ products, title }) {
     const translateX = $(`.${styles.item_content}`)
       .css("transform")
       ?.split(",")[4];
-    if (412 * products.length <= $(window).width() - Number(translateX)) {
+    if (382 * products.length <= $(window).width() - Number(translateX)) {
       setShowArrow(false);
     }
 
@@ -65,6 +77,9 @@ export default function PcProductList({ products, title }) {
     if (!lazyLoading) {
       initList();
       initAnimate();
+
+      const cleanLazy = lazyLoadImages($(`.${styles.associate_product}`));
+      return () => cleanLazy();
     }
   }, [lazyLoading]);
 
@@ -78,23 +93,76 @@ export default function PcProductList({ products, title }) {
               <li className={styles.list_item}>
                 <Link
                   className={styles.item_content}
-                  href={`/product/${item.sort_key}/${item.key}`}
-                  target="_blank"
+                  href={`/store/product/${item.sort_key}/${item.key}`}
                 >
-                  <div className={styles.image_container}>
-                    <img alt={item.name} src={item.image}></img>
-                    {<div className={styles.product_name}>{item.name}</div>}
+                  <div
+                    className={styles.image_container}
+                    data-scenes={!!item.image_scenes}
+                  >
+                    <Image
+                      className={styles.image_product}
+                      alt={item.name}
+                      src={item.image}
+                    />
+                    {item.image_scenes ? (
+                      <Image
+                        className={styles.image_scenes}
+                        alt={item.name}
+                        src={item.image_scenes}
+                      />
+                    ) : null}
                   </div>
-                  {item.image_scenes ? (
-                    <div className={styles.image_container_hover}>
-                      <img alt={item.name} src={item.image_scenes}></img>
-                    </div>
-                  ) : null}
+                  <div className={styles.content_container}>
+                    {/* 产品评分 */}
+                    {!isNaN(item.reviewScore) ? (
+                      <GoodReviewsRate
+                        title={`( ${LANG["store.product.reviews"]?.replace(
+                          "${num}",
+                          item.reviewsNum
+                        )} )`}
+                        reviewScore={item.reviewScore}
+                      />
+                    ) : null}
+                    {/* 产品名称 */}
+                    <div className={styles.product_name}>{item.name}</div>
+                    {/* 产品优惠 */}
+                    {goodDiscountFestival && item.areaInfo?.product_discount ? (
+                      <div className={styles.good_discount_container}>
+                        <div className={styles.off}>
+                          {LANG["store.product.off"]}
+                        </div>
+                        <div className={styles.discount}>
+                          {100 - item.areaInfo?.product_discount}%
+                        </div>
+                      </div>
+                    ) : null}
+                    {/* 产品价格 */}
+                    {!item.areaInfo?.stock || !item.areaInfo?.selling_price ? (
+                      <div className={styles.product_stock_container}>
+                        {LANG["store.product.no_stock"]}
+                      </div>
+                    ) : (
+                      <div className={styles.product_price_container}>
+                        {goodDiscountFestival &&
+                        item.areaInfo?.product_discount ? (
+                          <div>{`${
+                            item.areaInfo?.currency_symbol
+                          }${formatCurrency(
+                            item.areaInfo?.selling_price
+                          )}`}</div>
+                        ) : null}
+                        <div>{`${
+                          item.areaInfo?.currency_symbol
+                        }${formatCurrency(item.areaInfo?.product_price)}`}</div>
+                      </div>
+                    )}
+                  </div>
                 </Link>
               </li>
             </React.Fragment>
           ))}
         </ul>
+        {/* 箭头按钮 */}
         <div
           className={`${styles.arrow_container} ${
             products.length < 4 || !showArrow ? styles.display_none : ""
@@ -105,7 +173,7 @@ export default function PcProductList({ products, title }) {
               if (active === 0) return;
               const $dom = $(`.${styles.list_container}`);
               const left = $dom.scrollLeft();
-              $dom.scrollLeft(left - 412);
+              $dom.scrollLeft(left - 382);
             }}
             className={`${styles.pre} ${active === 0 ? styles.opacity_0 : ""}`}
           >
@@ -124,7 +192,7 @@ export default function PcProductList({ products, title }) {
               if (active === products.length) return;
               const $dom = $(`.${styles.list_container}`);
               const left = $dom.scrollLeft();
-              $dom.scrollLeft(left + 412);
+              $dom.scrollLeft(left + 382);
             }}
             className={`${styles.next} ${
               active === products.length ? styles.opacity_0 : ""

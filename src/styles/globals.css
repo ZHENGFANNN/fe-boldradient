@@ -2,6 +2,15 @@ html,
 body {
   font-family: 'Open Sans', 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', 'Hiragino Sans GB', 'WenQuanYi Micro Hei', Arial, sans-serif;
   background-image: linear-gradient(#fff, #f8f9fc 160px, #f8f9fc);
+
+  padding-top: constant(safe-area-inset-top);
+  padding-Left: constant(safe-area-inset-left);
+  padding-right: constant(safe-area-inset-right);
+  padding-bottom: constant(safe-area-inset-bottom);
+  padding-top: env(safe-area-inset-top);
+  padding-Left:env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+  padding-bottom: env(safe-area-inset-bottom);
 }
 
 * {

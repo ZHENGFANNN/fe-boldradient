@@ -267,103 +267,106 @@ export default function GoodBtnList({
     setCurrency(currency);
     setLoading(false);
   }, [productCurCombo]);
-  if (
-    !productCurCombo.areaInfo?.stock ||
-    !productCurCombo.areaInfo?.product_price
-  ) {
-    return null;
-  } else {
-    return (
-      <div className={styles.container} data-role="buy-btn-list">
-        <div
-          onClick={() => {
-            if (
-              !productCurCombo?.areaInfo?.product_price ||
-              !productCurCombo?.areaInfo?.stock
-            )
-              return;
 
-            let cartList = window.localStorage.getItem("store_shopping");
-            try {
-              cartList = JSON.parse(cartList) ?? [];
-            } catch {
-              cartList = [];
-            }
-            // 新卡片
-            let newCart = [
-              {
-                sortKey: productInfo.sort_key,
-                productKey: productInfo.key,
-                comboKey: productCurCombo.key,
-                productNum,
-                options: productOptions,
-              },
-            ];
-            // 购物车是否存在
-            if (cartList?.length > 0) {
-              let includeCurCombo = false;
-              const returnCart = cartList.map((item) => {
-                if (
-                  item.sortKey === productInfo.sort_key &&
-                  item.productKey === productInfo.key &&
-                  item.comboKey === productCurCombo.key &&
-                  (typeof item.options === "object"
-                    ? JSON.stringify(item.options)
-                    : item.options) === JSON.stringify(productOptions)
-                ) {
-                  includeCurCombo = true;
-                  return {
-                    ...item,
-                    productNum: Number(item.productNum) + productNum,
-                  };
-                } else {
-                  return item;
-                }
-              });
-              // 判断是否商品是否购物车里
-              if (includeCurCombo) {
-                newCart = returnCart;
-              } else {
-                newCart = [...newCart, ...returnCart];
+  return (
+    <div className={styles.container} data-role="buy-btn-list">
+      {/* 库存按钮 */}
+      {!productCurCombo.areaInfo?.stock ||
+      !productCurCombo.areaInfo?.product_price ? (
+        <div className={styles.btn_stock}>{LANG["store.product.no_stock"]}</div>
+      ) : (
+        // 购买按钮
+        <>
+          <div
+            onClick={() => {
+              if (
+                !productCurCombo?.areaInfo?.product_price ||
+                !productCurCombo?.areaInfo?.stock
+              )
+                return;
+
+              let cartList = window.localStorage.getItem("store_shopping");
+              try {
+                cartList = JSON.parse(cartList) ?? [];
+              } catch {
+                cartList = [];
               }
-            }
-            tracking.addToCart({ productName: productInfo.name });
-            window.localStorage.setItem(
-              "store_shopping",
-              JSON.stringify(newCart)
-            );
-            showCartModal();
-          }}
-          className={styles.btn_add_to_cart}
-        >
-          {LANG["store.product.add_cart"]}
-        </div>
-        {loading ? (
-          <Loading height={108} />
-        ) : (
-          <PayPalScriptProvider
-            options={{
-              clientId: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID,
-              components: "buttons",
-              currency,
-              locale: `${
-                locale === "hk" || locale === "cn" ? "zh" : locale
-              }_${countryCode}`,
+              // 新卡片
+              let newCart = [
+                {
+                  sortKey: productInfo.sort_key,
+                  productKey: productInfo.key,
+                  comboKey: productCurCombo.key,
+                  productNum,
+                  options: productOptions,
+                },
+              ];
+              // 购物车是否存在
+              if (cartList?.length > 0) {
+                let includeCurCombo = false;
+                const returnCart = cartList.map((item) => {
+                  if (
+                    item.sortKey === productInfo.sort_key &&
+                    item.productKey === productInfo.key &&
+                    item.comboKey === productCurCombo.key &&
+                    (typeof item.options === "object"
+                      ? JSON.stringify(item.options)
+                      : item.options) === JSON.stringify(productOptions)
+                  ) {
+                    includeCurCombo = true;
+                    return {
+                      ...item,
+                      productNum: Number(item.productNum) + productNum,
+                    };
+                  } else {
+                    return item;
+                  }
+                });
+                // 判断是否商品是否购物车里
+                if (includeCurCombo) {
+                  newCart = returnCart;
+                } else {
+                  newCart = [...newCart, ...returnCart];
+                }
+              }
+              tracking.addToCart({ productName: productInfo.name });
+              window.localStorage.setItem(
+                "store_shopping",
+                JSON.stringify(newCart)
+              );
+              showCartModal();
             }}
+            className={styles.btn_add_to_cart}
           >
-            <PayButton
-              CONFIG={CONFIG}
-              LANG={LANG}
-              locale={locale}
-              goodDiscountFestival={goodDiscountFestival}
-              productInfo={productInfo}
-              productCurCombo={productCurCombo}
-              productOptions={productOptions}
-              productNum={productNum}
-            />
-          </PayPalScriptProvider>
-        )}
-      </div>
-    );
-  }
+            {LANG["store.product.add_cart"]}
+          </div>
+          {loading ? (
+            <Loading height={108} />
+          ) : (
+            <PayPalScriptProvider
+              options={{
+                clientId: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID,
+                components: "buttons",
+                currency,
+                locale: `${
+                  locale === "hk" || locale === "cn" ? "zh" : locale
+                }_${countryCode}`,
+              }}
+            >
+              <PayButton
+                CONFIG={CONFIG}
+                LANG={LANG}
+                locale={locale}
+                goodDiscountFestival={goodDiscountFestival}
+                productInfo={productInfo}
+                productCurCombo={productCurCombo}
+                productOptions={productOptions}
+                productNum={productNum}
+              />
+            </PayPalScriptProvider>
+          )}
+        </>
+      )}
+    </div>
+  );
 }

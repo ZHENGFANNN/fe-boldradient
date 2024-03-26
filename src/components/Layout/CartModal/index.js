@@ -2,10 +2,7 @@ import ReactDOM from "react-dom";
 import React from "react";
 import styles from "./index.module.scss";
 
-import ShowTipModal from "@/components/Modal/ShowTipModal";
 import tracking from "../tracking";
-
-import Link from "next/link";
 
 import GlobalContext from "@/globalContext";
 import formatCurrency from "@/utils/formatCurrency";
@@ -106,27 +103,32 @@ function ModalCart({ LANG, GOODLIST, GOODDISCOUNTFESTIVAL, locale }, ref) {
             }}
           >
             <div className={styles.modal_container}>
-              <div
-                className={styles.modal_content}
-                onClick={(e) => {
-                  e.stopPropagation(); // 阻止事件冒泡
-                }}
-              >
-                <div className={styles.header}>
-                  <div className={styles.title}>
-                    {LANG["common.cart.title"]}
+              <div className={styles.modal_wrapper}>
+                <div
+                  className={styles.modal_content}
+                  onClick={(e) => {
+                    e.stopPropagation(); // 阻止事件冒泡
+                  }}
+                >
+                  <div className={styles.header}>
+                    <div className={styles.title}>
+                      {LANG["common.cart.title"]}
+                    </div>
+                    <div
+                      className={styles.close}
+                      onClick={() => setShow(false)}
+                    >
+                      ×
+                    </div>
                   </div>
-                  <div className={styles.close} onClick={() => setShow(false)}>
-                    ×
-                  </div>
+                  <CartMain
+                    handleClose={() => setShow(false)}
+                    LANG={LANG}
+                    GOODLIST={GOODLIST}
+                    goodDiscountFestival={GOODDISCOUNTFESTIVAL}
+                    locale={locale}
+                  />
                 </div>
-                <CartMain
-                  handleClose={() => setShow(false)}
-                  LANG={LANG}
-                  GOODLIST={GOODLIST}
-                  goodDiscountFestival={GOODDISCOUNTFESTIVAL}
-                  locale={locale}
-                />
               </div>
             </div>
           </div>,
@@ -148,7 +150,6 @@ const CartMain = function ({
   const [hours, setHours] = React.useState("00");
   const [minutes, setMinutes] = React.useState("00");
   const [seconds, setSeconds] = React.useState("00");
-  const tipRef = React.useRef();
   const router = useRouter();
 
   React.useEffect(() => {
@@ -167,6 +168,7 @@ const CartMain = function ({
   }, [goodDiscountFestival]);
 
   React.useEffect(() => {
+    // 处理购物车
     let localStoreList = window.localStorage.getItem("store_shopping");
     try {
       localStoreList = JSON.parse(localStoreList ?? []);
@@ -307,7 +309,7 @@ const CartMain = function ({
                           <div className={styles.product_info}>
                             <div className={styles.product_content}>
                               <div className={styles.title}>
-                                <Link href={item.href}>{item.name}</Link>
+                                <div>{item.name}</div>
                               </div>
                               <div className={styles.content_combo}>
                                 {item.comboName}
@@ -563,7 +565,6 @@ const CartMain = function ({
           </div>
         ) : null}
       </div>
-      <ShowTipModal ref={tipRef} />
     </div>
   );
 };

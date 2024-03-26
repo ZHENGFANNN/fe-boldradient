@@ -41,3 +41,11 @@ export const throttle = (func, limit) => {
     }
   };
 };
+
+/**
+ * @desc 判断用户UA是否为Mob段
+ * @param ua 时间限制
+ */
+export function isUserMobile(ua) {
+  return /mobile|android|iphone|ipod|phone|ipad/i.test(ua.toLowerCase());
+}

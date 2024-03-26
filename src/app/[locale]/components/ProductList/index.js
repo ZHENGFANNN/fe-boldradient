@@ -59,8 +59,22 @@ export default function ProductList({
               href={`/store/product/${product.sort_key}/${product.key}`}
               className={styles.goods_item}
             >
-              <div className={styles.image_container}>
-                <img alt={product.name} src={product.image_list[0].src} />
+              <div
+                className={styles.image_container}
+                data-scenes={!!product.image_scenes}
+              >
+                <img
+                  className={styles.product_image}
+                  alt={product.name}
+                  src={product.image_list[0].src}
+                />
+                {product.image_scenes ? (
+                  <img
+                    className={styles.scenes_image}
+                    alt={product.name}
+                    src={product.image_scenes}
+                  />
+                ) : null}
               </div>
               <div className={styles.content_container}>
                 {/* 产品评分 */}

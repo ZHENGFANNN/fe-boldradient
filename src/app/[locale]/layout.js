@@ -16,6 +16,7 @@ export const viewport = {
   maximumScale: 1,
   minimumScale: 1,
   userScalable: "no",
+  appleMobileWebAppCapable: "yes",
 };
 
 /**

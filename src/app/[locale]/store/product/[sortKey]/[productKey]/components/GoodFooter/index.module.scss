@@ -1,9 +1,8 @@
 .footer_container {
     position: fixed;
-    z-index: 9;
     width: 100%;
     min-width: 375px;
-    z-index: 999999;
+    z-index: 99999;
 
     bottom: 0;
 
@@ -148,7 +147,7 @@
             width: 100%;
             .combo_option_container {
               width: 100%;
-              max-width: auto;
+              max-width: 100%;
               .combo_name {
                 width: 100%;
                 display: flex;

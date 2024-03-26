@@ -34,7 +34,7 @@ function Modal({ children }, ref) {
   }, [show]);
 
   return (
-    <>
+    <div>
       {firstLoad &&
         ReactDOM.createPortal(
           <div
@@ -45,30 +45,32 @@ function Modal({ children }, ref) {
             }}
           >
             <div className={styles.modal_container}>
-              <div
-                className={styles.modal_content}
-                onClick={(e) => {
-                  e.stopPropagation(); // 阻止事件冒泡
-                }}
-              >
-                {title ? (
-                  <div className={styles.header}>
-                    <div className={styles.title}>{title}</div>
-                    <div
-                      className={styles.close}
-                      onClick={() => setShow(false)}
-                    >
-                      ×
+              <div className={styles.modal_wrapper}>
+                <div
+                  className={styles.modal_content}
+                  onClick={(e) => {
+                    e.stopPropagation(); // 阻止事件冒泡
+                  }}
+                >
+                  {title ? (
+                    <div className={styles.header}>
+                      <div className={styles.title}>{title}</div>
+                      <div
+                        className={styles.close}
+                        onClick={() => setShow(false)}
+                      >
+                        ×
+                      </div>
                     </div>
-                  </div>
-                ) : null}
-                {children}
+                  ) : null}
+                  {children}
+                </div>
               </div>
             </div>
           </div>,
           document.body
         )}
-    </>
+    </div>
   );
 }
 

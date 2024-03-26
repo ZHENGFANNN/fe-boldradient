@@ -4,6 +4,8 @@
     user-select: none;
     cursor: pointer;
     display: inline-block;
+    display: flex;
+    align-items: center;
 
     &[data-disabled="true"] {
         cursor: auto;

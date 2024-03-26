@@ -1,110 +1,155 @@
-@keyframes translateAnimation {
+@keyframes translateAnimationIn {
     from {
-      transform: translateX(100%);
+      clip-path: inset(0 0 0 100%);
     }
     to {
-      transform: translateY(0);
+      clip-path: inset(0 0 0 0);
     }
+}
+
+
+@keyframes translateAnimationOut {
+  from {
+    clip-path: inset(0 0 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 100%);
+  }
 }
 
 
 @keyframes fadeIn {
     from {
         opacity: 0;
+        z-index: 9999999999;
     }
     to {
-      opacity: 1;
-      z-index: 9999999999;
+        opacity: 1;
     }
+}
+
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+    z-index: 9999999999;
+  }
+  99% {
+    opacity: 0;
+    z-index: 9999999999;
+  }
+  100% {
+    z-index: -1;
+  }
 }
 
 .modal {
     position: fixed;
-    top: 0;
+    height: 100%;
     left: 0;
     right: 0;
     bottom: 0;
+    top: 0;
 
-    background-color: rgba(0,0,0,.4);
-    transition: all 300ms;
     z-index: -1;
-    opacity: 0;
-    height: 100%;
-
+    background-color: rgba(0,0,0,.4);
     margin: auto;
     animation: fadeIn 0.3s ease;
+    &[data-show="false"] {
+      z-index: -1;
+      opacity: 0;
+      animation: fadeOut 0.3s ease;
+      .modal_container {
+        .modal_wrapper {
+        animation: translateAnimationOut 300ms;
+          .modal_content {
+            opacity: 0;
+          }
+        }
+      }
+    }
     &[data-show="true"] {
-        opacity: 1;
-        z-index: 9999999999;
-        .modal_container {
-            .modal_content {
-                transform: translateX(0);
-            }
+      opacity: 1;
+      z-index: 9999999999;
+      .modal_container {
+        .modal_wrapper {
+          .modal_content {
+            opacity: 1;
+          }
         }
-    }
-    .modal_container {
-        width: 100%;
-        height: 100%;
-
+        
+      }
+  }
+  .modal_container {
+    width: 100%;
+    height: 100%;
+    .modal_wrapper {  
         display: flex;
-        justify-content: flex-end;
+        justify-content: flex-start;
+        animation: translateAnimationIn 300ms;
+        transform: all 300ms;
+
+        max-width: 80vw;
+        width: 600px;
+        box-sizing: border-box;
+        background: #fff;
+        overflow: hidden;
+
+        padding-top: 72px;
+
+        position: absolute;
+        right: 0;
+        top: 0;
+        bottom: 0;
         .modal_content {
-            max-width: 80vw;
-            box-sizing: border-box;
-            width: 600px;
-            height: 100%;
-            background: #fff;
+         
+          width: 100%;
+          transition: all 300ms;
+          opacity: 0;
+          .header {
+              position: absolute;
+              left: 0;
+              right: 0;
+              top: 0;
+              display: flex;
+              padding: 24px 16px;
+              border-bottom: 1px solid #f0f1f3;
 
-            position: relative;
+              display: flex;
+              align-items: center;
+              .title {
+                  font-size: 24px;
+                  color: #000;
+                  font-weight: 400;
+                  width: calc(100% - 48px);
+                  letter-spacing: 2px;
 
-            padding-top: 72px;
-            transition: all 300ms;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                  white-space: nowrap;
+                  
+              }
+              .close {
+                  position: absolute;
+                  right: 0;
+                  top: 0;
+                  bottom: 0;
 
-            transform: translateX(100%);
-            animation: translateAnimation 300ms;
-            .header {
-                position: absolute;
-                left: 0;
-                right: 0;
-                top: 0;
-                display: flex;
-                padding: 24px 16px;
-                border-bottom: 1px solid #f0f1f3;
+                  display: flex;
+                  align-items: center;
 
-                display: flex;
-                align-items: center;
-                .title {
-                    font-size: 24px;
-                    color: #000;
-                    font-weight: 400;
-                    width: calc(100% - 48px);
-                    letter-spacing: 2px;
-
-                    overflow: hidden;
-                    text-overflow: ellipsis;
-                    white-space: nowrap;
-                    
-                }
-                .close {
-                    position: absolute;
-                    right: 0;
-                    top: 0;
-                    bottom: 0;
-
-                    display: flex;
-                    align-items: center;
-
-                    font-size: 24px;
-                    color: #494b4d;
-                    font-weight: 400;
+                  font-size: 24px;
+                  color: #494b4d;
+                  font-weight: 400;
 
 
-                    cursor: pointer;
-                    border: 16px solid transparent;
-                }
-            }
-        }
+                  cursor: pointer;
+                  border: 16px solid transparent;
+              }
+          }
+      }
     }
+  }
 }
 
 .empty_container {
@@ -173,6 +218,7 @@
         justify-content: space-between;
         .top_content {
           padding: 0 16px;
+          padding-bottom: 240px;
           .shipping_free {
             display: flex;
             align-items: center;
@@ -261,6 +307,7 @@
                     align-items: flex-start;
 
                     min-width: 80px;
+                    cursor: pointer;
                     img {
                         border-radius: 8px;
                         overflow: hidden;
@@ -392,11 +439,16 @@
           }
         }
         .bottom_content {
-          background: #fff;
+            max-width: 80vw;
+            width: 600px;
+
+            background: #fff;
             border-top: 1px solid #f0f1f3;
-            position: sticky;
+            position: fixed;
             bottom: 0;
+            box-sizing: border-box;
             padding: 24px 16px;
+            transition: all 300ms;
             .total_price {
                 display: flex;
                 align-items: center;

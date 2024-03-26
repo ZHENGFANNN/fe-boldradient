@@ -1,11 +1,22 @@
-@keyframes translateY100 {
+@keyframes translateAnimationIn {
     from {
-      transform: translateY(100%) scale(1);
+      clip-path: inset(100% 0 0 0 round 20px 20px 0 0);
     }
     to {
-      transform: translateY(0);
+      clip-path: inset(0 0 0 0 round 20px 20px 0 0);
     }
 }
+
+
+@keyframes translateAnimationOut {
+    from {
+        clip-path: inset(0 0 0 0 round 20px 20px 0 0);
+      }
+    to {
+      clip-path: inset(100% 0 0 0 round 20px 20px 0 0);
+    }
+}
+
 
 @keyframes scaleAnimation {
     from {
@@ -35,12 +46,12 @@
     bottom: 0;
 
     background-color: rgba(0,0,0,.4);
-    transition: all 300ms;
     z-index: -1;
     opacity: 0;
     height: 100%;
-
+    
     margin: auto;
+    transition: all 300ms;
     animation: fadeIn 0.3s ease;
     &[data-show="true"] {
         opacity: 1;
@@ -111,21 +122,41 @@
     .modal {
         &[data-show="true"] {
             .modal_container {
-                .modal_content {
-                    transform: translateY(0);
+                .modal_wrapper {
+                    .modal_content {
+                        opacity: 1;
+                        transform: translateY(0) scale(1);
+                    }
+                }
+            }
+        } 
+        &[data-show="false"] {
+            .modal_container {
+                .modal_wrapper {
+                    animation: translateAnimationOut 300ms;
+                    .modal_content {
+                        opacity: 0;
+                        transform: translateY(0) scale(1);
+                    }
                 }
             }
         } 
        .modal_container {
          align-items: flex-end;
-         .modal_content {
-            max-width: 100%;
-            width: 100%;
+         .modal_wrapper {
+            animation: translateAnimationIn 300ms;
+            background: #fff;
             border-radius: 20px 20px 0 0;
-            transform: translateY(100%) scale(1);
-            transition: all 300ms;
-
-            animation: translateY100 0.3s;
+            overflow: hidden;
+            .modal_content {
+                max-width: 100%;
+                width: 100%;
+                transform: translateY(0) scale(1);
+                transition: opacity 400ms ease-out 300ms;
+                transition-delay: 300ms;
+                opacity: 0;
+                animation: none;
+             }
          }
        }
     }

@@ -8,6 +8,8 @@ import tracking from "../../tracking";
 import ComboModal from "./components/ComboModal";
 import formatCurrency from "@/utils/formatCurrency";
 
+import { debounce } from "@/utils";
+
 export default function GoodFooter({
   CONFIG,
   LANG,
@@ -54,7 +56,7 @@ export default function GoodFooter({
       });
       // 滚动展示底部位置
       const $btnDom = $('[data-role="buy-btn-list"]').eq(0);
-      function computedFooterBottom() {
+      const scrollFunc = debounce(function () {
         const btnTop = $btnDom.offset()?.top;
         if (btnTop) {
           const scrollTop = $(document).scrollTop();
@@ -72,11 +74,11 @@ export default function GoodFooter({
             bottom: 0,
           });
         }
-      }
-      computedFooterBottom();
-      $(window).on("scroll", computedFooterBottom);
+      }, 50);
+      scrollFunc();
+      $(window).on("scroll", scrollFunc);
       return () => {
-        $(window).off("scroll", computedFooterBottom);
+        $(window).off("scroll", scrollFunc);
         $("[data-role='footer-info']").css({
           paddingBottom: 0,
         });

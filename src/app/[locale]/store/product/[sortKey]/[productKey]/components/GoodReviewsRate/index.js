@@ -7,24 +7,27 @@ const active_icon = `${process.env.NEXT_PUBLIC_IMAGE}/icon/previews_stars_active
 const no_active_icon = `${process.env.NEXT_PUBLIC_IMAGE}/icon/previews_stars_icon.svg`;
 
 export default function GoodReviewsRate({
-  LANG,
-  configList,
-  reviewsNum,
-  reviewsScore,
+  title,
+  configList = [],
+  reviewScore,
 }) {
   const rate = React.useMemo(() => {
-    const totalScore = configList.reduce((pre, cur) => {
-      return pre + cur.score;
-    }, 0);
-    return totalScore / configList.length / 5;
-  }, [configList]);
+    if (configList.length > 0) {
+      const totalScore = configList.reduce((pre, cur) => {
+        return pre + cur.score;
+      }, 0);
+      return totalScore / configList.length / 5;
+    } else {
+      return reviewScore / 5;
+    }
+  }, [configList, reviewScore]);
   return (
     <div
       className={styles.container}
       data-disabled={configList.length < 1}
       onClick={function () {
         if (configList.length > 0) {
-          const $dom = document.getElementById("productReviews");
+          const $dom = document.getElementById("product_reviews");
           if ($dom) {
             $dom.scrollIntoView({
               block: "start",
@@ -44,7 +47,7 @@ export default function GoodReviewsRate({
       <div
         className={styles.active_stars}
         style={{
-          width: 70 * (rate || reviewsScore / 5),
+          width: 70 * rate,
         }}
       >
         <img alt="active_icon" src={active_icon} />
@@ -53,14 +56,7 @@ export default function GoodReviewsRate({
         <img alt="active_icon" src={active_icon} />
         <img alt="active_icon" src={active_icon} />
       </div>
-      <div className={styles.reviews_text}>
-        ({" "}
-        {LANG["store.product.reviews"]?.replace(
-          "${num}",
-          configList.length || reviewsNum
-        )}{" "}
-        )
-      </div>
+      <div className={styles.reviews_text}>{title}</div>
     </div>
   );
 }

@@ -28,6 +28,7 @@ export default function Layout({ children }) {
       setProductOptions(null);
     };
   }, []);
+
   return (
     <ProductContext.Provider
       value={{

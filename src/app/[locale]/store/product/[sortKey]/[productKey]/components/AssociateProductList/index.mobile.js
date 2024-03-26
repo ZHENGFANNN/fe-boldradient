@@ -4,10 +4,21 @@ import React from "react";
 import "@splidejs/splide/css";
 import Splide from "@splidejs/splide";
 
-import ProductContext from "../../productContext";
-import styles from "./index.mobile.module.scss";
+import formatCurrency from "@/utils/formatCurrency";
 
-export default function MobProductList({ products, title }) {
+import ProductContext from "../../productContext";
+import { lazyLoadImages } from "@/utils/optimization";
+
+import styles from "./index.mobile.module.scss";
+import Image from "@/components/Image";
+import GoodReviewsRate from "../GoodReviewsRate";
+
+export default function MobProductList({
+  LANG,
+  goodDiscountFestival,
+  products,
+  title,
+}) {
   const { lazyLoading } = React.useContext(ProductContext);
   const initSplide = React.useCallback(() => {
     const splide = new Splide(`.${styles["splide-mobile"]}`, {
@@ -17,7 +28,7 @@ export default function MobProductList({ products, title }) {
       arrows: false,
       rewind: true,
       fixedWidth: "303px",
-      fixedHeight: "404px",
+      fixedHeight: "485px",
       interval: 4000,
       pauseOnHover: false,
       padding: {
@@ -29,13 +40,19 @@ export default function MobProductList({ products, title }) {
 
     const $progressList = $(
       `.${styles["splide-mobile"]} .${styles.pagination_progress}`
-    ).find("svg");
+    ).find(`.${styles.progress_item}`);
+
+    $progressList.on("click", function () {
+      const index = $(this).index();
+      splide.go(index);
+    });
+
     splide.on("move", function (index) {
       $progressList.each(function (progressIndex) {
         if (index === progressIndex) {
-          $(this).attr("class", styles.active);
+          $(this).addClass(styles.active);
         } else {
-          $(this).removeAttr("class");
+          $(this).removeClass(styles.active);
         }
       });
     });
@@ -44,6 +61,9 @@ export default function MobProductList({ products, title }) {
   React.useEffect(() => {
     if (!lazyLoading) {
       initSplide();
+
+      const cleanLazy = lazyLoadImages($(`.${styles.associate_product}`));
+      return () => cleanLazy();
     }
   }, [lazyLoading]);
   return (
@@ -54,36 +74,82 @@ export default function MobProductList({ products, title }) {
           <ul className="splide__list">
             {products.map((item, index) => (
               <li className="splide__slide" key={index}>
-                <a
-                  href={`/product/${item.sort_key}/${item.key}`}
-                  target="_blank"
-                  rel="noreferrer"
-                >
+                <a href={`/store/product/${item.sort_key}/${item.key}`}>
                   <div className={styles.splide_item}>
-                    <div className={styles.media_background}>
-                      <div className={styles.media_container}>
-                        <img alt={item.name} src={item.image_list} />
-                        <div className={styles.content_container}>
-                          <div className={styles.learn_more_container}>
-                            <div className={styles["product-name"]}>
-                              {item.name}
-                            </div>
+                    <div className={styles.image_container}>
+                      <Image
+                        alt={item.name}
+                        className={styles.product_image}
+                        src={item.image}
+                      />
+                    </div>
+                    <div className={styles.content_container}>
+                      {/* 产品评分 */}
+                      {!isNaN(item.reviewScore) ? (
+                        <GoodReviewsRate
+                          title={`( ${LANG["store.product.reviews"]?.replace(
+                            "${num}",
+                            item.reviewsNum
+                          )} )`}
+                          reviewScore={item.reviewScore}
+                        />
+                      ) : null}
+                      {/* 产品名称 */}
+                      <div className={styles.product_name}>{item.name}</div>
+                      {/* 产品优惠 */}
+                      {goodDiscountFestival &&
+                      item.areaInfo?.product_discount ? (
+                        <div className={styles.good_discount_container}>
+                          <div className={styles.off}>
+                            {LANG["store.product.off"]}
+                          </div>
+                          <div className={styles.discount}>
+                            {100 - item.areaInfo?.product_discount}%
                           </div>
                         </div>
-                      </div>
+                      ) : null}
+                      {/* 产品价格 */}
+                      {!item.areaInfo?.stock ||
+                      !item.areaInfo?.selling_price ? (
+                        <div className={styles.product_stock_container}>
+                          {LANG["store.product.no_stock"]}
+                        </div>
+                      ) : (
+                        <div className={styles.product_price_container}>
+                          {goodDiscountFestival &&
+                          item.areaInfo?.product_discount ? (
+                            <div>{`${
+                              item.areaInfo?.currency_symbol
+                            }${formatCurrency(
+                              item.areaInfo?.selling_price
+                            )}`}</div>
+                          ) : null}
+                          <div>{`${
+                            item.areaInfo?.currency_symbol
+                          }${formatCurrency(
+                            item.areaInfo?.product_price
+                          )}`}</div>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </a>
               </li>
             ))}
           </ul>
-          {products.length > 1 ? (
-            <ul className={styles.pagination_progress}>
-              {products.map((_, index) => {
-                return (
+        </div>
+        {products.length > 1 ? (
+          <div className={styles.pagination_progress}>
+            {products.map((_, index) => {
+              return (
+                <div
+                  className={`${styles.progress_item} ${
+                    index === 0 ? styles.active : ""
+                  }`}
+                  key={index}
+                >
                   <svg
-                    className={index === 0 ? styles.active : ""}
-                    key={index}
+                    className={styles.default_svg}
                     version="1.1"
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 36 36"
@@ -101,11 +167,30 @@ export default function MobProductList({ products, title }) {
                       strokeDasharray="100 100"
                     ></circle>
                   </svg>
-                );
-              })}
-            </ul>
-          ) : null}
-        </div>
+                  <svg
+                    className={styles.active_svg}
+                    version="1.1"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 36 36"
+                    preserveAspectRatio="none"
+                  >
+                    <circle
+                      cx="18"
+                      cy="18"
+                      r="15.915494309189533"
+                      fill="inherit"
+                      stroke="inherit"
+                      strokeDashoffset="inherit"
+                      strokeWidth="6"
+                      strokeLinecap="round"
+                      strokeDasharray="100 100"
+                    ></circle>
+                  </svg>
+                </div>
+              );
+            })}
+          </div>
+        ) : null}
       </div>
     </section>
   );

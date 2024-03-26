@@ -23,7 +23,8 @@
         max-width: 1248px;
         margin: auto;
 
-        overflow: auto;
+        overflow-y: hidden;
+        overflow-x: auto;
         user-select: none;
 
         &::-webkit-scrollbar {

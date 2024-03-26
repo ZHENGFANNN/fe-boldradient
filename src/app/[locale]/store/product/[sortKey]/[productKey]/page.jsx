@@ -14,7 +14,7 @@ import GoodBtnList from "./components/GoodBtnList";
 import Countdown from "./components/Countdown";
 
 import styles from "./page.module.scss";
-import { cookies } from "next/headers";
+import { cookies, headers } from "next/headers";
 import Script from "next/script";
 
 import GoodPrice from "./components/GoodPrice";
@@ -30,6 +30,8 @@ import GoodFaq from "./components/GoodFaq";
 
 import formatCurrency from "@/utils/formatCurrency";
 import GoodNav from "./components/GoodNav";
+
+import { isUserMobile } from "@/utils";
 
 export const runtime = "edge";
 
@@ -64,6 +66,7 @@ async function getData({ productKey, locale, area, configList }) {
     // 获取关联产品
     await getAssociateProduct({
       productInfo: result.productInfo,
+      area,
     }),
   ]);
   result.productInfo.associateProduct = associateProduct;
@@ -123,7 +126,7 @@ async function getProductNavList({ productInfo, LANG }) {
       href: "#product_specs",
     });
   }
-  if (productInfo.associationsList?.length > 0) {
+  if (productInfo.packageList?.length > 0) {
     navList.push({
       title: LANG["store.product.nav.package"],
       href: "#product_package",
@@ -143,16 +146,28 @@ async function getProductNavList({ productInfo, LANG }) {
 }
 
 // 关联产品
-async function getAssociateProduct({ productInfo }) {
+async function getAssociateProduct({ productInfo, area }) {
   let newAssociateProduct = productInfo.associateProduct.filter(
     (item) => item.key !== productInfo.key
   );
   newAssociateProduct = newAssociateProduct.map(
-    ({ reviewsList, image_list, ...item }) => {
+    ({
+      reviewsList,
+      image_list,
+      comboList,
+      reviews_num,
+      reviews_score,
+      ...item
+    }) => {
+      const areaInfo = comboList[0]?.areaList.find((item) => {
+        return item.country_code === area;
+      });
+
       const totalScore = reviewsList.reduce((pre, cur) => pre + cur.score, 0);
-      item.reviewScore = totalScore / reviewsList.length;
-      item.reviewsNum = reviewsList.length;
+      item.reviewScore = totalScore / reviewsList.length || reviews_score;
+      item.reviewsNum = reviewsList.length || reviews_num;
       item.image = image_list[0].src;
+      item.areaInfo = areaInfo;
       return item;
     }
   );
@@ -198,6 +213,10 @@ export async function generateMetadata({ params: { locale, productKey } }) {
 
 export default async function Product({ params: { locale, productKey } }) {
   const area = cookies().get("area")?.value || "us";
+  const headersList = headers();
+  const userAgent = headersList.get("user-agent");
+  const isMobile = isUserMobile(userAgent);
+
   const {
     LANG,
     CONFIG,
@@ -266,10 +285,12 @@ export default async function Product({ params: { locale, productKey } }) {
                 {/* 产品评价 */}
                 {productInfo.reviewsList.length || productInfo.reviews_score ? (
                   <GoodReviewsRate
-                    reviewsScore={productInfo.reviews_score}
-                    reviewsNum={productInfo.reviews_num}
+                    reviewScore={productInfo.reviews_score}
                     configList={productInfo.reviewsList}
-                    LANG={LANG}
+                    title={`( ${LANG["store.product.reviews"]?.replace(
+                      "${num}",
+                      productInfo.reviewsList.length || productInfo.reviews_num
+                    )} )`}
                   />
                 ) : null}
                 <div className={styles.line}></div>
@@ -334,6 +355,9 @@ export default async function Product({ params: { locale, productKey } }) {
           {/* 关联产品列表 */}
           {productInfo.associateProduct.length > 0 ? (
             <AssociateProductList
+              isMobile={isMobile}
+              LANG={LANG}
+              goodDiscountFestival={GOODDISCOUNTFESTIVAL}
               products={productInfo.associateProduct}
               title={LANG["store.product.maybe_you_like"]}
             />

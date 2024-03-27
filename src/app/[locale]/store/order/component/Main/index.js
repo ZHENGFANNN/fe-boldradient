@@ -233,7 +233,7 @@ export default function Main({
     setTimeout(() => {
       setPayPalLoading(true);
     }, 400);
-  }, [userType]);
+  }, [userType, addressInfo]);
 
   // 清空购物车
   const clearOrderList = React.useCallback(() => {
@@ -521,7 +521,7 @@ export default function Main({
                         area={area}
                         currency={orderList[0]?.priceCurrency}
                         onError={(error) => {
-                          setErrorPay(true);
+                          // setErrorPay(true);
                           console.log("[Order Page Paypal Error]: ", error);
                           if (userType === "user" && !addressInfo) {
                             return;

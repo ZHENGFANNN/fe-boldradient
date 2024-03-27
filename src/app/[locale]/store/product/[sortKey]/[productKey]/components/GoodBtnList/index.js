@@ -17,7 +17,6 @@ import tracking from "../../tracking";
 import GlobalContext from "@/globalContext";
 
 import roundToTwoDecimalPlaces from "@/utils/roundToTwoDecimalPlaces";
-import formatCurrency from "@/utils/formatCurrency";
 
 import Api from "../../api";
 
@@ -30,6 +29,7 @@ function PayButton({
   locale,
   LANG,
   CONFIG,
+  currency,
 }) {
   const { userInfo = {} } = React.useContext(GlobalContext);
   const [{ isPending }] = usePayPalScriptReducer();
@@ -128,6 +128,7 @@ function PayButton({
               productInfo,
               locale,
               discount,
+              currency,
             ]}
             createOrder={async () => {
               // 处理订单
@@ -162,7 +163,7 @@ function PayButton({
                     throw new Error("code !== 0");
                   }
                 })
-                .catch(() => {
+                .catch((error) => {
                   console.log(`[Page Paypal createOrder]: ${error}`);
                   showTip({
                     text: LANG["store.order.create_error"],
@@ -217,7 +218,7 @@ function PayButton({
             }}
             onError={(error) => {
               console.log(`[Page Paypal onError]: ${error}`);
-              setErrorPay(true);
+              // setErrorPay(true);
               showTip({
                 text: LANG["store.order.pay_error"],
                 type: "error",
@@ -245,8 +246,7 @@ export default function GoodBtnList({
   const productOptions = useProductStore((state) => state.productOptions);
   const [loading, setLoading] = React.useState(false);
 
-  const [countryCode, setCountryCode] = React.useState("US");
-  React.useEffect(() => {
+  const countryCode = React.useMemo(() => {
     let countryCode;
     if (areaCode === "hk_en") {
       countryCode = "HK";
@@ -257,26 +257,29 @@ export default function GoodBtnList({
     } else {
       countryCode = areaCode?.toUpperCase() || "US";
     }
-    setCountryCode(countryCode);
+    return countryCode;
   }, [areaCode]);
 
-  const [currency, setCurrency] = React.useState("USD");
+  const [currency, setCurrency] = React.useState();
   React.useEffect(() => {
     setLoading(true);
     const currency = productCurCombo?.areaInfo?.currency || "USD";
     setCurrency(currency);
-    setLoading(false);
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
   }, [productCurCombo]);
 
   return (
     <div className={styles.container} data-role="buy-btn-list">
       {/* 库存按钮 */}
-      {!productCurCombo.areaInfo?.stock ||
-      !productCurCombo.areaInfo?.product_price ? (
+      {!productCurCombo.areaInfo?.product_price &&
+      !productCurCombo.areaInfo?.stock ? (
         <div className={styles.btn_stock}>{LANG["store.product.no_stock"]}</div>
       ) : (
         // 购买按钮
         <>
+          {/* 加入购物车 */}
           <div
             onClick={() => {
               if (
@@ -340,6 +343,7 @@ export default function GoodBtnList({
           >
             {LANG["store.product.add_cart"]}
           </div>
+          {/* Paypal按钮 */}
           {loading ? (
             <Loading height={108} />
           ) : (
@@ -357,6 +361,7 @@ export default function GoodBtnList({
                 CONFIG={CONFIG}
                 LANG={LANG}
                 locale={locale}
+                currency={currency}
                 goodDiscountFestival={goodDiscountFestival}
                 productInfo={productInfo}
                 productCurCombo={productCurCombo}

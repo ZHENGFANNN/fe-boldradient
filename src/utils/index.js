@@ -49,3 +49,17 @@ export const throttle = (func, limit) => {
 export function isUserMobile(ua) {
   return /mobile|android|iphone|ipod|phone|ipad/i.test(ua.toLowerCase());
 }
+
+/**
+ * @desc 判断保留小数点
+ * @param value 值
+ * @param num 小数位
+ */
+export function roundToTwoDecimalPlaces(value, num = 0) {
+  if (num) {
+    const newValue = value.toFixed(2);
+    return Number(newValue);
+  } else {
+    return Math.floor(value);
+  }
+}

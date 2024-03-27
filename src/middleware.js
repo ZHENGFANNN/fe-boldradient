@@ -10,7 +10,7 @@ import { NextResponse } from "next/server";
 
 export function middleware(request) {
   let area = request.cookies.get("area")?.value;
-  let locale = request.cookies.get("locale");
+  let locale = request.cookies.get("locale").value;
   /**
    * 功能：
    *  1、判断地区Cookie是否存在
@@ -82,7 +82,12 @@ export function middleware(request) {
         request.nextUrl.pathname === "/" ? "" : request.nextUrl.pathname
       }${request.nextUrl.search}`;
     } else {
-      baseUrl = `${request.nextUrl.pathname.split(curLocale).join(locale)}${
+      // ** BUG修复 ** 全局替换问题
+      // baseUrl = `${request.nextUrl.pathname.split(curLocale).join(locale)}${
+      //   request.nextUrl.search
+      // }`;
+
+      baseUrl = `${request.nextUrl.pathname.replace(curLocale, locale)}${
         request.nextUrl.search
       }`;
     }

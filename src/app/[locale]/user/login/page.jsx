@@ -39,12 +39,7 @@ export default async function Login({ params: { locale } }) {
         />
         <h1 className={styles.title}>{LANG["www.user_login.login_title"]}</h1>
         <LoginForm LANG={LANG} CONFIG={CONFIG} />
-        <p className={styles.register}>
-          <span>{LANG["www.user_login.new_user"]}</span>
-          <Link href="/user/register">
-            {LANG["www.user_login.create_acount"]}
-          </Link>
-        </p>
+
         {/* TODO： 第三方登录 */}
         {/* <div className={styles.other_login_title}>
             <div className={styles.line}></div>

@@ -26,6 +26,11 @@ export default function LoginForm({ LANG }) {
   } = useForm();
   const { setUserInfo } = React.useContext(GlobalContext);
 
+  const [searchStr, setSearchStr] = React.useState();
+  React.useEffect(() => {
+    setSearchStr(location.search);
+  }, []);
+
   React.useEffect(() => {
     const token = Cookies.get("token");
     if (token) {
@@ -87,47 +92,55 @@ export default function LoginForm({ LANG }) {
   );
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <div className={styles.form_item + " " + styles["mb-16"]}>
-        <h2>{LANG["www.user_login.email"]}</h2>
-        <input
-          {...register("email", {
-            required: LANG["www.user_login.email_empyt"],
-            pattern: {
-              value: ISEMAIL,
-              message: LANG["www.user_login.email_error"],
-            },
-          })}
-        />
-        <p>{errors.email?.message}</p>
-      </div>
-      <div className={styles.form_item + " " + styles["mb-16"]}>
-        <h2>{LANG["www.user_login.password"]}</h2>
-        <input
-          type="password"
-          {...register("password", {
-            required: LANG["www.user_login.password_empyt"],
-            minLength: {
-              value: 8,
-              message: LANG["www.user_login.password_error"],
-            },
-            maxLength: {
-              value: 20,
-              message: LANG["www.user_login.password_error"],
-            },
-          })}
-        />
-        <p>{errors.password?.message}</p>
-      </div>
-      <span>
-        <Link href="/user/forget" className={styles.forget}>
-          {LANG["www.user_login.forget_password"]}
+    <>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div className={styles.form_item + " " + styles["mb-16"]}>
+          <h2>{LANG["www.user_login.email"]}</h2>
+          <input
+            {...register("email", {
+              required: LANG["www.user_login.email_empyt"],
+              pattern: {
+                value: ISEMAIL,
+                message: LANG["www.user_login.email_error"],
+              },
+            })}
+          />
+          <p>{errors.email?.message}</p>
+        </div>
+        <div className={styles.form_item + " " + styles["mb-16"]}>
+          <h2>{LANG["www.user_login.password"]}</h2>
+          <input
+            type="password"
+            {...register("password", {
+              required: LANG["www.user_login.password_empyt"],
+              minLength: {
+                value: 8,
+                message: LANG["www.user_login.password_error"],
+              },
+              maxLength: {
+                value: 20,
+                message: LANG["www.user_login.password_error"],
+              },
+            })}
+          />
+          <p>{errors.password?.message}</p>
+        </div>
+        <span>
+          <Link href={`/user/forget`} className={styles.forget}>
+            {LANG["www.user_login.forget_password"]}
+          </Link>
+        </span>
+        <button type="submit" disabled={loading} className={styles.button}>
+          {LANG["www.user_login.login_title"]}
+        </button>
+        <ShowTipModal ref={tipRef} />
+      </form>
+      <p className={styles.register}>
+        <span>{LANG["www.user_login.new_user"]}</span>
+        <Link href={`/user/register${searchStr}`}>
+          {LANG["www.user_login.create_acount"]}
         </Link>
-      </span>
-      <button type="submit" disabled={loading} className={styles.button}>
-        {LANG["www.user_login.login_title"]}
-      </button>
-      <ShowTipModal ref={tipRef} />
-    </form>
+      </p>
+    </>
   );
 }

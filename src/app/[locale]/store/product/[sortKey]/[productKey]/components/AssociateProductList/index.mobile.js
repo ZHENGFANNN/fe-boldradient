@@ -6,7 +6,7 @@ import Splide from "@splidejs/splide";
 
 import formatCurrency from "@/utils/formatCurrency";
 
-import ProductContext from "../../productContext";
+import ProductContext from "../../ProductContext";
 import { lazyLoadImages } from "@/utils/optimization";
 
 import styles from "./index.mobile.module.scss";
@@ -17,7 +17,6 @@ export default function MobProductList({
   LANG,
   goodDiscountFestival,
   products,
-  title,
 }) {
   const { lazyLoading } = React.useContext(ProductContext);
   const initSplide = React.useCallback(() => {
@@ -68,7 +67,7 @@ export default function MobProductList({
   }, [lazyLoading]);
   return (
     <section className={styles.associate_product}>
-      <div className={styles.title}>{title}</div>
+      <div className={styles.title}>{LANG["store.product.maybe_you_like"]}</div>
       <div className={`splide ${styles["splide-mobile"]}`}>
         <div className="splide__track">
           <ul className="splide__list">
@@ -87,10 +86,7 @@ export default function MobProductList({
                       {/* 产品评分 */}
                       {!isNaN(item.reviewScore) ? (
                         <GoodReviewsRate
-                          title={`( ${LANG["store.product.reviews"]?.replace(
-                            "${num}",
-                            item.reviewsNum
-                          )} )`}
+                          reviewNum={item.reviewsNum}
                           reviewScore={item.reviewScore}
                         />
                       ) : null}

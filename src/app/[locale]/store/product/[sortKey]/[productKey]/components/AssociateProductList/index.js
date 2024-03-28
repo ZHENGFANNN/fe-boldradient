@@ -1,19 +1,21 @@
 "use client";
 
 import React from "react";
+import ProductContext from "../../ProductContext";
+
 import PcProductList from "./index.pc";
 import MobProductList from "./index.mobile";
-import ProductContext from "../../productContext";
 
-export default function AssociateProductList({
-  products,
-  title,
-  goodDiscountFestival,
-  isMobile,
-  LANG,
-}) {
+export default function AssociateProductList() {
+  const {
+    LANG,
+    productInfo: { associateProduct },
+    goodDiscountFestival,
+    isMobile,
+    lazyLoading,
+  } = React.useContext(ProductContext);
+
   const [device, setDevice] = React.useState(isMobile ? "mob" : "pc");
-  const { lazyLoading } = React.useContext(ProductContext);
   React.useEffect(() => {
     if (!lazyLoading) {
       $(window).on("resize", () => {
@@ -25,21 +27,20 @@ export default function AssociateProductList({
       });
     }
   }, [lazyLoading]);
+  if (associateProduct.length < 1) return null;
   return (
     <>
       {device === "pc" ? (
         <PcProductList
           LANG={LANG}
           goodDiscountFestival={goodDiscountFestival}
-          products={products}
-          title={title}
+          products={associateProduct}
         />
       ) : (
         <MobProductList
           LANG={LANG}
           goodDiscountFestival={goodDiscountFestival}
-          products={products}
-          title={title}
+          products={associateProduct}
         />
       )}
     </>

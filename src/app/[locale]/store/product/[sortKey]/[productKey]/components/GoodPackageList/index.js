@@ -7,17 +7,21 @@ import React from "react";
 
 import Image from "@/components/Image";
 import { lazyLoadImages } from "@/utils/optimization";
-import ProductContext from "../../productContext";
+import ProductContext from "../../ProductContext";
 
-export default function Package({ configList = [], LANG = () => {} }) {
-  const { lazyLoading } = React.useContext(ProductContext);
+export default function Package() {
+  const {
+    LANG,
+    productInfo: { packageList },
+    lazyLoading,
+  } = React.useContext(ProductContext);
 
   const imageList = React.useMemo(() => {
-    return configList.filter((item) => item.type === "image");
-  }, [configList]);
+    return packageList.filter((item) => item.type === "image");
+  }, [packageList]);
   const textList = React.useMemo(() => {
-    return configList.filter((item) => item.type === "text");
-  }, [configList]);
+    return packageList.filter((item) => item.type === "text");
+  }, [packageList]);
   React.useEffect(() => {
     if (!lazyLoading) {
       const cleanLazy = lazyLoadImages($(`.${styles.image_list}`));
@@ -25,7 +29,7 @@ export default function Package({ configList = [], LANG = () => {} }) {
     }
   }, [lazyLoading]);
 
-  if (configList.length < 1) return null;
+  if (packageList.length < 1) return null;
   return (
     <section className={`${styles.package}`} id="product_package">
       <div className={styles.package_container}>

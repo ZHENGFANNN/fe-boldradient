@@ -1,11 +1,12 @@
 "use client";
 
-import VideoModal from "@/components/Modal/VideoModal";
-import styles from "./index.module.scss";
-import ImageModal from "@/components/Modal/ImageModal";
-import { lazyLoadImages } from "@/utils/optimization";
-import ProductContext from "../../productContext";
 import React from "react";
+import ProductContext from "../../ProductContext";
+import styles from "./index.module.scss";
+
+import { lazyLoadImages } from "@/utils/optimization";
+import VideoModal from "@/components/Modal/VideoModal";
+import ImageModal from "@/components/Modal/ImageModal";
 import DropSelect from "@/components/DropSelect";
 import Empyt from "@/components/Empyt";
 
@@ -38,11 +39,11 @@ function ReviewRate({ scoreRate = 1 }) {
   );
 }
 
-function LoadingReviews({ configList, score }) {
+function LoadingReviews({ reviewsList, score }) {
   const [averageScore, setAverageScore] = React.useState(0);
   const [scoreRate, setScoreRate] = React.useState(0);
   const [scoreMap, setScoreMap] = React.useState({});
-  const [scoreList, setScoreList] = React.useState(configList);
+  const [scoreList, setScoreList] = React.useState(reviewsList);
   const [page, setPage] = React.useState(1);
 
   React.useEffect(() => {
@@ -69,21 +70,21 @@ function LoadingReviews({ configList, score }) {
         list: [],
       },
     };
-    const totalScore = configList.reduce((pre, cur) => {
+    const totalScore = reviewsList.reduce((pre, cur) => {
       map[cur.score].num = map[cur.score].num + 1;
       map[cur.score].push = map[cur.score].list.push(cur);
       return pre + cur.score;
     }, 0);
 
     setScoreMap(map);
-    setAverageScore((totalScore / configList.length).toFixed(1));
-    setScoreRate(totalScore / configList.length / 5);
-  }, [configList]);
+    setAverageScore((totalScore / reviewsList.length).toFixed(1));
+    setScoreRate(totalScore / reviewsList.length / 5);
+  }, [reviewsList]);
 
   React.useEffect(() => {
     setPage(1);
     if (score === "all") {
-      setScoreList(configList);
+      setScoreList(reviewsList);
     } else {
       setScoreList(scoreMap[score].list);
     }
@@ -92,16 +93,21 @@ function LoadingReviews({ configList, score }) {
   return { scoreRate, averageScore, scoreMap, scoreList, page, setPage };
 }
 
-export default function GoodReviewsContent({ LANG, configList }) {
+export default function GoodReviewsContent() {
+  const {
+    LANG,
+    productInfo: { reviewsList },
+  } = React.useContext(ProductContext);
+
   const [value, setValue] = React.useState("all");
   const { scoreRate, averageScore, scoreMap, scoreList, page, setPage } =
     LoadingReviews({
-      configList,
+      reviewsList,
       score: value,
     });
   const { lazyLoading } = React.useContext(ProductContext);
 
-  const reviewsList = React.useMemo(() => {
+  const starsList = React.useMemo(() => {
     return [
       { label: LANG["store.product.all"], value: "all" },
       { label: LANG["store.product.stars"]?.replace("${num}", 5), value: "5" },
@@ -119,7 +125,7 @@ export default function GoodReviewsContent({ LANG, configList }) {
     }
   }, [lazyLoading, scoreList]);
 
-  if (configList.length < 1) return null;
+  if (reviewsList.length < 1) return null;
   return (
     <section className={styles.reviews} id="product_reviews">
       <div className={styles.reviews_container}>
@@ -130,7 +136,7 @@ export default function GoodReviewsContent({ LANG, configList }) {
             <div className={styles.reviews_text}>
               {LANG["store.product.reviews"]?.replace(
                 "${num}",
-                configList.length
+                reviewsList.length
               )}
             </div>
           </div>
@@ -153,7 +159,7 @@ export default function GoodReviewsContent({ LANG, configList }) {
                         <div
                           style={{
                             width: `${
-                              (scoreMap[key].list.length / configList.length) *
+                              (scoreMap[key].list.length / reviewsList.length) *
                               100
                             }%`,
                           }}
@@ -173,7 +179,7 @@ export default function GoodReviewsContent({ LANG, configList }) {
             <div className={styles.reviews_header_num}>
               {LANG["store.product.reviews"]?.replace(
                 "${num}",
-                scoreMap[value]?.list.length ?? configList.length
+                scoreMap[value]?.list.length || reviewsList.length
               )}
             </div>
             <div className={styles.reviews_header_select}>
@@ -186,10 +192,10 @@ export default function GoodReviewsContent({ LANG, configList }) {
                   position="bottom"
                   tanslatefromX={16}
                   selectValue={(value) => setValue(value)}
-                  options={reviewsList}
+                  options={starsList}
                 >
                   <div className={styles.review_header_select_item_label}>
-                    {reviewsList.find((item) => item.value === value)?.label}
+                    {starsList.find((item) => item.value === value)?.label}
                   </div>
                 </DropSelect>
               </div>

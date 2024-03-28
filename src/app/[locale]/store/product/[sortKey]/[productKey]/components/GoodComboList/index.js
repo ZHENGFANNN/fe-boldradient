@@ -2,47 +2,29 @@
 
 import React from "react";
 import styles from "./index.module.scss";
-import useProductStore from "../../productStore";
+import ProductContext from "../../ProductContext";
 import formatCurrency from "@/utils/formatCurrency";
 
-export default function GoodComboList({
-  options = [],
-  defaultActive,
-  LANG,
-  goodDiscountFestival,
-  from = "product",
-}) {
-  const setProductCurCombo = useProductStore(
-    (state) => state.setProductCurCombo
-  );
-
-  const productCurCombo = useProductStore((state) => state.productCurCombo);
-
+export default function GoodComboList() {
+  const {
+    LANG,
+    productCurCombo,
+    setProductCurCombo,
+    goodDiscountFestival,
+    productInfo: { comboList },
+  } = React.useContext(ProductContext);
   const [active, setActive] = React.useState(() => {
-    return defaultActive || options[0]?.key;
+    return productCurCombo?.key;
   });
-
   React.useEffect(() => {
-    setActive(productCurCombo.key);
+    setActive(productCurCombo?.key);
   }, [productCurCombo]);
-
-  React.useEffect(() => {
-    // 来自首页的进行初始化
-    if (from === "product") {
-      setProductCurCombo(
-        options[0] || {
-          areaInfo: {},
-        }
-      );
-    }
-  }, [from]);
-
-  if (options.length < 1) return null;
+  if (comboList.length < 1) return null;
   return (
     <div className={styles.container}>
       <h2>{LANG["store.product.combo"]}</h2>
       <div data-role="productCombo">
-        {options.map((item) => {
+        {comboList.map((item) => {
           return (
             <div
               data-padding={

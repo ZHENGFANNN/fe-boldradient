@@ -1,32 +1,49 @@
 "use client";
 
 import React from "react";
+import ProductContext from "../../ProductContext";
 import styles from "./index.module.scss";
 
 const active_icon = `${process.env.NEXT_PUBLIC_IMAGE}/icon/previews_stars_active_icon.svg`;
 const no_active_icon = `${process.env.NEXT_PUBLIC_IMAGE}/icon/previews_stars_icon.svg`;
 
-export default function GoodReviewsRate({
-  title,
-  configList = [],
-  reviewScore,
-}) {
-  const rate = React.useMemo(() => {
-    if (configList.length > 0) {
-      const totalScore = configList.reduce((pre, cur) => {
-        return pre + cur.score;
-      }, 0);
-      return totalScore / configList.length / 5;
+export default function GoodReviewsRate({ reviewNum, reviewScore }) {
+  const { LANG, productInfo } = React.useContext(ProductContext);
+
+  const number = React.useMemo(() => {
+    // 参数为先
+    if (reviewNum) {
+      return reviewNum;
     } else {
-      return reviewScore / 5;
+      return productInfo.reviewsList?.length;
     }
-  }, [configList, reviewScore]);
+  }, []);
+
+  const score = React.useMemo(() => {
+    // 参数为先
+    if (reviewScore) {
+      return reviewScore;
+    } else {
+      const totalScore = productInfo.reviewsList.reduce(
+        (pre, cur) => pre + cur.score,
+        0
+      );
+      return totalScore / productInfo.reviewsList?.length;
+    }
+  });
+
+  const rate = React.useMemo(() => {
+    return score / 5;
+  }, [number, score]);
+
+  if (!productInfo.reviewsList?.length && !number) return;
+
   return (
     <div
       className={styles.container}
-      data-disabled={configList.length < 1}
+      data-disabled={productInfo.reviewsList.length < 1}
       onClick={function () {
-        if (configList.length > 0) {
+        if (productInfo.reviewsList.length > 0) {
           const $dom = document.getElementById("product_reviews");
           if ($dom) {
             $dom.scrollIntoView({
@@ -56,7 +73,9 @@ export default function GoodReviewsRate({
         <img alt="active_icon" src={active_icon} />
         <img alt="active_icon" src={active_icon} />
       </div>
-      <div className={styles.reviews_text}>{title}</div>
+      <div className={styles.reviews_text}>{`( ${LANG[
+        "store.product.reviews"
+      ]?.replace("${num}", number)} )`}</div>
     </div>
   );
 }

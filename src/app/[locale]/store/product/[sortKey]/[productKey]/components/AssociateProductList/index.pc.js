@@ -1,7 +1,7 @@
 import React from "react";
 
 import formatCurrency from "@/utils/formatCurrency";
-import ProductContext from "../../productContext";
+import ProductContext from "../../ProductContext";
 import styles from "./index.module.scss";
 import Link from "next/link";
 
@@ -14,7 +14,6 @@ export default function PcProductList({
   LANG,
   goodDiscountFestival,
   products,
-  title,
 }) {
   const { lazyLoading } = React.useContext(ProductContext);
   const [active, setActive] = React.useState(0);
@@ -85,7 +84,7 @@ export default function PcProductList({
 
   return (
     <section className={styles.associate_product}>
-      <div className={styles.title}>{title}</div>
+      <div className={styles.title}>{LANG["store.product.maybe_you_like"]}</div>
       <div className={styles.splide_container}>
         <ul className={styles.list_container}>
           {products.map((item, index) => (
@@ -116,10 +115,7 @@ export default function PcProductList({
                     {/* 产品评分 */}
                     {!isNaN(item.reviewScore) ? (
                       <GoodReviewsRate
-                        title={`( ${LANG["store.product.reviews"]?.replace(
-                          "${num}",
-                          item.reviewsNum
-                        )} )`}
+                        reviewNum={item.reviewsNum}
                         reviewScore={item.reviewScore}
                       />
                     ) : null}

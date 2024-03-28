@@ -1,9 +1,15 @@
 "use client";
 
 import React from "react";
+import ProductContext from "../../ProductContext";
 import styles from "./index.module.scss";
 
-export default function GoodFaq({ LANG, CONFIG, configList }) {
+export default function GoodFaq() {
+  const {
+    LANG,
+    CONFIG,
+    productInfo: { faqList },
+  } = React.useContext(ProductContext);
   const [activity, setActivity] = React.useState();
   // 处理下拉动画
   React.useEffect(() => {
@@ -29,7 +35,7 @@ export default function GoodFaq({ LANG, CONFIG, configList }) {
 
   const list = React.useMemo(() => {
     return [
-      ...configList,
+      ...faqList,
       {
         type: "faq",
         question: LANG["store.product.service_agreement.delivery_terms"],

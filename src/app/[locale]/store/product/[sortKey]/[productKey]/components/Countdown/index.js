@@ -2,8 +2,7 @@
 
 import React from "react";
 import styles from "./index.module.scss";
-import ProductContext from "../../productContext";
-import useProductStore from "../../productStore";
+import ProductContext from "../../ProductContext";
 
 // 格式化时间，保证显示为两位数
 function formatTime(time) {
@@ -41,9 +40,9 @@ function updateCountdown(endTime) {
   );
 }
 
-export default function Countdown({ goodDiscountFestival, LANG }) {
-  const { lazyLoading } = React.useContext(ProductContext);
-  const productCurCombo = useProductStore((state) => state.productCurCombo);
+export default function Countdown() {
+  const { lazyLoading, productCurCombo, goodDiscountFestival, LANG } =
+    React.useContext(ProductContext);
   React.useEffect(() => {
     if (!lazyLoading) {
       const t = setInterval(() => {

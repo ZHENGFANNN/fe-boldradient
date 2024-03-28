@@ -1,19 +1,80 @@
 "use client";
 import styles from "./index.module.scss";
 import React from "react";
-import Script from "next/script";
 
 import "@splidejs/splide/css";
 import Splide from "@splidejs/splide";
-import useProductStore from "../../productStore";
-import ProductContext from "../../productContext";
+import ProductContext from "../../ProductContext";
 
-export default function ContentDisplay({ options = [], productInfo }) {
-  const { lazyLoading } = React.useContext(ProductContext);
-  const productCurCombo = useProductStore((state) => state.productCurCombo);
-  const productOptions = useProductStore((state) => state.productOptions);
-  const productShowType = useProductStore((state) => state.productShowType);
+// 获取类型
+async function getMediaDisplayList({ productInfo, LANG }) {
+  if (productInfo) {
+    const list = [];
+    if (productInfo.image_list.length > 0) {
+      list.push({
+        type: "image",
+        icon_src: `${process.env.NEXT_PUBLIC_IMAGE}/icon/media-image.svg`,
+        text: LANG["store.product.image"],
+        image_list: productInfo.image_list,
+      });
+    }
+    if (productInfo.video_url) {
+      list.push({
+        type: "video",
+        icon_src: `${process.env.NEXT_PUBLIC_IMAGE}/icon/media-play.svg`,
+        text: LANG["store.product.product_introduce"],
+        video_url: productInfo.video_url,
+        video_cover: productInfo.video_cover,
+      });
+    }
+    if (productInfo.three_d) {
+      list.push({
+        type: "3d",
+        icon_src: `${process.env.NEXT_PUBLIC_IMAGE}/icon/media-three-3d.svg`,
+        text: "3D",
+        three_d: productInfo.three_d,
+        three_d_background: productInfo.three_d_background,
+      });
+    }
+    return list;
+  } else {
+    return null;
+  }
+}
+
+export default function GoodMediaDisplay() {
+  const { lazyLoading, productInfo, productShowType, productCurCombo } =
+    React.useContext(ProductContext);
   const [progress, setProgress] = React.useState(0);
+
+  const mediaDisplayList = React.useMemo(() => {
+    if (productInfo) {
+      const list = [];
+      if (productInfo.image_list.length > 0) {
+        list.push({
+          type: "image",
+          image_list: productInfo.image_list,
+        });
+      }
+      if (productInfo.video_url) {
+        list.push({
+          type: "video",
+          video_url: productInfo.video_url,
+          video_cover: productInfo.video_cover,
+        });
+      }
+      if (productInfo.three_d) {
+        list.push({
+          type: "3d",
+          three_d: productInfo.three_d,
+          three_d_background: productInfo.three_d_background,
+        });
+      }
+      return list;
+    } else {
+      return null;
+    }
+  }, []);
 
   React.useEffect(() => {
     if (!lazyLoading) {
@@ -51,10 +112,6 @@ export default function ContentDisplay({ options = [], productInfo }) {
       };
     }
   }, [productCurCombo, lazyLoading]);
-
-  React.useEffect(() => {
-    console.log("productOptions:", productOptions);
-  }, [productOptions]);
 
   React.useEffect(() => {
     if (!lazyLoading) {
@@ -108,7 +165,7 @@ export default function ContentDisplay({ options = [], productInfo }) {
 
   return (
     <div className={styles.left_content_top}>
-      {options.map((item, index) => {
+      {mediaDisplayList.map((item, index) => {
         if (item.type === "image") {
           return (
             <div

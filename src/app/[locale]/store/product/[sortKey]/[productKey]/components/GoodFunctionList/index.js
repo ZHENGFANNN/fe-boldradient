@@ -5,13 +5,17 @@ import styles from "./index.module.scss";
 
 import Image from "@/components/Image";
 import { lazyLoadImages } from "@/utils/optimization";
-import ProductContext from "../../productContext";
+import ProductContext from "../../ProductContext";
 
-export default function GoodFunctionList({ configList = [], LANG = () => {} }) {
-  const { lazyLoading } = React.useContext(ProductContext);
+export default function GoodFunctionList() {
+  const {
+    lazyLoading,
+    LANG,
+    productInfo: { funcionList },
+  } = React.useContext(ProductContext);
   const mainFunction = React.useMemo(() => {
-    return configList.filter((item) => !!item.image);
-  }, [configList]);
+    return funcionList.filter((item) => !!item.image);
+  }, [funcionList]);
 
   React.useEffect(() => {
     if (!lazyLoading) {
@@ -20,7 +24,7 @@ export default function GoodFunctionList({ configList = [], LANG = () => {} }) {
     }
   }, [lazyLoading]);
 
-  if (configList.length < 1) return null;
+  if (funcionList.length < 1) return null;
   return (
     <section className={`${styles.function}`} id="productfunction">
       <div className={styles.function_container}>
@@ -42,7 +46,7 @@ export default function GoodFunctionList({ configList = [], LANG = () => {} }) {
         {/* 所有功能 */}
         <div className={styles.function_list}>
           <ul>
-            {configList.map((item, index) => {
+            {funcionList.map((item, index) => {
               return (
                 <li key={index}>
                   <p>{item.name}</p>

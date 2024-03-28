@@ -1,10 +1,14 @@
 "use client";
-import styles from "./index.module.scss";
-import useProductStore from "../../productStore";
-import formatCurrency from "@/utils/formatCurrency";
+import React from "react";
+import ProductContext from "../../ProductContext";
 
-export default function GoodPrice({ goodDiscountFestival, LANG }) {
-  const productCurCombo = useProductStore((state) => state.productCurCombo);
+import formatCurrency from "@/utils/formatCurrency";
+import styles from "./index.module.scss";
+
+export default function GoodPrice() {
+  const { LANG, productCurCombo, goodDiscountFestival } =
+    React.useContext(ProductContext);
+
   return (
     <>
       {/* 优惠金额 */}

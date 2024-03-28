@@ -10,16 +10,18 @@ import MediaFacebook from "./components/MediaFacebook";
 import MediaImage from "./components/MediaImage";
 
 import { lazyLoadImages, lazyLoadVideos } from "@/utils/optimization";
-import ProductContext from "../../productContext";
+import ProductContext from "../../ProductContext";
 import MediaHtml from "./components/MediaHtml";
 
-export default function GoodMediaList({ configList = [] }) {
-  const { lazyLoading } = React.useContext(ProductContext);
+export default function GoodMediaList() {
+  const {
+    lazyLoading,
+    productInfo: { mediaList },
+  } = React.useContext(ProductContext);
   React.useEffect(() => {
     if (!lazyLoading) {
       const cleanLazy = lazyLoadImages($(`.${styles.media}`));
       const cleanLazyVideo = lazyLoadVideos($(`.${styles.media}`));
-
       return () => {
         cleanLazy();
         cleanLazyVideo();
@@ -27,10 +29,10 @@ export default function GoodMediaList({ configList = [] }) {
     }
   }, [lazyLoading]);
 
-  if (configList.length < 1) return null;
+  if (mediaList.length < 1) return null;
   return (
     <section className={`${styles.media}`} id="product_overview">
-      {configList.map((item, index) => {
+      {mediaList.map((item, index) => {
         if (item.type === "video") {
           return <MediaVideo key={index} videoInfo={item} />;
         } else if (item.type === "youtube") {

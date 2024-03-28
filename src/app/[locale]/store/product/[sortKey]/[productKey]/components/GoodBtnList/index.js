@@ -10,8 +10,8 @@ import React from "react";
 import Loading from "@/components/Loading";
 
 import ShowTipModal from "@/components/Modal/ShowTipModal";
+import ProductContext from "../../ProductContext";
 
-import useProductStore from "../../productStore";
 import { useRouter } from "next/navigation";
 import tracking from "../../tracking";
 import GlobalContext from "@/globalContext";
@@ -32,11 +32,11 @@ function PayButton({
   currency,
 }) {
   const { userInfo = {} } = React.useContext(GlobalContext);
-  const [{ isPending }] = usePayPalScriptReducer();
+  const [{ isPending, isRejected, options }, dispatch] =
+    usePayPalScriptReducer();
   const router = useRouter();
   const tipRef = React.useRef(null);
   const secret = React.useRef();
-  const [errorPay, setErrorPay] = React.useState(false);
   const showTip = React.useCallback(({ text, type }) => {
     tipRef.current.show({ text, type });
   }, []);
@@ -86,13 +86,16 @@ function PayButton({
     ];
   }, [productNum, productCurCombo, productInfo, productOptions, locale]);
 
-  if (errorPay) {
+  if (isRejected) {
     return (
       <div className={styles.pay_error_container}>
         <div
           className={styles.btn_container}
           onClick={() => {
-            setErrorPay(false);
+            dispatch({
+              type: "resetOptions",
+              value: options,
+            });
           }}
         >
           <div className={styles.title}>
@@ -218,7 +221,6 @@ function PayButton({
             }}
             onError={(error) => {
               console.log(`[Page Paypal onError]: ${error}`);
-              // setErrorPay(true);
               showTip({
                 text: LANG["store.order.pay_error"],
                 type: "error",
@@ -232,48 +234,41 @@ function PayButton({
   }
 }
 
-export default function GoodBtnList({
-  areaCode,
-  locale,
-  productInfo,
-  goodDiscountFestival,
-  LANG,
-  CONFIG,
-}) {
+export default function GoodBtnList() {
   const { showCartModal } = React.useContext(GlobalContext);
-  const productNum = useProductStore((state) => state.productNum);
-  const productCurCombo = useProductStore((state) => state.productCurCombo);
-  const productOptions = useProductStore((state) => state.productOptions);
-  const [loading, setLoading] = React.useState(false);
-
+  const {
+    LANG,
+    CONFIG,
+    goodDiscountFestival,
+    productInfo,
+    locale,
+    area,
+    productNum,
+    productCurCombo,
+    productOptions,
+  } = React.useContext(ProductContext);
   const countryCode = React.useMemo(() => {
     let countryCode;
-    if (areaCode === "hk_en") {
+    if (area === "hk_en") {
       countryCode = "HK";
-    } else if (areaCode === "ca_en") {
+    } else if (area === "ca_en") {
       countryCode = "CA";
-    } else if (areaCode === "c2") {
+    } else if (area === "c2") {
       countryCode = "CN";
     } else {
-      countryCode = areaCode?.toUpperCase() || "US";
+      countryCode = area?.toUpperCase() || "US";
     }
     return countryCode;
-  }, [areaCode]);
+  }, [area]);
 
-  const [currency, setCurrency] = React.useState();
-  React.useEffect(() => {
-    setLoading(true);
-    const currency = productCurCombo?.areaInfo?.currency || "USD";
-    setCurrency(currency);
-    setTimeout(() => {
-      setLoading(false);
-    }, 1000);
+  const currency = React.useMemo(() => {
+    return productCurCombo?.areaInfo?.currency || "USD";
   }, [productCurCombo]);
 
   return (
     <div className={styles.container} data-role="buy-btn-list">
       {/* 库存按钮 */}
-      {!productCurCombo.areaInfo?.product_price &&
+      {!productCurCombo.areaInfo?.product_price ||
       !productCurCombo.areaInfo?.stock ? (
         <div className={styles.btn_stock}>{LANG["store.product.no_stock"]}</div>
       ) : (
@@ -344,32 +339,28 @@ export default function GoodBtnList({
             {LANG["store.product.add_cart"]}
           </div>
           {/* Paypal按钮 */}
-          {loading ? (
-            <Loading height={108} />
-          ) : (
-            <PayPalScriptProvider
-              options={{
-                clientId: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID,
-                components: "buttons",
-                currency,
-                locale: `${
-                  locale === "hk" || locale === "cn" ? "zh" : locale
-                }_${countryCode}`,
-              }}
-            >
-              <PayButton
-                CONFIG={CONFIG}
-                LANG={LANG}
-                locale={locale}
-                currency={currency}
-                goodDiscountFestival={goodDiscountFestival}
-                productInfo={productInfo}
-                productCurCombo={productCurCombo}
-                productOptions={productOptions}
-                productNum={productNum}
-              />
-            </PayPalScriptProvider>
-          )}
+          <PayPalScriptProvider
+            options={{
+              clientId: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID,
+              components: "buttons",
+              currency,
+              locale: `${
+                locale === "hk" || locale === "cn" ? "zh" : locale
+              }_${countryCode}`,
+            }}
+          >
+            <PayButton
+              LANG={LANG}
+              CONFIG={CONFIG}
+              locale={locale}
+              currency={currency}
+              productInfo={productInfo}
+              productCurCombo={productCurCombo}
+              productOptions={productOptions}
+              productNum={productNum}
+              goodDiscountFestival={goodDiscountFestival}
+            />
+          </PayPalScriptProvider>
         </>
       )}
     </div>

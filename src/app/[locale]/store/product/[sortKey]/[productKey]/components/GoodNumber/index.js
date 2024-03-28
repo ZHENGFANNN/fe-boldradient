@@ -1,11 +1,11 @@
 "use client";
-import styles from "./index.module.scss";
 import React from "react";
-import useProductStore from "../../productStore";
+import ProductContext from "../../ProductContext";
 
-export default function GoodNumber({ LANG }) {
-  const setProductNum = useProductStore((state) => state.setProductNum);
-  const productNum = useProductStore((state) => state.productNum);
+import styles from "./index.module.scss";
+export default function GoodNumber() {
+  const { LANG, productNum, setProductNum } = React.useContext(ProductContext);
+
   return (
     <div className={styles.product_num}>
       <h3>{LANG["store.product.amount"]}</h3>

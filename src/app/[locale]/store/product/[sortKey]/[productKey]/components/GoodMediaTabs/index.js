@@ -2,15 +2,47 @@
 
 import React from "react";
 import styles from "./index.module.scss";
-import useProductStore from "../../productStore";
-import ProductContext from "../../productContext";
+import ProductContext from "../../ProductContext";
 
-export default function SelectList({ options = [] }) {
-  const { lazyLoading } = React.useContext(ProductContext);
-  const setProductShowType = useProductStore(
-    (state) => state.setProductShowType
-  );
-  const productShowType = useProductStore((state) => state.productShowType);
+export default function SelectList() {
+  const {
+    LANG,
+    productShowType,
+    setProductShowType,
+    productInfo,
+    lazyLoading,
+  } = React.useContext(ProductContext);
+
+  const options = React.useMemo(() => {
+    if (productInfo) {
+      const list = [];
+      if (productInfo.image_list.length > 0) {
+        list.push({
+          type: "image",
+          icon_src: `${process.env.NEXT_PUBLIC_IMAGE}/icon/media-image.svg`,
+          text: LANG["store.product.image"],
+        });
+      }
+      if (productInfo.video_url) {
+        list.push({
+          type: "video",
+          icon_src: `${process.env.NEXT_PUBLIC_IMAGE}/icon/media-play.svg`,
+          text: LANG["store.product.product_introduce"],
+        });
+      }
+      if (productInfo.three_d) {
+        list.push({
+          type: "3d",
+          icon_src: `${process.env.NEXT_PUBLIC_IMAGE}/icon/media-three-3d.svg`,
+          text: "3D",
+        });
+      }
+      return list;
+    } else {
+      return null;
+    }
+  }, []);
+
   React.useEffect(() => {
     if (!lazyLoading) {
       // 初始化类型按钮

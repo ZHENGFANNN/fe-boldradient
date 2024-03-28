@@ -230,6 +230,23 @@
   }
 }
 
+@media screen and (max-width: 1265px) {
+  .associate_product {
+    .title {
+      padding-left: 24px;
+    }
+    .splide_container {
+      .list_container {
+        .list_item {
+          .item_content {
+            transform: translateX(24px);
+          }
+        }
+      }
+    }
+  }
+}
+
 
 .stars_container {
   position: relative;

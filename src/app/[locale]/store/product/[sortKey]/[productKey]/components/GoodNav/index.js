@@ -1,11 +1,43 @@
 "use client";
 import React from "react";
 import styles from "./index.module.scss";
-import ProductContext from "../../productContext";
+import ProductContext from "../../ProductContext";
 import { debounce } from "@/utils";
 
-export default function GoodNav({ navList }) {
-  const { lazyLoading } = React.useContext(ProductContext);
+export default function GoodNav() {
+  const { lazyLoading, productInfo, LANG } = React.useContext(ProductContext);
+  const navList = React.useMemo(() => {
+    let navList = [];
+    if (productInfo.mediaList?.length > 0) {
+      navList.push({
+        title: LANG["store.product.nav.overview"],
+        href: "#product_overview",
+      });
+    }
+    if (productInfo.associationsList?.length > 0) {
+      navList.push({
+        title: LANG["store.product.nav.specs"],
+        href: "#product_specs",
+      });
+    }
+    if (productInfo.packageList?.length > 0) {
+      navList.push({
+        title: LANG["store.product.nav.package"],
+        href: "#product_package",
+      });
+    }
+    navList.push({
+      title: LANG["store.product.nav.faq"],
+      href: "#product_faq",
+    });
+    if (productInfo.reviewsList?.length > 0) {
+      navList.push({
+        title: LANG["store.product.nav.reviews"],
+        href: "#product_reviews",
+      });
+    }
+    return navList;
+  }, []);
   React.useEffect(() => {
     if (!lazyLoading) {
       $(`.${styles.nav_item}`).on("click", function () {

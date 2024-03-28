@@ -2,29 +2,25 @@
 
 import React from "react";
 import styles from "./index.module.scss";
-import useProductStore from "../../productStore";
-import ProductContext from "../../productContext";
+import ProductContext from "../../ProductContext";
 import tracking from "../../tracking";
 import ComboModal from "./components/ComboModal";
 import formatCurrency from "@/utils/formatCurrency";
 
 import { debounce } from "@/utils";
 
-export default function GoodFooter({
-  CONFIG,
-  LANG,
-  area,
-  locale,
-  productInfo,
-  goodDiscountFestival,
-  options,
-}) {
+export default function GoodFooter() {
+  const {
+    LANG,
+    goodDiscountFestival,
+    productInfo,
+    productNum,
+    productCurCombo,
+    productOptions,
+    lazyLoading,
+  } = React.useContext(ProductContext);
   const comboModalRef = React.useRef(null);
 
-  const { lazyLoading } = React.useContext(ProductContext);
-  const productNum = useProductStore((state) => state.productNum);
-  const productCurCombo = useProductStore((state) => state.productCurCombo);
-  const productOptions = useProductStore((state) => state.productOptions);
   // 处理选项Options
   const optionString = React.useMemo(() => {
     let optString = "";
@@ -32,7 +28,7 @@ export default function GoodFooter({
       Object.keys(productOptions).forEach((key) => {
         optString =
           optString +
-          ` ${productOptions[key].name}:${productOptions[key].value}`;
+          `  ${productOptions[key].name}: ${productOptions[key].value}`;
       });
       return optString.trimStart();
     } else {
@@ -171,16 +167,7 @@ export default function GoodFooter({
           )}
         </div>
       </div>
-      <ComboModal
-        area={area}
-        locale={locale}
-        productInfo={productInfo}
-        options={options}
-        GOODDISCOUNTFESTIVAL={goodDiscountFestival}
-        LANG={LANG}
-        CONFIG={CONFIG}
-        ref={comboModalRef}
-      />
+      <ComboModal ref={comboModalRef} />
     </section>
   );
 }

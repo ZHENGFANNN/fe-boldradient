@@ -1,37 +1,25 @@
 "use client";
 import React from "react";
 import styles from "./index.module.scss";
-import useProductStore from "../../productStore";
+import ProductContext from "../../ProductContext";
 
-export default function GoodOptionList({
-  title = "",
-  options = [],
-  type,
-  from = "product",
-}) {
-  const setProductOptions = useProductStore((state) => state.setProductOptions);
-  const productOptions = useProductStore((state) => state.productOptions);
-  const [active, setActive] = React.useState(options[0].title);
+function GoodOptionItem({ title = "", options = [], type }) {
+  const { setProductOptions, productOptions } =
+    React.useContext(ProductContext);
 
   const onChange = React.useCallback((item) => {
     setProductOptions(item);
   });
 
-  React.useEffect(() => {
-    if (from !== "components") {
-      onChange({ name: title, value: options[0].title });
-    }
-  }, [from]);
-
   const currentItem = React.useMemo(() => {
     let value;
-    Object.keys(productOptions).forEach((key) => {
-      if (productOptions[key].name === title) {
-        value = productOptions[key].value;
+    productOptions.forEach((item) => {
+      if (item.name === title) {
+        value = item.value;
       }
     });
     return value;
-  }, [productOptions, title]);
+  }, [productOptions]);
 
   return (
     <div className={styles.container}>
@@ -47,7 +35,6 @@ export default function GoodOptionList({
                     ${item.title === currentItem ? styles.active : ""}
                 `}
                 onClick={() => {
-                  setActive(item.title);
                   onChange({
                     name: title,
                     value: item.title,
@@ -66,7 +53,6 @@ export default function GoodOptionList({
                     ${item.title === currentItem ? styles.active : ""}
                 `}
                 onClick={() => {
-                  setActive(item.title);
                   onChange({
                     name: title,
                     value: item.title,
@@ -80,5 +66,27 @@ export default function GoodOptionList({
         })}
       </div>
     </div>
+  );
+}
+
+export default function GoodOptionList() {
+  const {
+    productInfo: { typeList },
+  } = React.useContext(ProductContext);
+
+  if (typeList.length < 1) return null;
+  return (
+    <>
+      {typeList.map((item, index) => {
+        return (
+          <GoodOptionItem
+            key={index}
+            title={item.title}
+            options={item.options}
+            type={item.type}
+          />
+        );
+      })}
+    </>
   );
 }

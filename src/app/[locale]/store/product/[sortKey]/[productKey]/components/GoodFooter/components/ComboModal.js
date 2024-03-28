@@ -1,6 +1,6 @@
 import React from "react";
 import Modal from "@/components/Modal";
-import ProductContext from "../../../ProductContext";
+import ProductContext from "../../../ProductContext2";
 
 import GoodNumber from "../../GoodNumber";
 import GoodOptionList from "../../GoodOptionList";

@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import ProductContext from "../../ProductContext";
+import ProductContext from "../../ProductContext2";
 
 import styles from "./index.module.scss";
 export default function GoodAccessoriesList() {

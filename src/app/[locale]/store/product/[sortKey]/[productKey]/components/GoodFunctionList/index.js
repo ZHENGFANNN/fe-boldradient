@@ -5,7 +5,7 @@ import styles from "./index.module.scss";
 
 import Image from "@/components/Image";
 import { lazyLoadImages } from "@/utils/optimization";
-import ProductContext from "../../ProductContext";
+import ProductContext from "../../ProductContext2";
 
 export default function GoodFunctionList() {
   const {

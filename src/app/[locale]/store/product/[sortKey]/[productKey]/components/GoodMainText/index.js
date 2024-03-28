@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import styles from "./index.module.scss";
-import ProductContext from "../../ProductContext";
+import ProductContext from "../../ProductContext2";
 
 export default function GoodMainText() {
   const { productInfo } = React.useContext(ProductContext);

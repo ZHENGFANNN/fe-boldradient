@@ -9,27 +9,55 @@ import React from "react";
 import Loading from "@/components/Loading";
 
 function PayButton({ createOrder, onApprove, onCancel, onError }) {
-  const [{ isPending }] = usePayPalScriptReducer();
+  const [{ isPending, isRejected, options }, dispatch] =
+    usePayPalScriptReducer();
+
+  if (isRejected) {
+    return (
+      <div className={styles.pay_error_container}>
+        <div
+          className={styles.btn_container}
+          onClick={() => {
+            dispatch({
+              type: "resetOptions",
+              value: options,
+            });
+          }}
+        >
+          <div className={styles.title}>
+            {LANG["store.product.pay_fail.title"]}
+          </div>
+          <div className={styles.button}>
+            {LANG["store.product.pay_fail.click_reload"]}
+          </div>
+        </div>
+        <div className={styles.tip}>
+          {LANG["store.product.pay_fail.error_tip"]?.replace(
+            "${email}",
+            CONFIG["company.basic.customer_service"]
+          )}
+        </div>
+      </div>
+    );
+  }
+
+  if (isPending) {
+    return <Loading height={108} />;
+  }
 
   return (
-    <>
-      {isPending ? (
-        <Loading height={108} />
-      ) : (
-        <PayPalButtons
-          style={{
-            layout: "vertical",
-            color: "gold",
-            label: "paypal",
-            "disable-country-change": "true",
-          }}
-          createOrder={createOrder}
-          onApprove={onApprove}
-          onCancel={onCancel}
-          onError={onError}
-        />
-      )}
-    </>
+    <PayPalButtons
+      style={{
+        layout: "vertical",
+        color: "gold",
+        label: "paypal",
+        "disable-country-change": "true",
+      }}
+      createOrder={createOrder}
+      onApprove={onApprove}
+      onCancel={onCancel}
+      onError={onError}
+    />
   );
 }
 

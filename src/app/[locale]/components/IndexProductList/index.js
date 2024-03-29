@@ -8,7 +8,7 @@ import { IndexContent } from "../IndexContext";
 const active_icon = `${process.env.NEXT_PUBLIC_IMAGE}/icon/previews_stars_active_icon.svg`;
 const no_active_icon = `${process.env.NEXT_PUBLIC_IMAGE}/icon/previews_stars_icon.svg`;
 
-import formatCurrency from "@/utils/formatCurrency";
+import { formatCurrency } from "@/utils";
 import tracking from "../../tracking";
 
 function ReviewRate({ LANG, reviewScore, reviewsNum }) {
@@ -108,11 +108,13 @@ function ProductItem({ goodList }) {
                       <div>{`${
                         product.areaInfo?.currency_symbol
                       }${formatCurrency(
-                        product.areaInfo?.selling_price
+                        product.areaInfo?.selling_price,
+                        product.areaInfo?.currency_unit
                       )}`}</div>
                     ) : null}
                     <div>{`${product.areaInfo?.currency_symbol}${formatCurrency(
-                      product.areaInfo?.product_price
+                      product.areaInfo?.product_price,
+                      product.areaInfo?.currency_unit
                     )}`}</div>
                   </div>
                 )}
@@ -132,8 +134,10 @@ function ProductItem({ goodList }) {
                     offers: {
                       "@type": "Offer",
                       price:
-                        formatCurrency(product.areaInfo?.selling_price) ??
-                        99999,
+                        formatCurrency(
+                          product.areaInfo?.selling_price,
+                          product.areaInfo?.currency_unit
+                        ) ?? 99999,
                       priceCurrency: product.areaInfo?.currency ?? "USD",
                     },
                     sku: CONFIG["company.basic.company_name"],

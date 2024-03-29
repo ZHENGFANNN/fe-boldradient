@@ -51,15 +51,45 @@ export function isUserMobile(ua) {
 }
 
 /**
- * @desc 判断保留小数点
+ * @desc 保留2位小数点
  * @param value 值
- * @param num 小数位
+ * @param unit 小数位
  */
-export function roundToTwoDecimalPlaces(value, num = 0) {
-  if (num) {
-    const newValue = value.toFixed(2);
-    return Number(newValue);
-  } else {
-    return Math.floor(value);
+export function roundToDecimalPlaces(value, unit = 100) {
+  // 确保输入是数字类型
+  if (typeof value !== "number") {
+    value = parseFloat(value);
   }
+  if (typeof unit !== "number") {
+    unit = unit || 100;
+  }
+
+  return Math.round(value * unit) / unit;
+}
+
+/**
+ * @desc 分割金额
+ * @param value 值
+ * @param unit 小数位
+ */
+export function formatCurrency(value, unit = 100) {
+  // 确保输入是数字类型
+  if (typeof value !== "number") {
+    value = parseFloat(value);
+  }
+  if (typeof unit !== "number") {
+    unit = unit || 100;
+  }
+
+  // 使用 toFixed 方法保留两位小数并转换为字符串
+  let formattedAmount = new String(roundToDecimalPlaces(value, unit));
+
+  // 添加千位分隔符
+  formattedAmount = formattedAmount.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+  // 添加货币符号等其他格式化需求
+  // 例如，如果需要添加货币符号，可以这样处理：
+  // formattedAmount = '$' + formattedAmount;
+
+  return formattedAmount;
 }

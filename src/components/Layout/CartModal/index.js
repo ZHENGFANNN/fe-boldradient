@@ -5,7 +5,7 @@ import styles from "./index.module.scss";
 import tracking from "../tracking";
 
 import GlobalContext from "@/globalContext";
-import formatCurrency from "@/utils/formatCurrency";
+import { formatCurrency } from "@/utils";
 
 import { useRouter } from "next/navigation";
 
@@ -207,6 +207,7 @@ const CartMain = function ({
               comboName: comboInfo.title,
               // 地区相关
               currency: comboInfo.areaInfo.currency,
+              currency_unit: comboInfo.areaInfo.currency_unit,
               priceSymbol: comboInfo.areaInfo.currency_symbol,
               product_price: comboInfo.areaInfo.product_price,
               selling_price: comboInfo.areaInfo.selling_price,
@@ -329,11 +330,13 @@ const CartMain = function ({
                                 {goodDiscountFestival &&
                                 item.product_discount ? (
                                   <div>{`${item.priceSymbol}${formatCurrency(
-                                    item.selling_price * item.productNum
+                                    item.selling_price * item.productNum,
+                                    item.currency_unit
                                   )}`}</div>
                                 ) : null}
                                 <div>{`${item.priceSymbol}${formatCurrency(
-                                  item.product_price * item.productNum
+                                  item.product_price * item.productNum,
+                                  item.currency_unit
                                 )}`}</div>
                               </div>
                             </div>

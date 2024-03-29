@@ -3,7 +3,7 @@
 import React from "react";
 import styles from "./index.module.scss";
 import ProductContext from "../../ProductContext";
-import formatCurrency from "@/utils/formatCurrency";
+import { formatCurrency } from "@/utils";
 
 export default function GoodComboList() {
   const {
@@ -71,12 +71,16 @@ export default function GoodComboList() {
                       {goodDiscountFestival &&
                       item.areaInfo?.product_discount ? (
                         <div>{`${item.areaInfo.currency_symbol}${formatCurrency(
-                          item.areaInfo?.selling_price
+                          item.areaInfo?.selling_price,
+                          item.areaInfo?.currency_unit
                         )}`}</div>
                       ) : (
                         <div>{`${
                           item.areaInfo?.currency_symbol
-                        }${formatCurrency(item.areaInfo?.product_price)}`}</div>
+                        }${formatCurrency(
+                          item.areaInfo?.product_price,
+                          item.areaInfo?.currency_unit
+                        )}`}</div>
                       )}
                     </div>
                   ) : null}

@@ -22,9 +22,7 @@ import Paypal from "../../component/Paypal";
 import tracking from "../../tracking";
 
 import { useParams, useRouter } from "next/navigation";
-import formatCurrency from "@/utils/formatCurrency";
-
-import roundToTwoDecimalPlaces from "@/utils/roundToTwoDecimalPlaces";
+import { formatCurrency, roundToDecimalPlaces } from "@/utils";
 
 export default function Main({
   CONFIG,
@@ -147,6 +145,7 @@ export default function Main({
             // 地区相关
             priceSymbol: comboInfo.areaInfo.currency_symbol,
             priceCurrency: comboInfo.areaInfo.currency,
+            currency_unit: comboInfo.areaInfo.currency_unit,
             product_price: comboInfo.areaInfo.product_price,
             selling_price: comboInfo.areaInfo.selling_price,
             product_discount: comboInfo.areaInfo.product_discount,
@@ -365,11 +364,13 @@ export default function Main({
                             <div className={styles.discount}>{`${
                               item.priceSymbol
                             }${formatCurrency(
-                              item.selling_price * item.productNum
+                              item.selling_price * item.productNum,
+                              item.currency_unit
                             )}`}</div>
                           ) : null}
                           <div>{`${item.priceSymbol}${formatCurrency(
-                            item.product_price * item.productNum
+                            item.product_price * item.productNum,
+                            item.currency_unit
                           )}`}</div>
                         </div>
                       </div>
@@ -380,7 +381,8 @@ export default function Main({
                   <div className={styles.price_item}>
                     <h3>{LANG["store.order.good_total"]}</h3>
                     <span>{`${orderList[0]?.priceSymbol}${formatCurrency(
-                      totalPrice - discount
+                      totalPrice - discount,
+                      orderList[0]?.currency_unit
                     )}`}</span>
                   </div>
                   <div className={styles.price_item}>
@@ -395,7 +397,8 @@ export default function Main({
                 <div className={styles.price_total}>
                   <h3>{LANG["store.order.total_price"]}</h3>
                   <span>{`${orderList[0]?.priceSymbol}${formatCurrency(
-                    totalPrice - discount
+                    totalPrice - discount,
+                    orderList[0]?.currency_unit
                   )}`}</span>
                 </div>
               </>
@@ -439,8 +442,14 @@ export default function Main({
                     const res = await Api.createOrder({
                       ...userInfo,
                       pay_key: payKey,
-                      total_price: roundToTwoDecimalPlaces(totalPrice),
-                      discount: roundToTwoDecimalPlaces(discount),
+                      total_price: roundToDecimalPlaces(
+                        totalPrice,
+                        orderList[0]?.currency_unit
+                      ),
+                      discount: roundToDecimalPlaces(
+                        discount,
+                        orderList[0]?.currency_unit
+                      ),
                       order_list: orderList,
                     });
                     if (res.code === 0) {
@@ -550,8 +559,14 @@ export default function Main({
                           return Api.createOrder({
                             ...userInfo,
                             pay_key: payKey,
-                            total_price: roundToTwoDecimalPlaces(totalPrice),
-                            discount: roundToTwoDecimalPlaces(discount),
+                            total_price: roundToDecimalPlaces(
+                              totalPrice,
+                              orderList[0]?.currency_unit
+                            ),
+                            discount: roundToDecimalPlaces(
+                              discount,
+                              orderList[0]?.currency_unit
+                            ),
                             order_list: orderList,
                           })
                             .then((res) => {

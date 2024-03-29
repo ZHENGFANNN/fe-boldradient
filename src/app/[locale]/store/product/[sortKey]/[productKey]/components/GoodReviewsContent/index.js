@@ -40,14 +40,10 @@ function ReviewRate({ scoreRate = 1 }) {
 }
 
 function LoadingReviews({ reviewsList, score }) {
-  const [averageScore, setAverageScore] = React.useState(0);
-  const [scoreRate, setScoreRate] = React.useState(0);
-  const [scoreMap, setScoreMap] = React.useState({});
   const [scoreList, setScoreList] = React.useState(reviewsList);
   const [page, setPage] = React.useState(1);
 
-  React.useEffect(() => {
-    // 初始化Map
+  const scoreMap = React.useMemo(() => {
     const map = {
       5: {
         num: 0,
@@ -70,16 +66,26 @@ function LoadingReviews({ reviewsList, score }) {
         list: [],
       },
     };
-    const totalScore = reviewsList.reduce((pre, cur) => {
-      map[cur.score].num = map[cur.score].num + 1;
-      map[cur.score].push = map[cur.score].list.push(cur);
+    reviewsList.forEach((item) => {
+      map[item.score].num = map[item.score].num + 1;
+      map[item.score].push = map[item.score].list.push(item);
+    });
+    return map;
+  }, [reviewsList]);
+
+  const totalScore = React.useMemo(() => {
+    return reviewsList.reduce((pre, cur) => {
       return pre + cur.score;
     }, 0);
-
-    setScoreMap(map);
-    setAverageScore((totalScore / reviewsList.length).toFixed(1));
-    setScoreRate(totalScore / reviewsList.length / 5);
   }, [reviewsList]);
+
+  const scoreRate = React.useMemo(() => {
+    return totalScore / reviewsList.length / 5;
+  }, [reviewsList, totalScore]);
+
+  const averageScore = React.useMemo(() => {
+    return (totalScore / reviewsList.length).toFixed(1);
+  }, [reviewsList, totalScore]);
 
   React.useEffect(() => {
     setPage(1);
@@ -88,7 +94,7 @@ function LoadingReviews({ reviewsList, score }) {
     } else {
       setScoreList(scoreMap[score].list);
     }
-  }, [score]);
+  }, [score, scoreMap]);
 
   return { scoreRate, averageScore, scoreMap, scoreList, page, setPage };
 }

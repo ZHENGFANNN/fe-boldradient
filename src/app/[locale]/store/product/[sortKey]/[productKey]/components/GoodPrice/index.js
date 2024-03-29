@@ -2,7 +2,7 @@
 import React from "react";
 import ProductContext from "../../ProductContext";
 
-import formatCurrency from "@/utils/formatCurrency";
+import { formatCurrency } from "@/utils";
 import styles from "./index.module.scss";
 
 export default function GoodPrice() {
@@ -18,7 +18,8 @@ export default function GoodPrice() {
             productCurCombo.areaInfo.currency_symbol
           }${formatCurrency(
             productCurCombo.areaInfo?.product_price -
-              productCurCombo.areaInfo?.selling_price
+              productCurCombo.areaInfo?.selling_price,
+            productCurCombo.areaInfo?.currency_unit
           )}`}
         </div>
       ) : null}
@@ -28,12 +29,14 @@ export default function GoodPrice() {
           {goodDiscountFestival &&
           productCurCombo.areaInfo?.product_discount ? (
             <div>{`${productCurCombo.areaInfo.currency_symbol}${formatCurrency(
-              productCurCombo.areaInfo?.selling_price
+              productCurCombo.areaInfo?.selling_price,
+              productCurCombo.areaInfo?.currency_unit
             )}`}</div>
           ) : null}
           <div>
             {`${productCurCombo.areaInfo.currency_symbol}${formatCurrency(
-              productCurCombo.areaInfo.product_price
+              productCurCombo.areaInfo.product_price,
+              productCurCombo.areaInfo?.currency_unit
             )}`}
           </div>
         </div>

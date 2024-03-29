@@ -4,7 +4,7 @@ import React from "react";
 import "@splidejs/splide/css";
 import Splide from "@splidejs/splide";
 
-import formatCurrency from "@/utils/formatCurrency";
+import { formatCurrency } from "@/utils";
 
 import ProductContext from "../../ProductContext";
 import { lazyLoadImages } from "@/utils/optimization";
@@ -117,13 +117,15 @@ export default function MobProductList({
                             <div>{`${
                               item.areaInfo?.currency_symbol
                             }${formatCurrency(
-                              item.areaInfo?.selling_price
+                              item.areaInfo?.selling_price,
+                              item.areaInfo?.currency_unit
                             )}`}</div>
                           ) : null}
                           <div>{`${
                             item.areaInfo?.currency_symbol
                           }${formatCurrency(
-                            item.areaInfo?.product_price
+                            item.areaInfo?.product_price,
+                            item.areaInfo?.currency_unit
                           )}`}</div>
                         </div>
                       )}

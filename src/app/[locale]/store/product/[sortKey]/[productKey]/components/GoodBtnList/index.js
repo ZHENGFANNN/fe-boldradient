@@ -16,7 +16,7 @@ import { useRouter } from "next/navigation";
 import tracking from "../../tracking";
 import GlobalContext from "@/globalContext";
 
-import roundToTwoDecimalPlaces from "@/utils/roundToTwoDecimalPlaces";
+import { roundToDecimalPlaces } from "@/utils";
 
 import Api from "../../api";
 
@@ -45,17 +45,19 @@ function PayButton({
     if (!productCurCombo.areaInfo.product_discount || !goodDiscountFestival) {
       return 0;
     } else {
-      return roundToTwoDecimalPlaces(
+      return roundToDecimalPlaces(
         (productCurCombo.areaInfo.product_price -
           productCurCombo.areaInfo.selling_price) *
-          productNum
+          productNum,
+        productCurCombo.areaInfo.currency_unit
       );
     }
   }, [productCurCombo, productNum]);
 
   const totalPrice = React.useMemo(() => {
-    return roundToTwoDecimalPlaces(
-      productCurCombo.areaInfo.product_price * productNum
+    return roundToDecimalPlaces(
+      productCurCombo.areaInfo.product_price * productNum,
+      productCurCombo.areaInfo.currency_unit
     );
   });
 
@@ -147,8 +149,14 @@ function PayButton({
                     secret.current = res.data.secret;
                     tracking.initiateCheckout({
                       currency: orderList[0].priceCurrency,
-                      value: roundToTwoDecimalPlaces(totalPrice - discount),
-                      discount: roundToTwoDecimalPlaces(discount),
+                      value: roundToDecimalPlaces(
+                        totalPrice - discount,
+                        productCurCombo.areaInfo.currency_unit
+                      ),
+                      discount: roundToDecimalPlaces(
+                        discount,
+                        productCurCombo.areaInfo.currency_unit
+                      ),
                       type: "payPal",
                       contents: orderList,
                     });

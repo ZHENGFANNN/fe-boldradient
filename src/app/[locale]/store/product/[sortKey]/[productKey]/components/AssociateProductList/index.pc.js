@@ -1,6 +1,6 @@
 import React from "react";
 
-import formatCurrency from "@/utils/formatCurrency";
+import { formatCurrency } from "@/utils";
 import ProductContext from "../../ProductContext";
 import styles from "./index.module.scss";
 import Link from "next/link";
@@ -144,12 +144,16 @@ export default function PcProductList({
                           <div>{`${
                             item.areaInfo?.currency_symbol
                           }${formatCurrency(
-                            item.areaInfo?.selling_price
+                            item.areaInfo?.selling_price,
+                            item.areaInfo?.currency_unit
                           )}`}</div>
                         ) : null}
                         <div>{`${
                           item.areaInfo?.currency_symbol
-                        }${formatCurrency(item.areaInfo?.product_price)}`}</div>
+                        }${formatCurrency(
+                          item.areaInfo?.product_price,
+                          item.areaInfo?.currency_unit
+                        )}`}</div>
                       </div>
                     )}
                   </div>

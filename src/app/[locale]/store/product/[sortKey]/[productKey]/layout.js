@@ -4,7 +4,7 @@ import { cookies, headers } from "next/headers";
 import Script from "next/script";
 
 import { isUserMobile } from "@/utils";
-import formatCurrency from "@/utils/formatCurrency";
+import { formatCurrency } from "@/utils";
 import NotFound from "./components/NotFound";
 
 // 匹配产品信息
@@ -148,7 +148,8 @@ export default async function Layout({
                 "@type": "Offer",
                 price:
                   formatCurrency(
-                    productInfo.comboList[0]?.areaInfo?.selling_price
+                    productInfo.comboList[0]?.areaInfo?.selling_price,
+                    productInfo.comboList[0]?.areaInfo?.currency_unit
                   ) ?? 99999,
                 priceCurrency:
                   productInfo.comboList[0]?.areaInfo?.currency ?? "USD",

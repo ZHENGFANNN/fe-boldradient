@@ -5,7 +5,7 @@ import styles from "./index.module.scss";
 import ProductContext from "../../ProductContext";
 import tracking from "../../tracking";
 import ComboModal from "./components/ComboModal";
-import formatCurrency from "@/utils/formatCurrency";
+import { formatCurrency } from "@/utils";
 
 import { debounce } from "@/utils";
 
@@ -127,7 +127,8 @@ export default function GoodFooter() {
                 <div>{`${
                   productCurCombo.areaInfo.currency_symbol
                 }${formatCurrency(
-                  productCurCombo.areaInfo.selling_price * productNum
+                  productCurCombo.areaInfo.selling_price * productNum,
+                  productCurCombo.areaInfo?.currency_unit
                 )}`}</div>
               </div>
             ) : null}
@@ -139,7 +140,8 @@ export default function GoodFooter() {
                 }${formatCurrency(
                   (productCurCombo.areaInfo.product_price -
                     productCurCombo.areaInfo.selling_price) *
-                    productNum
+                    productNum,
+                  productCurCombo.areaInfo?.currency_unit
                 )}`}
               </div>
             ) : null}

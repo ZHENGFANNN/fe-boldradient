@@ -1,4 +1,5 @@
 "use client";
+
 import styles from "../../page.module.scss";
 import Api from "../../api";
 
@@ -11,7 +12,7 @@ import { useRouter } from "next/navigation";
 import Loading from "@/components/Loading";
 import moment from "moment";
 
-import formatCurrency from "@/utils/formatCurrency";
+import { formatCurrency } from "@/utils";
 
 export default function Main({ secret, locale, area, LANG, CONFIG }) {
   const router = useRouter();
@@ -33,6 +34,7 @@ export default function Main({ secret, locale, area, LANG, CONFIG }) {
                 productNum,
                 priceSymbol,
                 priceCurrency,
+                currency_unit,
                 selling_price,
                 product_price,
                 product_discount,
@@ -45,6 +47,7 @@ export default function Main({ secret, locale, area, LANG, CONFIG }) {
                 productNum,
                 priceSymbol,
                 priceCurrency,
+                currency_unit,
                 selling_price,
                 product_price,
                 product_discount,
@@ -235,7 +238,10 @@ export default function Main({ secret, locale, area, LANG, CONFIG }) {
                 </h3>
                 <p className={styles.flex_3}>{`${
                   order.order_list[0].priceSymbol
-                }${formatCurrency(order.total_price)}`}</p>
+                }${formatCurrency(
+                  order.total_price,
+                  order.order_list[0].currency_unit
+                )}`}</p>
               </li>
 
               {order.discount ? (
@@ -247,7 +253,10 @@ export default function Main({ secret, locale, area, LANG, CONFIG }) {
                     <p className={styles.flex_3}>
                       <span className={styles.red}>{`- ${
                         order.order_list[0].priceSymbol
-                      }${formatCurrency(order.discount)}`}</span>
+                      }${formatCurrency(
+                        order.discount,
+                        order.order_list[0].currency_unit
+                      )}`}</span>
                     </p>
                   </li>
                   <li>
@@ -256,7 +265,10 @@ export default function Main({ secret, locale, area, LANG, CONFIG }) {
                     </h3>
                     <p className={styles.flex_3}>{`${
                       order.order_list[0].priceSymbol
-                    }${formatCurrency(order.total_price - order.discount)}`}</p>
+                    }${formatCurrency(
+                      order.total_price - order.discount,
+                      order.order_list[0].currency_unit
+                    )}`}</p>
                   </li>
                 </>
               ) : null}
@@ -268,7 +280,10 @@ export default function Main({ secret, locale, area, LANG, CONFIG }) {
                   </h3>
                   <p className={styles.flex_3}>{`${
                     order.order_list[0].priceSymbol
-                  }${formatCurrency(order.pay_price)}`}</p>
+                  }${formatCurrency(
+                    order.pay_price,
+                    order.order_list[0].currency_unit
+                  )}`}</p>
                 </li>
               ) : null}
 
@@ -329,13 +344,15 @@ export default function Main({ secret, locale, area, LANG, CONFIG }) {
                           <div className={styles.good_price}>{`${
                             goodItem.priceSymbol
                           }${formatCurrency(
-                            goodItem.selling_price * goodItem.productNum
+                            goodItem.selling_price * goodItem.productNum,
+                            order.order_list[0].currency_unit
                           )}`}</div>
                         ) : null}
                         <div className={styles.good_price}>{`${
                           goodItem.priceSymbol
                         }${formatCurrency(
-                          goodItem.product_price * goodItem.productNum
+                          goodItem.product_price * goodItem.productNum,
+                          order.order_list[0].currency_unit
                         )}`}</div>
                       </div>
                     </div>

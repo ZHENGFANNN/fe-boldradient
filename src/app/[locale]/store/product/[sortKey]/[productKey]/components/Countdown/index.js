@@ -3,6 +3,7 @@
 import React from "react";
 import styles from "./index.module.scss";
 import ProductContext from "../../ProductContext";
+import { formatCurrency } from "@/utils";
 
 // 格式化时间，保证显示为两位数
 function formatTime(time) {
@@ -61,8 +62,18 @@ export default function Countdown() {
         <div className={styles.price}>
           {productCurCombo.areaInfo?.product_price ? (
             <>
-              <div>{`${productCurCombo.areaInfo.currency_symbol}${productCurCombo.areaInfo.selling_price}`}</div>
-              <div>{`${productCurCombo.areaInfo.currency_symbol}${productCurCombo.areaInfo.product_price}`}</div>
+              <div>{`${
+                productCurCombo.areaInfo.currency_symbol
+              }${formatCurrency(
+                productCurCombo.areaInfo.selling_price,
+                productCurCombo.areaInfo.currency_unit
+              )}`}</div>
+              <div>{`${
+                productCurCombo.areaInfo.currency_symbol
+              }${formatCurrency(
+                productCurCombo.areaInfo.product_price,
+                productCurCombo.areaInfo.currency_unit
+              )}`}</div>
             </>
           ) : null}
         </div>

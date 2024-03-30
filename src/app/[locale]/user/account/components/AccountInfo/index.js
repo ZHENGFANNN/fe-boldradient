@@ -6,7 +6,7 @@ import { ISEMAIL } from "@/utils/pattern";
 import React from "react";
 import { useParams } from "next/navigation";
 import Api from "../../api";
-import GlobalContext from "@/globalContext";
+import GlobalContext from "@/globalContext2";
 import EditPasswordForm from "../EditPasswordForm/index";
 import Loading from "@/components/Loading";
 

@@ -2,7 +2,7 @@
 
 import React from "react";
 import styles from "./index.module.scss";
-import GlobalContext from "@/globalContext";
+import GlobalContext from "@/globalContext2";
 import OrderContext from "../../context";
 import Input from "@/components/Form/Input";
 import { useForm } from "react-hook-form";

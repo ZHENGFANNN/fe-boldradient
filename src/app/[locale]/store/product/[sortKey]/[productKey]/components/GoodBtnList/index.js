@@ -14,7 +14,7 @@ import ProductContext from "../../ProductContext";
 
 import { useRouter } from "next/navigation";
 import tracking from "../../tracking";
-import GlobalContext from "@/globalContext";
+import GlobalContext from "@/globalContext2";
 
 import { roundToDecimalPlaces } from "@/utils";
 

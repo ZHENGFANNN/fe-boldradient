@@ -10,7 +10,7 @@ import { useRouter, usePathname } from "next/navigation";
 
 import NAVFUNC from "@/config/NAVFUNC";
 
-import GlobalContext from "@/globalContext";
+import GlobalContext from "@/globalContext2";
 
 import TipModal from "@/components/Modal/FunctionTipModal";
 import Api from "../api";

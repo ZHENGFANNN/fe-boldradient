@@ -8,7 +8,16 @@ import {
 import React from "react";
 import Loading from "@/components/Loading";
 
-function PayButton({ createOrder, onApprove, onCancel, onError }) {
+import styles from "./index.module.scss";
+
+function PayButton({
+  createOrder,
+  onApprove,
+  onCancel,
+  onError,
+  LANG,
+  CONFIG,
+}) {
   const [{ isPending, isRejected, options }, dispatch] =
     usePayPalScriptReducer();
 
@@ -69,6 +78,8 @@ export default function Paypal({
   createOrder,
   onCancel,
   onError,
+  LANG,
+  CONFIG,
 }) {
   const countryCode = React.useMemo(() => {
     let countryCode = area;
@@ -95,6 +106,8 @@ export default function Paypal({
       }}
     >
       <PayButton
+        CONFIG={CONFIG}
+        LANG={LANG}
         onCancel={onCancel}
         onError={onError}
         createOrder={createOrder}

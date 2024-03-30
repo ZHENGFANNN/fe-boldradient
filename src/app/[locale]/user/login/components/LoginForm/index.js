@@ -2,7 +2,7 @@
 
 import React from "react";
 import styles from "../../page.module.scss";
-import GlobalContext from "@/globalContext";
+import GlobalContext from "@/globalContext2";
 import Api from "../../../api";
 import Cookies from "js-cookie";
 import { useForm } from "react-hook-form";

@@ -1,24 +1,30 @@
 export const domesticPay = function ({ CONFIG, LANG }) {
   return [
+    // {
+    //   title: LANG["store.order.pay_info.wechat"],
+    //   key: "wechat",
+    //   imgList: [`${process.env.NEXT_PUBLIC_IMAGE}/icon/pay-wechat.png`],
+    //   description: "",
+    // },
+    // {
+    //   title: LANG["store.order.pay_info.zhifubao"],
+    //   key: "zhifubao",
+    //   imgList: [`${process.env.NEXT_PUBLIC_IMAGE}/icon/pay-zhifubao.png`],
+    //   description: "",
+    // },
+    // {
+    //   title: LANG["store.order.pay_info.transfer"],
+    //   key: "bankTransfoer",
+    //   description: LANG["store.order.pay_info.transfer_detail"]
+    //     .split("${1}")
+    //     .join(CONFIG["company.basic.company_name"]),
+    //   imgList: [`${process.env.NEXT_PUBLIC_IMAGE}/icon/pay-transfer.png`],
+    // },
     {
-      title: LANG["store.order.pay_info.wechat"],
-      key: "wechat",
-      imgList: [`${process.env.NEXT_PUBLIC_IMAGE}/icon/pay-wechat.png`],
-      description: "",
-    },
-    {
-      title: LANG["store.order.pay_info.zhifubao"],
-      key: "zhifubao",
-      imgList: [`${process.env.NEXT_PUBLIC_IMAGE}/icon/pay-zhifubao.png`],
-      description: "",
-    },
-    {
-      title: LANG["store.order.pay_info.transfer"],
-      key: "bankTransfoer",
-      description: LANG["store.order.pay_info.transfer_detail"]
-        .split("${1}")
-        .join(CONFIG["company.basic.company_name"]),
-      imgList: [`${process.env.NEXT_PUBLIC_IMAGE}/icon/pay-transfer.png`],
+      title: LANG["store.order.pay_info.paypal"],
+      description: LANG["store.order.pay_info.paypal_detail"],
+      key: "payPal",
+      imgList: [`${process.env.NEXT_PUBLIC_IMAGE}/icon/pay-paypal.png`],
     },
   ];
 };

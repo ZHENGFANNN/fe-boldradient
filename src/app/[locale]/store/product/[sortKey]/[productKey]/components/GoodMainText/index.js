@@ -6,7 +6,7 @@ import ProductContext from "../../ProductContext";
 export default function GoodMainText() {
   const { productInfo } = React.useContext(ProductContext);
   return (
-    <dvi className={styles.container}>
+    <div className={styles.container}>
       <h1>{productInfo.name}</h1>
       {/* 配置的亮点 */}
       {productInfo.sellingList.length > 0 ? (
@@ -25,6 +25,6 @@ export default function GoodMainText() {
           })}
         </ul>
       ) : null}
-    </dvi>
+    </div>
   );
 }

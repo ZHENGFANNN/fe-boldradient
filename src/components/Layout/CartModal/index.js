@@ -4,7 +4,7 @@ import styles from "./index.module.scss";
 
 import tracking from "../tracking";
 
-import GlobalContext from "@/globalContext";
+import GlobalContext from "@/globalContext2";
 import { formatCurrency } from "@/utils";
 
 import { useRouter } from "next/navigation";

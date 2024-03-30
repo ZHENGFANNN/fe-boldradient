@@ -6,7 +6,7 @@ import {
   useSearchParams,
   useParams,
 } from "next/navigation";
-import GlobalContext from "@/globalContext";
+import GlobalContext from "@/globalContext2";
 import Cookies from "js-cookie";
 import Api from "@/api";
 import Script from "next/script";

@@ -1,24 +1,26 @@
 "use client";
 
 import React from "react";
-import styles from "./index.module.scss";
+import ReactDOM from "react-dom";
+import GlobalContext from "@/GlobalContext";
+
 import { useParams } from "next/navigation";
 import COUNTRYLIST from "@/config/COUNTRYLIST";
 import Input from "@/components/Form/Input";
 import Link from "next/link";
 import Cookie from "js-cookie";
-import ReactDOM from "react-dom";
+
+import styles from "./index.module.scss";
 
 // 临时功能
 function CountryModal({
-  LANG,
   setValue,
   value,
   inputProps,
   error,
   disabled = false,
 }) {
-  const params = useParams();
+  const { locale, LANG } = React.useContext(GlobalContext);
   const [show, setShow] = React.useState(false);
 
   React.useEffect(() => {
@@ -49,10 +51,6 @@ function CountryModal({
       }
     }
   }, []);
-
-  const locale = React.useMemo(() => {
-    return params.locale;
-  }, [params]);
 
   return (
     <>

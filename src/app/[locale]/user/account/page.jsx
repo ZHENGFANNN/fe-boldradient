@@ -1,12 +1,12 @@
 import React from "react";
 
-import getConfigDataV2 from "@/utils/getConfigDataV2";
+import getConfigData from "@/utils/getConfigData";
 import Main from "./components/Main";
 
 export const runtime = "edge";
 
 export async function generateMetadata({ params: { locale } }) {
-  const { LANG, CONFIG } = await getConfigDataV2({
+  const { LANG, CONFIG } = await getConfigData({
     locale,
     configList: ["config", "language"],
   });
@@ -18,9 +18,10 @@ export async function generateMetadata({ params: { locale } }) {
 }
 
 export default async function Account({ params: { locale } }) {
-  const { LANG } = await getConfigDataV2({
+  const { LANG } = await getConfigData({
     locale,
     configList: ["language"],
+    languageNameSpace: ["www.account"],
   });
   return <Main LANG={LANG} />;
 }

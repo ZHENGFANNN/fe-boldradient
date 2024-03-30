@@ -1,12 +1,12 @@
 import styles from "./page.module.scss";
 
-import getConfigDataV2 from "@/utils/getConfigDataV2";
+import getConfigData from "@/utils/getConfigData";
 import FaqList from "./components/FaqList";
 import StickyTitle from "./components/StickyTitle";
 export const runtime = "edge";
 
 export async function generateMetadata({ params: { locale } }) {
-  const { LANG, CONFIG } = await getConfigDataV2({
+  const { LANG, CONFIG } = await getConfigData({
     locale,
     configList: ["config", "language"],
   });
@@ -18,9 +18,11 @@ export async function generateMetadata({ params: { locale } }) {
 }
 
 export default async function Faq({ params: { locale } }) {
-  const { LANG, CONFIG } = await getConfigDataV2({
+  const { LANG, CONFIG } = await getConfigData({
     locale,
     configList: ["config", "language"],
+    languageNameSpace: ["www.protocol_faq"],
+    configNameSpace: ["www.protocol.faq"],
   });
   return (
     <div className={styles.container}>

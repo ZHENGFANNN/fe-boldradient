@@ -1,13 +1,13 @@
 import Link from "next/link";
 import React from "react";
 import styles from "./page.module.scss";
-import getConfigDataV2 from "@/utils/getConfigDataV2";
+import getConfigData from "@/utils/getConfigData";
 import LoginForm from "./components/LoginForm";
 
 export const runtime = "edge";
 
 export async function generateMetadata({ params: { locale } }) {
-  const { LANG, CONFIG } = await getConfigDataV2({
+  const { LANG, CONFIG } = await getConfigData({
     locale,
     configList: ["config", "language"],
   });
@@ -19,9 +19,11 @@ export async function generateMetadata({ params: { locale } }) {
 }
 
 export default async function Login({ params: { locale } }) {
-  const { LANG, CONFIG } = await getConfigDataV2({
+  const { LANG, CONFIG } = await getConfigData({
     locale,
     configList: ["config", "language"],
+    languageNameSpace: ["www.user_login"],
+    configNameSpace: ["company.basic.logo", "company.basic.company_name"],
   });
   return (
     <div

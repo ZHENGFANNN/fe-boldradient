@@ -2,12 +2,12 @@
  * 作用：导航栏列表
  * 注意：所有语言相关的数据都在这里获取
  */
-export default function NAVFUNC({ LANG, CONFIG, GOODLIST, GOODSORTLIST }) {
+export default function NAVFUNC({ LANG, CONFIG, goodList, goodSortList }) {
   return [
     {
       key: "product_categories",
       title: LANG["common.nav.product_categories"],
-      list: GOODSORTLIST?.map((item) => {
+      list: goodSortList?.map((item) => {
         return {
           sub_title: item.name,
           href: `/nav/product_info#${item.key}`,
@@ -20,15 +20,15 @@ export default function NAVFUNC({ LANG, CONFIG, GOODLIST, GOODSORTLIST }) {
     {
       key: "product_info",
       title: LANG["common.nav.product_info"],
-      list: GOODLIST?.map((item) => {
+      list: goodList?.map((item) => {
         return {
           sub_title: item.name,
-          href: `/store/product${item.path}`,
+          href: `/store/product/${item.sort_key}/${item.key}`,
           img: (
             <img
               height={60}
               width={60}
-              src={item.image_list[0].src}
+              src={item.image || item.image_list?.[0]?.src}
               alt={item.name}
             />
           ),

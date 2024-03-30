@@ -2,16 +2,17 @@
 
 import React from "react";
 import styles from "./index.module.scss";
+import GlobalContext from "@/GlobalContext";
 
 // 临时功能
 function ConfirmModal({
-  LANG,
   title = "",
   content = "",
   onOk = () => {},
   onCancel = () => {},
   renderNode = "",
 }) {
+  const { LANG } = React.useContext(GlobalContext);
   const [show, setShow] = React.useState(false);
   return (
     <div className={styles.container}>

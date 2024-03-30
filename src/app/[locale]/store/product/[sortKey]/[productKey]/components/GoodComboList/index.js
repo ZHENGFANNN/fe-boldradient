@@ -48,13 +48,18 @@ export default function GoodComboList() {
                     <div className={styles.stock_tip}>
                       {LANG["store.product.no_stock"]}
                     </div>
-                  ) : null}
-                  {goodDiscountFestival && item.areaInfo?.product_discount ? (
-                    <div className={styles.discount_tip}>
-                      {LANG["store.product.off"]}{" "}
-                      {100 - item.areaInfo?.product_discount}%
-                    </div>
-                  ) : null}
+                  ) : (
+                    <>
+                      {goodDiscountFestival &&
+                      item.areaInfo?.product_discount ? (
+                        <div className={styles.discount_tip}>
+                          {LANG["store.product.off"]}{" "}
+                          {100 - item.areaInfo?.product_discount}%
+                        </div>
+                      ) : null}
+                    </>
+                  )}
+
                   {/* 套餐缩略图/标题 */}
                   <div className={styles.top_container_left}>
                     {item.smart_img ? (

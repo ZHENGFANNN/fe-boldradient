@@ -1,13 +1,13 @@
-import getGoodList from "@/utils/getGoodList";
-import getConfigList from "@/utils/getConfigList";
-import getLanguageList from "@/utils/getLanguageList";
-import getGoodSortList from "@/utils/getGoodSortList";
-import getGoodDiscountList from "@/utils/getGoodDiscountList";
+import getGoodList from "@/utils/getConfigData/getGoodList";
+import getConfigList from "@/utils/getConfigData/getConfigList";
+import getLanguageList from "@/utils/getConfigData/getLanguageList";
+import getGoodSortList from "@/utils/getConfigData/getGoodSortList";
+import getGoodDiscountList from "@/utils/getConfigData/getGoodDiscountList";
 
 /**
  * 获取所有配置数据
  */
-const getConfig = async function ({ locale, configList }) {
+const getAllConfig = async function ({ locale, configList }) {
   const promiseList = [];
   const result = {};
   if (configList.includes("config")) {
@@ -97,7 +97,7 @@ const filterGood = async function ({ result, area }) {
 };
 
 /**
- * 语言过滤
+ * LANGUAGE过滤
  */
 const filterLanguage = async function ({ result, languageNameSpace }) {
   const languageObj = {};
@@ -111,14 +111,30 @@ const filterLanguage = async function ({ result, languageNameSpace }) {
   return languageObj;
 };
 
-export default async function getConfigDataV2({
+/**
+ * CONFIG过滤
+ */
+const filterConfig = async function ({ result, configNameSpace }) {
+  const configObj = {};
+  configNameSpace.forEach((nameSpace) => {
+    Object.keys(result.CONFIG).forEach((key) => {
+      if (key.startsWith(nameSpace) && !configObj[key]) {
+        configObj[key] = result.CONFIG[key];
+      }
+    });
+  });
+  return configObj;
+};
+
+export default async function getConfigData({
   locale,
   area,
   configList,
   languageNameSpace,
+  configNameSpace,
 }) {
   // 获取所有配置数据
-  const result = await getConfig({ locale, configList });
+  const result = await getAllConfig({ locale, configList });
   /**
    * 商品分类 - 简化数据（去掉areaList）
    */
@@ -136,6 +152,13 @@ export default async function getConfigDataV2({
    */
   if (result.LANG && languageNameSpace) {
     result.LANG = await filterLanguage({ result, languageNameSpace });
+  }
+
+  /**
+   * 过滤配置包
+   */
+  if (result.CONFIG && configNameSpace) {
+    result.CONFIG = await filterConfig({ result, configNameSpace });
   }
   return result;
 }

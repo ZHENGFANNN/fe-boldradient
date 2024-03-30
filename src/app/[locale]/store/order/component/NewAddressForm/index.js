@@ -79,7 +79,6 @@ export default function NewAddressForm({ LANG, onFinish }) {
           >
             <div className={styles.form_item}>
               <CountryModal
-                LANG={LANG}
                 disabled={true}
                 value={watch("area")}
                 setValue={(e) => {

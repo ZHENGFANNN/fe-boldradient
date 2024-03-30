@@ -14,7 +14,7 @@ import ProductContext from "../../ProductContext";
 
 import { useRouter } from "next/navigation";
 import tracking from "../../tracking";
-import GlobalContext from "@/globalContext2";
+import GlobalContext from "@/GlobalContext";
 
 import { roundToDecimalPlaces } from "@/utils";
 
@@ -177,7 +177,7 @@ function PayButton({
                 .catch((error) => {
                   console.log(`[Page Paypal createOrder]: ${error}`);
                   showTip({
-                    text: LANG["store.order.create_error"],
+                    text: LANG["store.product.create_error"],
                     type: "error",
                   });
                 });
@@ -194,7 +194,7 @@ function PayButton({
                       contents: orderList,
                     });
                     showTip({
-                      text: LANG["store.order.pay_success"],
+                      text: LANG["store.product.pay_success"],
                       type: "success",
                     });
                     // 移除订单信息
@@ -211,7 +211,7 @@ function PayButton({
                 .catch(() => {
                   console.log(`[Page Paypal onApprove]: ${error}`);
                   showTip({
-                    text: LANG["store.order.pay_fail_tip"],
+                    text: LANG["store.product.pay_fail_tip"],
                     type: "error",
                   });
                 });
@@ -219,7 +219,7 @@ function PayButton({
             onCancel={(data) => {
               if (data.orderID) {
                 showTip({
-                  text: LANG["store.order.pay_cancel"],
+                  text: LANG["store.product.pay_cancel"],
                   type: "error",
                 });
                 setTimeout(() => {
@@ -230,7 +230,7 @@ function PayButton({
             onError={(error) => {
               console.log(`[Page Paypal onError]: ${error}`);
               showTip({
-                text: LANG["store.order.pay_error"],
+                text: LANG["store.product.pay_error"],
                 type: "error",
               });
             }}

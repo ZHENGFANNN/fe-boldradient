@@ -1,7 +1,7 @@
 import React from "react";
 
 import Advantage from "@/components/Layout/Advantage";
-import getConfigDataV2 from "@/utils/getConfigDataV2";
+import getConfigData from "@/utils/getConfigData";
 
 import IndexProductList from "./components/IndexProductList";
 import IndexBanner from "./components/IndexBanner";
@@ -15,22 +15,38 @@ export const runtime = "edge";
  * 处理分类列表
  */
 async function getSortList(productSort) {
-  return productSort.map((item) => {
-    const goodList = item.goodList.map((good) => {
-      const totalValue = good.reviewsList.reduce(
-        (pre, cur) => pre + cur.score,
-        0
-      );
-      const avertValue = totalValue / good.reviewsList.length;
-      const areaInfo = good.comboList[0]?.areaInfo;
-      return {
-        ...good,
-        areaInfo,
-        reviewScore: avertValue,
-      };
-    });
+  return productSort.map(({ name, goodList }) => {
+    goodList = goodList.map(
+      ({
+        name,
+        key,
+        sort_key,
+        image_list,
+        image_scenes,
+        reviews_num,
+        reviews_score,
+        reviewsList,
+        comboList,
+      }) => {
+        const totalValue = reviewsList.reduce((pre, cur) => pre + cur.score, 0);
+        const avertValue = totalValue / reviewsList.length;
+        const { areaInfo } = comboList.find((item) => {
+          return item.areaInfo.stock;
+        });
+        return {
+          name,
+          key,
+          sort_key,
+          image_url: image_list[0].src,
+          image_scenes,
+          areaInfo,
+          reviews_num: reviewsList.length || reviews_num,
+          reviews_score: avertValue || reviews_score,
+        };
+      }
+    );
     return {
-      ...item,
+      name,
       goodList,
     };
   });
@@ -39,14 +55,26 @@ async function getSortList(productSort) {
 /**
  * 获取数据
  */
-async function getData({ locale, area, configList }) {
-  const result = await getConfigDataV2({ locale, area, configList });
+async function getData({
+  locale,
+  area,
+  configList,
+  languageNameSpace,
+  configNameSpace,
+}) {
+  const result = await getConfigData({
+    locale,
+    area,
+    configList,
+    languageNameSpace,
+    configNameSpace,
+  });
   result.GOODSORTLIST = await getSortList(result.GOODSORTLIST);
   return result;
 }
 
 export async function generateMetadata({ params: { locale } }) {
-  const { LANG, CONFIG } = await getConfigDataV2({
+  const { LANG, CONFIG } = await getConfigData({
     locale,
     configList: ["language", "config"],
   });
@@ -63,6 +91,8 @@ export default async function Home({ params: { locale } }) {
     locale,
     area,
     configList: ["config", "language", "goodSort", "goodDiscountFestival"],
+    languageNameSpace: ["store.index", "common.advantage"],
+    configNameSpace: ["store.index.banner", "company.basic.company_name"],
   });
   return (
     <main>

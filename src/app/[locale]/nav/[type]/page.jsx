@@ -1,16 +1,28 @@
 import NAVFUNC from "@/config/NAVFUNC";
 import styles from "./page.module.scss";
 import React from "react";
-import getConfigDataV2 from "@/utils/getConfigDataV2";
+import getConfigData from "@/utils/getConfigData";
 import HeaderTitle from "./components/HeaderTitle";
-import ProductInfo from "./components/ProductInfo";
+import NavItem from "./components/NavItem";
 import Link from "next/link";
 import { cookies } from "next/headers";
 
 export const runtime = "edge";
 
-async function getData({ locale, area, configList }) {
-  const result = await getConfigDataV2({ locale, area, configList });
+async function getData({
+  locale,
+  area,
+  configList,
+  languageNameSpace,
+  configNameSpace,
+}) {
+  const result = await getConfigData({
+    locale,
+    area,
+    configList,
+    languageNameSpace,
+    configNameSpace,
+  });
   result.GOODLIST = result.GOODLIST.map(({ name, path, image_list }) => {
     return {
       name,
@@ -33,7 +45,7 @@ async function getData({ locale, area, configList }) {
 }
 
 export async function generateMetadata({ params: { locale } }) {
-  const { LANG, CONFIG } = await getConfigDataV2({
+  const { LANG, CONFIG } = await getConfigData({
     locale,
     configList: ["config", "language"],
   });
@@ -51,13 +63,21 @@ export default async function Nav({ params: { type, locale } }) {
     locale,
     area,
     configList: ["config", "language", "good", "goodSort"],
+    languageNameSpace: ["www.nav_page", "common.nav"],
+    configNameSpace: [
+      "company.basic.company_name",
+      "company.sales_channels.index",
+    ],
   });
-
-  const NAVLIST = NAVFUNC({ LANG, CONFIG, GOODLIST, GOODSORTLIST });
-
+  const navList = NAVFUNC({
+    LANG,
+    CONFIG,
+    goodList: GOODLIST,
+    goodSortList: GOODSORTLIST,
+  });
   return (
     <div className={styles.container}>
-      <HeaderTitle NAVLIST={NAVLIST} type={type} />
+      <HeaderTitle navList={navList} type={type} />
       {type === "product_info" ? (
         <section className={styles.header_nav_content}>
           {GOODSORTLIST.map((item, index) => {
@@ -93,7 +113,7 @@ export default async function Nav({ params: { type, locale } }) {
         </section>
       ) : null}
       {type !== "product_info" ? (
-        <ProductInfo NAVLIST={NAVLIST} type={type} />
+        <NavItem navList={navList} type={type} />
       ) : null}
     </div>
   );

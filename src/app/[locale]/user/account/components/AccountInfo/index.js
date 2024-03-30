@@ -2,11 +2,11 @@
 
 import { useForm } from "react-hook-form";
 import styles from "./index.module.scss";
-import { ISEMAIL } from "@/utils/pattern";
+import { isEmail } from "@/utils/pattern";
 import React from "react";
 import { useParams } from "next/navigation";
 import Api from "../../api";
-import GlobalContext from "@/globalContext2";
+import GlobalContext from "@/GlobalContext";
 import EditPasswordForm from "../EditPasswordForm/index";
 import Loading from "@/components/Loading";
 
@@ -162,7 +162,7 @@ export default function AccountInfo({ showTip, LANG }) {
                 ...register("email", {
                   required: LANG["www.account.account_info.email_require"],
                   pattern: {
-                    value: ISEMAIL,
+                    value: isEmail,
                     message: LANG["www.account.account_info.email_incorrect"],
                   },
                 }),

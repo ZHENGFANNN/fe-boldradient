@@ -2,7 +2,7 @@ import styles from "./page.module.scss";
 import React from "react";
 
 import Advantage from "@/components/Layout/Advantage";
-import getConfigDataV2 from "@/utils/getConfigDataV2";
+import getConfigData from "@/utils/getConfigData";
 
 import ProductList from "./components/ProductList";
 import Banner from "./components/Banner";
@@ -41,13 +41,13 @@ async function getSortList(productSort) {
  * 获取数据
  */
 async function getData({ locale, area, configList }) {
-  const result = await getConfigDataV2({ locale, area, configList });
+  const result = await getConfigData({ locale, area, configList });
   result.GOODSORTLIST = await getSortList(result.GOODSORTLIST);
   return result;
 }
 
 export async function generateMetadata({ params: { locale } }) {
-  const { LANG, CONFIG } = await getConfigDataV2({
+  const { LANG, CONFIG } = await getConfigData({
     locale,
     configList: ["language", "config"],
   });

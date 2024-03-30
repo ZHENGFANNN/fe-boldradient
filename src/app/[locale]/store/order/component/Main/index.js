@@ -4,7 +4,7 @@ import styles from "./index.module.scss";
 import React from "react";
 import PayList from "../../component/PayList";
 import UserInfo from "../../component/UserType";
-import GlobalContext from "@/globalContext2";
+import GlobalContext from "@/GlobalContext";
 import OrderContext from "../../context";
 
 import { domesticPay, foreignPay } from "../../const";
@@ -151,7 +151,7 @@ export default function Main({
             stock: comboInfo.areaInfo.stock,
             // 产品相关
             name: product.name,
-            image: product.image_list[0].src,
+            image: product.image,
             href: `/${locale}/product/${product.sort_key}/${product.key}`,
             sortKey: product.sort_key,
             productKey: product.key,

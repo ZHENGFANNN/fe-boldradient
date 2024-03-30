@@ -268,7 +268,7 @@ export default function GoodReviewsContent() {
             </>
           ) : (
             <div className={styles.empyt}>
-              <Empyt LANG={LANG} />
+              <Empyt />
             </div>
           )}
         </div>

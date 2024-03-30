@@ -2,12 +2,12 @@
 
 import React from "react";
 import styles from "./index.module.scss";
-import GlobalContext from "@/globalContext2";
+import GlobalContext from "@/GlobalContext";
 import OrderContext from "../../context";
 import Input from "@/components/Form/Input";
 import { useForm } from "react-hook-form";
 import Loading from "@/components/Loading";
-import { ISEMAIL } from "@/utils/pattern";
+import { isEmail } from "@/utils/pattern";
 import Link from "next/link";
 
 function UserInfo({ LANG, token }, ref) {
@@ -93,7 +93,7 @@ function UserInfo({ LANG, token }, ref) {
                   ...register("tourists_email", {
                     required: LANG["store.order.user_type.email_empyt"],
                     pattern: {
-                      value: ISEMAIL,
+                      value: isEmail,
                       message: LANG["store.order.user_type.email_error"],
                     },
                   }),
@@ -123,7 +123,7 @@ function UserInfo({ LANG, token }, ref) {
                       ...register("user_email", {
                         required: LANG["store.order.user_type.email_empyt"],
                         pattern: {
-                          value: ISEMAIL,
+                          value: isEmail,
                           message: LANG["store.order.user_type.email_error"],
                         },
                       }),

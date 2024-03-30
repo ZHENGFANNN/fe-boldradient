@@ -1,11 +1,10 @@
 import BaseLayout from "./components/BaseLayout";
-import getConfigDataV2 from "@/utils/getConfigDataV2";
+import getConfigData from "@/utils/getConfigData";
 import { cookies, headers } from "next/headers";
 import Script from "next/script";
 
 import { isUserMobile } from "@/utils";
 import { formatCurrency } from "@/utils";
-import NotFound from "./components/NotFound";
 
 // 匹配产品信息
 async function getProductInfo({ productList, productKey }) {
@@ -29,10 +28,16 @@ async function getAssociateProduct({ productInfo, area }) {
       reviews_score,
       ...item
     }) => {
-      const areaInfo = comboList[0]?.areaList.find((item) => {
-        return item.country_code === area;
+      let areaInfo = null;
+      comboList.find((combo) => {
+        combo.areaList.find((area_item) => {
+          if (area_item.country_code === area) {
+            areaInfo = area_item;
+          }
+          return area_item.country_code === area;
+        });
+        return areaInfo?.stock;
       });
-
       const totalScore = reviewsList.reduce((pre, cur) => pre + cur.score, 0);
       item.reviewScore = totalScore / reviewsList.length || reviews_score;
       item.reviewsNum = reviewsList.length || reviews_num;
@@ -46,8 +51,21 @@ async function getAssociateProduct({ productInfo, area }) {
 /**
  * 获取数据
  */
-async function getData({ productKey, locale, area, configList }) {
-  const result = await getConfigDataV2({ locale, area, configList });
+async function getData({
+  productKey,
+  locale,
+  area,
+  configList,
+  languageNameSpace,
+  configNameSpace,
+}) {
+  const result = await getConfigData({
+    locale,
+    area,
+    configList,
+    languageNameSpace,
+    configNameSpace,
+  });
   // 获取产品信息
   result.productInfo = await getProductInfo({
     productList: result.GOODLIST,
@@ -70,7 +88,7 @@ async function getData({ productKey, locale, area, configList }) {
 // 设置元信息
 export async function generateMetadata({ params: { locale, productKey } }) {
   const area = cookies().get("area")?.value || "us";
-  const { CONFIG, GOODLIST } = await getConfigDataV2({
+  const { CONFIG, GOODLIST } = await getConfigData({
     locale,
     area,
     configList: ["config", "good"],
@@ -117,9 +135,12 @@ export default async function Layout({
     area,
     locale,
     configList: ["config", "language", "good", "goodDiscountFestival"],
+    languageNameSpace: ["store.product", "common.nav.sales_policy"],
+    configNameSpace: [
+      "company.basic.company_name",
+      "company.basic.customer_service",
+    ],
   });
-
-  if (!productInfo) return <NotFound LANG={LANG} />;
 
   return (
     <BaseLayout
@@ -132,40 +153,42 @@ export default async function Layout({
       goodDiscountFestival={GOODDISCOUNTFESTIVAL}
     >
       {children}
-      <Script
-        id="store-product-ld-json"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(
-            {
-              "@context": "https://schema.org/",
-              "@type": "Product",
-              name: productInfo.name,
-              image: productInfo.image_list.map((item) => item.src),
-              description:
-                productInfo.description || productInfo.sellingList.join(","),
-              offers: {
-                "@type": "Offer",
-                price:
-                  formatCurrency(
-                    productInfo.comboList[0]?.areaInfo?.selling_price,
-                    productInfo.comboList[0]?.areaInfo?.currency_unit
-                  ) ?? 99999,
-                priceCurrency:
-                  productInfo.comboList[0]?.areaInfo?.currency ?? "USD",
+      {productInfo ? (
+        <Script
+          id="store-product-ld-json"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(
+              {
+                "@context": "https://schema.org/",
+                "@type": "Product",
+                name: productInfo.name,
+                image: productInfo.image_list.map((item) => item.src),
+                description:
+                  productInfo.description || productInfo.sellingList.join(","),
+                offers: {
+                  "@type": "Offer",
+                  price:
+                    formatCurrency(
+                      productInfo.comboList[0]?.areaInfo?.selling_price,
+                      productInfo.comboList[0]?.areaInfo?.currency_unit
+                    ) ?? 99999,
+                  priceCurrency:
+                    productInfo.comboList[0]?.areaInfo?.currency ?? "USD",
+                },
+                sku: CONFIG["company.basic.company_name"],
+                mpn: productInfo.key,
+                brand: {
+                  "@type": "Brand",
+                  name: `${CONFIG["company.basic.company_name"]}`,
+                },
               },
-              sku: CONFIG["company.basic.company_name"],
-              mpn: productInfo.key,
-              brand: {
-                "@type": "Brand",
-                name: `${CONFIG["company.basic.company_name"]}`,
-              },
-            },
-            null,
-            "\t"
-          ),
-        }}
-      />
+              null,
+              "\t"
+            ),
+          }}
+        />
+      ) : null}
     </BaseLayout>
   );
 }

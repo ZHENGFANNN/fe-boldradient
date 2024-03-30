@@ -13,7 +13,7 @@
     width: 100%;
     &.show {
         opacity: 1;
-        z-index: 99;
+        z-index: 9999;
     }
     .modal_content {
         position: relative;
@@ -37,6 +37,8 @@
             color: #494b4d;
             font-weight: 400;
             margin-bottom: 25px;
+
+            text-transform: capitalize;
         }
         p {
             font-size: 14px;
@@ -44,6 +46,8 @@
             color: #919699;
             font-weight: 400;
             margin-bottom: 55px;
+
+            text-transform: capitalize;
         }
         button {
             display: block;
@@ -61,6 +65,7 @@
 
             border: 0;
             outline: none;
+            text-transform: uppercase;
             &:hover {
                 opacity: 0.8;
             }

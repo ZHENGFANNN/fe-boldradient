@@ -1,3 +1,5 @@
+"use client";
+import React from "react";
 import Link from "next/link";
 import styles from "./index.module.scss";
 export default function Advantage({ LANG }) {
@@ -15,7 +17,7 @@ export default function Advantage({ LANG }) {
           />
         </div>
         <div className={styles.tip_item_text}>
-          {LANG["store.common.advantage.express_text"]}
+          {LANG["common.advantage.express_text"]}
         </div>
       </div>
       <div className={styles.tip_item}>
@@ -26,7 +28,7 @@ export default function Advantage({ LANG }) {
           />
         </div>
         <div className={styles.tip_item_text}>
-          {LANG["store.common.advantage.pay_way"]}
+          {LANG["common.advantage.pay_way"]}
         </div>
       </div>
       <div className={styles.tip_item}>
@@ -38,7 +40,7 @@ export default function Advantage({ LANG }) {
         </div>
         <div className={styles.tip_item_text}>
           <Link rel="noreferrer" href={`/company/contact`}>
-            {LANG["store.common.advantage.contact"]}
+            {LANG["common.advantage.contact"]}
           </Link>
         </div>
       </div>

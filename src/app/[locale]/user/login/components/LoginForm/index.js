@@ -2,11 +2,11 @@
 
 import React from "react";
 import styles from "../../page.module.scss";
-import GlobalContext from "@/globalContext2";
+import GlobalContext from "@/GlobalContext";
 import Api from "../../../api";
 import Cookies from "js-cookie";
 import { useForm } from "react-hook-form";
-import { ISEMAIL } from "@/utils/pattern";
+import { isEmail } from "@/utils/pattern";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import ShowTipModal from "@/components/Modal/ShowTipModal";
@@ -100,7 +100,7 @@ export default function LoginForm({ LANG }) {
             {...register("email", {
               required: LANG["www.user_login.email_empyt"],
               pattern: {
-                value: ISEMAIL,
+                value: isEmail,
                 message: LANG["www.user_login.email_error"],
               },
             })}

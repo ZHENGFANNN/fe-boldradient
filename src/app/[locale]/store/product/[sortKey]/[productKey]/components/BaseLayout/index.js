@@ -13,6 +13,14 @@ export default function Layout({
   productInfo,
   goodDiscountFestival,
 }) {
+  const router = useRouter();
+  React.useEffect(() => {
+    if (!productInfo) {
+      router.push("/not-found");
+    }
+  }, [productInfo]);
+  if (!productInfo) return null;
+
   const [lazyLoading, setLazyLoading] = React.useState(true);
 
   // 商品数量
@@ -20,7 +28,7 @@ export default function Layout({
 
   // 商品套餐
   const [productCurCombo, setProductCurCombo] = React.useState(() => {
-    return productInfo.comboList[0];
+    return productInfo.comboList.find((item) => item.areaInfo.stock);
   });
 
   // 商品选项

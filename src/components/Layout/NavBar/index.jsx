@@ -1,31 +1,40 @@
 "use client";
-import styles from "./index.module.scss";
-
-import CountryList from "@/components/CountrySelect";
-
 import React from "react";
-import DropSelect from "@/components/DropSelect";
-import Link from "next/link";
-import { useRouter, usePathname } from "next/navigation";
+import GlobalContext from "@/GlobalContext";
 
 import NAVFUNC from "@/config/NAVFUNC";
-
-import GlobalContext from "@/globalContext2";
-
 import TipModal from "@/components/Modal/FunctionTipModal";
+import CountryList from "@/components/CountrySelect";
+import DropSelect from "@/components/DropSelect";
+
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+
 import Api from "../api";
-
 import tracking from "../tracking";
-import CartModal from "../CartModal";
 
-export default function NavBar({ CONFIG, LANG, GOODSORTLIST, GOODLIST }) {
-  const { userInfo, productNum, showCartModal } =
-    React.useContext(GlobalContext);
+import styles from "./index.module.scss";
+
+export default function NavBar() {
+  const {
+    LANG,
+    CONFIG,
+    goodSortList,
+    goodList,
+    userInfo,
+    productNum,
+    showCartModal,
+  } = React.useContext(GlobalContext);
   const ModalRef = React.useRef(null);
 
-  const NAVLIST = React.useMemo(() => {
-    return NAVFUNC({ LANG, CONFIG, GOODLIST, GOODSORTLIST });
-  }, [LANG, CONFIG, GOODLIST, GOODSORTLIST]);
+  const navList = React.useMemo(() => {
+    return NAVFUNC({
+      LANG,
+      CONFIG,
+      goodList,
+      goodSortList,
+    });
+  }, [LANG, CONFIG, goodList, goodSortList]);
 
   const router = useRouter();
 
@@ -70,9 +79,11 @@ export default function NavBar({ CONFIG, LANG, GOODSORTLIST, GOODLIST }) {
    * 2、处理下拉样式
    */
   React.useEffect(() => {
-    function scrollEvent() {
+    function scrollEvent({ firstInit }) {
       // 处理下拉样式
-      if (navItemActive) setVavItemActive(false);
+      if (navItemActive && !firstInit) {
+        setVavItemActive(false);
+      }
       // 处理top header
       if (document.documentElement.scrollTop > 40) {
         document.getElementsByClassName(
@@ -86,7 +97,7 @@ export default function NavBar({ CONFIG, LANG, GOODSORTLIST, GOODLIST }) {
           document.body.clientWidth <= 1080 ? "90px" : "100px";
       }
     }
-    scrollEvent();
+    scrollEvent({ firstInit: true });
     window.addEventListener("scroll", scrollEvent);
     return () => {
       window.removeEventListener("scroll", scrollEvent);
@@ -98,7 +109,7 @@ export default function NavBar({ CONFIG, LANG, GOODSORTLIST, GOODLIST }) {
       <nav id="app-nav" className={styles.container}>
         <div className={styles.top_header}>
           <div className={styles.top_header_container}>
-            <CountryList LANG={LANG} />
+            <CountryList />
             <div
               className={styles.header_user}
               onClick={() => {
@@ -177,7 +188,7 @@ export default function NavBar({ CONFIG, LANG, GOODSORTLIST, GOODLIST }) {
               }
             >
               <ul onMouseLeave={() => setVavItemActive(false)}>
-                {NAVLIST.map((item, index) => {
+                {navList.map((item, index) => {
                   return (
                     <li
                       onMouseOver={() => {
@@ -200,7 +211,7 @@ export default function NavBar({ CONFIG, LANG, GOODSORTLIST, GOODLIST }) {
                   );
                 })}
               </ul>
-              <section
+              <div
                 ref={headerNavContentRef}
                 onMouseLeave={() => {
                   setVavItemActive(false);
@@ -215,7 +226,7 @@ export default function NavBar({ CONFIG, LANG, GOODSORTLIST, GOODLIST }) {
                   ref={headerNavWidthRef}
                   className={styles.header_nav_width}
                 >
-                  {NAVLIST.map((item, index) => {
+                  {navList.map((item, index) => {
                     if (item.list?.length > 13) {
                       item.list.length = 14;
                     }
@@ -304,7 +315,7 @@ export default function NavBar({ CONFIG, LANG, GOODSORTLIST, GOODLIST }) {
                     });
                   })}
                 </div>
-              </section>
+              </div>
             </div>
           </div>
           <ul className={styles.header_right}>

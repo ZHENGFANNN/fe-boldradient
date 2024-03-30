@@ -7,7 +7,7 @@ import Footer from "@/components/Layout/Footer";
 import React from "react";
 import Layout from "@/components/Layout";
 
-import getConfigDataV2 from "@/utils/getConfigDataV2";
+import getConfigData from "@/utils/getConfigData";
 import { cookies } from "next/headers";
 
 export const viewport = {
@@ -22,12 +22,23 @@ export const viewport = {
 /**
  * 获取数据
  */
-async function getData({ locale, area, configList }) {
-  const result = await getConfigDataV2({ locale, area, configList });
+async function getData({
+  locale,
+  area,
+  configList,
+  configNameSpace,
+  languageNameSpace,
+}) {
+  const result = await getConfigData({
+    locale,
+    area,
+    configList,
+    configNameSpace,
+    languageNameSpace,
+  });
   result.GOODLIST = result.GOODLIST.map(
     ({
       name,
-      path,
       image_list,
       sort_key,
       key,
@@ -37,8 +48,7 @@ async function getData({ locale, area, configList }) {
     }) => {
       return {
         name,
-        path,
-        image_list,
+        image: image_list[0].src,
         sort_key,
         key,
         review_score,
@@ -74,29 +84,34 @@ export default async function RootLayout(props) {
         "good",
         "goodDiscountFestival",
       ],
+      languageNameSpace: [
+        "common.nav",
+        "common.cart",
+        "common.footer",
+        "common.other",
+      ],
+      configNameSpace: [
+        "company.basic",
+        "company.sales_channels.index",
+        "company.social_media.index",
+      ],
     });
+
   return (
     <html lang="en">
       <body>
         <Layout
-          GOODDISCOUNTFESTIVAL={GOODDISCOUNTFESTIVAL}
-          GOODLIST={GOODLIST}
+          locale={locale}
+          area={area}
           LANG={LANG}
+          CONFIG={CONFIG}
+          goodList={GOODLIST}
+          goodSortList={GOODSORTLIST}
+          goodDiscountFestival={GOODDISCOUNTFESTIVAL}
         >
-          <Navbar
-            locale={locale}
-            LANG={LANG}
-            CONFIG={CONFIG}
-            GOODLIST={GOODLIST}
-            GOODSORTLIST={GOODSORTLIST}
-          />
+          <Navbar />
           <div id="app-content">{children}</div>
-          <Footer
-            LANG={LANG}
-            CONFIG={CONFIG}
-            GOODLIST={GOODLIST}
-            GOODSORTLIST={GOODSORTLIST}
-          />
+          <Footer />
         </Layout>
       </body>
     </html>

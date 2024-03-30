@@ -1,13 +1,13 @@
 import React from "react";
 
-import getConfigDataV2 from "@/utils/getConfigDataV2";
+import getConfigData from "@/utils/getConfigData";
 import Main from "./component/Main";
 import { cookies } from "next/headers";
 
 export const runtime = "edge";
 
 export async function generateMetadata({ params: { locale } }) {
-  const { LANG, CONFIG } = await getConfigDataV2({
+  const { LANG, CONFIG } = await getConfigData({
     locale,
     configList: ["config", "language"],
   });
@@ -21,9 +21,18 @@ export default async function Info({
   searchParams: { secret },
 }) {
   const area = cookies().get("area")?.value || "us";
-  const { LANG, CONFIG } = await getConfigDataV2({
+  const { LANG, CONFIG } = await getConfigData({
     locale,
     configList: ["config", "language"],
+    languageNameSpace: ["store.order_info"],
+    configNameSpace: [
+      "company.basic.company_name",
+      "company.basic.order_service",
+      "pay.transfer.name",
+      "pay.transfer.info",
+      "pay.transfer.location",
+      "pay.transfer.code",
+    ],
   });
   return (
     <Main

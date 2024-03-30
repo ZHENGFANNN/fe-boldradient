@@ -1,7 +1,9 @@
-import styles from "./index.module.scss";
 import React from "react";
+import GlobalContext from "@/GlobalContext";
+import styles from "./index.module.scss";
 
-export default function Empyt({ buttonProps, LANG }) {
+export default function Empyt({ buttonProps }) {
+  const { LANG } = React.useContext(GlobalContext);
   return (
     <div className={styles.container}>
       <img
@@ -11,11 +13,7 @@ export default function Empyt({ buttonProps, LANG }) {
         src={`${process.env.NEXT_PUBLIC_IMAGE}/icon/min-utils-empyt.svg`}
       />
       <p>{LANG["common.other.no_data"]}</p>
-      {buttonProps ? (
-        <a href={buttonProps.href} rel="noreferrer" target="_blank">
-          {buttonProps.text}
-        </a>
-      ) : null}
+      {buttonProps ? <a href={buttonProps.href}>{buttonProps.text}</a> : null}
     </div>
   );
 }

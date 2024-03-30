@@ -5,7 +5,7 @@ import styles from "../../page.module.scss";
 import Api from "../../../api";
 import Cookies from "js-cookie";
 import { useForm } from "react-hook-form";
-import { ISEMAIL } from "@/utils/pattern";
+import { isEmail } from "@/utils/pattern";
 import { useRouter, useParams, useSearchParams } from "next/navigation";
 import ShowTipModal from "@/components/Modal/ShowTipModal";
 
@@ -104,7 +104,7 @@ export default function RegisterForm({ LANG }) {
           {...register("email", {
             required: LANG["www.user_register.email_empyt"],
             pattern: {
-              value: ISEMAIL,
+              value: isEmail,
               message: LANG["www.user_register.email_format"],
             },
           })}

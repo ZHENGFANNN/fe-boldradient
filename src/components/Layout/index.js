@@ -1,27 +1,25 @@
 "use client";
 import React from "react";
-import {
-  useRouter,
-  usePathname,
-  useSearchParams,
-  useParams,
-} from "next/navigation";
-import GlobalContext from "@/globalContext2";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import GlobalContext from "@/GlobalContext";
 import Cookies from "js-cookie";
 import Api from "@/api";
 import Script from "next/script";
 import CartModal from "./CartModal";
 
 export default function Layout({
-  GOODDISCOUNTFESTIVAL,
-  GOODLIST,
+  locale,
+  area,
   LANG,
+  CONFIG,
+  goodList,
+  goodSortList,
+  goodDiscountFestival,
   children,
 }) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const { locale } = useParams();
   /**
    * 功能：处理全局数据
    * 数据：
@@ -94,14 +92,20 @@ export default function Layout({
   return (
     <GlobalContext.Provider
       value={{
+        // 配置数据
+        locale,
+        area,
+        LANG,
+        CONFIG,
+        goodList,
+        goodSortList,
+        goodDiscountFestival,
         // 用户信息
         userInfo,
         setUserInfo,
         // 购物车数量
         productNum,
         setProductNum,
-        // 语言
-        locale,
         // 展示购物车,
         showCartModal: () => {
           cartRef.current.show();
@@ -109,13 +113,7 @@ export default function Layout({
       }}
     >
       {/* 购物车 */}
-      <CartModal
-        GOODDISCOUNTFESTIVAL={GOODDISCOUNTFESTIVAL}
-        GOODLIST={GOODLIST}
-        locale={locale}
-        LANG={LANG}
-        ref={cartRef}
-      />
+      <CartModal ref={cartRef} />
       {/* 谷歌GTM */}
       <noscript>
         <iframe

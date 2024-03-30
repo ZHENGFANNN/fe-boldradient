@@ -1,13 +1,16 @@
 import React from "react";
-import styles from "./index.module.scss";
+import GlobalContext from "@/GlobalContext";
+
 import COUNTRYLIST from "@/config/COUNTRYLIST";
 import LANGUAGES from "@/config/LANGUAGE";
+
 import dynamic from "next/dynamic";
-import Cookies from "js-cookie";
 const Modal = dynamic(() => import("./Modal"), { ssr: false });
 
-function CountryList({ children, LANG }) {
-  const area = Cookies.get("area");
+import styles from "./index.module.scss";
+
+function CountryList({ children }) {
+  const { area } = React.useContext(GlobalContext);
   const [show, setShow] = React.useState(false);
   const [value, setValue] = React.useState(null);
   React.useEffect(() => {
@@ -67,7 +70,6 @@ function CountryList({ children, LANG }) {
         )}
       </div>
       <Modal
-        LANG={LANG}
         languageMap={LANGUAGES("map")}
         setValue={setValue}
         setShow={setShow}

@@ -2,7 +2,7 @@
 
 import styles from "../../page.module.scss";
 import { useForm } from "react-hook-form";
-import { ISEMAIL } from "@/utils/pattern";
+import { isEmail } from "@/utils/pattern";
 
 import Api from "../../../api";
 
@@ -45,7 +45,7 @@ export default function ForgetForm({ LANG }) {
           {...register("email", {
             required: LANG["www.forget.email_empyt"],
             pattern: {
-              value: ISEMAIL,
+              value: isEmail,
               message: LANG["www.forget.email_format"],
             },
           })}

@@ -28,7 +28,6 @@ export default function PcProductList({
       const translateX = $(`.${styles.item_content}`)
         .css("transform")
         ?.split(",")[4];
-      console.log("transform:", translateX);
       // 计算出最后的（误差）
       if (
         Math.abs(

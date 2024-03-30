@@ -33,9 +33,10 @@ function ReviewRate({ LANG, reviewScore, reviewsNum }) {
         <img alt="active_icon" src={active_icon} />
         <img alt="active_icon" src={active_icon} />
       </div>
-      <div className={styles.score}>{`( ${LANG[
-        "store.product.reviews"
-      ]?.replace("${num}", reviewsNum)} )`}</div>
+      <div className={styles.score}>{`( ${LANG["store.index.reviews"]?.replace(
+        "${num}",
+        reviewsNum
+      )} )`}</div>
     </div>
   );
 }
@@ -63,7 +64,7 @@ function ProductItem({ goodList }) {
                 <img
                   className={styles.product_image}
                   alt={product.name}
-                  src={product.image_list[0].src}
+                  src={product.image_url}
                 />
                 {product.image_scenes ? (
                   <img
@@ -75,13 +76,11 @@ function ProductItem({ goodList }) {
               </div>
               <div className={styles.content_container}>
                 {/* 产品评分 */}
-                {!isNaN(product.reviewScore) ? (
+                {product.reviews_score ? (
                   <ReviewRate
                     LANG={LANG}
-                    reviewsNum={
-                      product.reviewsList.length || product.reviews_num
-                    }
-                    reviewScore={product.reviewScore}
+                    reviewsNum={product.reviews_num}
+                    reviewScore={product.reviews_score}
                   />
                 ) : null}
                 {/* 产品名称 */}

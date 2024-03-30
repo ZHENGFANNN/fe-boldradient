@@ -4,17 +4,20 @@
  * 存在安全性问题（表单提交，提交订阅）
  */
 
-import styles from "./index.module.scss";
 import React from "react";
+import GlobalContext from "@/GlobalContext";
+
 import TipModal from "@/components/Modal/FunctionTipModal";
-import { ISEMAIL } from "@/utils/pattern";
 import CountryList from "@/components/CountrySelect";
 
-import { useParams } from "next/navigation";
+import { isEmail } from "@/utils/pattern";
+
+import styles from "./index.module.scss";
 
 import NAVFUNC from "@/config/NAVFUNC";
 import Api from "../api";
 import Link from "next/link";
+
 const FULLYEAR = new Date().getFullYear();
 
 function ShowLanguageItem({ value }) {
@@ -49,12 +52,13 @@ function ShowLanguageItem({ value }) {
   );
 }
 
-export default function Footer({ CONFIG, LANG, GOODSORTLIST, GOODLIST }) {
-  const { locale } = useParams();
+export default function Footer() {
+  const { locale, LANG, CONFIG, goodSortList, goodList } =
+    React.useContext(GlobalContext);
   const ModalRef = React.useRef(null);
-  const NAVLIST = React.useMemo(() => {
-    return NAVFUNC({ LANG, CONFIG, GOODLIST, GOODSORTLIST });
-  }, [LANG, CONFIG, GOODLIST, GOODSORTLIST]);
+  const navList = React.useMemo(() => {
+    return NAVFUNC({ LANG, CONFIG, goodList, goodSortList });
+  }, [LANG, CONFIG, goodList, goodSortList]);
 
   const [email, setEmail] = React.useState("");
   const [emailStatue, setEmailStatue] = React.useState();
@@ -62,7 +66,7 @@ export default function Footer({ CONFIG, LANG, GOODSORTLIST, GOODLIST }) {
 
   const onSubmit = async () => {
     if (!email) return;
-    if (!ISEMAIL.exec(email)) {
+    if (!isEmail.exec(email)) {
       setEmailStatue("error");
     } else {
       try {
@@ -132,7 +136,7 @@ export default function Footer({ CONFIG, LANG, GOODSORTLIST, GOODLIST }) {
         <span>{LANG["common.footer.back_top"]}</span>
       </div>
       <nav className={styles.nav}>
-        {NAVLIST.map((item, index) => {
+        {navList.map((item, index) => {
           if (item.list.length > 6) {
             item.list.length = 7;
           }
@@ -300,7 +304,7 @@ export default function Footer({ CONFIG, LANG, GOODSORTLIST, GOODLIST }) {
             {LANG["common.footer.right_reserved"]}
           </div>
           <div className={styles.footer_filing}>
-            <CountryList LANG={LANG}>
+            <CountryList>
               <ShowLanguageItem />
             </CountryList>
           </div>
@@ -330,7 +334,7 @@ export default function Footer({ CONFIG, LANG, GOODSORTLIST, GOODLIST }) {
           </button>
         </div>
       </section>
-      <TipModal LANG={LANG} ref={ModalRef} />
+      <TipModal ref={ModalRef} />
     </footer>
   );
 }

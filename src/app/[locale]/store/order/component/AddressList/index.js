@@ -4,7 +4,7 @@ import styles from "./index.module.scss";
 import Empyt from "@/components/Empyt";
 import React from "react";
 
-export default function AddressInfo({ LANG, list, setAddressInfo }) {
+export default function AddressInfo({ list, setAddressInfo }) {
   const [active, setActive] = React.useState();
   React.useEffect(() => {
     const item = list[0];
@@ -45,7 +45,7 @@ export default function AddressInfo({ LANG, list, setAddressInfo }) {
           })}
         </div>
       ) : (
-        <Empyt LANG={LANG} />
+        <Empyt />
       )}
     </div>
   );

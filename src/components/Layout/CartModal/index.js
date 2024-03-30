@@ -4,7 +4,7 @@ import styles from "./index.module.scss";
 
 import tracking from "../tracking";
 
-import GlobalContext from "@/globalContext2";
+import GlobalContext from "@/GlobalContext";
 import { formatCurrency } from "@/utils";
 
 import { useRouter } from "next/navigation";
@@ -40,7 +40,8 @@ function updateCountdown(endTime) {
   };
 }
 
-const EmptyCart = function ({ LANG, handleClose }) {
+const EmptyCart = function ({ handleClose }) {
+  const { LANG } = React.useContext(GlobalContext);
   return (
     <div className={styles.empty_container}>
       <div className={styles.img_container}>
@@ -62,90 +63,9 @@ const EmptyCart = function ({ LANG, handleClose }) {
   );
 };
 
-function ModalCart({ LANG, GOODLIST, GOODDISCOUNTFESTIVAL, locale }, ref) {
-  /**弹窗逻辑 */
-  const [show, setShow] = React.useState(false);
-  React.useImperativeHandle(ref, () => {
-    return {
-      show: () => {
-        setShow((state) => !state);
-      },
-    };
-  });
-
-  const [firstLoad, setFirstLoad] = React.useState(false);
-  let t = null;
-  React.useEffect(() => {
-    if (!show) {
-      t = setTimeout(() => {
-        setFirstLoad(false);
-      }, 300);
-    } else {
-      clearTimeout(t);
-      setFirstLoad(true);
-    }
-
-    document.body.style.overflow = show ? "hidden" : "scroll";
-    return () => {
-      document.body.style.overflow = "scroll";
-    };
-  }, [show]);
-
-  return (
-    <>
-      {firstLoad &&
-        ReactDOM.createPortal(
-          <div
-            className={styles.modal}
-            data-show={show}
-            onClick={() => {
-              setShow(false);
-            }}
-          >
-            <div className={styles.modal_container}>
-              <div className={styles.modal_wrapper}>
-                <div
-                  className={styles.modal_content}
-                  onClick={(e) => {
-                    e.stopPropagation(); // 阻止事件冒泡
-                  }}
-                >
-                  <div className={styles.header}>
-                    <div className={styles.title}>
-                      {LANG["common.cart.title"]}
-                    </div>
-                    <div
-                      className={styles.close}
-                      onClick={() => setShow(false)}
-                    >
-                      ×
-                    </div>
-                  </div>
-                  <CartMain
-                    handleClose={() => setShow(false)}
-                    LANG={LANG}
-                    GOODLIST={GOODLIST}
-                    goodDiscountFestival={GOODDISCOUNTFESTIVAL}
-                    locale={locale}
-                  />
-                </div>
-              </div>
-            </div>
-          </div>,
-          document.body
-        )}
-    </>
-  );
-}
-
-const CartMain = function ({
-  LANG,
-  handleClose,
-  GOODLIST,
-  goodDiscountFestival,
-  locale,
-}) {
-  const { setProductNum } = React.useContext(GlobalContext);
+const CartMain = function ({ handleClose }) {
+  const { locale, LANG, goodList, goodDiscountFestival, setProductNum } =
+    React.useContext(GlobalContext);
   const [cartList, setCartList] = React.useState([]);
   const [hours, setHours] = React.useState("00");
   const [minutes, setMinutes] = React.useState("00");
@@ -176,7 +96,7 @@ const CartMain = function ({
       localStoreList.forEach((item) => {
         let comboInfo;
         // 查找该语言的商品
-        const product = GOODLIST.find(
+        const product = goodList.find(
           (product) =>
             item.productKey === product.key && item.sortKey === product.sort_key
         );
@@ -215,7 +135,7 @@ const CartMain = function ({
               stock: comboInfo.areaInfo.stock,
               // 产品相关
               name: product.name,
-              image: product.image_list[0].src,
+              image: product.image,
               href: `/${locale}/store/product/${product.sort_key}/${product.key}`,
               sortKey: product.sort_key,
               productKey: product.key,
@@ -571,5 +491,76 @@ const CartMain = function ({
     </div>
   );
 };
+
+function ModalCart(_, ref) {
+  const { LANG } = React.useContext(GlobalContext);
+  /**弹窗逻辑 */
+  const [show, setShow] = React.useState(false);
+  React.useImperativeHandle(ref, () => {
+    return {
+      show: () => {
+        setShow((state) => !state);
+      },
+    };
+  });
+
+  const [firstLoad, setFirstLoad] = React.useState(false);
+  let t = null;
+  React.useEffect(() => {
+    if (!show) {
+      t = setTimeout(() => {
+        setFirstLoad(false);
+      }, 300);
+    } else {
+      clearTimeout(t);
+      setFirstLoad(true);
+    }
+
+    document.body.style.overflow = show ? "hidden" : "scroll";
+    return () => {
+      document.body.style.overflow = "scroll";
+    };
+  }, [show]);
+
+  return (
+    <>
+      {firstLoad &&
+        ReactDOM.createPortal(
+          <div
+            className={styles.modal}
+            data-show={show}
+            onClick={() => {
+              setShow(false);
+            }}
+          >
+            <div className={styles.modal_container}>
+              <div className={styles.modal_wrapper}>
+                <div
+                  className={styles.modal_content}
+                  onClick={(e) => {
+                    e.stopPropagation(); // 阻止事件冒泡
+                  }}
+                >
+                  <div className={styles.header}>
+                    <div className={styles.title}>
+                      {LANG["common.cart.title"]}
+                    </div>
+                    <div
+                      className={styles.close}
+                      onClick={() => setShow(false)}
+                    >
+                      ×
+                    </div>
+                  </div>
+                  <CartMain handleClose={() => setShow(false)} />
+                </div>
+              </div>
+            </div>
+          </div>,
+          document.body
+        )}
+    </>
+  );
+}
 
 export default React.forwardRef(ModalCart);

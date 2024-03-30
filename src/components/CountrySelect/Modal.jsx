@@ -1,13 +1,15 @@
+import React from "react";
 import ReactDOM from "react-dom";
+import GlobalContext from "@/GlobalContext";
+
 import Link from "next/link";
 import COUNTRYLIST from "@/config/COUNTRYLIST";
 import Cookie from "js-cookie";
 import styles from "./modal.module.scss";
-import React from "react";
-import { useParams, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 
-export default function Modal({ show, setShow, languageMap, LANG }) {
-  const { locale } = useParams();
+export default function Modal({ show, setShow, languageMap }) {
+  const { locale, LANG } = React.useContext(GlobalContext);
   const router = useRouter();
   const [lock, setLock] = React.useState(false);
   return (

@@ -52,7 +52,18 @@ img {
   -moz-user-focus: none;
   &[data-src] {
     background: #f7f8f9;
-    border: 1px solid #f7f8f9;
+    box-sizing: border-box;
+
+    position: relative;
+    &::after {
+      position: absolute;
+      content: '';
+      left: -1px;
+      right: -1px;
+      top: -1px;
+      bottom: -1px;
+      background: #f7f8f9;
+    }
   }
 }
 

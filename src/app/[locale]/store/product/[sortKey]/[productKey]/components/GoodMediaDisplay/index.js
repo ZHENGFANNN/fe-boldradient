@@ -112,9 +112,19 @@ export default function GoodMediaDisplay() {
       $domList.on("click", function () {
         splide.go($(this).index());
       });
+      // 选项跳转
+      $("[data-carousel]").on("click", function () {
+        let index = parseInt($(this).attr("data-carousel"));
+        if (!isNaN(index)) {
+          index = index + productCurCombo.img_list.length;
+          splide.go(index - 1);
+        }
+      });
       splide.mount();
       return () => {
         splide.destroy();
+        $("[data-carousel]").off("click");
+        $domList.off("click");
       };
     }
   }, [productCurCombo, lazyLoading]);

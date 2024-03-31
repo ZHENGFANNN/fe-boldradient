@@ -29,6 +29,7 @@ function GoodOptionItem({ title = "", options = [], type }) {
           if (type === "text") {
             return (
               <div
+                data-carousel={item.index}
                 key={index}
                 className={`
                     ${styles.list_item}
@@ -48,6 +49,7 @@ function GoodOptionItem({ title = "", options = [], type }) {
             return (
               <div
                 key={index}
+                data-carousel={item.index}
                 className={`
                     ${styles.list_item_image}
                     ${item.title === currentItem ? styles.active : ""}

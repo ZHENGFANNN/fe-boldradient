@@ -6,7 +6,8 @@ function filterData(data) {
     const item = data[i];
     const startTime = item.start_time;
     const endTime = item.end_time;
-    if (startTime <= currentTime && endTime >= currentTime) {
+    const longActivity = item.long_activity;
+    if (longActivity || (startTime <= currentTime && endTime >= currentTime)) {
       return item;
     }
   }
@@ -16,9 +17,9 @@ function filterData(data) {
 export default async function getGoodDiscountList(lang) {
   try {
     if (Array.isArray(productDiscount)) {
-      const discount = filterData(productDiscount);
-      if (discount) {
-        const { languages, ...values } = discount;
+      const festivalItem = filterData(productDiscount);
+      if (festivalItem) {
+        const { languages, ...values } = festivalItem;
         return {
           ...values,
           title: languages[lang] || languages["en"],

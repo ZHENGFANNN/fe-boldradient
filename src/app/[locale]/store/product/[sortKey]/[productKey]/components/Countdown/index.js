@@ -45,7 +45,7 @@ export default function Countdown() {
   const { lazyLoading, productCurCombo, goodDiscountFestival, LANG } =
     React.useContext(ProductContext);
   React.useEffect(() => {
-    if (!lazyLoading) {
+    if (!lazyLoading && !goodDiscountFestival.long_activity) {
       const t = setInterval(() => {
         updateCountdown(goodDiscountFestival?.end_time);
       }, 500);
@@ -82,22 +82,27 @@ export default function Countdown() {
         </h2>
       </div>
       <div className={styles.countdown}>
+        {goodDiscountFestival.long_activity ? (
+          <div className={styles.countdown_title}>best seller</div>
+        ) : null}
         <div className={styles.countdown_description}>
           {LANG["store.product.limit_time_discount"]}
         </div>
-        <div className={styles.countdown_time}>
-          <div className={styles.countdown_item}>
-            <div id="countdown-hours">00</div>
+        {!goodDiscountFestival.long_activity ? (
+          <div className={styles.countdown_time}>
+            <div className={styles.countdown_item}>
+              <div id="countdown-hours">00</div>
+            </div>
+            <div className={styles.countdown_symbol}>:</div>
+            <div className={styles.countdown_item}>
+              <div id="countdown-minutes">00</div>
+            </div>
+            <div className={styles.countdown_symbol}>:</div>
+            <div className={styles.countdown_item}>
+              <div id="countdown-seconds">00</div>
+            </div>
           </div>
-          <div className={styles.countdown_symbol}>:</div>
-          <div className={styles.countdown_item}>
-            <div id="countdown-minutes">00</div>
-          </div>
-          <div className={styles.countdown_symbol}>:</div>
-          <div className={styles.countdown_item}>
-            <div id="countdown-seconds">00</div>
-          </div>
-        </div>
+        ) : null}
       </div>
     </div>
   );

@@ -19,21 +19,21 @@ export default function SelectList() {
       if (productInfo.image_list.length > 0) {
         list.push({
           type: "image",
-          icon_src: `${process.env.NEXT_PUBLIC_IMAGE}/icon/media-image.svg`,
+          icon_src: `${process.env.NEXT_PUBLIC_FILE}/image/icon/media-image.svg`,
           text: LANG["store.product.image"],
         });
       }
       if (productInfo.video_url) {
         list.push({
           type: "video",
-          icon_src: `${process.env.NEXT_PUBLIC_IMAGE}/icon/media-play.svg`,
+          icon_src: `${process.env.NEXT_PUBLIC_FILE}/image/icon/media-play.svg`,
           text: LANG["store.product.product_introduce"],
         });
       }
       if (productInfo.three_d) {
         list.push({
           type: "3d",
-          icon_src: `${process.env.NEXT_PUBLIC_IMAGE}/icon/media-three-3d.svg`,
+          icon_src: `${process.env.NEXT_PUBLIC_FILE}/image/icon/media-three-3d.svg`,
           text: "3D",
         });
       }

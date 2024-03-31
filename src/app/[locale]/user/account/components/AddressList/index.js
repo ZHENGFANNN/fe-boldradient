@@ -74,7 +74,7 @@ export default function AddressInfo({ showTip, LANG }) {
                             alt="delete"
                             width={24}
                             height={24}
-                            src={`${process.env.NEXT_PUBLIC_IMAGE}/icon/min-utils-delete.svg`}
+                            src={`${process.env.NEXT_PUBLIC_FILE}/image/icon/min-utils-delete.svg`}
                           />
                         </div>
                       }

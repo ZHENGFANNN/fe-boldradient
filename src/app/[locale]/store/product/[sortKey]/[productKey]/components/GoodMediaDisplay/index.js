@@ -13,7 +13,7 @@ async function getMediaDisplayList({ productInfo, LANG }) {
     if (productInfo.image_list.length > 0) {
       list.push({
         type: "image",
-        icon_src: `${process.env.NEXT_PUBLIC_IMAGE}/icon/media-image.svg`,
+        icon_src: `${process.env.NEXT_PUBLIC_FILE}/image/icon/media-image.svg`,
         text: LANG["store.product.image"],
         image_list: productInfo.image_list,
       });
@@ -21,7 +21,7 @@ async function getMediaDisplayList({ productInfo, LANG }) {
     if (productInfo.video_url) {
       list.push({
         type: "video",
-        icon_src: `${process.env.NEXT_PUBLIC_IMAGE}/icon/media-play.svg`,
+        icon_src: `${process.env.NEXT_PUBLIC_FILE}/image/icon/media-play.svg`,
         text: LANG["store.product.product_introduce"],
         video_url: productInfo.video_url,
         video_cover: productInfo.video_cover,
@@ -30,7 +30,7 @@ async function getMediaDisplayList({ productInfo, LANG }) {
     if (productInfo.three_d) {
       list.push({
         type: "3d",
-        icon_src: `${process.env.NEXT_PUBLIC_IMAGE}/icon/media-three-3d.svg`,
+        icon_src: `${process.env.NEXT_PUBLIC_FILE}/image/icon/media-three-3d.svg`,
         text: "3D",
         three_d: productInfo.three_d,
         three_d_background: productInfo.three_d_background,
@@ -282,7 +282,7 @@ export default function GoodMediaDisplay() {
         //               width={38}
         //               height={38}
         //               alt="3d"
-        //               src={`${process.env.NEXT_PUBLIC_IMAGE}/icon/media-three-3d.svg`}
+        //               src={`${process.env.NEXT_PUBLIC_FILE}/image/icon/media-three-3d.svg`}
         //             />
         //           </div>
         //           <span>

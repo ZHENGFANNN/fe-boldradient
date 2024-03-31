@@ -28,7 +28,7 @@ export default async function Forget({ params: { locale } }) {
     <div
       className={styles.container}
       style={{
-        backgroundImage: `url(${process.env.NEXT_PUBLIC_IMAGE}/icon/bg.webp)`,
+        backgroundImage: `url(${process.env.NEXT_PUBLIC_FILE}/image/icon/bg.webp)`,
       }}
     >
       <main className={styles.main}>

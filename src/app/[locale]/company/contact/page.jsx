@@ -30,7 +30,7 @@ export default async function Contact({ params: { locale } }) {
       <div className={styles.img_container}>
         <img
           alt={LANG["www.company_contact.contact_us"]}
-          src={`${process.env.NEXT_PUBLIC_IMAGE}/icon/bg.webp`}
+          src={`${process.env.NEXT_PUBLIC_FILE}/image/icon/bg.webp`}
         />
       </div>
       <ul className={styles.media_list}>

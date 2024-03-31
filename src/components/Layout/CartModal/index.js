@@ -47,7 +47,7 @@ const EmptyCart = function ({ handleClose }) {
       <div className={styles.img_container}>
         <img
           alt="empty"
-          src={`${process.env.NEXT_PUBLIC_IMAGE}/icon/min-utils-empyt.svg`}
+          src={`${process.env.NEXT_PUBLIC_FILE}/image/icon/min-utils-empyt.svg`}
         />
       </div>
       <p>{LANG["common.cart.cart_empty"]}</p>
@@ -443,7 +443,7 @@ const CartMain = function ({ handleClose }) {
                                   alt="delete"
                                   width={24}
                                   height={24}
-                                  src={`${process.env.NEXT_PUBLIC_IMAGE}/icon/min-utils-delete.svg`}
+                                  src={`${process.env.NEXT_PUBLIC_FILE}/image/icon/min-utils-delete.svg`}
                                 />
                               </div>
                             </div>

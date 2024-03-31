@@ -5,8 +5,8 @@ import Script from "next/script";
 import styles from "./index.module.scss";
 import Link from "next/link";
 import { IndexContent } from "../IndexContext";
-const active_icon = `${process.env.NEXT_PUBLIC_IMAGE}/icon/previews_stars_active_icon.svg`;
-const no_active_icon = `${process.env.NEXT_PUBLIC_IMAGE}/icon/previews_stars_icon.svg`;
+const active_icon = `${process.env.NEXT_PUBLIC_FILE}/image/icon/previews_stars_active_icon.svg`;
+const no_active_icon = `${process.env.NEXT_PUBLIC_FILE}/image/icon/previews_stars_icon.svg`;
 
 import { formatCurrency } from "@/utils";
 import tracking from "../../tracking";

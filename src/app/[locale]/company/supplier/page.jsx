@@ -38,7 +38,7 @@ export default async function Supplier({ params: { locale } }) {
         </div>
         <img
           alt={LANG["www.company_supplier.contact"]}
-          src={`${process.env.NEXT_PUBLIC_IMAGE}/icon/bg.webp`}
+          src={`${process.env.NEXT_PUBLIC_FILE}/image/icon/bg.webp`}
           // src={CONFIG["www.cooperate.supplier_img"]}
         />
       </section>

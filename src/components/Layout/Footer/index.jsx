@@ -45,7 +45,7 @@ function ShowLanguageItem({ value }) {
         alt="languages"
         width={24}
         height={24}
-        src={`${process.env.NEXT_PUBLIC_IMAGE}/icon/min-languages.svg`}
+        src={`${process.env.NEXT_PUBLIC_FILE}/image/icon/min-languages.svg`}
       />
       <div>{value}</div>
     </div>

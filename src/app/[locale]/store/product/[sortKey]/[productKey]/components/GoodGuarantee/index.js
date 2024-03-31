@@ -27,7 +27,7 @@ export default function GoodGuarantee() {
           <div className={styles.left_content}>
             <div className={styles.icon}>
               <img
-                src={`${process.env.NEXT_PUBLIC_IMAGE}/icon/product-deliver.svg`}
+                src={`${process.env.NEXT_PUBLIC_FILE}/image/icon/product-deliver.svg`}
               />
             </div>
             <div className={styles.text}>
@@ -45,7 +45,7 @@ export default function GoodGuarantee() {
           <div className={styles.left_content}>
             <div className={styles.icon}>
               <img
-                src={`${process.env.NEXT_PUBLIC_IMAGE}/icon/product-guarantee.svg`}
+                src={`${process.env.NEXT_PUBLIC_FILE}/image/icon/product-guarantee.svg`}
               />
             </div>
             <div className={styles.text}>
@@ -63,7 +63,7 @@ export default function GoodGuarantee() {
           <div className={styles.left_content}>
             <div className={styles.icon}>
               <img
-                src={`${process.env.NEXT_PUBLIC_IMAGE}/icon/product-order.svg`}
+                src={`${process.env.NEXT_PUBLIC_FILE}/image/icon/product-order.svg`}
               />
             </div>
             <div className={styles.text}>
@@ -74,7 +74,9 @@ export default function GoodGuarantee() {
         </div>
       </div>
       <div className={styles.email_question_container}>
-        <img src={`${process.env.NEXT_PUBLIC_IMAGE}/icon/product-email.png`} />
+        <img
+          src={`${process.env.NEXT_PUBLIC_FILE}/image/icon/product-email.png`}
+        />
         <a
           href={`mailto:${CONFIG["company.basic.customer_service"]}`}
           target="_blank"

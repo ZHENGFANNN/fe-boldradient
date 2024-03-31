@@ -34,7 +34,7 @@ function ShowTipModal(_, ref) {
               alt="avatar"
               width={20}
               height={20}
-              src={`${process.env.NEXT_PUBLIC_IMAGE}/icon/message-success.svg`}
+              src={`${process.env.NEXT_PUBLIC_FILE}/image/icon/message-success.svg`}
             />
           ) : null}
           {type === "error" ? (
@@ -42,7 +42,7 @@ function ShowTipModal(_, ref) {
               alt="avatar"
               width={20}
               height={20}
-              src={`${process.env.NEXT_PUBLIC_IMAGE}/icon/message-error.svg`}
+              src={`${process.env.NEXT_PUBLIC_FILE}/image/icon/message-error.svg`}
             />
           ) : null}
           {type === "info" ? (
@@ -50,7 +50,7 @@ function ShowTipModal(_, ref) {
               alt="avatar"
               width={20}
               height={20}
-              src={`${process.env.NEXT_PUBLIC_IMAGE}/icon/message-info.svg`}
+              src={`${process.env.NEXT_PUBLIC_FILE}/image/icon/message-info.svg`}
             />
           ) : null}
           <div className={styles.text}>{text}</div>

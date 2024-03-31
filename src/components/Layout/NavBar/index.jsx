@@ -146,7 +146,7 @@ export default function NavBar() {
                 alt="avatar"
                 width={18}
                 height={18}
-                src={`${process.env.NEXT_PUBLIC_IMAGE}/icon/min-user.svg`}
+                src={`${process.env.NEXT_PUBLIC_FILE}/image/icon/min-user.svg`}
               />
             </div>
           </div>
@@ -246,7 +246,7 @@ export default function NavBar() {
                             <img
                               alt={LANG["common.nav.faq"]}
                               fill
-                              src={`${process.env.NEXT_PUBLIC_IMAGE}/icon/nav-learn-more.svg`}
+                              src={`${process.env.NEXT_PUBLIC_FILE}/image/icon/nav-learn-more.svg`}
                             />
                             <p>{LANG["common.nav.learn_more"]}</p>
                           </Link>
@@ -326,7 +326,7 @@ export default function NavBar() {
             >
               <Link className={styles.header_store_container} href={`/`}>
                 <img
-                  src={`${process.env.NEXT_PUBLIC_IMAGE}/icon/min-store.svg`}
+                  src={`${process.env.NEXT_PUBLIC_FILE}/image/icon/min-store.svg`}
                   alt="store"
                 />
                 <div className={styles.header_store_title}>
@@ -348,7 +348,7 @@ export default function NavBar() {
                   alt="avatar"
                   width={24}
                   height={24}
-                  src={`${process.env.NEXT_PUBLIC_IMAGE}/icon/min-cart.svg`}
+                  src={`${process.env.NEXT_PUBLIC_FILE}/image/icon/min-cart.svg`}
                 />
               </div>
             </li>
@@ -392,7 +392,7 @@ export default function NavBar() {
                   alt="avatar"
                   width={24}
                   height={24}
-                  src={`${process.env.NEXT_PUBLIC_IMAGE}/icon/min-user.svg`}
+                  src={`${process.env.NEXT_PUBLIC_FILE}/image/icon/min-user.svg`}
                 />
               </DropSelect>
             </li>

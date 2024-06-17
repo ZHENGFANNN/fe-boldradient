@@ -23,8 +23,8 @@ function ComboModal(_, ref) {
     <Modal ref={modalRef}>
       <div className={styles.container}>
         {/* 产品选项 */}
-        <GoodOptionList />
         <GoodComboList />
+        <GoodOptionList />
         <GoodNumber />
         <GoodBtnList />
       </div>

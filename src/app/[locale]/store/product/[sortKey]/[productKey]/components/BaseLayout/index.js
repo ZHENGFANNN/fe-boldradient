@@ -32,12 +32,20 @@ export default function Layout({
 
   // 商品选项
   const [productOptions, setProductOptions] = React.useState(() => {
-    return productInfo?.typeList.map((item) => {
-      return {
-        name: item.title,
-        value: item.options[0].title,
-      };
+    const typeList = productInfo?.typeList;
+    const formateList = [];
+    typeList.forEach((item) => {
+      if (
+        !item.associated ||
+        (item.combo_keys && item.combo_keys.includes(productCurCombo?.key))
+      ) {
+        formateList.push({
+          name: item.title,
+          value: item.options[0].title,
+        });
+      }
     });
+    return formateList;
   });
 
   // 商品首页展示类型
@@ -76,11 +84,22 @@ export default function Layout({
         setProductCurCombo,
         // 当前产品选项
         productOptions,
+        removeProductOptions: (name) => {
+          setProductOptions((productOptions) => {
+            return productOptions.filter((item) => item.name !== name);
+          });
+        },
         setProductOptions: (newItem) => {
           setProductOptions((productOptions) => {
-            return productOptions.map((item) => {
-              return item.name === newItem.name ? newItem : item;
-            });
+            const findIndex = productOptions.findIndex(
+              (item) => item.name === newItem.name
+            );
+            if (findIndex > -1) {
+              productOptions[findIndex] = newItem;
+              return [...productOptions];
+            } else {
+              return [...productOptions, newItem];
+            }
           });
         },
         // 产品展示类型

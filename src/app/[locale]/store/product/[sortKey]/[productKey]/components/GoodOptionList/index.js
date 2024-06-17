@@ -4,7 +4,7 @@ import styles from "./index.module.scss";
 import ProductContext from "../../ProductContext";
 
 function GoodOptionItem({ title = "", options = [], type }) {
-  const { setProductOptions, productOptions } =
+  const { setProductOptions, productOptions, productCurCombo } =
     React.useContext(ProductContext);
 
   const onChange = React.useCallback((item) => {
@@ -75,7 +75,38 @@ export default function GoodOptionList() {
   const {
     productInfo: { typeList },
     productCurCombo,
+    setProductOptions,
+    removeProductOptions,
   } = React.useContext(ProductContext);
+
+  React.useEffect(() => {
+    // 设置了值，就不剔除
+    let isSetValue = false;
+    typeList.forEach((item) => {
+      // 存在关联套餐的且不包含当前套餐的不显示
+      if (
+        !isSetValue &&
+        item.associated &&
+        item.combo_keys &&
+        !item.combo_keys.includes(productCurCombo?.key)
+      ) {
+        removeProductOptions(item.title);
+      }
+      // 存在关联套餐的且包含当前套餐的显示
+      if (
+        item.associated &&
+        item.combo_keys &&
+        item.combo_keys.includes(productCurCombo?.key)
+      ) {
+        isSetValue = true;
+        setProductOptions({
+          name: item.title,
+          value: item.options[0].title,
+        });
+      }
+    });
+  }, [productCurCombo]);
+
   if (typeList.length < 1) return null;
   return (
     <>

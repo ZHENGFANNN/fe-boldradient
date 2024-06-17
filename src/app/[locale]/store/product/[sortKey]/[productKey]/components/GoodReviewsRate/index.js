@@ -15,7 +15,7 @@ export default function GoodReviewsRate({ reviewNum, reviewScore }) {
     if (reviewNum) {
       return reviewNum;
     } else {
-      return productInfo.reviewsList?.length;
+      return productInfo.reviews_num || productInfo.reviewsList?.length;
     }
   }, []);
 
@@ -28,7 +28,10 @@ export default function GoodReviewsRate({ reviewNum, reviewScore }) {
         (pre, cur) => pre + cur.score,
         0
       );
-      return totalScore / productInfo.reviewsList?.length;
+      return (
+        productInfo.reviews_score ||
+        totalScore / productInfo.reviewsList?.length
+      );
     }
   });
 

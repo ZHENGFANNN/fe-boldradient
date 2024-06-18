@@ -75,17 +75,24 @@ export default function GoodOptionList() {
   const {
     productInfo: { typeList },
     productCurCombo,
+    productOptions,
     setProductOptions,
     removeProductOptions,
   } = React.useContext(ProductContext);
 
+  const didMountRef = React.useRef(false);
+
   React.useEffect(() => {
+    if (!didMountRef.current) {
+      didMountRef.current = true;
+      return;
+    }
     // 设置了值，就不剔除
-    let isSetValue = false;
+    const safeList = [];
     typeList.forEach((item) => {
       // 存在关联套餐的且不包含当前套餐的不显示
       if (
-        !isSetValue &&
+        !safeList.includes(item.title) &&
         item.associated &&
         item.combo_keys &&
         !item.combo_keys.includes(productCurCombo?.key)
@@ -98,7 +105,9 @@ export default function GoodOptionList() {
         item.combo_keys &&
         item.combo_keys.includes(productCurCombo?.key)
       ) {
-        isSetValue = true;
+        // 保存已经设置过的值，就不再清除
+        safeList.push(item.title);
+
         setProductOptions({
           name: item.title,
           value: item.options[0].title,

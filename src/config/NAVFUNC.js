@@ -12,7 +12,12 @@ export default function NAVFUNC({ LANG, CONFIG, goodList, goodSortList }) {
           sub_title: item.name,
           href: `/nav/product_info#${item.key}`,
           img: (
-            <img height={60} width={60} src={item.image_src} alt={item.name} />
+            <img
+              height={60}
+              width={60}
+              data-src={item.image_src}
+              alt={item.name}
+            />
           ),
         };
       }),
@@ -28,7 +33,7 @@ export default function NAVFUNC({ LANG, CONFIG, goodList, goodSortList }) {
             <img
               height={60}
               width={60}
-              src={item.image || item.image_list?.[0]?.src}
+              data-src={item.image || item.image_list?.[0]?.src}
               alt={item.name}
             />
           ),
@@ -42,7 +47,9 @@ export default function NAVFUNC({ LANG, CONFIG, goodList, goodSortList }) {
         return {
           sub_title: item.title,
           href: item.href,
-          img: <img height={60} width={60} src={item.src} alt={item.title} />,
+          img: (
+            <img height={60} width={60} data-src={item.src} alt={item.title} />
+          ),
         };
       }),
     },
@@ -58,7 +65,7 @@ export default function NAVFUNC({ LANG, CONFIG, goodList, goodSortList }) {
               alt={LANG["common.nav.sales_policy"]}
               height={60}
               width={60}
-              src={`${process.env.NEXT_PUBLIC_FILE}/image/icon/nav-sales.svg`}
+              data-src={`${process.env.NEXT_PUBLIC_FILE}/image/icon/nav-sales.svg`}
             />
           ),
         },
@@ -70,7 +77,7 @@ export default function NAVFUNC({ LANG, CONFIG, goodList, goodSortList }) {
               alt={LANG["common.nav.privacy_policy"]}
               height={60}
               width={60}
-              src={`${process.env.NEXT_PUBLIC_FILE}/image/icon/nav-privacy.svg`}
+              data-src={`${process.env.NEXT_PUBLIC_FILE}/image/icon/nav-privacy.svg`}
             />
           ),
         },
@@ -82,7 +89,7 @@ export default function NAVFUNC({ LANG, CONFIG, goodList, goodSortList }) {
               alt={LANG["common.nav.user_service"]}
               height={60}
               width={60}
-              src={`${process.env.NEXT_PUBLIC_FILE}/image/icon/nav-argeement.svg`}
+              data-src={`${process.env.NEXT_PUBLIC_FILE}/image/icon/nav-argeement.svg`}
             />
           ),
         },
@@ -94,7 +101,7 @@ export default function NAVFUNC({ LANG, CONFIG, goodList, goodSortList }) {
               alt={LANG["common.nav.faq"]}
               height={60}
               width={60}
-              src={`${process.env.NEXT_PUBLIC_FILE}/image/icon/nav-faq.svg`}
+              data-src={`${process.env.NEXT_PUBLIC_FILE}/image/icon/nav-faq.svg`}
             />
           ),
         },
@@ -112,7 +119,7 @@ export default function NAVFUNC({ LANG, CONFIG, goodList, goodSortList }) {
               alt={LANG["common.nav.company_profile"]}
               height={60}
               width={60}
-              src={`${process.env.NEXT_PUBLIC_FILE}/image/icon/nav-company.svg`}
+              data-src={`${process.env.NEXT_PUBLIC_FILE}/image/icon/nav-company.svg`}
             />
           ),
         },
@@ -124,7 +131,7 @@ export default function NAVFUNC({ LANG, CONFIG, goodList, goodSortList }) {
               alt={LANG["common.nav.market_collaboration"]}
               height={60}
               width={60}
-              src={`${process.env.NEXT_PUBLIC_FILE}/image/icon/nav-market.svg`}
+              data-src={`${process.env.NEXT_PUBLIC_FILE}/image/icon/nav-market.svg`}
             />
           ),
         },
@@ -136,7 +143,7 @@ export default function NAVFUNC({ LANG, CONFIG, goodList, goodSortList }) {
               alt={LANG["common.nav.technical_cooperation"]}
               height={60}
               width={60}
-              src={`${process.env.NEXT_PUBLIC_FILE}/image/icon/nav-technology.svg`}
+              data-src={`${process.env.NEXT_PUBLIC_FILE}/image/icon/nav-technology.svg`}
             />
           ),
         },
@@ -148,7 +155,7 @@ export default function NAVFUNC({ LANG, CONFIG, goodList, goodSortList }) {
               alt={LANG["common.nav.supplier_cooperation"]}
               height={60}
               width={60}
-              src={`${process.env.NEXT_PUBLIC_FILE}/image/icon/nav-suppiler.svg`}
+              data-src={`${process.env.NEXT_PUBLIC_FILE}/image/icon/nav-suppiler.svg`}
             />
           ),
         },
@@ -160,7 +167,7 @@ export default function NAVFUNC({ LANG, CONFIG, goodList, goodSortList }) {
               alt={LANG["common.nav.contact_us"]}
               height={60}
               width={60}
-              src={`${process.env.NEXT_PUBLIC_FILE}/image/icon/nav-contact.svg`}
+              data-src={`${process.env.NEXT_PUBLIC_FILE}/image/icon/nav-contact.svg`}
             />
           ),
         },

@@ -255,6 +255,7 @@
         }
 
         img {
+          box-sizing: content-box;
           width: 24px !important;
           border: 8px solid transparent;
           color: #000;
@@ -382,6 +383,7 @@
 
             white-space: nowrap;
             li {
+              box-sizing: content-box;
               padding: 10px 32px;
               color: #2d2d2d;
               font-size: 14px;

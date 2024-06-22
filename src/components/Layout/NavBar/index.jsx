@@ -212,7 +212,6 @@ export default function NavBar() {
                           >
                             <img
                               alt={LANG["common.nav.faq"]}
-                              fill
                               data-src={`${process.env.NEXT_PUBLIC_FILE}/image/icon/nav-learn-more.svg`}
                             />
                             <p>{LANG["common.nav.learn_more"]}</p>

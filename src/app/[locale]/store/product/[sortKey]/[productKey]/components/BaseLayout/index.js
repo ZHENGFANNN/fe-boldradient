@@ -27,7 +27,11 @@ export default function Layout({
 
   // 商品套餐
   const [productCurCombo, setProductCurCombo] = React.useState(() => {
-    return productInfo?.comboList.find((item) => item.areaInfo.stock);
+    return (
+      productInfo?.comboList.find((item) => item.areaInfo?.stock) ||
+      productInfo?.comboList[0] ||
+      {}
+    );
   });
 
   // 商品选项

@@ -30,9 +30,12 @@ async function getSortList(productSort) {
       }) => {
         const totalValue = reviewsList.reduce((pre, cur) => pre + cur.score, 0);
         const avertValue = totalValue / reviewsList.length;
-        const { areaInfo } = comboList.find((item) => {
-          return item.areaInfo.stock;
-        });
+        const { areaInfo } =
+          comboList.find((item) => {
+            return item.areaInfo?.stock;
+          }) ||
+          comboList[0] ||
+          {};
         return {
           name,
           key,

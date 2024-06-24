@@ -261,7 +261,7 @@ export default function GoodMediaDisplay() {
               preload="none"
               height="100%"
               width="100%"
-              poster={item.video_poster}
+              poster={item.video_cover}
               src={item.video_url}
               style={{
                 display: productShowType === "video" ? "block" : "none",

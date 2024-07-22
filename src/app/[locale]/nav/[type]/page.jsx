@@ -94,6 +94,7 @@ export default async function Nav({ params: { type, locale } }) {
                   {item.goodList.map((item2, index2) => {
                     return (
                       <Link
+                        scroll={false}
                         key={index2}
                         href={`/product/${item.key}/${item2.key}`}
                         className={styles.header_nav_items}

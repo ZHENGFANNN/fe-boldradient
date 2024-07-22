@@ -1,3 +1,5 @@
+/** @format */
+
 import Link from "next/link";
 import styles from "./page.module.scss";
 import getConfigData from "@/utils/getConfigData";
@@ -52,7 +54,11 @@ export default async function Technology({ params: { locale } }) {
         <p className={styles.content_description}>
           {CONFIG["www.cooperate.common_description"]}
         </p>
-        <Link href="/company/introduce" className={styles.content_about_us}>
+        <Link
+          scroll={false}
+          href="/company/introduce"
+          className={styles.content_about_us}
+        >
           <span> {LANG["www.company_technology.see_more"]}</span>
           <span className={styles.arrow_icon}></span>
         </Link>

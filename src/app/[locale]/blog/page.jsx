@@ -6,6 +6,7 @@ import styles from "./page.module.scss";
 import ArticleCard from "./components/ArticleCard";
 import BaseLayout from "./components/BaseLayout";
 import Link from "next/link";
+import Banner from "./components/Banner";
 
 export async function generateMetadata({ params: { locale, sortKey } }) {
   const { BLOG } = await getConfigData({
@@ -48,7 +49,11 @@ function BlogArticleCard({ blogSort, locale }) {
       </div>
       {blogSort.blogList.length > 6 ? (
         <div className={styles.btn_container}>
-          <Link href={`/blog/${blogSort.key}`} className={styles.btn_text}>
+          <Link
+            scroll={false}
+            href={`/blog/${blogSort.key}`}
+            className={styles.btn_text}
+          >
             View All
           </Link>
         </div>
@@ -64,6 +69,7 @@ export default async function BlogSort({ params: { locale } }) {
   });
   return (
     <BaseLayout BLOG={BLOG}>
+      <Banner list={BLOG[0].blogList} />
       <div className={styles.container}>
         {BLOG.map((item, index) => {
           return (

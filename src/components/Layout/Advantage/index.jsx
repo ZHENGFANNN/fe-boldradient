@@ -1,3 +1,5 @@
+/** @format */
+
 "use client";
 import React from "react";
 import Link from "next/link";
@@ -39,7 +41,7 @@ export default function Advantage({ LANG }) {
           />
         </div>
         <div className={styles.tip_item_text}>
-          <Link rel="noreferrer" href={`/company/contact`}>
+          <Link scroll={false} rel="noreferrer" href={`/company/contact`}>
             {LANG["common.advantage.contact"]}
           </Link>
         </div>

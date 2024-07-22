@@ -1,3 +1,5 @@
+/** @format */
+
 "use client";
 
 import React from "react";
@@ -126,7 +128,7 @@ export default function LoginForm({ LANG }) {
           <p>{errors.password?.message}</p>
         </div>
         <span>
-          <Link href={`/user/forget`} className={styles.forget}>
+          <Link scroll={false} href={`/user/forget`} className={styles.forget}>
             {LANG["www.user_login.forget_password"]}
           </Link>
         </span>
@@ -137,7 +139,7 @@ export default function LoginForm({ LANG }) {
       </form>
       <p className={styles.register}>
         <span>{LANG["www.user_login.new_user"]}</span>
-        <Link href={`/user/register${searchStr}`}>
+        <Link scroll={false} href={`/user/register${searchStr}`}>
           {LANG["www.user_login.create_acount"]}
         </Link>
       </p>

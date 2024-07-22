@@ -1,3 +1,5 @@
+/** @format */
+
 "use client";
 /**
  * 底部配置
@@ -168,7 +170,7 @@ export default function Footer() {
                       <li key={index}>
                         {nav_items.href &&
                         !nav_items.href.startsWith("http") ? (
-                          <Link href={`${nav_items.href}`}>
+                          <Link scroll={false} href={`${nav_items.href}`}>
                             {nav_items.sub_title}
                           </Link>
                         ) : (

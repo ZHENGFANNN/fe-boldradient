@@ -1,3 +1,5 @@
+/** @format */
+
 import getGoodList from "@/utils/getConfigData/getGoodList";
 import getConfigList from "@/utils/getConfigData/getConfigList";
 import getLanguageList from "@/utils/getConfigData/getLanguageList";
@@ -77,7 +79,6 @@ const filterGoodSort = async function ({ result, area }) {
     };
   });
 };
-
 /**
  * 过滤商品数据
  */

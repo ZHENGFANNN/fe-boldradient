@@ -6,7 +6,11 @@ import Link from "next/link";
 
 export default function ArticleCard({ item, locale }) {
   return (
-    <Link href={`/blog/${item.sort_key}/${item.key}`} className={styles.card}>
+    <Link
+      scroll={false}
+      href={`/blog/${item.sort_key}/${item.key}`}
+      className={styles.card}
+    >
       <div className={styles.img_wrapper}>
         <img src={item.image} alt={item.title} />
       </div>

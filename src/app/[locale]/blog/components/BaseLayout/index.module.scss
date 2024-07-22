@@ -8,7 +8,19 @@
     background: rgba(251, 251, 253, 0.8);
     -webkit-backdrop-filter: saturate(180%) blur(20px);
     backdrop-filter: saturate(180%) blur(20px);
+    z-index: 1;
+    &::after {
+        position: absolute;
+        content: '';
+        left: 0;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        background: rgba(251, 251, 253, 1);
+    }
     .header {
+        position: relative;
+        z-index: 2;
         max-width: 1248px;
         padding: 0 24px;
         box-sizing: border-box;
@@ -21,8 +33,6 @@
         user-select: none;
         align-items: center;
         height: 60px;
-
-        background: rgba(251, 251, 253, 0.8);
         .left_content {
             font-weight: 800;
             font-size: 24px;

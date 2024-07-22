@@ -1,3 +1,5 @@
+/** @format */
+
 const cn = require("@@/locale/languageList/cn.json");
 const de = require("@@/locale/languageList/de.json");
 const en = require("@@/locale/languageList/en.json");
@@ -22,7 +24,7 @@ const languageList = {
   ru,
 };
 
-export default async function getLanguageList(lang, namespace = []) {
+export default async function getLanguageList(lang) {
   const data = languageList[lang];
   return data;
 }

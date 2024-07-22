@@ -75,7 +75,10 @@ export default function MobProductList({
           <ul className="splide__list">
             {products.map((item, index) => (
               <li className="splide__slide" key={index}>
-                <Link href={`/product/${item.sort_key}/${item.key}`}>
+                <Link
+                  scroll={false}
+                  href={`/product/${item.sort_key}/${item.key}`}
+                >
                   <div className={styles.splide_item}>
                     <div className={styles.image_container}>
                       <Image

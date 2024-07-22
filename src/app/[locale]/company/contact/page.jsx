@@ -1,3 +1,5 @@
+/** @format */
+
 import Link from "next/link";
 import { contactList } from "./config";
 import { isEmail } from "@/utils/pattern";
@@ -68,6 +70,7 @@ export default async function Contact({ params: { locale } }) {
                   </a>
                 ) : item.content?.startsWith("/") ? (
                   <Link
+                    scroll={false}
                     href={item.content}
                     className={
                       styles.content_row_description + " " + styles.blue

@@ -1,3 +1,5 @@
+/** @format */
+
 import Link from "next/link";
 import getConfigData from "@/utils/getConfigData";
 import styles from "./page.module.scss";
@@ -53,7 +55,11 @@ export default async function Market({ params: { locale } }) {
         <p className={styles.content_description}>
           {CONFIG["www.cooperate.common_description"]}
         </p>
-        <Link href="/company/introduce" className={styles.content_about_us}>
+        <Link
+          scroll={false}
+          href="/company/introduce"
+          className={styles.content_about_us}
+        >
           <span>{LANG["www.company_market.see_more"]}</span>
           <span className={styles.arrow_icon}></span>
         </Link>

@@ -1,3 +1,5 @@
+/** @format */
+
 "use client";
 
 import React from "react";
@@ -85,7 +87,7 @@ function CountryModal({
             <div className={styles.conutry_container}>
               <div className={styles.tip}>
                 {LANG["common.other.not_area_list"]}{" "}
-                <Link target="_blank" href="/company/contact">
+                <Link scroll={false} target="_blank" href="/company/contact">
                   {LANG["common.other.contact_us"]}
                 </Link>
               </div>

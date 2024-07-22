@@ -1,3 +1,5 @@
+/** @format */
+
 "use client";
 import React from "react";
 import styles from "../../page.module.scss";
@@ -23,6 +25,7 @@ export default function NavItem({ navList, type }) {
           {list.map((item, index) => {
             return (
               <Link
+                scroll={false}
                 href={item.href}
                 className={styles.header_nav_items}
                 key={index}

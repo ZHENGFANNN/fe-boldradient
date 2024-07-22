@@ -1,3 +1,5 @@
+/** @format */
+
 const fetchConfig = require("./fetch-config.js");
 const fetchProductInfo = require("./fetch-product-info.js");
 const fetchProductSort = require("./fetch-product-sort.js");
@@ -18,3 +20,5 @@ async function getData() {
   createSitemap();
 }
 getData();
+
+module.exports = getData;

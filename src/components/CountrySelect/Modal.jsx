@@ -1,3 +1,5 @@
+/** @format */
+
 import React from "react";
 import ReactDOM from "react-dom";
 import GlobalContext from "@/GlobalContext";
@@ -40,7 +42,7 @@ export default function Modal({ show, setShow, languageMap }) {
               <div className={styles.conutry_container}>
                 <div className={styles.tip}>
                   {LANG["common.other.not_area_list"]}{" "}
-                  <Link target="_blank" href="/company/contact">
+                  <Link scroll={false} target="_blank" href="/company/contact">
                     {LANG["common.other.contact_us"]}
                   </Link>
                 </div>

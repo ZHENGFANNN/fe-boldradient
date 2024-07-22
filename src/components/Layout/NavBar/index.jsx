@@ -148,6 +148,7 @@ export default function NavBar() {
           <div className={styles.header_left}>
             <div className={styles.header_logo}>
               <Link
+                scroll={false}
                 href={`/`}
                 onClick={() => {
                   setNavActive(false);
@@ -215,6 +216,7 @@ export default function NavBar() {
                       if (index2 === 13) {
                         return (
                           <Link
+                            scroll={false}
                             style={{
                               display:
                                 index !== hoverActiveKey ? "none" : "flex",
@@ -277,6 +279,7 @@ export default function NavBar() {
                             </a>
                           ) : (
                             <Link
+                              scroll={false}
                               onClick={() => {
                                 setVavItemActive(false);
                                 setNavActive(false);
@@ -369,7 +372,11 @@ function RightArea() {
           tracking.clickNavStoreBtn();
         }}
       >
-        <Link className={styles.header_store_container} href={`/`}>
+        <Link
+          scroll={false}
+          className={styles.header_store_container}
+          href={`/`}
+        >
           <img
             src={`${process.env.NEXT_PUBLIC_FILE}/image/icon/min-store.svg`}
             alt="store"

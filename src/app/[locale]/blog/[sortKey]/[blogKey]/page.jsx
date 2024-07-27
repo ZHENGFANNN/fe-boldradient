@@ -14,6 +14,8 @@ import BaseLayout from "../../components/BaseLayout";
 import ProductModal from "./components/ProductModal";
 import { cookies } from "next/headers";
 
+export const runtime = "edge";
+
 function handleShowProductList({ productList, area }) {
   productList = productList.map(
     ({

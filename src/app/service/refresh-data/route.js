@@ -1,5 +1,4 @@
 /** @format */
-import { getData } from "@@/script";
 
 export async function GET() {
   // await getData();

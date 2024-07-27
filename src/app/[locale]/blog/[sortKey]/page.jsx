@@ -6,6 +6,8 @@ import styles from "./page.module.scss";
 import ArticleCard from "../components/ArticleCard";
 import BaseLayout from "../components/BaseLayout";
 
+export const runtime = "edge";
+
 export async function generateMetadata({
   params: { locale, sortKey, blogKey },
 }) {

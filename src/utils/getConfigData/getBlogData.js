@@ -11,14 +11,8 @@ async function updateLocaleCache(lang) {
   localeCache[lang] = data;
 }
 
-// 初始化缓存
-languageList.forEach((item) => {
-  console.log("[languageList]:", item.value);
-  updateLocaleCache(item.value);
-});
-
 export default async function getBlogList(lang) {
-  return localeCache[lang];
+  return updateLocaleCaches[lang];
 }
 
 // const cn = require("@@/locale/blogData/cn.json");

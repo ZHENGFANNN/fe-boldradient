@@ -19,7 +19,7 @@ import styles from "./index.module.scss";
 
 export default function NavBar() {
   const pathname = usePathname();
-  const { LANG, CONFIG, goodSortList, goodList } =
+  const { LANG, CONFIG, goodSortList, goodList, BLOG } =
     React.useContext(GlobalContext);
   const ModalRef = React.useRef(null);
 
@@ -29,6 +29,7 @@ export default function NavBar() {
       CONFIG,
       goodList,
       goodSortList,
+      BLOG,
     });
   }, [LANG, CONFIG, goodList, goodSortList]);
 
@@ -171,23 +172,27 @@ export default function NavBar() {
               <ul onMouseLeave={() => setVavItemActive(false)}>
                 {navList.map((item, index) => {
                   return (
-                    <li
-                      onMouseOver={() => {
-                        setVavItemActive(true);
-                        setHoverActiveKey(index);
-                      }}
-                      onClick={() => {
-                        if (window.innerWidth > 1080)
-                          router.push(`/nav/${item.key}`);
-                      }}
-                      key={item.key}
-                      className={
-                        (navItemActive || navActive) && hoverActiveKey === index
-                          ? styles.nav_item_active
-                          : ""
-                      }
-                    >
-                      {item.title}
+                    <li key={item.key}>
+                      <Link
+                        href={item.href ? item.href : `/nav/${item.key}`}
+                        onMouseOver={() => {
+                          setVavItemActive(true);
+                          setHoverActiveKey(index);
+                        }}
+                        onClick={(e) => {
+                          if (window.innerWidth <= 1080) {
+                            e.preventDefault();
+                          }
+                        }}
+                        className={
+                          (navItemActive || navActive) &&
+                          hoverActiveKey === index
+                            ? styles.nav_item_active
+                            : ""
+                        }
+                      >
+                        {item.title}
+                      </Link>
                     </li>
                   );
                 })}

@@ -179,7 +179,7 @@ export default function ProductList() {
     <div className={styles.container}>
       {goodSortList.map((item, index) => {
         return (
-          <div className={styles.sort_container} key={index}>
+          <div className={styles.sort_container} key={index} id={item.key}>
             <div className={styles.sort_header}>
               <h2>{item.name}</h2>
             </div>

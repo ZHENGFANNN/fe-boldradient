@@ -11,6 +11,7 @@ import "./index.scss";
 import Link from "next/link";
 
 export default function Banner({ list }) {
+  const [active, setActive] = React.useState(0);
   React.useEffect(() => {
     const splide = new Splide(`.${styles.splide}`, {
       type: "loop",
@@ -27,7 +28,7 @@ export default function Banner({ list }) {
       },
     });
     splide.on("move", (e) => {
-      // setActive(e);
+      setActive(e);
     });
     splide.mount();
   }, []);
@@ -39,6 +40,7 @@ export default function Banner({ list }) {
           <ul className="splide__list">
             {list.map((item, index) => (
               <li
+                data-active={active === index}
                 className={`splide__slide ${styles.splide_item_container}`}
                 key={index}
               >
@@ -51,7 +53,7 @@ export default function Banner({ list }) {
                     <img src={item.image} />
                   </div>
                   <div className={styles.text_container}>{item.title}</div>
-                  <div className="mask"></div>
+                  <div className={styles.mask}></div>
                 </Link>
               </li>
             ))}

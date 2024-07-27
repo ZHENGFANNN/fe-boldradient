@@ -5,7 +5,7 @@ import React from "react";
 import styles from "./index.module.scss";
 import Link from "next/link";
 
-export default function BaseLayout({ children, BLOG, sortKey }) {
+export default function BaseLayout({ blogSortList, sortKey, LANG }) {
   const [activeMobNav, setActiveMobNav] = React.useState(false);
   const arrowRef = React.useRef(null);
 
@@ -27,9 +27,9 @@ export default function BaseLayout({ children, BLOG, sortKey }) {
       <div className={styles.header_container} data-active-nav={activeMobNav}>
         <div className={styles.header}>
           <a className={styles.left_content} href="/blog">
-            Blog
+            {LANG["store.blog_index.title"]}
           </a>
-          {BLOG.length > 1 ? (
+          {blogSortList.length > 1 ? (
             <div className={styles.right_content}>
               <div
                 ref={arrowRef}
@@ -43,9 +43,9 @@ export default function BaseLayout({ children, BLOG, sortKey }) {
                   className={styles.blog_sort_item}
                   data-active={!sortKey}
                 >
-                  All
+                  {LANG["store.blog_index.all"]}
                 </Link>
-                {BLOG.map((item, index) => {
+                {blogSortList.map((item, index) => {
                   return (
                     <Link
                       scroll={false}
@@ -63,7 +63,6 @@ export default function BaseLayout({ children, BLOG, sortKey }) {
           ) : null}
         </div>
       </div>
-      {children}
     </>
   );
 }

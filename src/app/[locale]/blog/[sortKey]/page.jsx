@@ -6,32 +6,46 @@ import styles from "./page.module.scss";
 import ArticleCard from "../components/ArticleCard";
 import BaseLayout from "../components/BaseLayout";
 
-export async function generateMetadata({ params: { locale, sortKey } }) {
-  const { BLOG } = await getConfigData({
+export async function generateMetadata({
+  params: { locale, sortKey, blogKey },
+}) {
+  const {
+    BLOG: { blogSortMap },
+  } = await getConfigData({
     locale,
     configList: ["blog"],
   });
-  const currentBlogSort = BLOG.find((item) => item.key === sortKey);
+  const currentBlogSort = blogSortMap[sortKey];
+  const title = currentBlogSort.name;
+  let descriptionList = [],
+    twitterImageList = [],
+    openGraphImageList = [],
+    description = null;
+
+  currentBlogSort.blogList.forEach((item) => {
+    descriptionList.push(item.title);
+    twitterImageList.push(item.image);
+    openGraphImageList.push({
+      url: item.image,
+      width: 746,
+      height: 420,
+    });
+  });
+  description = descriptionList.join(",");
   return {
-    title: currentBlogSort.name,
-    description: currentBlogSort.blogList.map((item) => item.title).join(","),
-    keywords: currentBlogSort.blogList.map((item) => item.title).join(","),
+    title,
+    description,
+    keywords: description,
     twitter: {
       card: "summary_large_image",
-      title: currentBlogSort.name,
-      description: currentBlogSort.blogList.map((item) => item.title).join(","),
-      images: currentBlogSort.blogList.map((item) => item.image),
+      title,
+      description,
+      images: twitterImageList,
     },
     openGraph: {
-      title: currentBlogSort.name,
-      description: currentBlogSort.blogList.map((item) => item.title).join(","),
-      images: currentBlogSort.blogList.map((item) => {
-        return {
-          url: item.image,
-          width: 746,
-          height: 420,
-        };
-      }),
+      title,
+      description,
+      images: openGraphImageList,
     },
   };
 }
@@ -50,16 +64,25 @@ function BlogArticleCard({ blogSort, locale }) {
 }
 
 export default async function BlogSort({ params: { locale, sortKey } }) {
-  const { BLOG } = await getConfigData({
+  const {
+    LANG,
+    BLOG: { blogSortMap },
+  } = await getConfigData({
     locale,
-    configList: ["blog"],
+    configList: ["blog", "language"],
+    languageNameSpace: ["store.blog_index.all", "store.blog_index.title"],
   });
-  const currentBlogSort = BLOG.find((item) => item.key === sortKey);
+  const blogSortList = Object.keys(blogSortMap)
+    .map((item) => blogSortMap[item])
+    .sort((a, b) => b.weight - a.weight);
+
+  const currentBlogSort = blogSortMap[sortKey];
   return (
-    <BaseLayout BLOG={BLOG} sortKey={sortKey}>
+    <>
+      <BaseLayout blogSortList={blogSortList} sortKey={sortKey} LANG={LANG} />
       <div className={styles.container}>
         <BlogArticleCard blogSort={currentBlogSort} locale={locale} />
       </div>
-    </BaseLayout>
+    </>
   );
 }

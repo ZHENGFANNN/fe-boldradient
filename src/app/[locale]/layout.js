@@ -80,7 +80,7 @@ export default async function RootLayout(props) {
     params: { locale },
   } = props;
   const area = cookies().get("area")?.value || "us";
-  const { CONFIG, LANG, GOODLIST, GOODSORTLIST, GOODDISCOUNTFESTIVAL } =
+  const { CONFIG, LANG, GOODLIST, GOODSORTLIST, GOODDISCOUNTFESTIVAL, BLOG } =
     await getData({
       locale,
       area,
@@ -90,6 +90,7 @@ export default async function RootLayout(props) {
         "goodSort",
         "good",
         "goodDiscountFestival",
+        "blog",
       ],
       languageNameSpace: [
         "common.nav",
@@ -111,6 +112,7 @@ export default async function RootLayout(props) {
           locale={locale}
           area={area}
           LANG={LANG}
+          BLOG={BLOG}
           CONFIG={CONFIG}
           goodList={GOODLIST}
           goodSortList={GOODSORTLIST}

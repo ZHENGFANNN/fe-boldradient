@@ -75,10 +75,12 @@
           max-height: 60px;
           position: relative;
           z-index: 1;
-          li {
+          a {
+            display: block;
             &::selection {
               display: none;
             }
+            text-decoration: none;
             cursor: pointer;
             color: #737373;
             vertical-align: middle;
@@ -382,7 +384,7 @@
             padding: 14px 16px;
 
             white-space: nowrap;
-            li {
+            a {
               box-sizing: content-box;
               padding: 10px 32px;
               color: #2d2d2d;

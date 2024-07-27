@@ -23,12 +23,13 @@ function getHeadTitleId(title) {
   return title
     .toLowerCase()
     .replace(/<.*?>(.*?)<.*?>/gis, "$1")
-    .replace(/[\'\"?:]/g, "")
+    .replace(/[\'\"?:\.]/g, "")
+    .trim()
     .replace(/\s+/g, "-");
 }
 
 export function getHeadTitleList(html) {
-  const headerRegex = /<h([23])[^>]*>.*?<\/h\1>/gis;
+  const headerRegex = /<h([23])[^>]*>(.*?)<\/h\1>/gis;
   const tagRegex = /<\/?[^>]+(>|$)/g; // Regex to match any HTML tag
   let matches = [];
   let match;
@@ -36,8 +37,8 @@ export function getHeadTitleList(html) {
     // Get the full match (incl. tags) and strip HTML tags only for the inner content
     const contentWithTags = match[0];
     const tagName = `h${match[1]}`;
+    const id = getHeadTitleId(match[2]);
     const content = contentWithTags.replace(tagRegex, "").trim();
-    const id = getHeadTitleId(content);
     matches.push({ tag: tagName, content: content, id });
   }
 

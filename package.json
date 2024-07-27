@@ -3,13 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "fetch-dev": "NODE_ENV=local node ./script",
+    "fetch-prod":  "NODE_ENV=prod node ./script",
     "dev": " yarn fetch-dev && next dev -p 8080",
-    "prod": "yarn fetch && next prod -p 8080",
-    "fetch-dev": "node ./script http://127.0.0.1:3080 https://www.sslfly.com",
-    "fetch": "node ./script https://service.sslfly.com https://www.sslfly.com",
+    "prod": "yarn fetch-prod && next prod -p 8080",
     "start": "next start -p 8080",
-    "analyze": "yarn fetch && ANALYZE=true next build",
-    "build": "yarn fetch && next build"
+    "analyze": "yarn fetch-prod && ANALYZE=true next build",
+    "build": "yarn fetch-prod && next build"
   },
   "dependencies": {
     "@paypal/react-paypal-js": "^8.1.3",

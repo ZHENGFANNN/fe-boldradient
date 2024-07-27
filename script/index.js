@@ -1,5 +1,11 @@
 /** @format */
 
+// 加载特定环境的 .env 文件
+const dotenv = require("dotenv");
+const env = process.env.NODE_ENV === "local" ? ".local" : "";
+const envFile = `.env${env}`;
+dotenv.config({ path: envFile });
+
 const fetchConfig = require("./fetch-config.js");
 const fetchProductInfo = require("./fetch-product-info.js");
 const fetchProductSort = require("./fetch-product-sort.js");

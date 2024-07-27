@@ -8,36 +8,55 @@ import BaseLayout from "./components/BaseLayout";
 import Link from "next/link";
 import Banner from "./components/Banner";
 
-export async function generateMetadata({ params: { locale, sortKey } }) {
-  const { BLOG } = await getConfigData({
+export async function generateMetadata({ params: { locale } }) {
+  const {
+    LANG,
+    CONFIG,
+    BLOG: { blogSortMap, blogBannerList },
+  } = await getConfigData({
     locale,
-    configList: ["blog"],
+    configList: ["blog", "config", "language"],
+    configNameSpace: ["company.basic.company_name"],
+    languageNameSpace: ["store.blog_index.title"],
   });
+
+  const blogSortList = Object.keys(blogSortMap)
+    .map((item) => blogSortMap[item])
+    .sort((a, b) => b.weight - a.weight);
+
+  let twitterImageList = [],
+    openGraphImageList = [];
+  blogBannerList.forEach((item) => {
+    twitterImageList.push(item.image);
+    openGraphImageList.push({
+      url: item.image,
+      width: 746,
+      height: 420,
+    });
+  });
+
+  const title = `${CONFIG["company.basic.company_name"]} ${LANG["store.blog_index.title"]}`;
+  const description = blogSortList.map((item) => item.name).join(",");
+
   return {
-    title: "sslfly Blog",
-    description: BLOG.map((item) => item.name).join(","),
-    keywords: BLOG.map((item) => item.name).join(","),
+    title,
+    description,
+    keywords: description,
     twitter: {
       card: "summary_large_image",
-      title: "sslfly Blog",
-      description: BLOG.map((item) => item.name).join(","),
-      images: BLOG[0].blogList.map((item) => item.image),
+      title,
+      description,
+      images: twitterImageList,
     },
     openGraph: {
-      title: "sslfly Blog",
-      description: BLOG.map((item) => item.name).join(","),
-      images: BLOG[0].blogList.map((item) => {
-        return {
-          url: item.image,
-          width: 746,
-          height: 420,
-        };
-      }),
+      title,
+      description,
+      images: openGraphImageList,
     },
   };
 }
 
-function BlogArticleCard({ blogSort, locale }) {
+function BlogArticleCard({ blogSort, locale, LANG }) {
   return (
     <div className={styles.sort_container}>
       <h2 className={styles.sort_title}>{blogSort.name}</h2>
@@ -54,7 +73,7 @@ function BlogArticleCard({ blogSort, locale }) {
             href={`/blog/${blogSort.key}`}
             className={styles.btn_text}
           >
-            View All
+            {LANG["store.blog_index.view_all"]}
           </Link>
         </div>
       ) : null}
@@ -63,20 +82,38 @@ function BlogArticleCard({ blogSort, locale }) {
 }
 
 export default async function BlogSort({ params: { locale } }) {
-  const { BLOG } = await getConfigData({
+  const {
+    LANG,
+    BLOG: { blogSortMap, blogBannerList },
+  } = await getConfigData({
     locale,
-    configList: ["blog"],
+    configList: ["blog", "language"],
+    languageNameSpace: [
+      "store.blog_index.view_all",
+      "store.blog_index.all",
+      "store.blog_index.title",
+    ],
   });
+  const blogSortList = Object.keys(blogSortMap)
+    .map((item) => blogSortMap[item])
+    .sort((a, b) => b.weight - a.weight);
+
   return (
-    <BaseLayout BLOG={BLOG}>
-      <Banner list={BLOG[0].blogList} />
+    <>
+      <BaseLayout blogSortList={blogSortList} LANG={LANG} />
+      {blogBannerList.length > 0 ? <Banner list={blogBannerList} /> : null}
       <div className={styles.container}>
-        {BLOG.map((item, index) => {
+        {blogSortList.map((item, index) => {
           return (
-            <BlogArticleCard key={index} blogSort={item} locale={locale} />
+            <BlogArticleCard
+              LANG={LANG}
+              key={index}
+              blogSort={item}
+              locale={locale}
+            />
           );
         })}
       </div>
-    </BaseLayout>
+    </>
   );
 }

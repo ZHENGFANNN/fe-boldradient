@@ -61,9 +61,9 @@ const getData = async function ({
     configList,
   });
   // 文章分类
-  const blogSort = BLOG.find((item) => item.key === sortKey);
+  const blogSort = BLOG.blogSortMap[sortKey];
   // 找到当前文章
-  const blogArticle = blogSort.blogList.find((item) => item.key === blogKey);
+  const blogArticle = BLOG.blogMap[`${sortKey}:${blogKey}`];
   // 处理文章标题
   blogArticle.content = addHeadTitleId(blogArticle.content);
   const headTitleList = getHeadTitleList(blogArticle.content);
@@ -95,19 +95,24 @@ export async function generateMetadata({
     sortKey,
     configList: ["blog"],
   });
+
+  const title = blogArticle.page_title;
+  const description = blogArticle.page_description;
+  const keywords = blogArticle.page_keywords;
+
   return {
-    title: blogArticle.page_title,
-    description: blogArticle.page_description,
-    keywords: blogArticle.page_keywords,
+    title,
+    description,
+    keywords,
     twitter: {
       card: "summary_large_image",
-      title: blogArticle.page_title,
-      description: blogArticle.page_description,
+      title,
+      description,
       images: [blogArticle.image], // Must be an absolute URL
     },
     openGraph: {
-      title: blogArticle.page_title,
-      description: blogArticle.page_description,
+      title,
+      description,
       images: [
         {
           url: blogArticle.image, // Must be an absolute URL
@@ -129,7 +134,7 @@ export default async function Article({
     headTitleList,
     CONFIG,
     LANG,
-    BLOG,
+    BLOG: { blogSortMap },
     GOODDISCOUNTFESTIVAL,
   } = await getData({
     area,
@@ -141,9 +146,22 @@ export default async function Article({
       "company.basic.company_name",
       "company.basic.customer_service",
     ],
+    languageNameSpace: [
+      "store.blog_index.all",
+      "store.blog_index.title",
+      "store.blog_index.related_products",
+      "store.product.off",
+      "store.product.no_stock",
+      "store.product.reviews",
+    ],
   });
+  const blogSortList = Object.keys(blogSortMap)
+    .map((item) => blogSortMap[item])
+    .sort((a, b) => b.weight - a.weight);
+
   return (
-    <BaseLayout BLOG={BLOG} sortKey={sortKey}>
+    <>
+      <BaseLayout blogSortList={blogSortList} sortKey={sortKey} LANG={LANG} />
       <div className={styles.container}>
         <IdJson CONFIG={CONFIG} article={blogArticle} />
         <div className={styles.flex_container}>
@@ -183,6 +201,6 @@ export default async function Article({
           locale={locale}
         />
       ) : null}
-    </BaseLayout>
+    </>
   );
 }

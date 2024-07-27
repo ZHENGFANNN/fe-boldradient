@@ -1,13 +1,46 @@
+/** @format */
+
 const chalk = require("chalk");
 const fs = require("fs");
 const LANGUAGES = require("../src/config/LANGUAGE");
 const api = require("./api");
 
+// 处理Blog数据结构
+function handleBlogData(list) {
+  const obj = {
+    blogBannerList: [],
+    blogMap: {},
+    blogSortMap: {},
+  };
+
+  list.forEach(({ sortInfo, ...item }) => {
+    const blogSortInfo = sortInfo[0];
+    item.blogSortInfo = blogSortInfo;
+
+    // 处理bannerList
+    if (item.recommend) {
+      obj.blogBannerList.push(item);
+    }
+
+    // 处理Blog列表
+    obj.blogMap[`${item.sort_key}:${item.key}`] = item;
+
+    // 处理Blog分类
+    obj.blogSortMap[item.sort_key] = {
+      ...blogSortInfo,
+      blogList: obj.blogSortMap[item.sort_key]
+        ? [...obj.blogSortMap[item.sort_key].blogList, item]
+        : [item],
+    };
+  });
+  return obj;
+}
+
 // 获取Blog信息
 const fetchBlog = async (times = 1, cookie = "") => {
   let error = false;
   const startTime = new Date().getTime();
-  const fileDir = "./locale/blogList";
+  const fileDir = "./locale/blogData";
   if (!fs.existsSync(fileDir)) fs.mkdirSync(fileDir, { recursive: true });
   console.log(`${chalk.yellow("【开始获取Blog】")}`);
   await api
@@ -18,6 +51,7 @@ const fetchBlog = async (times = 1, cookie = "") => {
     })
     .then((res) => {
       const obj = {};
+      // 原始数据 - 分语言
       res.data.list.forEach((item) => {
         if (!obj[item.language]) obj[item.language] = [];
         obj[item.language] = [...obj[item.language], item];
@@ -28,7 +62,8 @@ const fetchBlog = async (times = 1, cookie = "") => {
       });
 
       Object.keys(obj).map((item) => {
-        const fileData = JSON.stringify(obj[item], null, 2);
+        // !! 处理数据结构
+        const fileData = JSON.stringify(handleBlogData(obj[item]), null, 2);
         fs.writeFile(`${fileDir}/${item}.json`, fileData, (err) => {
           if (err) {
             console.log(`${chalk.red("【blog写入失败】")}`, err);

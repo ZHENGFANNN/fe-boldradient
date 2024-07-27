@@ -4,6 +4,7 @@
 import React from "react";
 import styles from "./index.module.scss";
 import { debounce } from "@/utils/index";
+import Link from "next/link";
 
 export default function ArticleInfo({ headTitleList }) {
   const navRef = React.useRef(null);
@@ -19,12 +20,12 @@ export default function ArticleInfo({ headTitleList }) {
       const scrollEvent = debounce(function () {
         if (!navRef.current) return;
         const scrollTop =
-          (document.body.scrollTop || document.documentElement.scrollTop) - 36;
+          (document.body.scrollTop || document.documentElement.scrollTop) - 32;
 
         for (let i = 0; i < $domList.length; i++) {
-          const curDomTop = $domList[i].offsetTop;
+          const curDomTop = $domList[i].offsetTop + 32;
           const nextDomTop =
-            $domList[i + 1]?.offsetTop || document.body.offsetHeight;
+            ($domList[i + 1]?.offsetTop || document.body.offsetHeight) + 32;
 
           if (
             (scrollTop > curDomTop && scrollTop < nextDomTop) ||
@@ -69,14 +70,14 @@ export default function ArticleInfo({ headTitleList }) {
         <div className={styles.header_container}>
           {headTitleList.map((item, index) => {
             return (
-              <a
+              <Link
                 href={`#${item.id}`}
                 key={index}
                 data-tag={item.tag}
                 className={[styles.header, styles[item.tag]].join(" ")}
               >
                 {item.content}
-              </a>
+              </Link>
             );
           })}
         </div>

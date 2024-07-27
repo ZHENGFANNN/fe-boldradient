@@ -55,12 +55,12 @@ function ShowLanguageItem({ value }) {
 }
 
 export default function Footer() {
-  const { locale, LANG, CONFIG, goodSortList, goodList } =
+  const { locale, LANG, CONFIG, goodSortList, goodList, BLOG } =
     React.useContext(GlobalContext);
   const ModalRef = React.useRef(null);
   const navList = React.useMemo(() => {
-    return NAVFUNC({ LANG, CONFIG, goodList, goodSortList });
-  }, [LANG, CONFIG, goodList, goodSortList]);
+    return NAVFUNC({ LANG, CONFIG, goodList, goodSortList, BLOG });
+  }, [LANG, CONFIG, goodList, goodSortList, BLOG]);
 
   const [email, setEmail] = React.useState("");
   const [emailStatue, setEmailStatue] = React.useState();

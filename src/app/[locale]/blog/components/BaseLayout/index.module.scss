@@ -1,6 +1,6 @@
 .header_container {
     position: fixed;
-    z-index: 9;
+    z-index: 999;
     padding-top: 60px;
     top: 0;
     left: 0;
@@ -8,7 +8,6 @@
     background: rgba(251, 251, 253, 0.8);
     -webkit-backdrop-filter: saturate(180%) blur(20px);
     backdrop-filter: saturate(180%) blur(20px);
-    z-index: 1;
     &::after {
         position: absolute;
         content: '';

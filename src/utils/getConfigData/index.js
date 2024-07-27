@@ -5,7 +5,7 @@ import getConfigList from "@/utils/getConfigData/getConfigList";
 import getLanguageList from "@/utils/getConfigData/getLanguageList";
 import getGoodSortList from "@/utils/getConfigData/getGoodSortList";
 import getGoodDiscountList from "@/utils/getConfigData/getGoodDiscountList";
-import getBlogList from "@/utils/getConfigData/getBlogList";
+import getBlogData from "@/utils/getConfigData/getBlogData";
 
 /**
  * 获取所有配置数据
@@ -34,7 +34,7 @@ const getAllConfig = async function ({ locale, configList }) {
     result.GOODDISCOUNTFESTIVAL = null;
   }
   if (configList.includes("blog")) {
-    promiseList.push(getBlogList(locale));
+    promiseList.push(getBlogData(locale));
     result.BLOG = null;
   }
 

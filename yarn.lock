@@ -719,6 +719,11 @@ domutils@^1.5.1:
     dom-serializer "0"
     domelementtype "1"
 
+dotenv@^16.4.5:
+  version "16.4.5"
+  resolved "https://registry.npmjs.org/dotenv/-/dotenv-16.4.5.tgz#cdd3b3b604cb327e286b4762e13502f717cb099f"
+  integrity sha512-ZmdL2rui+eB2YwhsWzjInR8LldtZHGDoQ1ugH85ppHKwpUHL7j7rN0Ti9NCnGiQbhaZ11FpR+7ao1dNsmduNUg==
+
 electron-to-chromium@^1.4.535:
   version "1.4.582"
   resolved "https://registry.npmmirror.com/electron-to-chromium/-/electron-to-chromium-1.4.582.tgz#4908215182266793499ac57d80e2680d7dd9b3db"

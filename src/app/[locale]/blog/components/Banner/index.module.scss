@@ -7,7 +7,22 @@
             width: calc(min(843px, 100%));
             height: calc(min(473px, 56.11vw));
 
-        
+            &[data-active="true"] {
+                .mask {
+                    opacity: 0;
+                }
+            }
+            .mask {
+                position: absolute;
+                left: 0;
+                top: 0;
+                height: 100%;
+                width: 100%;
+                background: #edeff2;
+                opacity: .5;
+                transition: opacity .2s;
+            }
+
             .splide_item {
                 position: relative;
                 display: block;

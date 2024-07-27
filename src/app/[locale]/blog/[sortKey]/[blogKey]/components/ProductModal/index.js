@@ -28,20 +28,28 @@ export default function ProductModal({
       const scrollTop =
         document.body.scrollTop || document.documentElement.scrollTop;
       if (scrollTop > (bodyHeight * 1) / 2) {
-        modalRef.current.show({ title: "产品推荐" });
+        modalRef.current.show({
+          title: LANG["store.blog_index.related_products"],
+        });
         localStorage.setItem(storageKey, "true");
         window.removeEventListener("scroll", scrollEvent);
         clearTimeout(timer);
       }
     });
     timer = setTimeout(() => {
-      modalRef.current.show({ title: "产品推荐" });
+      modalRef.current.show({
+        title: LANG["store.blog_index.related_products"],
+      });
       localStorage.setItem(storageKey, "true");
       window.removeEventListener("scroll", scrollEvent);
     }, 30000);
     window.addEventListener("scroll", scrollEvent);
-    return () => window.removeEventListener("scroll", scrollEvent);
+    return () => {
+      window.removeEventListener("scroll", scrollEvent);
+      clearTimeout(timer);
+    };
   }, []);
+
   return (
     <>
       <Modal ref={modalRef} onClose={() => setShowTip(true)}>
@@ -55,11 +63,13 @@ export default function ProductModal({
         data-active={showTip}
         className={styles.associate_product_tip}
         onClick={() => {
-          modalRef.current.show({ title: "产品推荐" });
+          modalRef.current.show({
+            title: LANG["store.blog_index.related_products"],
+          });
           setShowTip(false);
         }}
       >
-        Related Products
+        {LANG["store.blog_index.related_products"]}
       </div>
     </>
   );

@@ -30,9 +30,45 @@ const productList = {
   ru,
 };
 
+const cnBlog = require("../locale/blogData/cn.json");
+const deBlog = require("../locale/blogData/de.json");
+const enBlog = require("../locale/blogData/en.json");
+const esBlog = require("../locale/blogData/es.json");
+const frBlog = require("../locale/blogData/fr.json");
+const hkBlog = require("../locale/blogData/hk.json");
+const itBlog = require("../locale/blogData/it.json");
+const jaBlog = require("../locale/blogData/ja.json");
+const koBlog = require("../locale/blogData/ko.json");
+const ruBlog = require("../locale/blogData/ru.json");
+const blogList = {
+  cn: cnBlog,
+  de: deBlog,
+  en: enBlog,
+  es: esBlog,
+  fr: frBlog,
+  hk: hkBlog,
+  it: itBlog,
+  ja: jaBlog,
+  ko: koBlog,
+  ru: ruBlog,
+};
+
+const domain = process.env.NEXT_PUBLIC_DOMAIN;
 // 排除路径
 function getExcludePath() {
-  return ["/user/forget", "/user/account", "/cart", "/order", "/404"];
+  return [
+    "/user/forget",
+    "/user/account",
+    "/cart",
+    "/order",
+    "/404",
+    "/[...notFound]",
+    // 列表处理
+    "/nav/[type]",
+    "/product/[sortKey]/[productKey]",
+    "/blog/[sortKey]",
+    "/blog/[sortKey]/[blogKey]",
+  ];
 }
 
 // 获取导航栏路径
@@ -48,6 +84,34 @@ function getNavPath() {
   LANGUAGES("list").forEach((language) => {
     navList.forEach((nav) => {
       pathList.push(`/${language.value}${nav}`);
+    });
+  });
+  return pathList;
+}
+
+// 获取博客列表路径
+function getBlogPath() {
+  const pathList = [];
+  LANGUAGES("list").forEach((item) => {
+    const blogMap = blogList[item.value]["blogMap"];
+    const blogSortMap = blogList[item.value]["blogSortMap"];
+
+    // 处理博客分类
+    Object.keys(blogSortMap).forEach((key) => {
+      pathList.push(
+        `${item.value === "en" ? "" : `/${item.value}`}/blog/${
+          blogSortMap[key].key
+        }`
+      );
+    });
+
+    // 处理博客列表
+    Object.keys(blogMap).forEach((key) => {
+      pathList.push(
+        `${item.value === "en" ? "" : `/${item.value}`}/blog/${
+          blogMap[key].sort_key
+        }/${blogMap[key].key}`
+      );
     });
   });
   return pathList;
@@ -71,7 +135,6 @@ function getProductPath() {
 // 获取所有页面
 const getAllPages = (dir = "") => {
   const pagesDir = join(process.cwd(), "src/app", dir);
-
   const files = fs.readdirSync(pagesDir);
   let pages = [];
   files.forEach((file) => {
@@ -98,7 +161,7 @@ async function getSitMap(times = 1) {
     // 获取所有可用的 locale
     const locales = LANGUAGES("list").map((item) => item.value);
     // 创建一个 SitemapStream 对象
-    const stream = new SitemapStream({ hostname: process.argv[3] });
+    const stream = new SitemapStream({ hostname: domain });
 
     const pages = getAllPages();
     const allPages = [];
@@ -116,12 +179,7 @@ async function getSitMap(times = 1) {
             return url.includes(item);
           });
 
-          // ***排除产品页、导航页、
-          if (
-            !url.includes("/nav/[type]") &&
-            !url.includes("/product/[sortKey]/[productKey]") &&
-            !isExcludeUrl
-          ) {
+          if (!isExcludeUrl) {
             allPages.push({ url, lastmod: new Date() });
           }
         }
@@ -134,6 +192,15 @@ async function getSitMap(times = 1) {
           allPages.push({ url: navPath, lastmod: new Date() });
         }
       }
+
+      // 处理博客路径
+      if (page.includes("[locale]/blog/[sortKey]/[blogKey]")) {
+        const blogPaths = getBlogPath();
+        for (const blogPath of blogPaths) {
+          allPages.push({ url: blogPath, lastmod: new Date() });
+        }
+      }
+
       // 处理产品路径
       if (page.includes("[locale]/product/[sortKey]/[productKey]")) {
         const productPaths = getProductPath();

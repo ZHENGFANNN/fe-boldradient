@@ -1,3 +1,5 @@
+/** @format */
+
 import React from "react";
 
 import Advantage from "@/components/Layout/Advantage";
@@ -15,7 +17,7 @@ export const runtime = "edge";
  * 处理分类列表
  */
 async function getSortList(productSort) {
-  return productSort.map(({ name, goodList }) => {
+  return productSort.map(({ name, goodList, key }) => {
     goodList = goodList.map(
       ({
         name,
@@ -50,6 +52,7 @@ async function getSortList(productSort) {
     );
     return {
       name,
+      key,
       goodList,
     };
   });

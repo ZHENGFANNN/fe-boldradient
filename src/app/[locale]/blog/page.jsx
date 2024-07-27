@@ -96,14 +96,38 @@ export default async function BlogSort({ params: { locale } }) {
       "store.blog_index.title",
     ],
   });
+  const bannerList = blogBannerList.map((item) => {
+    return {
+      image: item.image,
+      title: item.title,
+      key: item.key,
+      sort_key: item.sort_key,
+    };
+  });
   const blogSortList = Object.keys(blogSortMap)
-    .map((item) => blogSortMap[item])
+    .map((item) => {
+      const blogSort = blogSortMap[item];
+      return {
+        key: blogSort.key,
+        name: blogSort.name,
+        blogList: blogSort.blogList.map((item) => {
+          return {
+            weight: item.weight,
+            image: item.image,
+            title: item.title,
+            key: item.key,
+            sort_key: item.sort_key,
+            updated_time: item.updated_time,
+          };
+        }),
+      };
+    })
     .sort((a, b) => b.weight - a.weight);
 
   return (
     <>
       <BaseLayout blogSortList={blogSortList} LANG={LANG} />
-      {blogBannerList.length > 0 ? <Banner list={blogBannerList} /> : null}
+      {blogBannerList.length > 0 ? <Banner list={bannerList} /> : null}
       <div className={styles.container}>
         {blogSortList.map((item, index) => {
           return (

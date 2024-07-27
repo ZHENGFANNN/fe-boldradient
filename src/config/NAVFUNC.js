@@ -56,33 +56,17 @@ export default function NAVFUNC({
   };
 
   // 博客分类
-  const blogList = Object.keys(BLOG["blogMap"]).map((item) => {
-    return {
-      sub_title: BLOG["blogMap"][item].title,
-      href: `/blog/${BLOG["blogMap"][item].sort_key}/${BLOG["blogMap"][item].key}`,
-    };
-  });
-  const blogSortList = Object.keys(BLOG["blogSortMap"])
-    .map((item) => {
-      return {
-        weight: BLOG["blogSortMap"][item].weight,
-        sub_title: BLOG["blogSortMap"][item].name,
-        href: `/blog/${BLOG["blogSortMap"][item].key}`,
-      };
-    })
-    .sort((a, b) => b.weight - a.weight);
-
   const navBlogSortTop = {
     key: "blog",
     title: "Blog",
     href: "/blog",
-    list: blogList,
+    list: BLOG.blogList,
   };
   const navBlogSortBottom = {
     key: "blog",
     title: "Blog",
     href: "/blog",
-    list: blogSortList,
+    list: BLOG.blogSortList,
   };
 
   // 购买方式

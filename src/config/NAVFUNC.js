@@ -212,5 +212,5 @@ export default function NAVFUNC({
     navBuyWay,
     navWebsiteSupport,
     navAboutUs,
-  ];
+  ].filter((item) => item.list.length > 0);
 }

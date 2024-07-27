@@ -12,7 +12,7 @@ async function updateLocaleCache(lang) {
 }
 
 export default async function getBlogList(lang) {
-  return updateLocaleCaches[lang];
+  return updateLocaleCache[lang];
 }
 
 // const cn = require("@@/locale/blogData/cn.json");

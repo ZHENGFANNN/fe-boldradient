@@ -60,7 +60,7 @@ export default function Banner() {
                 {item.href.startsWith("http") ? (
                   <a rel="noreferrer" target="_blank" href={item.href}></a>
                 ) : (
-                  <Link scroll={false} href={item.href}></Link>
+                  <Link scroll={true} href={item.href}></Link>
                 )}
                 {/* <div className={styles.splide_content_container}>
                   <div

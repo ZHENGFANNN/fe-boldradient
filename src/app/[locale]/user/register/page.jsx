@@ -46,23 +46,23 @@ export default async function Register({ params: { locale } }) {
         <RegisterForm LANG={LANG} />
         <p className={styles.register}>
           <span>{LANG["www.user_register.already_account"]}</span>
-          <Link scroll={false} href="/user/login">
+          <Link scroll={true} href="/user/login">
             {LANG["www.user_register.login_now"]}
           </Link>
         </p>
         <div className={styles.agreen}>
           <span>{LANG["www.user_register.contiuning_agree"]}</span>
-          <Link scroll={false} href="/protocol/policy">
+          <Link scroll={true} href="/protocol/policy">
             {LANG["www.user_register.privacy_policy"]}
           </Link>
           <span>{LANG["www.user_register.and"]}</span>
-          <Link scroll={false} href="/protocol/user">
+          <Link scroll={true} href="/protocol/user">
             {LANG["www.user_register.user_service"]}
           </Link>
         </div>
         <div className={styles.help}>
           <span>{LANG["www.user_register.help_registration"]}</span>
-          <Link scroll={false} href="/company/contact">
+          <Link scroll={true} href="/company/contact">
             {LANG["www.user_register.contact_us"]}
           </Link>
         </div>

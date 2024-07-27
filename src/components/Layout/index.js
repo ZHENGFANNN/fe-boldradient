@@ -1,3 +1,5 @@
+/** @format */
+
 "use client";
 import React from "react";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
@@ -10,6 +12,7 @@ import CartModal from "./CartModal";
 export default function Layout({
   locale,
   area,
+  BLOG,
   LANG,
   CONFIG,
   goodList,
@@ -96,6 +99,7 @@ export default function Layout({
         locale,
         area,
         LANG,
+        BLOG,
         CONFIG,
         goodList,
         goodSortList,

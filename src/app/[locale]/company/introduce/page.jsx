@@ -105,7 +105,7 @@ export default async function Introduce({ params: { locale } }) {
       <CompanyHistory CONFIG={CONFIG} />
       {/* <IntroduceStaff LANG={LANG} CONFIG={CONFIG} /> */}
 
-      <Link scroll={false} href="/company/contact">
+      <Link scroll={true} href="/company/contact">
         <section className={styles.footer_container}>
           <div className={styles.footer_content}>
             <h3 className={styles.footer_content_title}>

@@ -45,7 +45,7 @@ export default function Banner({ list }) {
                 key={index}
               >
                 <Link
-                  scroll={false}
+                  scroll={true}
                   href={`/blog/${item.sort_key}/${item.key}`}
                   className={styles.splide_item}
                 >

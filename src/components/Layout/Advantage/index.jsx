@@ -41,7 +41,7 @@ export default function Advantage({ LANG }) {
           />
         </div>
         <div className={styles.tip_item_text}>
-          <Link scroll={false} rel="noreferrer" href={`/company/contact`}>
+          <Link scroll={true} rel="noreferrer" href={`/company/contact`}>
             {LANG["common.advantage.contact"]}
           </Link>
         </div>

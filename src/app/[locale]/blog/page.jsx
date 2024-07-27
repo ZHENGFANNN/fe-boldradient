@@ -69,7 +69,7 @@ function BlogArticleCard({ blogSort, locale, LANG }) {
       {blogSort.blogList.length > 6 ? (
         <div className={styles.btn_container}>
           <Link
-            scroll={false}
+            scroll={true}
             href={`/blog/${blogSort.key}`}
             className={styles.btn_text}
           >

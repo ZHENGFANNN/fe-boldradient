@@ -88,9 +88,9 @@ export default async function RootLayout(props) {
         "config",
         "language",
         "goodSort",
+        "blog",
         "good",
         "goodDiscountFestival",
-        "blog",
       ],
       languageNameSpace: [
         "common.nav",

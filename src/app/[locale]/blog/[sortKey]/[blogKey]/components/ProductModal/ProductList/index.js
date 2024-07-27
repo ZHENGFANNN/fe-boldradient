@@ -61,7 +61,7 @@ export default function ProductList({ products, goodDiscountFestival, LANG }) {
             {products.map((item, index) => (
               <li className="splide__slide" key={index}>
                 <Link
-                  scroll={false}
+                  scroll={true}
                   href={`/product/${item.sort_key}/${item.key}`}
                 >
                   <div className={styles.splide_item}>

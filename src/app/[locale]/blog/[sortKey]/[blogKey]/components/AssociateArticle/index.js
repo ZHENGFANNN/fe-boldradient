@@ -8,7 +8,7 @@ import Link from "next/link";
 function ArticleCard({ item, locale }) {
   return (
     <Link
-      scroll={false}
+      scroll={true}
       href={`/blog/${item.sort_key}/${item.key}`}
       className={styles.card}
     >

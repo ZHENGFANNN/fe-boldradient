@@ -59,7 +59,14 @@ export default function Footer() {
     React.useContext(GlobalContext);
   const ModalRef = React.useRef(null);
   const navList = React.useMemo(() => {
-    return NAVFUNC({ LANG, CONFIG, goodList, goodSortList, BLOG });
+    return NAVFUNC({
+      LANG,
+      CONFIG,
+      goodList,
+      goodSortList,
+      BLOG,
+      type: "footer",
+    });
   }, [LANG, CONFIG, goodList, goodSortList, BLOG]);
 
   const [email, setEmail] = React.useState("");
@@ -168,24 +175,18 @@ export default function Footer() {
                   {item?.list?.map((nav_items, index) => {
                     return (
                       <li key={index}>
-                        {nav_items.href &&
-                        !nav_items.href.startsWith("http") ? (
-                          <Link scroll={false} href={`${nav_items.href}`}>
-                            {nav_items.sub_title}
-                          </Link>
-                        ) : (
-                          <div
-                            onClick={() => {
-                              if (nav_items.href) {
-                                location.href = nav_items.href;
-                              } else {
-                                ModalRef.current.showModal();
-                              }
-                            }}
-                          >
-                            {nav_items.sub_title}
-                          </div>
-                        )}
+                        <Link
+                          scroll={true}
+                          href={`${nav_items.href}`}
+                          onClick={(e) => {
+                            if (!nav_items.href) {
+                              ModalRef.current.showModal();
+                              e.preventDefault();
+                            }
+                          }}
+                        >
+                          {nav_items.sub_title}
+                        </Link>
                       </li>
                     );
                   })}

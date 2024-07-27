@@ -51,7 +51,7 @@ function ProductItem({ goodList }) {
         return (
           <React.Fragment key={productIndex}>
             <Link
-              scroll={false}
+              scroll={true}
               onClick={() => {
                 tracking.enterProduct({
                   productName: product.key,

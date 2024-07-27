@@ -67,17 +67,17 @@ export default async function Login({ params: { locale } }) {
         </div> */}
         <div className={styles.agreen}>
           <span>{LANG["www.user_login.countinue_agree"]}</span>
-          <Link scroll={false} href="/protocol/policy">
+          <Link scroll={true} href="/protocol/policy">
             {LANG["www.user_login.privacy_policy"]}
           </Link>
           <span>{LANG["www.user_login.and"]}</span>
-          <Link scroll={false} href="/protocol/user">
+          <Link scroll={true} href="/protocol/user">
             {LANG["www.user_login.user_service"]}
           </Link>
         </div>
         <div className={styles.help}>
           <span>{LANG["www.user_login.login_help"]}</span>
-          <Link scroll={false} href="/company/contact">
+          <Link scroll={true} href="/company/contact">
             {LANG["www.user_login.contact_us"]}
           </Link>
         </div>

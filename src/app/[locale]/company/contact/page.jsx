@@ -70,7 +70,7 @@ export default async function Contact({ params: { locale } }) {
                   </a>
                 ) : item.content?.startsWith("/") ? (
                   <Link
-                    scroll={false}
+                    scroll={true}
                     href={item.content}
                     className={
                       styles.content_row_description + " " + styles.blue

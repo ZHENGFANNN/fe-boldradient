@@ -92,7 +92,7 @@ export default function PcProductList({
             <React.Fragment key={index}>
               <li className={styles.list_item}>
                 <Link
-                  scroll={false}
+                  scroll={true}
                   className={styles.item_content}
                   href={`/product/${item.sort_key}/${item.key}`}
                 >

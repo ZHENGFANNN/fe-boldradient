@@ -128,7 +128,7 @@ export default function LoginForm({ LANG }) {
           <p>{errors.password?.message}</p>
         </div>
         <span>
-          <Link scroll={false} href={`/user/forget`} className={styles.forget}>
+          <Link scroll={true} href={`/user/forget`} className={styles.forget}>
             {LANG["www.user_login.forget_password"]}
           </Link>
         </span>
@@ -139,7 +139,7 @@ export default function LoginForm({ LANG }) {
       </form>
       <p className={styles.register}>
         <span>{LANG["www.user_login.new_user"]}</span>
-        <Link scroll={false} href={`/user/register${searchStr}`}>
+        <Link scroll={true} href={`/user/register${searchStr}`}>
           {LANG["www.user_login.create_acount"]}
         </Link>
       </p>

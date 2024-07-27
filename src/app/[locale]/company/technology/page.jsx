@@ -55,7 +55,7 @@ export default async function Technology({ params: { locale } }) {
           {CONFIG["www.cooperate.common_description"]}
         </p>
         <Link
-          scroll={false}
+          scroll={true}
           href="/company/introduce"
           className={styles.content_about_us}
         >

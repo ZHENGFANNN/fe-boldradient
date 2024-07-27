@@ -145,14 +145,14 @@ function UserInfo({ LANG, token }, ref) {
                   </div>
                   <div className={styles.btn_container}>
                     <Link
-                      scroll={false}
+                      scroll={true}
                       href={`/user/login?redirect=${location.href}`}
                       className={styles.btn_item}
                     >
                       {LANG["store.order.user_type.login"]}
                     </Link>
                     <Link
-                      scroll={false}
+                      scroll={true}
                       href={`/user/register?redirect=${location.href}`}
                       className={styles.btn_item}
                     >

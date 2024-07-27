@@ -38,7 +38,7 @@ export default function BaseLayout({ blogSortList, sortKey, LANG }) {
               ></div>
               <div className={styles.blog_sort_list}>
                 <Link
-                  scroll={false}
+                  scroll={true}
                   href="/blog"
                   className={styles.blog_sort_item}
                   data-active={!sortKey}
@@ -48,7 +48,7 @@ export default function BaseLayout({ blogSortList, sortKey, LANG }) {
                 {blogSortList.map((item, index) => {
                   return (
                     <Link
-                      scroll={false}
+                      scroll={true}
                       href={`/blog/${item.key}`}
                       className={styles.blog_sort_item}
                       data-active={sortKey === item.key}

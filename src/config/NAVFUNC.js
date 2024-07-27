@@ -6,6 +6,7 @@
  */
 
 export default function NAVFUNC({
+  type,
   LANG,
   CONFIG,
   goodList,
@@ -16,6 +17,7 @@ export default function NAVFUNC({
   const navGoodSort = {
     key: "product_categories",
     title: LANG["common.nav.product_categories"],
+    href: "/",
     list: goodSortList?.map((item) => {
       return {
         sub_title: item.name,
@@ -35,6 +37,7 @@ export default function NAVFUNC({
   // 产品列表
   const navGoodList = {
     key: "product_info",
+    href: "/",
     title: LANG["common.nav.product_info"],
     list: goodList?.map((item) => {
       return {
@@ -53,23 +56,40 @@ export default function NAVFUNC({
   };
 
   // 博客分类
-  const navBlogSort = {
+  const blogList = Object.keys(BLOG["blogMap"]).map((item) => {
+    return {
+      sub_title: BLOG["blogMap"][item].title,
+      href: `/blog/${BLOG["blogMap"][item].sort_key}/${BLOG["blogMap"][item].key}`,
+    };
+  });
+  const blogSortList = Object.keys(BLOG["blogSortMap"])
+    .map((item) => {
+      return {
+        weight: BLOG["blogSortMap"][item].weight,
+        sub_title: BLOG["blogSortMap"][item].name,
+        href: `/blog/${BLOG["blogSortMap"][item].key}`,
+      };
+    })
+    .sort((a, b) => b.weight - a.weight);
+
+  const navBlogSortTop = {
     key: "blog",
     title: "Blog",
     href: "/blog",
-    list: [],
-    // list: Object.keys(BLOG["blogSortMap"]).map((item) => {
-    //   return {
-    //     sub_title: BLOG["blogSortMap"][item].name,
-    //     href: `/blog/${BLOG["blogSortMap"][item].key}`,
-    //   };
-    // }),
+    list: blogList,
+  };
+  const navBlogSortBottom = {
+    key: "blog",
+    title: "Blog",
+    href: "/blog",
+    list: blogSortList,
   };
 
   // 购买方式
   const navBuyWay = {
     key: "where_buy",
     title: LANG["common.nav.where_buy"],
+    href: "/",
     list: CONFIG["company.sales_channels.index"]?.map((item) => {
       return {
         sub_title: item.title,
@@ -84,6 +104,7 @@ export default function NAVFUNC({
   // 网站协议
   const navWebsiteSupport = {
     key: "support",
+    href: "/protocol/sales",
     title: LANG["common.nav.support"],
     list: [
       {
@@ -140,6 +161,7 @@ export default function NAVFUNC({
   // 关于我们
   const navAboutUs = {
     key: "about_us",
+    href: "/company/introduce",
     title: LANG["common.nav.about_us"],
     list: [
       {
@@ -205,12 +227,21 @@ export default function NAVFUNC({
     ],
   };
 
-  return [
-    navGoodSort,
-    navGoodList,
-    navBlogSort,
-    navBuyWay,
-    navWebsiteSupport,
-    navAboutUs,
-  ].filter((item) => item.list.length > 0);
+  if (type === "nav") {
+    return [
+      navGoodSort,
+      navBlogSortTop,
+      navBuyWay,
+      navWebsiteSupport,
+      navAboutUs,
+    ].filter((item) => item.list.length > 0);
+  } else {
+    return [
+      navGoodSort,
+      navBlogSortBottom,
+      navBuyWay,
+      navWebsiteSupport,
+      navAboutUs,
+    ].filter((item) => item.list.length > 0);
+  }
 }

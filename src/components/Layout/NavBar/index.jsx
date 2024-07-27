@@ -30,16 +30,15 @@ export default function NavBar() {
       goodList,
       goodSortList,
       BLOG,
+      type: "nav",
     });
-  }, [LANG, CONFIG, goodList, goodSortList]);
-
-  const router = useRouter();
+  }, [LANG, CONFIG, goodList, goodSortList, BLOG]);
 
   // 逻辑处理
   // 展开导航栏屏幕（小于1080）
   const [navActive, setNavActive] = React.useState(false);
   React.useEffect(() => {
-    if (document.body.clientWidth > 1080) return;
+    if (window.innerWidth > 1080) return;
     if (navActive) {
       headerNavWidthRef.current
         .querySelectorAll("[data-src]")
@@ -59,14 +58,15 @@ export default function NavBar() {
     屏幕（大于1080）
   */
   // 下拉激活
-  const [hoverActiveKey, setHoverActiveKey] = React.useState(0);
+  const [hoverActiveKey, setHoverActiveKey] =
+    React.useState("product_categories");
   // 下拉选项
   const [navItemActive, setVavItemActive] = React.useState(false);
   // 下拉高度设置
   const headerNavWidthRef = React.useRef(null);
   const headerNavContentRef = React.useRef(null);
   React.useEffect(() => {
-    if (document.body.clientWidth <= 1080) return;
+    if (window.innerWidth <= 1080) return;
     const height = headerNavWidthRef.current?.clientHeight;
     if (navItemActive) {
       headerNavWidthRef.current
@@ -115,7 +115,7 @@ export default function NavBar() {
           `${styles.container}`
         )[0].style.transform = "translateY(0)";
         document.getElementById("app-content").style.marginTop =
-          document.body.clientWidth <= 1080 ? "90px" : "100px";
+          window.innerWidth <= 1080 ? "90px" : "100px";
       }
     }
     scrollEvent({ firstInit: true });
@@ -149,7 +149,7 @@ export default function NavBar() {
           <div className={styles.header_left}>
             <div className={styles.header_logo}>
               <Link
-                scroll={false}
+                scroll={true}
                 href={`/`}
                 onClick={() => {
                   setNavActive(false);
@@ -169,15 +169,18 @@ export default function NavBar() {
                 ` ${navActive ? styles.header_mobile_height : ""}`
               }
             >
-              <ul onMouseLeave={() => setVavItemActive(false)}>
+              <ul
+                className={styles.header_nav_list}
+                onMouseLeave={() => setVavItemActive(false)}
+              >
                 {navList.map((item, index) => {
                   return (
                     <li key={item.key}>
                       <Link
-                        href={item.href ? item.href : `/nav/${item.key}`}
+                        href={item.href}
                         onMouseOver={() => {
                           setVavItemActive(true);
-                          setHoverActiveKey(index);
+                          setHoverActiveKey(item.key);
                         }}
                         onClick={(e) => {
                           if (window.innerWidth <= 1080) {
@@ -186,7 +189,7 @@ export default function NavBar() {
                         }}
                         className={
                           (navItemActive || navActive) &&
-                          hoverActiveKey === index
+                          hoverActiveKey === item.key
                             ? styles.nav_item_active
                             : ""
                         }
@@ -209,94 +212,40 @@ export default function NavBar() {
               >
                 {/* nav_content */}
                 <div
+                  data-list-text={hoverActiveKey === "blog"}
                   ref={headerNavWidthRef}
                   className={styles.header_nav_width}
                 >
-                  {navList.map((item, index) => {
-                    if (item.list?.length > 13) {
-                      item.list.length = 14;
-                    }
-                    // 最多展示13个
-                    return item.list.map((item2, index2) => {
-                      if (index2 === 13) {
-                        return (
-                          <Link
-                            scroll={false}
-                            style={{
-                              display:
-                                index !== hoverActiveKey ? "none" : "flex",
-                            }}
-                            href={`/nav/${item.key}`}
-                            className={styles.header_nav_items}
-                            key={index2}
-                          >
-                            <img
-                              alt={LANG["common.nav.faq"]}
-                              data-src={`${process.env.NEXT_PUBLIC_FILE}/image/icon/nav-learn-more.svg`}
-                            />
-                            <p>{LANG["common.nav.learn_more"]}</p>
-                          </Link>
-                        );
-                      }
+                  {navList.map((item) => {
+                    return item.list.map((navSubItem, navSubIndex) => {
                       return (
                         // 性能优化
                         <div
-                          key={index2}
+                          key={navSubIndex}
                           style={{
                             display:
-                              index !== hoverActiveKey ? "none" : "block",
+                              item.key !== hoverActiveKey ? "none" : "block",
                           }}
                         >
-                          {item.key === "where_buy" ? (
-                            <div
-                              className={styles.header_nav_items}
-                              onClick={() => {
-                                setVavItemActive(false);
-                                setNavActive(false);
-                                if (!item2.href) {
-                                  ModalRef.current.showModal();
-                                } else {
-                                  if (item2.href.startsWith("http")) {
-                                    window.open(item2.href);
-                                  } else {
-                                    router.push(item2.href);
-                                  }
-                                }
-                              }}
-                            >
-                              {item2.img}
-                              <p>{item2.sub_title}</p>
-                            </div>
+                          {item.key === "blog" ? (
+                            <NavSubTextItem
+                              href={item.href}
+                              navSubIndex={navSubIndex}
+                              navSubItem={navSubItem}
+                              setVavItemActive={setVavItemActive}
+                              setNavActive={setNavActive}
+                            />
                           ) : null}
-                          {item.key ===
-                          "where_buy" ? null : item2.href.startsWith("http") ? (
-                            <a
-                              className={styles.header_nav_items}
-                              onClick={() => {
-                                setVavItemActive(false);
-                                setNavActive(false);
-                              }}
-                              href={item2.href}
-                              rel="noreferrer"
-                            >
-                              {item2.img}
-                              <p>{item2.sub_title}</p>
-                            </a>
-                          ) : (
-                            <Link
-                              scroll={false}
-                              onClick={() => {
-                                setVavItemActive(false);
-                                setNavActive(false);
-                              }}
-                              href={`${item2.href}`}
-                              className={styles.header_nav_items}
-                              key={index2}
-                            >
-                              {item2.img}
-                              <p>{item2.sub_title}</p>
-                            </Link>
-                          )}
+                          {item.key !== "blog" ? (
+                            <NavSubCommonItem
+                              href={item.href}
+                              navSubIndex={navSubIndex}
+                              navSubItem={navSubItem}
+                              setVavItemActive={setVavItemActive}
+                              setNavActive={setNavActive}
+                              showModal={() => ModalRef.current.showModal()}
+                            />
+                          ) : null}
                         </div>
                       );
                     });
@@ -311,6 +260,105 @@ export default function NavBar() {
       </nav>
       <TipModal LANG={LANG} ref={ModalRef} />
     </>
+  );
+}
+
+// 导航子列表 - Next
+function NavSubNextItem({ setVavItemActive, setNavActive, href, type }) {
+  const { LANG } = React.useContext(GlobalContext);
+  return (
+    <Link
+      scroll={true}
+      onClick={() => {
+        setVavItemActive(false);
+        setNavActive(false);
+      }}
+      href={href}
+      className={
+        type === "img"
+          ? styles.header_nav_items_img
+          : styles.header_nav_items_text_button
+      }
+    >
+      <img
+        alt={LANG["common.nav.learn_more"]}
+        data-src={`${process.env.NEXT_PUBLIC_FILE}/image/icon/nav-learn-more.svg`}
+      />
+      <p>{LANG["common.nav.learn_more"]}</p>
+    </Link>
+  );
+}
+
+// 导航子项列表 -  文本
+function NavSubTextItem({
+  href,
+  navSubItem,
+  navSubIndex,
+  setVavItemActive,
+  setNavActive,
+}) {
+  if (navSubIndex > 8) return null;
+  if (navSubIndex === 8)
+    return (
+      <NavSubNextItem
+        type="text"
+        href={href}
+        setVavItemActive={setVavItemActive}
+        setNavActive={setNavActive}
+      />
+    );
+
+  return (
+    <Link
+      scroll={true}
+      onClick={() => {
+        setVavItemActive(false);
+        setNavActive(false);
+      }}
+      href={navSubItem.href}
+      className={styles.header_nav_items_text}
+    >
+      {navSubItem.sub_title}
+    </Link>
+  );
+}
+
+// 导航子项列表 -  图片
+function NavSubCommonItem({
+  href,
+  navSubIndex,
+  navSubItem,
+  setVavItemActive,
+  setNavActive,
+  showModal,
+}) {
+  if (navSubIndex > 15) return null;
+  if (navSubIndex === 15)
+    return (
+      <NavSubNextItem
+        type="img"
+        href={href}
+        setVavItemActive={setVavItemActive}
+        setNavActive={setNavActive}
+      />
+    );
+  return (
+    <Link
+      scroll={true}
+      onClick={(e) => {
+        setVavItemActive(false);
+        setNavActive(false);
+        if (!navSubItem.href) {
+          showModal();
+          e.preventDefault();
+        }
+      }}
+      href={navSubItem.href}
+      className={styles.header_nav_items_img}
+    >
+      {navSubItem.img}
+      <p>{navSubItem.sub_title}</p>
+    </Link>
   );
 }
 
@@ -378,7 +426,7 @@ function RightArea() {
         }}
       >
         <Link
-          scroll={false}
+          scroll={true}
           className={styles.header_store_container}
           href={`/`}
         >

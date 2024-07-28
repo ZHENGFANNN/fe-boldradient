@@ -2,12 +2,9 @@
 
 export default async function getBlogList(lang) {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_DOMAIN}/service/blog/read-blog-data`,
+    `${process.env.NEXT_PUBLIC_DOMAIN}/service/blog/read-blog-data?lang=${lang}`,
     {
-      method: "POST",
-      body: JSON.stringify({
-        lang,
-      }),
+      method: "GET",
     }
   );
   const data = await response.json();

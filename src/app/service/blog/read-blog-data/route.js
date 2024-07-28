@@ -1,4 +1,5 @@
 /** @format */
+export const runtime = "nodejs";
 
 const fs = require("fs");
 import path from "path";
@@ -32,12 +33,6 @@ const updateData = () => {
 // 初始化缓存
 updateData();
 
-export async function POST() {
-  // const data = await request.json();
-  return new Response(JSON.stringify(localeCache["cn"]), {
-    status: 200,
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+export async function GET() {
+  return Response.json(localeCache["en"]);
 }

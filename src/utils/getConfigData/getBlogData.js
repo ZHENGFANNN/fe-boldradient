@@ -1,12 +1,28 @@
 /** @format */
 
+export const runtime = "nodejs";
+import getLanguage from "@/config/LANGUAGE";
+const languageList = getLanguage("list");
+const localeCache = {};
+function updateLocaleCache(lang) {
+  const fileContents = require(`@@/locale/blogData/${lang}.json`);
+  try {
+    const data = JSON.parse(fileContents);
+    localeCache[lang] = data;
+  } catch {
+    localeCache[lang] = fileContents;
+  }
+}
+
+const updateData = () => {
+  languageList.forEach((item) => {
+    updateLocaleCache(item.value);
+  });
+};
+
+// 初始化缓存
+updateData();
+
 export default async function getBlogList(lang) {
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_DOMAIN}/service/blog/read-blog-data?lang=${lang}`,
-    {
-      method: "GET",
-    }
-  );
-  const data = await response.json();
-  return data;
+  return localeCache[lang];
 }

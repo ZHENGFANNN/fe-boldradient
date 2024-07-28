@@ -24,6 +24,8 @@ languageList.forEach((item) => {
   updateLocaleCache(item.value);
 });
 
-export async function GET() {
-  return Response.json(localeCache["en"]);
+export async function GET(request) {
+  const { searchParams } = new URL(request.url);
+  const lang = searchParams.get("lang");
+  return Response.json(localeCache[lang]);
 }

@@ -5,13 +5,14 @@ import getLanguage from "@/config/LANGUAGE";
 const languageList = getLanguage("list");
 const localeCache = {};
 function updateLocaleCache(lang) {
-  const fileContents = require(`@@/locale/blogData/${lang}.json`);
+  const fileContents = import(`@@/locale/blogData/${lang}.json`);
   try {
     const data = JSON.parse(fileContents);
     localeCache[lang] = data;
     return data;
   } catch {
     localeCache[lang] = fileContents;
+    return fileContents;
   }
 }
 
@@ -25,5 +26,5 @@ const updateData = () => {
 // updateData();
 
 export default async function getBlogList(lang) {
-  return updateLocaleCache[lang];
+  return updateLocaleCache(lang);
 }

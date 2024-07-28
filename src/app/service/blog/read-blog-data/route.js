@@ -3,9 +3,10 @@
 const fs = require("fs");
 import path from "path";
 import getLanguage from "@/config/LANGUAGE";
-const languageList = getLanguage("list");
 
-const localeCache = {};
+const languageList = getLanguage("list");
+let localeCache = {};
+
 function updateLocaleCache(lang) {
   const filePath = path.join(
     process.cwd(),
@@ -14,25 +15,15 @@ function updateLocaleCache(lang) {
     `${lang}.json`
   );
   const fileContents = fs.readFileSync(filePath, "utf8");
-  try {
-    const data = JSON.parse(fileContents);
-    localeCache[lang] = data;
-  } catch {
-    localeCache[lang] = fileContents;
-  }
+  const data = JSON.parse(fileContents);
+  localeCache[lang] = data;
 }
 
-const updateData = () => {
-  languageList.forEach((item) => {
-    updateLocaleCache(item.value);
-  });
-};
-
 // 初始化缓存
-updateData();
+languageList.forEach((item) => {
+  updateLocaleCache(item.value);
+});
 
-export async function GET(request) {
-  const { searchParams } = new URL(request.url);
-  const lang = searchParams.get("lang");
-  return Response.json(localeCache[lang]);
+export async function GET() {
+  return Response.json(localeCache["en"]);
 }

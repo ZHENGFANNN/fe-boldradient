@@ -77,7 +77,6 @@ async function getData({
       image_src,
     };
   });
-
   const { blogMap, blogSortMap, blogBannerList } = result.BLOG;
   const blogList = Object.keys(blogMap).map((item) => {
     return {

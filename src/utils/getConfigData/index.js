@@ -139,6 +139,8 @@ export default async function getConfigData({
   languageNameSpace,
   configNameSpace,
 }) {
+  console.log("---开始CONFIG---");
+  console.time("---获取CONFIG时间---");
   // 获取所有配置数据
   const result = await getAllConfig({ locale, configList });
   /**
@@ -166,5 +168,6 @@ export default async function getConfigData({
   if (result.CONFIG && configNameSpace) {
     result.CONFIG = await filterConfig({ result, configNameSpace });
   }
+  console.timeEnd("---获取CONFIG时间---");
   return result;
 }

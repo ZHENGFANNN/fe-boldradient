@@ -33,5 +33,11 @@ const updateData = () => {
 updateData();
 
 export async function POST() {
-  return Response.json(localeCache["en"]);
+  // const data = await request.json();
+  return new Response(JSON.stringify(localeCache["cn"]), {
+    status: 200,
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
 }

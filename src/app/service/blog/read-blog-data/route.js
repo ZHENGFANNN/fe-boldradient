@@ -36,5 +36,6 @@ export const updateData = () => {
 updateData();
 
 export async function GET() {
-  return Response.json(localeCache);
+  const data = Response.json(localeCache);
+  return data;
 }

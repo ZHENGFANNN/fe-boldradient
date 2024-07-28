@@ -61,28 +61,35 @@ async function getSortList(productSort) {
 /**
  * 获取数据
  */
-async function getData({
-  locale,
-  area,
-  configList,
-  languageNameSpace,
-  configNameSpace,
-}) {
+const cacheKey = "@@page-index";
+const pageIndexMap = new Map();
+async function getData({ locale, area }) {
+  if (pageIndexMap.has(cacheKey)) {
+    return pageIndexMap.get(cacheKey);
+  }
   const result = await getConfigData({
     locale,
     area,
-    configList,
-    languageNameSpace,
-    configNameSpace,
+    configList: ["config", "language", "goodSort", "goodDiscountFestival"],
+    languageNameSpace: [
+      "store.index",
+      "common.advantage",
+      "store.index.title",
+      "store.index.description",
+      "store.index.keywords",
+    ],
+    configNameSpace: ["store.index.banner", "company.basic.company_name"],
   });
   result.GOODSORTLIST = await getSortList(result.GOODSORTLIST);
+  pageIndexMap.set(cacheKey, result);
   return result;
 }
 
 export async function generateMetadata({ params: { locale } }) {
-  const { LANG, CONFIG } = await getConfigData({
+  const area = cookies().get("area")?.value || "us";
+  const { LANG, CONFIG } = await getData({
     locale,
-    configList: ["language", "config"],
+    area,
   });
   return {
     title: `${CONFIG["company.basic.company_name"]} - ${LANG["store.index.title"]}`,
@@ -96,10 +103,8 @@ export default async function Home({ params: { locale } }) {
   const { CONFIG, LANG, GOODDISCOUNTFESTIVAL, GOODSORTLIST } = await getData({
     locale,
     area,
-    configList: ["config", "language", "goodSort", "goodDiscountFestival"],
-    languageNameSpace: ["store.index", "common.advantage"],
-    configNameSpace: ["store.index.banner", "company.basic.company_name"],
   });
+
   return (
     <main>
       <IndexContext

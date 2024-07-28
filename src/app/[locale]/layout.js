@@ -24,6 +24,9 @@ export const viewport = {
 /**
  * 获取数据
  */
+const cacheKey = "@@layout";
+const layoutMap = new Map();
+
 async function getData({
   locale,
   area,
@@ -31,6 +34,9 @@ async function getData({
   configNameSpace,
   languageNameSpace,
 }) {
+  if (layoutMap.has(cacheKey)) {
+    return layoutMap.get(cacheKey);
+  }
   const result = await getConfigData({
     locale,
     area,
@@ -90,6 +96,7 @@ async function getData({
     .sort((a, b) => b.weight - a.weight);
 
   result.BLOG = { blogList, blogSortList };
+  layoutMap.set(cacheKey, result);
   return result;
 }
 

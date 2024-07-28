@@ -20,8 +20,8 @@ const updateData = () => {
   });
 };
 
-// 初始化缓存
-updateData();
+// // 初始化缓存
+// updateData();
 
 export default async function getBlogList(lang) {
   return localeCache[lang];

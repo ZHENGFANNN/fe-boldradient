@@ -2,14 +2,16 @@
 
 const localeData = {};
 async function getData(lang) {
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_DOMAIN}/service/blog/read-blog-data`,
-    {
-      method: "GET",
-    }
-  );
-  const data = await response.json();
-  localeData[lang] = data[lang];
+  if (!localeData[lang]) {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_DOMAIN}/service/blog/read-blog-data`,
+      {
+        method: "GET",
+      }
+    );
+    const data = await response.json();
+    localeData[lang] = data[lang];
+  }
   return localeData[lang];
 }
 

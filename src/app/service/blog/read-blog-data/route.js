@@ -4,6 +4,8 @@ export const runtime = "nodejs";
 export const fetchCache = "force-cache";
 
 const fs = require("fs");
+
+import qs from "qs";
 import path from "path";
 import getLanguage from "@/config/LANGUAGE";
 
@@ -36,7 +38,7 @@ export const updateData = () => {
 updateData();
 
 export async function GET(request) {
-  console.log("[Request]: ", request.nextUrl);
-  const data = Response.json(localeCache);
+  const { lang } = qs.parse(request.nextUrl.search.split("?")[1]);
+  const data = Response.json(localeCache[lang]);
   return data;
 }

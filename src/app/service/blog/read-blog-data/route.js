@@ -36,7 +36,7 @@ export const updateData = () => {
 updateData();
 
 export async function GET(request) {
-  console.log("[Request]: ", request.nextUrl.searchParams.get("lang"));
+  console.log("[Request]: ", request.nextUrl);
   const data = Response.json(localeCache);
   return data;
 }

@@ -1,7 +1,7 @@
 /** @format */
 
 export const runtime = "nodejs";
-export const fetchCache = "force-no-store";
+export const fetchCache = "force-cache";
 
 const fs = require("fs");
 import path from "path";

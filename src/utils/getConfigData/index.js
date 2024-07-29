@@ -167,6 +167,6 @@ export default async function getConfigData({
   if (result.CONFIG && configNameSpace) {
     result.CONFIG = await filterConfig({ result, configNameSpace });
   }
-  console.log(`---结束CONFIG: ${Date.now() - startTIme}---`);
+  console.log(`---获取CONFIG时间: ${Date.now() - startTIme}---`);
   return result;
 }

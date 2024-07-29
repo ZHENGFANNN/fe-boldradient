@@ -58,15 +58,22 @@ export default function NAVFUNC({
   // 博客分类
   const navBlogSortTop = {
     key: "blog",
-    title: "Blog",
+    title: LANG["common.nav.blog"],
     href: "/blog",
     list: BLOG.blogList,
   };
   const navBlogSortBottom = {
     key: "blog",
-    title: "Blog",
+    title: LANG["common.nav.blog"],
     href: "/blog",
-    list: BLOG.blogSortList,
+    list: [
+      {
+        key: "all",
+        sub_title: LANG["common.nav.all"],
+        href: "/blog",
+      },
+      ...BLOG.blogSortList,
+    ],
   };
 
   // 购买方式

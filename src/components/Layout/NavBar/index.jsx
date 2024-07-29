@@ -229,6 +229,7 @@ export default function NavBar() {
                         >
                           {item.key === "blog" ? (
                             <NavSubTextItem
+                              lastItem={navSubIndex === item.list.length - 1}
                               href={item.href}
                               navSubIndex={navSubIndex}
                               navSubItem={navSubItem}
@@ -292,34 +293,35 @@ function NavSubNextItem({ setVavItemActive, setNavActive, href, type }) {
 // 导航子项列表 -  文本
 function NavSubTextItem({
   href,
+  lastItem,
   navSubItem,
   navSubIndex,
   setVavItemActive,
   setNavActive,
 }) {
   if (navSubIndex > 8) return null;
-  if (navSubIndex === 8)
-    return (
-      <NavSubNextItem
-        type="text"
-        href={href}
-        setVavItemActive={setVavItemActive}
-        setNavActive={setNavActive}
-      />
-    );
-
   return (
-    <Link
-      scroll={true}
-      onClick={() => {
-        setVavItemActive(false);
-        setNavActive(false);
-      }}
-      href={navSubItem.href}
-      className={styles.header_nav_items_text}
-    >
-      {navSubItem.sub_title}
-    </Link>
+    <>
+      <Link
+        scroll={true}
+        onClick={() => {
+          setVavItemActive(false);
+          setNavActive(false);
+        }}
+        href={navSubItem.href}
+        className={styles.header_nav_items_text}
+      >
+        {navSubItem.sub_title}
+      </Link>
+      {lastItem || navSubIndex === 8 ? (
+        <NavSubNextItem
+          type="text"
+          href={href}
+          setVavItemActive={setVavItemActive}
+          setNavActive={setNavActive}
+        />
+      ) : null}
+    </>
   );
 }
 

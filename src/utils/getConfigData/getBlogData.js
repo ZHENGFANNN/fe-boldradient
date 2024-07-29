@@ -18,6 +18,6 @@ async function getData(lang) {
 export default async function getBlogList(lang) {
   const startTime = Date.now();
   const data = await getData(lang);
-  console.log(`---结束获取Blog:${Date.now() - startTime}---`);
+  console.log(`---获取Blog时间:${Date.now() - startTime}---`);
   return data;
 }

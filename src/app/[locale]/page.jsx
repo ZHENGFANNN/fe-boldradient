@@ -61,12 +61,7 @@ async function getSortList(productSort) {
 /**
  * 获取数据
  */
-const cacheKey = "@@page-index";
-const pageIndexMap = new Map();
 async function getData({ locale, area }) {
-  if (pageIndexMap.has(cacheKey)) {
-    return pageIndexMap.get(cacheKey);
-  }
   const result = await getConfigData({
     locale,
     area,
@@ -81,7 +76,6 @@ async function getData({ locale, area }) {
     configNameSpace: ["store.index.banner", "company.basic.company_name"],
   });
   result.GOODSORTLIST = await getSortList(result.GOODSORTLIST);
-  pageIndexMap.set(cacheKey, result);
   return result;
 }
 

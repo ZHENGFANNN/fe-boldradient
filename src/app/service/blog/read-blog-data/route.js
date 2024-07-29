@@ -4,6 +4,7 @@ export const runtime = "nodejs";
 export const fetchCache = "force-cache";
 
 const fs = require("fs");
+const qs = require("qs");
 
 import { useParams } from "next/navigation";
 import path from "path";
@@ -38,6 +39,7 @@ export const updateData = () => {
 updateData();
 
 export async function GET(request) {
-  const data = Response.json(localeCache["cn"]);
+  const { lang } = qs.parse(request.url.split("?")[1]);
+  const data = Response.json(localeCache[lang]);
   return data;
 }

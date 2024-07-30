@@ -10,7 +10,7 @@ async function getData(lang) {
       }
     );
     const data = await response.json();
-    localeData[lang] = data;
+    localeData[lang] = data[lang];
   }
   return localeData[lang];
 }

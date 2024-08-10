@@ -118,25 +118,22 @@
     border: none;
   }
   
-  video,
-  img {
-    display: block !important;
+  img,
+  video {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    max-width: 100%;
-  
-    max-height: 420px;
+    height: 100%;
     margin: 0;
-    margin-bottom: 32px;
     object-fit: contain;
   }
-  video {
-    margin-bottom: 16px;
-  }
+  
   iframe {
     display: block !important;
     width: 100%;
     max-width: 100%;
-    height: min(420px, 56.25vw);
+    height: min(520px, 56.25vw);
     margin: 0;
     margin-bottom: 32px;
   }
@@ -157,14 +154,16 @@
   
     td,
     th {
-      text-align: center!important;
       padding: 0.5em !important;
+      text-align: left;
       border: 1px solid !important;
     }
   }
-  h2, h3 {
-    padding-top: 136px;
-    margin-top: -136px;
-}
   
+  h2,
+  h3 {
+    margin-top: -136px;
+    padding-top: 136px;
+  }
+   
 }

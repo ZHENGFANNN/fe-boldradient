@@ -98,10 +98,14 @@ export default function NavBar() {
       // 处理top header
       // 不展示TOP header
       const hiddenTopHeader = ["/blog"].find((item) => pathname.includes(item));
+      console.log("[pathname]: ", hiddenTopHeader, pathname);
       if (hiddenTopHeader) {
         document.getElementsByClassName(
           `${styles.container}`
         )[0].style.transform = "translateY(-40px)";
+
+        document.getElementById("app-content").style.marginTop =
+          window.innerWidth <= 1080 ? "50px" : "60px";
         return;
       }
 

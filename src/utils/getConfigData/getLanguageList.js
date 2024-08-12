@@ -29,6 +29,6 @@
 export default async function getLanguageList(lang) {
   const startTime = Date.now();
   const data = await import("@@/locale/languageList/" + lang + ".json");
-  console.log(`---获取Language时间: ${Date.now() - startTime}---`);
+  console.log(`---获取Language时间 ${lang}: ${Date.now() - startTime}---`);
   return data;
 }

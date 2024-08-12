@@ -1,6 +1,6 @@
 /** @format */
 
-export const runtime = "nodejs";
+export const runtime = "edge";
 export const fetchCache = "force-cache";
 
 const fs = require("fs");
@@ -38,7 +38,6 @@ export const updateData = () => {
 updateData();
 
 export async function GET(_, { params: { language } }) {
-  console.log("[language]: ", language);
-  const data = Response.json(localeCache);
+  const data = Response.json(localeCache[language]);
   return data;
 }

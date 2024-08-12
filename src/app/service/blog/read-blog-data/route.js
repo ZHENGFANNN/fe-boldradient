@@ -39,8 +39,7 @@ updateData();
 
 export async function GET(req, res) {
   const url = new Request(req).url;
-  const lang = qs.parse(url.split("?")[1], { ignoreQueryPrefix: true });
-  console.log("Response: ", lang);
-  const data = Response.json(localeCache);
+  const { lang } = qs.parse(url.split("?")[1], { ignoreQueryPrefix: true });
+  const data = Response.json(localeCache[lang]);
   return data;
 }

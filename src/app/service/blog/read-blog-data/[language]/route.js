@@ -3,10 +3,9 @@
 export const runtime = "edge";
 export const fetchCache = "force-cache";
 
-const fs = require("fs");
-const qs = require("qs");
-
 import path from "path";
+import fs from "fs";
+
 import getLanguage from "@/config/LANGUAGE";
 
 const languageList = getLanguage("list");

@@ -14,9 +14,13 @@ async function getData(lang) {
   return localeData[lang];
 }
 
+async function getDataV2(lang) {
+  return await import(`@@/locale/blogData/${lang}.json`);
+}
+
 export default async function getBlogList(lang) {
   const startTime = Date.now();
-  const data = await getData(lang);
+  const data = await getDataV2(lang);
   console.log(`---获取Blog时间: ${Date.now() - startTime}---`);
   return data;
 }

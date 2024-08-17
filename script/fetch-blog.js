@@ -75,10 +75,10 @@ const fetchBlog = async (times = 1, cookie = "") => {
         if (!obj[lang.value]) obj[lang.value] = obj["en"];
       });
 
-      Object.keys(obj).forEach(async (item) => {
+      Object.keys(obj).forEach((item) => {
         // !! 处理数据结构
         const fileData = JSON.stringify(handleBlogData(obj[item]), null, 2);
-        await axios({
+        axios({
           method: "put",
           url: `https://api.cloudflare.com/client/v4/accounts/${process.env.CLOUDFLARE_ACCOUNT_ID}/storage/kv/namespaces/${process.env.CLOUDFLARE_KV_ID}/values/blog:${item}`,
           data: handleBlogData(obj[item]),

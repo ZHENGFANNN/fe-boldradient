@@ -30,9 +30,11 @@ function updateLocaleCache(lang) {
 
 export async function GET(req) {
   // 解析 URL 和查询参数
-  const parsedUrl = parse(req.url, true);
+  const newReq = new Request(req);
+  const parsedUrl = parse(newReq.url, true);
   const query = parsedUrl.query;
   const language = query.language;
+
   console.log("[language]: ", language);
   const data = updateLocaleCache("en");
   return Response.json(data);

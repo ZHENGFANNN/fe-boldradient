@@ -22,7 +22,7 @@ async function getDataV3(lang) {
 async function getData(lang) {
   if (!localeData[lang]) {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_DOMAIN}/service/blog/read-blog-data`,
+      `${process.env.NEXT_PUBLIC_DOMAIN}/service/blog/read-blog-data?language=${lang}`,
       {
         method: "GET",
       }

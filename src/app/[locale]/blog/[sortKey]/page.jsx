@@ -8,15 +8,27 @@ import BaseLayout from "../components/BaseLayout";
 
 export const runtime = "edge";
 
+const cache = {};
+async function getData({ locale }) {
+  if (!cache[locale]) {
+    const { LANG, BLOG } = await getConfigData({
+      locale,
+      configList: ["blog", "language"],
+      languageNameSpace: ["store.blog_index.all", "store.blog_index.title"],
+    });
+    cache[locale] = { LANG, BLOG };
+    return { LANG, BLOG };
+  } else {
+    return cache[locale];
+  }
+}
+
 export async function generateMetadata({
   params: { locale, sortKey, blogKey },
 }) {
   const {
     BLOG: { blogSortMap },
-  } = await getConfigData({
-    locale,
-    configList: ["blog"],
-  });
+  } = await getData({ locale });
   const currentBlogSort = blogSortMap[sortKey];
   const title = currentBlogSort.name;
   let descriptionList = [],
@@ -69,11 +81,7 @@ export default async function BlogSort({ params: { locale, sortKey } }) {
   const {
     LANG,
     BLOG: { blogSortMap },
-  } = await getConfigData({
-    locale,
-    configList: ["blog", "language"],
-    languageNameSpace: ["store.blog_index.all", "store.blog_index.title"],
-  });
+  } = await getData({ locale });
   const blogSortList = Object.keys(blogSortMap)
     .map((item) => {
       const blogSort = blogSortMap[item];

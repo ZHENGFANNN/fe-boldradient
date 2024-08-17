@@ -4,7 +4,21 @@ const chalk = require("chalk");
 const fs = require("fs");
 const LANGUAGES = require("../src/config/LANGUAGE");
 const api = require("./api");
+const axios = require("axios");
 
+function handleBlogDataV2(list) {
+  const dataMap = {};
+  list.forEach(({ sortInfo, ...item }) => {
+    const blogSortInfo = sortInfo[0];
+    dataMap[`blog:${item.sort_key}:${item.key}`] = item;
+    dataMap[`blog:${item.sort_key}`] = blogSortInfo;
+    // 处理BLOG banner
+    if (item.recommend) {
+      dataMap[`blog:banner`] = [...(dataMap[`blog:banner`] || []), item];
+    }
+  });
+  return dataMap;
+}
 // 处理Blog数据结构
 function handleBlogData(list) {
   const obj = {
@@ -61,9 +75,18 @@ const fetchBlog = async (times = 1, cookie = "") => {
         if (!obj[lang.value]) obj[lang.value] = obj["en"];
       });
 
-      Object.keys(obj).forEach((item) => {
+      Object.keys(obj).forEach(async (item) => {
         // !! 处理数据结构
         const fileData = JSON.stringify(handleBlogData(obj[item]), null, 2);
+        await axios({
+          method: "put",
+          url: `https://api.cloudflare.com/client/v4/accounts/${process.env.CLOUDFLARE_ACCOUNT_ID}/storage/kv/namespaces/${process.env.CLOUDFLARE_KV_ID}/values/blog:${item}`,
+          data: handleBlogData(obj[item]),
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${process.env.CLOUDFLARE_TOKEN}`,
+          },
+        });
         fs.writeFileSync(`${fileDir}/${item}.json`, fileData, (err) => {
           if (err) {
             console.log(`${chalk.red("【blog写入失败】")}`, err);

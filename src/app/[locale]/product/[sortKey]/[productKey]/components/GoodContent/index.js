@@ -13,7 +13,7 @@ export default function GoodContent() {
   } = React.useContext(ProductContext);
 
   const hide = React.useMemo(() => {
-    return content.replace(/<[^>]+>/g, "").trim().length < 1;
+    return content?.replace(/<[^>]+>/g, "").trim().length < 1;
   }, [content]);
 
   if (hide) return null;

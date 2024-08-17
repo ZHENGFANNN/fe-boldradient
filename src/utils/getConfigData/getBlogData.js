@@ -1,5 +1,24 @@
 /** @format */
 const localeData = {};
+async function getDataV3(lang) {
+  if (!localeData[lang]) {
+    const response = await fetch(
+      `https://api.cloudflare.com/client/v4/accounts/${process.env.CLOUDFLARE_ACCOUNT_ID}/storage/kv/namespaces/${process.env.CLOUDFLARE_KV_ID}/values/blog:en`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${process.env.CLOUDFLARE_TOKEN}`,
+        },
+      }
+    );
+    const result = await response.json();
+    localeData[lang] = result;
+    return result;
+  } else {
+    return localeData[lang];
+  }
+}
+
 async function getData(lang) {
   if (!localeData[lang]) {
     const response = await fetch(
@@ -47,7 +66,7 @@ async function getDataV2(lang) {
 
 export default async function getBlogList(lang) {
   const startTime = Date.now();
-  const data = await getDataV2(lang);
+  const data = await getDataV3(lang);
   console.log(`---获取Blog时间: ${Date.now() - startTime}---`);
   return data;
 }

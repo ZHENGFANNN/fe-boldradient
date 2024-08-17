@@ -29,8 +29,9 @@ function updateLocaleCache(lang) {
   return localeCache[lang];
 }
 
-export async function GET(res) {
-  const query = res.nextUrl.searchParams;
+export async function GET(req) {
+  const url = new URL(req.url, `https://${req.headers.host}`);
+  const query = url.searchParams;
   const language = query.get("language");
 
   console.log("[language]: ", language);

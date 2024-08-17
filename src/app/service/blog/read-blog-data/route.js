@@ -55,8 +55,8 @@ const localeCache = {};
 async function loadLocaleData(language) {
   if (!localeCache[language]) {
     try {
-      const data = await import(`@@/locale/blogData/${language}.json`);
-      localeCache[language] = data.default;
+      const data = await require(`@@/locale/blogData/${language}.json`);
+      localeCache[language] = data;
     } catch (error) {
       console.error(`Error loading data for language ${language}:`, error);
       localeCache[language] = {}; // 如果加载数据失败，设置为空对象

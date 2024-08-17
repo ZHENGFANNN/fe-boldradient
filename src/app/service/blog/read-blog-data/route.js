@@ -30,7 +30,6 @@ function updateLocaleCache(lang) {
 }
 
 export async function GET(res) {
-  const { language } = qs.parse(res.url.split("?")[1]);
-  const data = updateLocaleCache(language);
+  const data = updateLocaleCache("en");
   return Response.json(data);
 }

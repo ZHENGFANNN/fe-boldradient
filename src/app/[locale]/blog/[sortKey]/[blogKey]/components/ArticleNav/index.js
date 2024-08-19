@@ -6,7 +6,7 @@ import styles from "./index.module.scss";
 import { debounce } from "@/utils/index";
 import Link from "next/link";
 
-export default function ArticleInfo({ headTitleList }) {
+export default function ArticleInfo({ titleList }) {
   const navRef = React.useRef(null);
   const [isExpand, setIsExpand] = React.useState(true);
 
@@ -49,7 +49,7 @@ export default function ArticleInfo({ headTitleList }) {
     }
   }, []);
 
-  if (headTitleList.length < 1) return;
+  if (titleList.length < 1) return;
   return (
     <div className={styles.container} ref={navRef} data-expand={isExpand}>
       <div className={styles.content}>
@@ -68,7 +68,7 @@ export default function ArticleInfo({ headTitleList }) {
           )}
         </div>
         <div className={styles.header_container}>
-          {headTitleList.map((item, index) => {
+          {titleList.map((item, index) => {
             return (
               <Link
                 href={`#${item.id}`}

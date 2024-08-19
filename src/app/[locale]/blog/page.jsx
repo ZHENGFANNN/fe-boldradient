@@ -102,38 +102,14 @@ export default async function BlogSort({ params: { locale } }) {
     LANG,
     BLOG: { blogSortMap, blogBannerList },
   } = await getData({ locale });
-  const bannerList = blogBannerList.map((item) => {
-    return {
-      image: item.image,
-      title: item.title,
-      key: item.key,
-      sort_key: item.sort_key,
-    };
-  });
   const blogSortList = Object.keys(blogSortMap)
-    .map((item) => {
-      const blogSort = blogSortMap[item];
-      return {
-        weight: blogSort.weight,
-        key: blogSort.key,
-        name: blogSort.name,
-        blogList: blogSort.blogList.map((item) => {
-          return {
-            image: item.image,
-            title: item.title,
-            key: item.key,
-            sort_key: item.sort_key,
-            updated_time: item.updated_time,
-          };
-        }),
-      };
-    })
+    .map((item) => blogSortMap[item])
     .sort((a, b) => b.weight - a.weight);
 
   return (
     <>
       <BaseLayout blogSortList={blogSortList} LANG={LANG} />
-      {blogBannerList.length > 0 ? <Banner list={bannerList} /> : null}
+      {blogBannerList.length > 0 ? <Banner list={blogBannerList} /> : null}
       <div className={styles.container}>
         {blogSortList.map((item, index) => {
           return (

@@ -4,21 +4,53 @@ const chalk = require("chalk");
 const fs = require("fs");
 const LANGUAGES = require("../src/config/LANGUAGE");
 const api = require("./api");
-const axios = require("axios");
 
-function handleBlogDataV2(list) {
-  const dataMap = {};
-  list.forEach(({ sortInfo, ...item }) => {
-    const blogSortInfo = sortInfo[0];
-    dataMap[`blog:${item.sort_key}:${item.key}`] = item;
-    dataMap[`blog:${item.sort_key}`] = blogSortInfo;
-    // 处理BLOG banner
-    if (item.recommend) {
-      dataMap[`blog:banner`] = [...(dataMap[`blog:banner`] || []), item];
-    }
-  });
-  return dataMap;
+// 获取文章标题
+function getHeadTitleId(title) {
+  return title
+    .toLowerCase()
+    .replace(/<.*?>(.*?)<.*?>/gis, "$1")
+    .replace(/[\'\"?:\.]/g, "")
+    .trim()
+    .replace(/\s+/g, "-");
 }
+
+// 处理文章标题列表
+function getHeadTitleList(html) {
+  const headerRegex = /<h([23])[^>]*>(.*?)<\/h\1>/gis;
+  const tagRegex = /<\/?[^>]+(>|$)/g; // Regex to match any HTML tag
+  let matches = [];
+  let match;
+  while ((match = headerRegex.exec(html)) !== null) {
+    // Get the full match (incl. tags) and strip HTML tags only for the inner content
+    const contentWithTags = match[0];
+    const tagName = `h${match[1]}`;
+    const id = getHeadTitleId(match[2]);
+    const content = contentWithTags.replace(tagRegex, "").trim();
+    matches.push({ tag: tagName, content: content, id });
+  }
+
+  return matches;
+}
+
+// 添加文章标题ID
+function addHeadTitleId(html) {
+  const headerRegex = /<h([23])[^>]*>(.*?)<\/h\1>/gis;
+  let match;
+  while ((match = headerRegex.exec(html)) !== null) {
+    // Get the full match (incl. tags) and strip HTML tags only for the inner content
+    const contentWithTags = match[0];
+    const tagName = `h${match[1]}`;
+    const content = match[2];
+    const id = getHeadTitleId(content);
+    html = html.replace(
+      contentWithTags,
+      `<${tagName} id="${id}">${content}</${tagName}>`
+    );
+  }
+  return html;
+}
+
 // 处理Blog数据结构
 function handleBlogData(list) {
   const obj = {
@@ -27,24 +59,43 @@ function handleBlogData(list) {
     blogSortMap: {},
   };
 
-  list.forEach(({ sortInfo, ...item }) => {
+  list.forEach(({ sortInfo, id, created_time, language, ...item }) => {
+    // Blog分类
     const blogSortInfo = sortInfo[0];
     item.blogSortInfo = blogSortInfo;
+    // 处理Blog文章内容
+    item.content = addHeadTitleId(item.content);
+    // 文章标题列表
+    item.titleList = getHeadTitleList(item.content);
 
     // 处理bannerList
     if (item.recommend) {
-      obj.blogBannerList.push(item);
+      obj.blogBannerList.push({
+        image: item.image,
+        title: item.title,
+        key: item.key,
+        sort_key: item.sort_key,
+      });
     }
 
     // 处理Blog列表
     obj.blogMap[`${item.sort_key}:${item.key}`] = item;
 
     // 处理Blog分类
+    const blogSortArticleItem = {
+      image: item.image,
+      title: item.title,
+      key: item.key,
+      sort_key: item.sort_key,
+      updated_time: item.updated_time,
+    };
     obj.blogSortMap[item.sort_key] = {
-      ...blogSortInfo,
+      weight: blogSortInfo.weight,
+      key: blogSortInfo.key,
+      name: blogSortInfo.name,
       blogList: obj.blogSortMap[item.sort_key]
-        ? [...obj.blogSortMap[item.sort_key].blogList, item]
-        : [item],
+        ? [...obj.blogSortMap[item.sort_key].blogList, blogSortArticleItem]
+        : [blogSortArticleItem],
     };
   });
   return obj;
@@ -78,15 +129,6 @@ const fetchBlog = async (times = 1, cookie = "") => {
       Object.keys(obj).forEach((item) => {
         // !! 处理数据结构
         const fileData = JSON.stringify(handleBlogData(obj[item]), null, 2);
-        // axios({
-        //   method: "put",
-        //   url: `https://api.cloudflare.com/client/v4/accounts/${process.env.CLOUDFLARE_ACCOUNT_ID}/storage/kv/namespaces/${process.env.CLOUDFLARE_KV_ID}/values/blog:${item}`,
-        //   data: handleBlogData(obj[item]),
-        //   headers: {
-        //     "Content-Type": "application/json",
-        //     Authorization: `Bearer ${process.env.CLOUDFLARE_TOKEN}`,
-        //   },
-        // });
         fs.writeFileSync(`${fileDir}/${item}.json`, fileData, (err) => {
           if (err) {
             console.log(`${chalk.red("【blog写入失败】")}`, err);

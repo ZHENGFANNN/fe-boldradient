@@ -7,7 +7,6 @@ import Banner from "./components/Banner";
 import ArticleInfo from "./components/ArticleInfo";
 import ArticleNav from "./components/ArticleNav";
 import AssociateArticle from "./components/AssociateArticle";
-import { getHeadTitleList, addHeadTitleId } from "../../utils";
 import IdJson from "./components/IdJson";
 import BaseLayout from "../../components/BaseLayout";
 
@@ -16,39 +15,6 @@ import { cookies } from "next/headers";
 import "@/styles/richtext.scss";
 
 export const runtime = "edge";
-
-function handleShowProductList({ productList, area }) {
-  productList = productList.map(
-    ({
-      reviewsList,
-      image_list,
-      comboList,
-      reviews_num,
-      reviews_score,
-      ...item
-    }) => {
-      let areaInfo = null;
-      comboList.find((combo) => {
-        combo.areaList.find((area_item) => {
-          if (area_item.country_code === area) {
-            areaInfo = area_item;
-          }
-          return area_item.country_code === area;
-        });
-        return areaInfo?.stock;
-      });
-
-      const totalScore = reviewsList.reduce((pre, cur) => pre + cur.score, 0);
-      item.reviewScore = totalScore / reviewsList.length || reviews_score;
-      item.reviewsNum = reviewsList.length || reviews_num;
-      item.image = image_list[0].src;
-      item.areaInfo = areaInfo;
-
-      return item;
-    }
-  );
-  return productList;
-}
 
 const getData = async function ({
   area,
@@ -67,22 +33,11 @@ const getData = async function ({
   const blogSort = BLOG.blogSortMap[sortKey];
   // 找到当前文章
   const blogArticle = BLOG.blogMap[`${sortKey}:${blogKey}`];
-  // 处理文章标题
-  blogArticle.content = addHeadTitleId(blogArticle.content);
-  const headTitleList = getHeadTitleList(blogArticle.content);
-  // 处理文章相关产品
-  if (blogArticle.associateProduct.length > 0) {
-    blogArticle.products = handleShowProductList({
-      productList: blogArticle.associateProduct,
-      area,
-    });
-  }
 
   return {
     BLOG,
     blogSort,
     blogArticle,
-    headTitleList,
     CONFIG,
     LANG,
     GOODDISCOUNTFESTIVAL,
@@ -134,7 +89,6 @@ export default async function Article({
   const {
     blogSort,
     blogArticle,
-    headTitleList,
     CONFIG,
     LANG,
     BLOG: { blogSortMap },
@@ -176,7 +130,7 @@ export default async function Article({
         <IdJson CONFIG={CONFIG} article={blogArticle} />
         <div className={styles.flex_container}>
           {/* 导航栏 */}
-          <ArticleNav headTitleList={headTitleList} />
+          <ArticleNav titleList={blogArticle.titleList} />
           {/* 内容区 */}
           <div className={styles.flex_right}>
             <Banner article={blogArticle} />
@@ -203,7 +157,7 @@ export default async function Article({
         <AssociateArticle articleList={blogArticle.associateArticle} />
       ) : null}
       {/* 关联产品 */}
-      {blogArticle.associateProduct?.length > 0 ? (
+      {blogArticle.products?.length > 0 ? (
         <ProductModal
           LANG={LANG}
           goodDiscountFestival={GOODDISCOUNTFESTIVAL}

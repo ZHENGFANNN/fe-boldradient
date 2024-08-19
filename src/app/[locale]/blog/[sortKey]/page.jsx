@@ -92,7 +92,6 @@ export default async function BlogSort({ params: { locale, sortKey } }) {
       };
     })
     .sort((a, b) => b.weight - a.weight);
-
   const currentBlogSort = blogSortMap[sortKey];
   return (
     <>

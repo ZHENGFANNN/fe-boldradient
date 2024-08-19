@@ -4,23 +4,13 @@ export const runtime = "nodejs";
 export const fetchCache = "force-cache";
 
 const fs = require("fs");
+const msgpack = require("msgpack-lite");
 import path from "path";
 import { parse } from "url";
 import getLanguage from "@/config/LANGUAGE";
 
 const languageList = getLanguage("list");
 const localeCache = {};
-
-function getContentSizeInKB(content) {
-  if (content === null || content === undefined) {
-    throw new Error("Content cannot be null or undefined");
-  }
-
-  const contentString = JSON.stringify(content);
-  const byteSize = Buffer.byteLength(contentString, "utf8");
-  const sizeInKB = byteSize / 1024;
-  return `${sizeInKB.toFixed(2)} KB`; // 保留两位小数
-}
 
 function updateLocaleCache(lang) {
   if (!localeCache[lang]) {
@@ -89,7 +79,6 @@ function handleProductList({ productList, area }) {
 
 export async function GET(req) {
   // 解析 URL 和查询参数
-  const pre = Date.now();
   const newReq = new Request(req);
   const parsedUrl = parse(newReq.url, true);
   const { language = "en", area = "us" } = parsedUrl.query;
@@ -104,13 +93,6 @@ export async function GET(req) {
       }),
     };
   });
-  console.log(
-    "[read-blog-data]: ",
-    Date.now() - pre,
-    "[read-blog-data] 当前时间戳：",
-    Date.now(),
-    "内容大小:",
-    getContentSizeInKB(data)
-  );
+
   return Response.json(data);
 }

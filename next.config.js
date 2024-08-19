@@ -1,8 +1,11 @@
 /** @format */
 
 const path = require("path");
+const cacheHandler = require("./src/cache/cache-handler.js");
 
 const nextConfig = {
+  cacheHandler,
+  cacheMaxMemorySize: 0,
   // 构建ID
   generateBuildId: () => {
     return "official:" + new Date().getTime();

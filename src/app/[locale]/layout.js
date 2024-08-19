@@ -30,6 +30,7 @@ async function getData({
   configList,
   configNameSpace,
   languageNameSpace,
+  blogNameSpace,
 }) {
   const result = await getConfigData({
     locale,
@@ -37,6 +38,7 @@ async function getData({
     configList,
     configNameSpace,
     languageNameSpace,
+    blogNameSpace,
   });
   const GOODLIST = [];
   result.GOODLIST.forEach(
@@ -71,23 +73,26 @@ async function getData({
       image_src,
     };
   });
-  const { blogMap, blogSortMap, blogBannerList } = result.BLOG;
-  const blogList = Object.keys(blogMap).map((item) => {
-    return {
-      sub_title: blogMap[item].title,
-      href: `/blog/${blogMap[item].sort_key}/${blogMap[item].key}`,
-    };
-  });
-  const blogSortList = Object.keys(blogSortMap)
-    .map((item) => {
-      return {
-        weight: blogSortMap[item].weight,
-        sub_title: blogSortMap[item].name,
-        href: `/blog/${blogSortMap[item].key}`,
-      };
-    })
-    .sort((a, b) => b.weight - a.weight);
+  const { blogSortMap } = result.BLOG;
 
+  const blogList = [];
+  const blogSortList = [];
+  Object.keys(blogSortMap).forEach((item) => {
+    blogList.push(
+      ...blogSortMap[item].blogList.map((articleItem) => ({
+        sub_title: articleItem.title,
+        href: `/blog/${articleItem.sort_key}/${articleItem.key}`,
+      }))
+    );
+    blogSortList.push({
+      weight: blogSortMap[item].weight,
+      sub_title: blogSortMap[item].name,
+      href: `/blog/${blogSortMap[item].key}`,
+    });
+  });
+
+  blogList.sort((a, b) => b.weight - a.weight);
+  blogSortList.sort((a, b) => b.weight - a.weight);
   result.BLOG = { blogList, blogSortList };
   return result;
 }
@@ -121,6 +126,7 @@ export default async function RootLayout(props) {
         "company.sales_channels.index",
         "company.social_media.index",
       ],
+      blogNameSpace: "layout",
     });
 
   return (

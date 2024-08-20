@@ -48,9 +48,6 @@ function handleProductList({ productList, area }) {
         let areaInfo = null;
         comboList.find(({ areaList }) => {
           areaList.find((area_item) => {
-            if (area_item.country_code === "us" && !areaInfo) {
-              areaInfo = area_item;
-            }
             if (area_item.country_code === area) {
               areaInfo = area_item;
             }

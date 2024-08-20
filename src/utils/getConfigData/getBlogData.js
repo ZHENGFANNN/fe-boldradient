@@ -20,12 +20,11 @@ async function getData({ lang, area }) {
 const getCachedData = function (lang, area) {
   return unstable_cache(
     async () => {
+      console.log("Cache miss, fetching data...");
       const data = await getData({ lang, area });
       return data;
     },
-    {
-      key: `blog:${lang}:${area}`,
-    }
+    [`blog:${lang}:${area}`]
 )();
 }
 

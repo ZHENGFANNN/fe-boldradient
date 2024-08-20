@@ -90,5 +90,8 @@ export async function GET(req) {
       }),
     };
   });
+  data.language = language;
+  data.area = area;
+
   return Response.json(data);
 }

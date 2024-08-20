@@ -12,7 +12,7 @@ async function getData({ lang, area }) {
   if (!cachedData) {
     console.log("Cache miss, fetching data...");
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_DOMAIN}/service/blog/read-blog-data/${lang}/${area}`,
+      `${process.env.NEXT_PUBLIC_DOMAIN}/service/blog/read-blog-data?language=${lang}&area=${area}`,
       { method: "GET" }
     );
     const data = await response.json();

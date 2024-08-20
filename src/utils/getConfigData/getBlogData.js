@@ -16,18 +16,20 @@ async function getData({ lang, area }) {
       { method: "GET" }
     );
     const data = await response.json();
+    console.log("[getBlogList area]: ", data.blogMap, area);
     await localeData.set(cacheKey, data);
   } else {
     console.log("Cache hit, returning cached data...");
   }
 
-  return await localeData.get(cacheKey);
+  return localeData.get(cacheKey);
 }
 
 export default async function getBlogList(lang) {
   const startTime = Date.now();
   const area = cookies().get("area")?.value || "us";
   const data = await getData({ lang, area });
+  console.log("[getBlogList area]: ", area);
   console.log(`---获取Blog时间: ${Date.now() - startTime}---`);
   return data;
 }

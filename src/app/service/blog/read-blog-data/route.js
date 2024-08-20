@@ -78,6 +78,7 @@ export async function GET(req) {
   const newReq = new Request(req);
   const parsedUrl = parse(newReq.url, true);
   const { language = "en", area = "us" } = parsedUrl.query;
+  console.log("[GET language area]: ", language, area);
   const data = JSON.parse(JSON.stringify(localeCache[language]));
   Object.keys(data.blogMap).map((key) => {
     const { associateProduct, ...item } = data.blogMap[key];

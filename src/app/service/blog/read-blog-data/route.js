@@ -1,33 +1,93 @@
 /** @format */
 
-export const runtime = "nodejs";
+export const runtime = "edge";
 export const fetchCache = "force-cache";
 
-const fs = require("fs");
-import path from "path";
+// const fs = require("fs");
+// import path from "path";
 import { parse } from "url";
 import getLanguage from "@/config/LANGUAGE";
 
 const languageList = getLanguage("list");
 const localeCache = {};
 
+// function updateLocaleCache(lang) {
+//   if (!localeCache[lang]) {
+//     const filePath = path.join(
+//       process.cwd(),
+//       "locale",
+//       "blogData",
+//       `${lang}.json`
+//     );
+//     const fileContents = fs.readFileSync(filePath, "utf8");
+//     try {
+//       const data = JSON.parse(fileContents);
+//       localeCache[lang] = data;
+//     } catch {
+//       localeCache[lang] = fileContents;
+//     }
+//   }
+//   return localeCache[lang];
+// }
+
 function updateLocaleCache(lang) {
-  if (!localeCache[lang]) {
-    const filePath = path.join(
-      process.cwd(),
-      "locale",
-      "blogData",
-      `${lang}.json`
-    );
-    const fileContents = fs.readFileSync(filePath, "utf8");
-    try {
-      const data = JSON.parse(fileContents);
-      localeCache[lang] = data;
-    } catch {
-      localeCache[lang] = fileContents;
-    }
+  switch (lang) {
+    case "en":
+      import("@@/locale/blogData/en.json").then((data) => {
+        localeCache[lang] = data;
+      });
+      break;
+    case "cn":
+      import("@@/locale/blogData/cn.json").then((data) => {
+        localeCache[lang] = data;
+      });
+      break;
+    case "hk":
+      import("@@/locale/blogData/hk.json").then((data) => {
+        localeCache[lang] = data;
+      });
+      break;
+    case "jp":
+      import("@@/locale/blogData/jp.json").then((data) => {
+        localeCache[lang] = data;
+      });
+      break;
+    case "kr":
+      import("@@/locale/blogData/kr.json").then((data) => {
+        localeCache[lang] = data;
+      });
+      break;
+    case "de":
+      import("@@/locale/blogData/de.json").then((data) => {
+        localeCache[lang] = data;
+      });
+      break;
+    case "fr":
+      import("@@/locale/blogData/fr.json").then((data) => {
+        localeCache[lang] = data;
+      });
+      break;
+    case "es":
+      import("@@/locale/blogData/es.json").then((data) => {
+        localeCache[lang] = data;
+      });
+      break;
+    case "it":
+      import("@@/locale/blogData/it.json").then((data) => {
+        localeCache[lang] = data;
+      });
+      break;
+    case "ru":
+      import("@@/locale/blogData/ru.json").then((data) => {
+        localeCache[lang] = data;
+      });
+      break;
+
+    default:
+      import("@@/locale/blogData/en.json").then((data) => {
+        localeCache[lang] = data;
+      });
   }
-  return localeCache[lang];
 }
 
 languageList.forEach((item) => {

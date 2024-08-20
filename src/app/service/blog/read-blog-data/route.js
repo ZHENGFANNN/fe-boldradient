@@ -75,9 +75,11 @@ function handleProductList({ productList, area }) {
 
 export async function GET(req) {
   // 解析 URL 和查询参数
-  const parsedUrl = parse(req.url, true); // 直接使用 req.url
-  const { language, area } = parsedUrl.query;
-  console.log("[GET language area]: ", language, area);
+  // const parsedUrl = parse(req.url, true); // 直接使用 req.url
+  // const { language, area } = parsedUrl.query;
+  // console.log("[GET language area]: ", language, area);
+  const language = "en",
+    area = "us";
   const data = JSON.parse(JSON.stringify(localeCache[language]));
   Object.keys(data.blogMap).map((key) => {
     const { associateProduct, ...item } = data.blogMap[key];

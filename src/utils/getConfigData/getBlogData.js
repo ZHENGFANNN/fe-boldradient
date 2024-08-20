@@ -22,13 +22,17 @@ async function getData({ lang, area }) {
 export default async function getBlogList(lang) {
   const startTime = Date.now();
   const area = cookies().get("area")?.value || "us";
-  const getCachedData = unstable_cache(
+ const getCachedData = unstable_cache(
     async (lang, area) => {
-        const data = getData({ lang, area });
-        return data;
+      const data = await getData({ lang, area });
+      return data;
     },
-    [`blog:${lang}:${area}`]
+    {
+      key: `blog:${lang}:${area}`,
+      revalidate: 365 * 60 * 60 * 24, // 可选：设置缓存过期时间为24小时
+    }
   );
+
   const data = await getCachedData(lang, area);
   console.log(`---获取Blog时间: ${Date.now() - startTime}---`);
   return data;

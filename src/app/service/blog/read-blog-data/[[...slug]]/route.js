@@ -73,11 +73,9 @@ function handleProductList({ productList, area }) {
   return [];
 }
 
-export async function GET(req) {
+export async function GET(_, { params: { slug } }) {
   // 解析 URL 和查询参数
-  const newReq = new Request(req);
-  const query = newReq.url.split("?")[1];
-  const { language = "en", area = "us" } = qs.parse(query);
+  const [language, area] = slug;
   const data = JSON.parse(JSON.stringify(localeCache[language]));
   Object.keys(data.blogMap).map((key) => {
     const { associateProduct, ...item } = data.blogMap[key];
@@ -91,7 +89,6 @@ export async function GET(req) {
   });
   data.language = language;
   data.area = area;
-  data.query = query;
 
   return Response.json(data);
 }

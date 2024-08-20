@@ -30,69 +30,9 @@ const localeCache = {};
 //   return localeCache[lang];
 // }
 
-function updateLocaleCache(lang) {
-  switch (lang) {
-    case "en":
-      import("@@/locale/blogData/en.json").then((data) => {
-        localeCache[lang] = data;
-      });
-      break;
-    case "cn":
-      import("@@/locale/blogData/cn.json").then((data) => {
-        localeCache[lang] = data;
-      });
-      break;
-    case "hk":
-      import("@@/locale/blogData/hk.json").then((data) => {
-        localeCache[lang] = data;
-      });
-      break;
-    case "ja":
-      import("@@/locale/blogData/ja.json").then((data) => {
-        localeCache[lang] = data;
-      });
-      break;
-    case "ko":
-      import("@@/locale/blogData/ko.json").then((data) => {
-        localeCache[lang] = data;
-      });
-      break;
-    case "de":
-      import("@@/locale/blogData/de.json").then((data) => {
-        localeCache[lang] = data;
-      });
-      break;
-    case "fr":
-      import("@@/locale/blogData/fr.json").then((data) => {
-        localeCache[lang] = data;
-      });
-      break;
-    case "es":
-      import("@@/locale/blogData/es.json").then((data) => {
-        localeCache[lang] = data;
-      });
-      break;
-    case "it":
-      import("@@/locale/blogData/it.json").then((data) => {
-        localeCache[lang] = data;
-      });
-      break;
-    case "ru":
-      import("@@/locale/blogData/ru.json").then((data) => {
-        localeCache[lang] = data;
-      });
-      break;
-
-    default:
-      import("@@/locale/blogData/en.json").then((data) => {
-        localeCache[lang] = data;
-      });
-  }
-}
-
-languageList.forEach((item) => {
-  updateLocaleCache(item.value);
-});
+// languageList.forEach((item) => {
+//   updateLocaleCache(item.value);
+// });
 
 function handleProductList({ productList, area }) {
   if (Array.isArray(productList) && productList.length > 0) {
@@ -138,7 +78,7 @@ export async function GET(req) {
   const parsedUrl = parse(req.url, true); // 直接使用 req.url
   const { language, area } = parsedUrl.query;
   console.log("[GET language area]: ", language, area);
-  const data = JSON.parse(JSON.stringify(localeCache[language]));
+  const data = await import(`@@/locale/blogData/${language}.json`);
   Object.keys(data.blogMap).map((key) => {
     const { associateProduct, ...item } = data.blogMap[key];
     data.blogMap[key] = {

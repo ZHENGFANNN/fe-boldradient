@@ -52,7 +52,7 @@ async function getData({ lang, area }) {
   if (!cachedData) {
     console.log("Cache miss, fetching data...");
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_DOMAIN}/service/blog/read-blog-data`,
+      `${process.env.NEXT_PUBLIC_DOMAIN}/blogData/${lang}.json`,
       {
         method: "GET",
         cache: "force-cache",

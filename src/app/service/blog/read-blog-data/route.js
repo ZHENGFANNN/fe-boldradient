@@ -5,15 +5,12 @@ export const fetchCache = "force-cache";
 const fs = require("fs");
 import path from "path";
 import getLanguage from "@/config/LANGUAGE";
-import NodeCache from "node-cache";
 
 const languageList = getLanguage("list");
-
-const localeCache = new NodeCache({ stdTTL: 60 });
-// const localeCache = {};
+const localeCache = {};
 
 function updateLocaleCache(lang) {
-  if (!localeCache.get(lang)) {
+  if (!localeCache[lang]) {
     const filePath = path.join(
       process.cwd(),
       "locale",
@@ -23,12 +20,12 @@ function updateLocaleCache(lang) {
     const fileContents = fs.readFileSync(filePath, "utf8");
     try {
       const data = JSON.parse(fileContents);
-      localeCache.set(lang, data);
+      localeCache[lang] = data;
     } catch {
-      localeCache.set(lang, fileContents);
+      localeCache[lang] = fileContents;
     }
   }
-  return localeCache.get(lang);
+  return localeCache[lang];
 }
 
 languageList.forEach((item) => {
@@ -81,7 +78,7 @@ export async function GET(req) {
   // console.log("[GET language area]: ", language, area);
   const language = "en",
     area = "us";
-  const data = JSON.parse(JSON.stringify(localeCache.get(language)));
+  const data = JSON.parse(JSON.stringify(localeCache[language]));
   Object.keys(data.blogMap).map((key) => {
     const { associateProduct, ...item } = data.blogMap[key];
     data.blogMap[key] = {

@@ -1,15 +1,16 @@
 /** @format */
 
-export const runtime = "nodejs";
 export const fetchCache = "force-cache";
 
 const fs = require("fs");
 import path from "path";
-import { parse } from "url";
 import getLanguage from "@/config/LANGUAGE";
+import NodeCache from "node-cache";
 
 const languageList = getLanguage("list");
-const localeCache = {};
+
+const localeCache = new NodeCache({ stdTTL: 60 });
+// const localeCache = {};
 
 function updateLocaleCache(lang) {
   if (!localeCache[lang]) {

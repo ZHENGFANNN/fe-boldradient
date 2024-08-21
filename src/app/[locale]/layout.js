@@ -24,19 +24,29 @@ export const viewport = {
 /**
  * 获取数据
  */
-async function getData({
-  locale,
-  area,
-  configList,
-  configNameSpace,
-  languageNameSpace,
-}) {
+async function getData({ locale, area }) {
   const result = await getConfigData({
     locale,
     area,
-    configList,
-    configNameSpace,
-    languageNameSpace,
+    configList: [
+      "config",
+      "language",
+      "goodSort",
+      "blog",
+      "good",
+      "goodDiscountFestival",
+    ],
+    languageNameSpace: [
+      "common.nav",
+      "common.cart",
+      "common.footer",
+      "common.other",
+    ],
+    configNameSpace: [
+      "company.basic",
+      "company.sales_channels.index",
+      "company.social_media.index",
+    ],
   });
   const GOODLIST = [];
   result.GOODLIST.forEach(
@@ -103,25 +113,6 @@ export default async function RootLayout(props) {
     await getData({
       locale,
       area,
-      configList: [
-        "config",
-        "language",
-        "goodSort",
-        "blog",
-        "good",
-        "goodDiscountFestival",
-      ],
-      languageNameSpace: [
-        "common.nav",
-        "common.cart",
-        "common.footer",
-        "common.other",
-      ],
-      configNameSpace: [
-        "company.basic",
-        "company.sales_channels.index",
-        "company.social_media.index",
-      ],
     });
 
   return (

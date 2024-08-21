@@ -5,6 +5,8 @@ import CacheHandler from "@@/cache-handler.js";
 
 const localeData = new CacheHandler();
 
+console.log("[CacheHandler]");
+
 function handleProductList({ productList, area }) {
   if (Array.isArray(productList) && productList.length > 0) {
     return productList.map(
@@ -50,9 +52,9 @@ async function getData({ lang, area }) {
   if (!cachedData) {
     console.log("Cache miss, fetching data...");
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_DOMAIN}/blogData/${lang}.json`,
-      { 
-        method: "GET" ,
+      `${process.env.NEXT_PUBLIC_DOMAIN}/service/blog/read-blog-data`,
+      {
+        method: "GET",
         cache: "force-cache",
       }
     );

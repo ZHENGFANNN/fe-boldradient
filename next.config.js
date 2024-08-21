@@ -3,8 +3,6 @@
 const path = require("path");
 
 const nextConfig = {
-  cacheHandler: require.resolve("./cache-handler.js"),
-  cacheMaxMemorySize: 0,
   // 构建ID
   generateBuildId: () => {
     return "official:" + new Date().getTime();

@@ -60,6 +60,7 @@ function handleBlogData(list) {
   };
 
   list.forEach(({ sortInfo, id, created_time, language, ...item }) => {
+    console.log("[item.updated_time]: ", item.updated_time);
     // Blog分类
     const blogSortInfo = sortInfo[0];
     item.blogSortInfo = blogSortInfo;

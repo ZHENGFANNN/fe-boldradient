@@ -1,3 +1,5 @@
+/** @format */
+
 import React from "react";
 import styles from "./index.module.scss";
 import { formateTime } from "@/app/[locale]/blog/utils";
@@ -11,7 +13,7 @@ export default function ArticleInfo({ article, sort, locale }) {
     <div className={styles.container}>
       <div className={styles.left_container}>
         <div className={styles.time}>
-          {formateTime({ time: article.created_time, locale })}
+          {formateTime({ time: article.updated_time, locale })}
         </div>
         <div className={styles.nav}>
           <a href="/blog">Home</a>

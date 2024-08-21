@@ -13,7 +13,7 @@ const localeCache = new NodeCache({ stdTTL: 60 });
 // const localeCache = {};
 
 function updateLocaleCache(lang) {
-  if (!localeCache[lang]) {
+  if (!localeCache.get(lang)) {
     const filePath = path.join(
       process.cwd(),
       "locale",
@@ -23,12 +23,12 @@ function updateLocaleCache(lang) {
     const fileContents = fs.readFileSync(filePath, "utf8");
     try {
       const data = JSON.parse(fileContents);
-      localeCache[lang] = data;
+      localeCache.set(lang, data);
     } catch {
-      localeCache[lang] = fileContents;
+      localeCache.set(lang, fileContents);
     }
   }
-  return localeCache[lang];
+  return localeCache.get(lang);
 }
 
 languageList.forEach((item) => {
@@ -81,7 +81,7 @@ export async function GET(req) {
   // console.log("[GET language area]: ", language, area);
   const language = "en",
     area = "us";
-  const data = JSON.parse(JSON.stringify(localeCache[language]));
+  const data = JSON.parse(JSON.stringify(localeCache.get(language)));
   Object.keys(data.blogMap).map((key) => {
     const { associateProduct, ...item } = data.blogMap[key];
     data.blogMap[key] = {

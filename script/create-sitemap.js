@@ -30,28 +30,7 @@ const productList = {
   ru,
 };
 
-const cnBlog = require("../public/config/blog-data/cn.json");
-const deBlog = require("../public/config/blog-data/de.json");
-const enBlog = require("../public/config/blog-data/en.json");
-const esBlog = require("../public/config/blog-data/es.json");
-const frBlog = require("../public/config/blog-data/fr.json");
-const hkBlog = require("../public/config/blog-data/hk.json");
-const itBlog = require("../public/config/blog-data/it.json");
-const jaBlog = require("../public/config/blog-data/ja.json");
-const koBlog = require("../public/config/blog-data/ko.json");
-const ruBlog = require("../public/config/blog-data/ru.json");
-const blogList = {
-  cn: cnBlog,
-  de: deBlog,
-  en: enBlog,
-  es: esBlog,
-  fr: frBlog,
-  hk: hkBlog,
-  it: itBlog,
-  ja: jaBlog,
-  ko: koBlog,
-  ru: ruBlog,
-};
+const blogPath = require("../public/config/blog/sitemap/en.json");
 
 const domain = process.env.NEXT_PUBLIC_DOMAIN;
 // 排除路径
@@ -92,26 +71,10 @@ function getNavPath() {
 // 获取博客列表路径
 function getBlogPath() {
   const pathList = [];
-  LANGUAGES("list").forEach((item) => {
-    const blogMap = blogList[item.value]["blogMap"];
-    const blogSortMap = blogList[item.value]["blogSortMap"];
-
-    // 处理博客分类
-    Object.keys(blogSortMap).forEach((key) => {
-      pathList.push(
-        `${item.value === "en" ? "" : `/${item.value}`}/blog/${
-          blogSortMap[key].key
-        }`
-      );
-    });
-
-    // 处理博客列表
-    Object.keys(blogMap).forEach((key) => {
-      pathList.push(
-        `${item.value === "en" ? "" : `/${item.value}`}/blog/${
-          blogMap[key].sort_key
-        }/${blogMap[key].key}`
-      );
+  LANGUAGES("list").forEach((languageMap) => {
+    blogPath.forEach((path) => {
+      const locale = languageMap.value === "en" ? "" : `/${languageMap.value}`;
+      pathList.push(`${locale}${path}`);
     });
   });
   return pathList;

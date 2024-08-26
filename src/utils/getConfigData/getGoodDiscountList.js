@@ -1,3 +1,5 @@
+/** @format */
+
 import productDiscount from "@@/locale/productDiscount/festival";
 
 function filterData(data) {
@@ -14,7 +16,8 @@ function filterData(data) {
   return null; // 如果没有满足条件的对象，则返回 null
 }
 
-export default async function getGoodDiscountList(lang) {
+export default async function getGoodDiscountList({ locale, configList }) {
+  if (!configList.includes("goodDiscountFestival")) null;
   try {
     if (Array.isArray(productDiscount)) {
       const festivalItem = filterData(productDiscount);
@@ -22,7 +25,7 @@ export default async function getGoodDiscountList(lang) {
         const { languages, ...values } = festivalItem;
         return {
           ...values,
-          title: languages[lang] || languages["en"],
+          title: languages[locale] || languages["en"],
         };
       } else {
         return null;

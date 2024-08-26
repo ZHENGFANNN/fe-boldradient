@@ -14,29 +14,30 @@ async function getData({ locale }) {
     locale,
     configList: ["blog", "config", "language"],
     configNameSpace: ["company.basic.company_name"],
+    blogNameSpace: ["banner", "sort"],
     languageNameSpace: [
       "store.blog_index.view_all",
       "store.blog_index.all",
       "store.blog_index.title",
     ],
   });
+
+  // 处理Blog
+  const { sort: blogSort } = BLOG;
+  const blogSortList = Object.keys(blogSort)
+    .map((key) => blogSort[key])
+    .sort((a, b) => b.weight - a.weight);
+  BLOG.blogSortList = blogSortList;
+
   return { LANG, BLOG, CONFIG };
 }
 
 export async function generateMetadata({ params: { locale } }) {
-  const {
-    LANG,
-    CONFIG,
-    BLOG: { blogSortMap, blogBannerList },
-  } = await getData({ locale });
-
-  const blogSortList = Object.keys(blogSortMap)
-    .map((item) => blogSortMap[item])
-    .sort((a, b) => b.weight - a.weight);
+  const { LANG, CONFIG, BLOG } = await getData({ locale });
 
   let twitterImageList = [],
     openGraphImageList = [];
-  blogBannerList.forEach((item) => {
+  BLOG.banner.forEach((item) => {
     twitterImageList.push(item.image);
     openGraphImageList.push({
       url: item.image,
@@ -46,7 +47,7 @@ export async function generateMetadata({ params: { locale } }) {
   });
 
   const title = `${CONFIG["company.basic.company_name"]} ${LANG["store.blog_index.title"]}`;
-  const description = blogSortList.map((item) => item.name).join(",");
+  const description = BLOG.blogSortList.map((item) => item.name).join(",");
 
   return {
     title,
@@ -92,20 +93,13 @@ function BlogArticleCard({ blogSort, locale, LANG }) {
 }
 
 export default async function BlogSort({ params: { locale } }) {
-  const {
-    LANG,
-    BLOG: { blogSortMap, blogBannerList },
-  } = await getData({ locale });
-  const blogSortList = Object.keys(blogSortMap)
-    .map((item) => blogSortMap[item])
-    .sort((a, b) => b.weight - a.weight);
-
+  const { LANG, BLOG } = await getData({ locale });
   return (
     <>
-      <BaseLayout blogSortList={blogSortList} LANG={LANG} />
-      {blogBannerList.length > 0 ? <Banner list={blogBannerList} /> : null}
+      <BaseLayout blogSortList={BLOG.blogSortList} LANG={LANG} />
+      {BLOG.banner.length > 0 ? <Banner list={BLOG.banner} /> : null}
       <div className={styles.container}>
-        {blogSortList.map((item, index) => {
+        {BLOG.blogSortList.map((item, index) => {
           return (
             <BlogArticleCard
               LANG={LANG}

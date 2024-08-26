@@ -53,14 +53,8 @@ function addHeadTitleId(html) {
 
 // 处理Blog数据结构
 function handleBlogData(list) {
-  const obj = {
-    blogBannerList: [],
-    blogMap: {},
-    blogSortMap: {},
-  };
-
-  list.forEach(({ sortInfo, id, created_time, language, ...item }) => {
-    console.log("[item.updated_time]: ", item.updated_time);
+  const obj = {};
+  list.forEach(({ sortInfo, id, created_time, language, ...item }, index) => {
     // Blog分类
     const blogSortInfo = sortInfo[0];
     item.blogSortInfo = blogSortInfo;
@@ -69,9 +63,16 @@ function handleBlogData(list) {
     // 文章标题列表
     item.titleList = getHeadTitleList(item.content);
 
-    // 处理bannerList
+    // 处理sitemap
+    if (!obj["sitemap"]) obj["sitemap"] = [];
+    obj["sitemap"].push(`/blog/${item.sort_key}/${item.key}`);
+    if (!obj["sitemap"].includes(`/blog/${item.sort_key}`))
+      obj["sitemap"].push(`/blog/${item.sort_key}`);
+
+    // 处理banner
     if (item.recommend) {
-      obj.blogBannerList.push({
+      if (!obj["banner"]) obj["banner"] = [];
+      obj["banner"].push({
         image: item.image,
         title: item.title,
         key: item.key,
@@ -79,8 +80,8 @@ function handleBlogData(list) {
       });
     }
 
-    // 处理Blog列表
-    obj.blogMap[`${item.sort_key}:${item.key}`] = item;
+    // 处理Blog文章
+    obj[`article:${item.sort_key}:${item.key}`] = item;
 
     // 处理Blog分类
     const blogSortArticleItem = {
@@ -90,15 +91,33 @@ function handleBlogData(list) {
       sort_key: item.sort_key,
       updated_time: item.updated_time,
     };
-    obj.blogSortMap[item.sort_key] = {
+    if (!obj[`sort`]) obj[`sort`] = {};
+    obj[`sort`][`${item.sort_key}`] = {
       weight: blogSortInfo.weight,
       key: blogSortInfo.key,
       name: blogSortInfo.name,
-      blogList: obj.blogSortMap[item.sort_key]
-        ? [...obj.blogSortMap[item.sort_key].blogList, blogSortArticleItem]
+      blogList: obj[`sort`][`${item.sort_key}`]
+        ? [...obj[`sort`][`${item.sort_key}`].blogList, blogSortArticleItem]
         : [blogSortArticleItem],
     };
   });
+
+  // 处理Layout（footer）
+  obj["layout"] = {};
+  obj["layout"]["footer"] = Object.keys(obj["sort"])
+    .filter((_, index) => index < 6)
+    .map((item) =>
+      obj["sort"][item]
+        ? {
+            name: obj["sort"][item].name,
+            key: obj["sort"][item].key,
+          }
+        : {}
+    );
+  obj["layout"]["nav"] = list
+    .filter((_, index) => index < 6)
+    .map(({ title, key, sort_key }) => ({ title, key, sort_key }));
+
   return obj;
 }
 
@@ -106,7 +125,7 @@ function handleBlogData(list) {
 const fetchBlog = async (times = 1, cookie = "") => {
   let error = false;
   const startTime = new Date().getTime();
-  const fileDir = "./public/config/blog-data";
+  const fileDir = "./public/config/blog";
   if (!fs.existsSync(fileDir)) fs.mkdirSync(fileDir, { recursive: true });
   console.log(`${chalk.yellow("【开始获取Blog】")}`);
   await api
@@ -127,14 +146,27 @@ const fetchBlog = async (times = 1, cookie = "") => {
         if (!obj[lang.value]) obj[lang.value] = obj["en"];
       });
 
-      Object.keys(obj).forEach((item) => {
+      Object.keys(obj).forEach((languageKey) => {
         // !! 处理数据结构
-        const fileData = JSON.stringify(handleBlogData(obj[item]), null, 2);
-        fs.writeFileSync(`${fileDir}/${item}.json`, fileData, (err) => {
-          if (err) {
-            console.log(`${chalk.red("【blog写入失败】")}`, err);
-            error = true;
+        const blogMap = handleBlogData(obj[languageKey]);
+        Object.keys(blogMap).forEach((blogKey) => {
+          const fileData = JSON.stringify(blogMap[blogKey], null, 2);
+          if (!fs.existsSync(`${fileDir}/${blogKey}`)) {
+            fs.mkdirSync(`${fileDir}/${blogKey}`, { recursive: true });
           }
+          fs.writeFileSync(
+            `${fileDir}/${blogKey}/${languageKey}.json`,
+            fileData,
+            (err) => {
+              if (err) {
+                console.log(
+                  `${chalk.red(`【Blog(${blogKey}) 写入失败】`)}`,
+                  err
+                );
+                error = true;
+              }
+            }
+          );
         });
       });
     })

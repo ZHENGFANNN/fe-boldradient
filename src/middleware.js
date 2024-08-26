@@ -104,5 +104,5 @@ export function middleware(request) {
 }
 
 export const config = {
-  matcher: "/((?!service|static|.*\\..*|_next).*)",
+  matcher: "/((?!service|static|config|.*\\..*|_next).*)",
 };

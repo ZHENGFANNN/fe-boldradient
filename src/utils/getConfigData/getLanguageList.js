@@ -24,7 +24,25 @@ const languageList = {
   ru,
 };
 
-export default async function getLanguageList(lang) {
-  const data = languageList[lang];
-  return data;
+// LANGUAGE过滤
+const filterLanguage = function ({ localeLanguage, languageNameSpace }) {
+  const languageObj = {};
+  languageNameSpace.forEach((nameSpace) => {
+    Object.keys(localeLanguage).forEach((key) => {
+      if (key.startsWith(nameSpace) && !languageObj[key]) {
+        languageObj[key] = localeLanguage[key];
+      }
+    });
+  });
+  return languageObj;
+};
+
+export default async function getLanguageList({
+  locale,
+  configList,
+  languageNameSpace,
+}) {
+  if (!configList.includes("language")) return null;
+  const localeLanguage = languageList[locale];
+  return filterLanguage({ localeLanguage, languageNameSpace });
 }

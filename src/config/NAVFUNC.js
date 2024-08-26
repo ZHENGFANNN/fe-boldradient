@@ -60,7 +60,12 @@ export default function NAVFUNC({
     key: "blog",
     title: LANG["common.nav.blog"],
     href: "/blog",
-    list: BLOG.blogList,
+    list: BLOG.layout.nav.map((item) => {
+      return {
+        sub_title: item.title,
+        href: `/blog/${item.sort_key}/${item.key}`,
+      };
+    }),
   };
   const navBlogSortBottom = {
     key: "blog",
@@ -72,7 +77,11 @@ export default function NAVFUNC({
         sub_title: LANG["common.nav.all"],
         href: "/blog",
       },
-      ...BLOG.blogSortList,
+      ...BLOG.layout.footer.map((item) => ({
+        key: item.key,
+        sub_title: item.name,
+        href: `/blog/${item.key}`,
+      })),
     ],
   };
 

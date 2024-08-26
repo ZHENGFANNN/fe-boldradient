@@ -24,6 +24,29 @@ const productInfoList = {
   ru,
 };
 
-export default async function getGoodList(lang) {
-  return productInfoList[lang];
+// 过滤商品数据
+const filterGood = function ({ localeProduct, area }) {
+  return localeProduct.map(({ comboList, ...good }) => {
+    // 遍历商品套餐
+    comboList = comboList.map(({ areaList, ...combo }) => {
+      // 遍历商品套餐区域, 找到对应的国家列表
+      let areaInfo = null;
+      areaList.forEach((areaItem) => {
+        if (areaItem.country_code === area) {
+          areaInfo = areaItem;
+        }
+      });
+      return {
+        areaInfo,
+        ...combo,
+      };
+    });
+    return { comboList, ...good };
+  });
+};
+
+export default async function getGoodList({ locale, configList, area }) {
+  if (!configList.includes("good")) return null;
+  const localeProduct = productInfoList[locale];
+  return filterGood({ area, localeProduct });
 }

@@ -6,7 +6,7 @@ import { formateTime } from "@/app/[locale]/blog/utils";
 import { headers } from "next/headers";
 import ShareIconList from "@/components/ShareIconList";
 
-export default function ArticleInfo({ article, sort, locale }) {
+export default function ArticleInfo({ article, locale }) {
   const headersList = headers();
   const currentUrl = headersList.get("x-request-url");
   return (
@@ -18,7 +18,9 @@ export default function ArticleInfo({ article, sort, locale }) {
         <div className={styles.nav}>
           <a href="/blog">Home</a>
           <span>{` > `}</span>
-          <a href={`/blog/${sort.key}`}>{sort.name}</a>
+          <a href={`/blog/${article.blogSortInfo.key}`}>
+            {article.blogSortInfo.name}
+          </a>
         </div>
       </div>
       <div className={styles.right_container}>

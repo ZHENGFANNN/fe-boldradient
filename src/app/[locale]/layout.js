@@ -47,6 +47,7 @@ async function getData({ locale, area }) {
       "company.sales_channels.index",
       "company.social_media.index",
     ],
+    blogNameSpace: ["layout"],
   });
   const GOODLIST = [];
   result.GOODLIST.forEach(
@@ -81,25 +82,7 @@ async function getData({ locale, area }) {
       image_src,
     };
   });
-  const { blogSortMap } = result.BLOG;
-  const blogList = [];
-  const blogSortList = [];
-  Object.keys(blogSortMap).forEach((item) => {
-    blogList.push(
-      ...blogSortMap[item].blogList.map((itemArticle) => ({
-        sub_title: itemArticle.title,
-        href: `/blog/${itemArticle.sort_key}/${itemArticle.key}`,
-      }))
-    );
-    blogSortList.push({
-      weight: blogSortMap[item].weight,
-      sub_title: blogSortMap[item].name,
-      href: `/blog/${blogSortMap[item].key}`,
-    });
-  });
-  blogList.sort((a, b) => b.weight - a.weight);
-  blogSortList.sort((a, b) => b.weight - a.weight);
-  result.BLOG = { blogList, blogSortList };
+
   return result;
 }
 

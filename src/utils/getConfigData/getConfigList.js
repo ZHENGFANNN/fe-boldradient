@@ -11,7 +11,7 @@ const ja = require("@@/locale/configList/ja.json");
 const ko = require("@@/locale/configList/ko.json");
 const ru = require("@@/locale/configList/ru.json");
 
-const configList = {
+const configDataList = {
   cn,
   de,
   en,
@@ -24,6 +24,24 @@ const configList = {
   ru,
 };
 
-export default async function getConfigList(lang) {
-  return configList[lang];
+const filterConfig = async function ({ localeConfig, configNameSpace }) {
+  const configObj = {};
+  configNameSpace.forEach((nameSpace) => {
+    Object.keys(localeConfig).forEach((key) => {
+      if (key.startsWith(nameSpace) && !configObj[key]) {
+        configObj[key] = localeConfig[key];
+      }
+    });
+  });
+  return configObj;
+};
+
+export default async function getConfigList({
+  locale,
+  configList,
+  configNameSpace,
+}) {
+  if (!configList.includes("config")) return null;
+  const localeConfig = configDataList[locale];
+  return filterConfig({ localeConfig, configNameSpace });
 }

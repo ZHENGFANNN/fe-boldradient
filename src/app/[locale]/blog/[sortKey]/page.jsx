@@ -12,18 +12,17 @@ async function getData({ locale }) {
   const { LANG, BLOG } = await getConfigData({
     locale,
     configList: ["blog", "language"],
+    blogNameSpace: ["sort"],
     languageNameSpace: ["store.blog_index.all", "store.blog_index.title"],
   });
   return { LANG, BLOG };
 }
 
-export async function generateMetadata({
-  params: { locale, sortKey, blogKey },
-}) {
+export async function generateMetadata({ params: { locale, sortKey } }) {
   const {
-    BLOG: { blogSortMap },
+    BLOG: { sort },
   } = await getData({ locale });
-  const currentBlogSort = blogSortMap[sortKey];
+  const currentBlogSort = sort[sortKey];
   const title = currentBlogSort.name;
   let descriptionList = [],
     twitterImageList = [],
@@ -74,7 +73,7 @@ function BlogArticleCard({ blogSort, locale }) {
 export default async function BlogSort({ params: { locale, sortKey } }) {
   const {
     LANG,
-    BLOG: { blogSortMap },
+    BLOG: { sort: blogSortMap },
   } = await getData({ locale });
   const blogSortList = Object.keys(blogSortMap)
     .map((item) => {
@@ -87,6 +86,7 @@ export default async function BlogSort({ params: { locale, sortKey } }) {
     })
     .sort((a, b) => b.weight - a.weight);
   const currentBlogSort = blogSortMap[sortKey];
+
   return (
     <>
       <BaseLayout blogSortList={blogSortList} sortKey={sortKey} LANG={LANG} />

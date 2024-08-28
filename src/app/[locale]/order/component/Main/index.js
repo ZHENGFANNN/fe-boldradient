@@ -29,14 +29,13 @@ import { formatCurrency, roundToDecimalPlaces } from "@/utils";
 export default function Main({
   CONFIG,
   LANG,
-  GOODLIST,
   GOODDISCOUNTFESTIVAL,
   area,
   token,
 }) {
   const router = useRouter();
   const { locale } = useParams();
-  const { userInfo } = React.useContext(GlobalContext);
+  const { userInfo, PRODUCT } = React.useContext(GlobalContext);
   const [orderLoading, setOrderLoading] = React.useState(false);
   // 订单备注
   const textareaRef = React.useRef();
@@ -111,7 +110,7 @@ export default function Main({
       const list = [];
       localStoreList.forEach((item) => {
         let comboInfo;
-        const product = GOODLIST.find(
+        const product = PRODUCT.cart.find(
           (product) =>
             item.productKey === product.key && item.sortKey === product.sort_key
         );

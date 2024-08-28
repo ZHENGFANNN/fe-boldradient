@@ -8,97 +8,34 @@ import Script from "next/script";
 import { isUserMobile } from "@/utils";
 import { formatCurrency } from "@/utils";
 
-// 匹配产品信息
-async function getProductInfo({ productList, productKey }) {
-  return productList.find((item) => {
-    return item.key === productKey;
-  });
-}
-
-// 获取关联产品
-async function getAssociateProduct({ productInfo, area }) {
-  if (!productInfo?.associateProduct) return [];
-
-  let newAssociateProduct = productInfo.associateProduct.filter(
-    (item) => item.key !== productInfo.key
-  );
-  newAssociateProduct = newAssociateProduct.map(
-    ({
-      reviewsList,
-      image_list,
-      comboList,
-      reviews_num,
-      reviews_score,
-      ...item
-    }) => {
-      let areaInfo = null;
-      comboList.find((combo) => {
-        combo.areaList.find((area_item) => {
-          if (area_item.country_code === area) {
-            areaInfo = area_item;
-          }
-          return area_item.country_code === area;
-        });
-        return areaInfo?.stock;
-      });
-      const totalScore = reviewsList.reduce((pre, cur) => pre + cur.score, 0);
-      item.reviewScore = totalScore / reviewsList.length || reviews_score;
-      item.reviewsNum = reviewsList.length || reviews_num;
-      item.image = image_list[0].src;
-      item.areaInfo = areaInfo;
-      return item;
-    }
-  );
-  return newAssociateProduct;
-}
-
 /**
  * 获取数据
  */
-async function getData({
-  productKey,
-  locale,
-  area,
-  configList,
-  languageNameSpace,
-  configNameSpace,
-}) {
-  const result = await getConfigData({
+async function getData({ locale, area, sortKey, productKey }) {
+  const { PRODUCT, ...result } = await getConfigData({
     locale,
     area,
-    configList,
-    languageNameSpace,
-    configNameSpace,
+    configList: ["config", "language", "product", "goodDiscountFestival"],
+    productNameSpace: [`product:${sortKey}:${productKey}`],
+    languageNameSpace: ["store.product", "common.nav.sales_policy"],
+    configNameSpace: [
+      "company.basic.company_name",
+      "company.basic.customer_service",
+    ],
   });
-  // 获取产品信息
-  result.productInfo = await getProductInfo({
-    productList: result.GOODLIST,
-    productKey,
-  });
-
-  if (result.productInfo) {
-    const [associateProduct] = await Promise.all([
-      // 获取关联产品
-      await getAssociateProduct({
-        productInfo: result.productInfo,
-        area,
-      }),
-    ]);
-    result.productInfo.associateProduct = associateProduct;
-  }
+  result.productInfo = PRODUCT[`product:${sortKey}:${productKey}`];
   return result;
 }
 
 // 设置元信息
-export async function generateMetadata({ params: { locale, productKey } }) {
+export async function generateMetadata({
+  params: { locale, productKey, sortKey },
+}) {
   const area = cookies().get("area")?.value || "us";
-  const { CONFIG, GOODLIST } = await getConfigData({
-    locale,
+  const { CONFIG, productInfo } = await getData({
     area,
-    configList: ["config", "good"],
-  });
-  const productInfo = await getProductInfo({
-    productList: GOODLIST,
+    locale,
+    sortKey,
     productKey,
   });
   if (productInfo) {
@@ -128,16 +65,17 @@ export async function generateMetadata({ params: { locale, productKey } }) {
 
 export default async function Layout({
   children,
-  params: { locale, productKey },
+  params: { locale, sortKey, productKey },
 }) {
   const area = cookies().get("area")?.value || "us";
   const headersList = headers();
   const userAgent = headersList.get("user-agent");
   const isMobile = isUserMobile(userAgent);
   const { LANG, CONFIG, GOODDISCOUNTFESTIVAL, productInfo } = await getData({
-    productKey,
     area,
     locale,
+    sortKey,
+    productKey,
     configList: ["config", "language", "good", "goodDiscountFestival"],
     languageNameSpace: ["store.product", "common.nav.sales_policy"],
     configNameSpace: [

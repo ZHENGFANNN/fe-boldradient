@@ -12,6 +12,7 @@ Disallow: /*/user/forget
 Disallow: /*/cart
 Disallow: /*/order
 Disallow: /*/order/transfer
+Disallow: /config/*
 
 # Sitemaps
 Sitemap: https://www.sslfly.com/sitemap.xml

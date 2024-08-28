@@ -1,3 +1,5 @@
+/** @format */
+
 import React from "react";
 
 import getConfigData from "@/utils/getConfigData";
@@ -10,6 +12,8 @@ export async function generateMetadata({ params: { locale } }) {
   const { LANG, CONFIG } = await getConfigData({
     locale,
     configList: ["config", "language"],
+    languageNameSpace: ["store.order_info.order_info"],
+    configNameSpace: ["company.basic.company_name"],
   });
   return {
     title: `${LANG["store.order_info.order_info"]} - ${CONFIG["company.basic.company_name"]}`,

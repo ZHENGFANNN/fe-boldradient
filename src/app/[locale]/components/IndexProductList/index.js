@@ -67,7 +67,7 @@ function ProductItem({ goodList }) {
                 <img
                   className={styles.product_image}
                   alt={product.name}
-                  src={product.image_url}
+                  src={product.image}
                 />
                 {product.image_scenes ? (
                   <img
@@ -98,8 +98,7 @@ function ProductItem({ goodList }) {
                   </div>
                 ) : null}
                 {/* 产品价格 */}
-                {!product.areaInfo?.stock ||
-                !product.areaInfo?.selling_price ? (
+                {!product.areaInfo?.selling_price ? (
                   <div className={styles.product_stock_container}>
                     {LANG["store.index.no_stock"]}
                   </div>

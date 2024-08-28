@@ -19,20 +19,18 @@ import styles from "./index.module.scss";
 
 export default function NavBar() {
   const pathname = usePathname();
-  const { LANG, CONFIG, goodSortList, goodList, BLOG } =
-    React.useContext(GlobalContext);
+  const { LANG, CONFIG, BLOG, PRODUCT } = React.useContext(GlobalContext);
   const ModalRef = React.useRef(null);
 
   const navList = React.useMemo(() => {
     return NAVFUNC({
       LANG,
-      CONFIG,
-      goodList,
-      goodSortList,
       BLOG,
+      CONFIG,
+      PRODUCT,
       type: "nav",
     });
-  }, [LANG, CONFIG, goodList, goodSortList, BLOG]);
+  }, [LANG, CONFIG, PRODUCT, BLOG]);
 
   // 逻辑处理
   // 展开导航栏屏幕（小于1080）
@@ -176,7 +174,7 @@ export default function NavBar() {
                 className={styles.header_nav_list}
                 onMouseLeave={() => setVavItemActive(false)}
               >
-                {navList.map((item, index) => {
+                {navList.map((item) => {
                   return (
                     <li key={item.key}>
                       <Link
@@ -361,7 +359,12 @@ function NavSubCommonItem({
       href={navSubItem.href}
       className={styles.header_nav_items_img}
     >
-      {navSubItem.img}
+      <img
+        height={60}
+        width={60}
+        data-src={navSubItem.img}
+        alt={navSubItem.sub_title}
+      />
       <p>{navSubItem.sub_title}</p>
     </Link>
   );

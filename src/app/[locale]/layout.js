@@ -34,6 +34,7 @@ async function getData({ locale, area }) {
       "goodSort",
       "blog",
       "good",
+      "product",
       "goodDiscountFestival",
     ],
     languageNameSpace: [
@@ -48,40 +49,22 @@ async function getData({ locale, area }) {
       "company.social_media.index",
     ],
     blogNameSpace: ["layout"],
+    productNameSpace: ["layout", "sort"],
   });
-  const GOODLIST = [];
-  result.GOODLIST.forEach(
-    ({
-      name,
-      image_list,
-      sort_key,
-      key,
-      comboList,
-      review_score,
-      review_num,
-      goodSort,
-    }) => {
-      if (goodSort[0].enabled) {
-        GOODLIST.push({
-          name,
-          image: image_list[0].src,
-          sort_key,
-          key,
-          review_score,
-          review_num,
-          comboList,
-        });
-      }
-    }
-  );
-  result.GOODLIST = GOODLIST;
-  result.GOODSORTLIST = result.GOODSORTLIST.map(({ name, key, image_src }) => {
-    return {
-      name,
-      key,
-      image_src,
-    };
+
+  const productList = [];
+  result.PRODUCT.sort.forEach((item) => {
+    return productList.push(...item.goodList);
   });
+  result.PRODUCT.cart = productList.map((item) => ({
+    key: item.key,
+    name: item.name,
+    sort_key: item.sort_key,
+    image: item.image,
+    comboList: item.comboList.map(
+      ({ img_list, smart_img, description, ...combo }) => combo
+    ),
+  }));
 
   return result;
 }
@@ -92,11 +75,10 @@ export default async function RootLayout(props) {
     params: { locale },
   } = props;
   const area = cookies().get("area")?.value || "us";
-  const { CONFIG, LANG, GOODLIST, GOODSORTLIST, GOODDISCOUNTFESTIVAL, BLOG } =
-    await getData({
-      locale,
-      area,
-    });
+  const { CONFIG, LANG, GOODDISCOUNTFESTIVAL, BLOG, PRODUCT } = await getData({
+    locale,
+    area,
+  });
 
   return (
     <html lang={locale}>
@@ -107,8 +89,7 @@ export default async function RootLayout(props) {
           LANG={LANG}
           BLOG={BLOG}
           CONFIG={CONFIG}
-          goodList={GOODLIST}
-          goodSortList={GOODSORTLIST}
+          PRODUCT={PRODUCT}
           goodDiscountFestival={GOODDISCOUNTFESTIVAL}
         >
           <Navbar />

@@ -66,7 +66,7 @@ const EmptyCart = function ({ handleClose }) {
 };
 
 const CartMain = function ({ handleClose }) {
-  const { locale, LANG, goodList, goodDiscountFestival, setProductNum } =
+  const { locale, LANG, PRODUCT, goodDiscountFestival, setProductNum } =
     React.useContext(GlobalContext);
   const [cartList, setCartList] = React.useState([]);
   const [hours, setHours] = React.useState("00");
@@ -98,7 +98,7 @@ const CartMain = function ({ handleClose }) {
       localStoreList.forEach((item) => {
         let comboInfo;
         // 查找该语言的商品
-        const product = goodList.find(
+        const product = PRODUCT.cart.find(
           (product) =>
             item.productKey === product.key && item.sortKey === product.sort_key
         );
@@ -151,8 +151,8 @@ const CartMain = function ({ handleClose }) {
       });
       setCartList(list);
     } catch (err) {
-      localStorage.setItem("store_shopping", JSON.stringify([]));
       console.warn("【购物列表解析失败】", err);
+      localStorage.setItem("store_shopping", JSON.stringify([]));
     }
   }, []);
 

@@ -5,7 +5,7 @@ const fs = require("fs");
 const LANGUAGES = require("../src/config/LANGUAGE");
 const api = require("./api");
 
-// 处理关联产品数据
+// 处理鸡蛋的产品数据（关联产品）
 function handleAssociateProductList(productList) {
   if (Array.isArray(productList) && productList.length > 0) {
     return productList.map(
@@ -24,7 +24,27 @@ function handleAssociateProductList(productList) {
         item.reviewScore = totalScore / reviewsList?.length || reviews_score;
         item.reviewsNum = reviewsList?.length || reviews_num;
         item.image = image_list[0].src;
-        item.comboItem = comboList[0] || {};
+        const { areaList = {}, ...newComboItem } = comboList[0] || {};
+        item.comboItem = { areaList };
+        return item;
+      }
+    );
+  }
+  return [];
+}
+
+// 处理鸡蛋的产品数据（分类产品）
+function handleSimpleProductList(productList) {
+  if (Array.isArray(productList) && productList.length > 0) {
+    return productList.map(
+      ({ reviewsList, image_list, reviews_num, reviews_score, ...item }) => {
+        const totalScore = reviewsList?.reduce(
+          (pre, cur) => pre + cur.score,
+          0
+        );
+        item.reviewScore = totalScore / reviewsList?.length || reviews_score;
+        item.reviewsNum = reviewsList?.length || reviews_num;
+        item.image = image_list[0].src;
         return item;
       }
     );
@@ -35,16 +55,66 @@ function handleAssociateProductList(productList) {
 // 处理产品数据
 function handleProductData(productList) {
   const productMap = {};
-  // 处理Layout
-  productList.forEach((item) => {
+  productList.forEach(({ goodSort, ...item }) => {
+    const sortInfo = goodSort[0];
+    // 处理sitemap
+    if (!productMap["sitemap"]) productMap["sitemap"] = [];
+    productMap["sitemap"].push(`/product/${item.sort_key}/${item.key}`);
+    if (!productMap["sitemap"].includes(`/product/${item.sort_key}`))
+      productMap["sitemap"].push(`/product/${item.sort_key}`);
+
+    // 处理产品分类
+    if (sortInfo.enabled) {
+      if (!productMap["sort"]) productMap["sort"] = {};
+      const simpleProduct = {
+        key: item.key,
+        sort_key: item.sort_key,
+        name: item.name,
+        reviewsList: item.reviewsList,
+        image_list: item.image_list,
+        reviews_num: item.reviews_num,
+        reviews_score: item.reviews_score,
+        comboList: item.comboList,
+      };
+      productMap["sort"][`${item.sort_key}`] = {
+        ...sortInfo,
+        goodList: productMap["sort"][`${item.sort_key}`]
+          ? [
+              ...productMap["sort"][`${item.sort_key}`].goodList,
+              ...handleSimpleProductList([simpleProduct]),
+            ]
+          : handleSimpleProductList([simpleProduct]),
+      };
+    }
+    // 处理产品详情
     productMap[`product:${item.sort_key}:${item.key}`] = {
       ...item,
       associateProduct: handleAssociateProductList(item.associateProduct),
+      goodSort: goodSort.map((item) => ({ enabled: item.enabled })),
     };
   });
 
-  // productMap["layout"] = {};
-  // productMap["layout"]["sort"] = item.sort;
+  // 处理Layout（footer）
+  productMap["layout"] = {};
+  productMap["layout"]["sortList"] = Object.keys(productMap["sort"]).map(
+    (item) => {
+      return productMap["sort"][item]
+        ? {
+            sub_title: productMap["sort"][item].name,
+            href: `/#${productMap["sort"][item].key}`,
+            img: productMap["sort"][item].image_src,
+          }
+        : {};
+    }
+  );
+  productMap["layout"]["productList"] = productList
+    .filter((item) => item.goodSort[0].enabled)
+    .filter((_, index) => index < 8)
+    .map((item) => ({
+      sub_title: item.name,
+      href: `/#${item.key}`,
+      img: item.image_list?.[0]?.src,
+    }));
 
   return productMap;
 }
@@ -57,7 +127,7 @@ const fetchConfig = async (times = 1, cookie = "") => {
   if (!fs.existsSync(fileDir)) fs.mkdirSync(fileDir, { recursive: true });
   console.log(`${chalk.yellow("【开始获取产品详细信息】")}`);
   await api
-    .get("/config/getGoodsContent", {
+    .get("/config/getProduct", {
       headers: {
         cookie,
       },
@@ -78,7 +148,7 @@ const fetchConfig = async (times = 1, cookie = "") => {
       Object.keys(obj).map((languageKey) => {
         const productMap = handleProductData(obj[languageKey]);
         Object.keys(productMap).forEach((productKey) => {
-          const fileData = JSON.stringify(productMap[productKey], null, 2);
+          const fileData = JSON.stringify(productMap[productKey], null, 0);
           if (!fs.existsSync(`${fileDir}/${productKey}`)) {
             fs.mkdirSync(`${fileDir}/${productKey}`, { recursive: true });
           }

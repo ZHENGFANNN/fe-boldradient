@@ -24,7 +24,8 @@ function handleAProductList(productList) {
         item.reviewScore = totalScore / reviewsList?.length || reviews_score;
         item.reviewsNum = reviewsList?.length || reviews_num;
         item.image = image_list[0].src;
-        item.comboItem = comboList[0] || {};
+        const { img_list, ...newComboItem } = comboList[0] || {};
+        item.comboItem = newComboItem || {};
         return item;
       }
     );
@@ -135,7 +136,7 @@ function handleBlogData(list) {
   // 处理Layout（footer）
   obj["layout"] = {};
   obj["layout"]["footer"] = Object.keys(obj["sort"])
-    .filter((_, index) => index < 6)
+    .filter((_, index) => index < 8)
     .map((item) =>
       obj["sort"][item]
         ? {
@@ -145,7 +146,7 @@ function handleBlogData(list) {
         : {}
     );
   obj["layout"]["nav"] = list
-    .filter((_, index) => index < 6)
+    .filter((_, index) => index < 8)
     .map(({ title, key, sort_key }) => ({ title, key, sort_key }));
 
   return obj;
@@ -180,7 +181,7 @@ const fetchBlog = async (times = 1, cookie = "") => {
         // !! 处理数据结构
         const blogMap = handleBlogData(obj[languageKey]);
         Object.keys(blogMap).forEach((blogKey) => {
-          const fileData = JSON.stringify(blogMap[blogKey], null, 2);
+          const fileData = JSON.stringify(blogMap[blogKey], null, 0);
           if (!fs.existsSync(`${fileDir}/${blogKey}`)) {
             fs.mkdirSync(`${fileDir}/${blogKey}`, { recursive: true });
           }

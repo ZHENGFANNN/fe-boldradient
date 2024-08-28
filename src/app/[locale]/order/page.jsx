@@ -1,3 +1,5 @@
+/** @format */
+
 import React from "react";
 import { cookies } from "next/headers";
 import Main from "./component/Main";
@@ -9,6 +11,8 @@ export async function generateMetadata({ params: { locale } }) {
   const { LANG, CONFIG } = await getConfigData({
     locale,
     configList: ["config", "language"],
+    languageNameSpace: ["store.order"],
+    configNameSpace: ["company.basic.company_name"],
   });
 
   return {
@@ -33,30 +37,6 @@ async function getData({
     configNameSpace,
   });
 
-  if (result.GOODLIST) {
-    result.GOODLIST = result.GOODLIST.map(
-      ({
-        associate_good_key,
-        comboList,
-        image_list,
-        key,
-        name,
-        path,
-        sort_key,
-      }) => {
-        return {
-          associate_good_key,
-          comboList,
-          image: image_list[0].src,
-          key,
-          name,
-          path,
-          sort_key,
-        };
-      }
-    );
-  }
-
   return result;
 }
 
@@ -64,10 +44,10 @@ export default async function Order({ params: { locale } }) {
   const area = cookies().get("area")?.value || "us";
   const token = cookies().get("token")?.value;
 
-  const { CONFIG, LANG, GOODLIST, GOODDISCOUNTFESTIVAL } = await getData({
+  const { CONFIG, LANG, GOODDISCOUNTFESTIVAL } = await getData({
     locale,
     area,
-    configList: ["config", "language", "good", "goodDiscountFestival"],
+    configList: ["config", "language", "goodDiscountFestival"],
     languageNameSpace: [
       "store.order",
       "store.product.pay_fail",
@@ -84,7 +64,6 @@ export default async function Order({ params: { locale } }) {
       GOODDISCOUNTFESTIVAL={GOODDISCOUNTFESTIVAL}
       CONFIG={CONFIG}
       LANG={LANG}
-      GOODLIST={GOODLIST}
       token={token}
       area={area}
     />

@@ -15,8 +15,7 @@ export default function Layout({
   BLOG,
   LANG,
   CONFIG,
-  goodList,
-  goodSortList,
+  PRODUCT,
   goodDiscountFestival,
   children,
 }) {
@@ -101,8 +100,7 @@ export default function Layout({
         LANG,
         BLOG,
         CONFIG,
-        goodList,
-        goodSortList,
+        PRODUCT,
         goodDiscountFestival,
         // 用户信息
         userInfo,

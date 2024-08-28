@@ -1,3 +1,5 @@
+/** @format */
+
 "use client";
 
 import React from "react";
@@ -13,6 +15,7 @@ export default function GoodComboList() {
     goodDiscountFestival,
     productInfo: { comboList },
   } = React.useContext(ProductContext);
+  // console.log("[comboList]: ", comboList);
   const [active, setActive] = React.useState(() => {
     return productCurCombo?.key;
   });

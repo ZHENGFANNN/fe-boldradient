@@ -14,58 +14,14 @@ import { cookies } from "next/headers";
 export const runtime = "edge";
 
 /**
- * 处理分类列表
- */
-async function getSortList(productSort) {
-  return productSort.map(({ name, goodList, key }) => {
-    goodList = goodList.map(
-      ({
-        name,
-        key,
-        sort_key,
-        image_list,
-        image_scenes,
-        reviews_num,
-        reviews_score,
-        reviewsList,
-        comboList,
-      }) => {
-        const totalValue = reviewsList.reduce((pre, cur) => pre + cur.score, 0);
-        const avertValue = totalValue / reviewsList.length;
-        const { areaInfo } =
-          comboList.find((item) => {
-            return item.areaInfo?.stock;
-          }) ||
-          comboList[0] ||
-          {};
-        return {
-          name,
-          key,
-          sort_key,
-          image_url: image_list[0].src,
-          image_scenes,
-          areaInfo,
-          reviews_num: reviewsList.length || reviews_num,
-          reviews_score: avertValue || reviews_score,
-        };
-      }
-    );
-    return {
-      name,
-      key,
-      goodList,
-    };
-  });
-}
-
-/**
  * 获取数据
  */
 async function getData({ locale, area }) {
   const result = await getConfigData({
     locale,
     area,
-    configList: ["config", "language", "goodSort", "goodDiscountFestival"],
+    configList: ["config", "language", "product", "goodDiscountFestival"],
+    productNameSpace: ["sort"],
     languageNameSpace: [
       "store.index",
       "common.advantage",
@@ -75,7 +31,19 @@ async function getData({ locale, area }) {
     ],
     configNameSpace: ["store.index.banner", "company.basic.company_name"],
   });
-  result.GOODSORTLIST = await getSortList(result.GOODSORTLIST);
+
+  result.PRODUCT.sort = result.PRODUCT.sort.map(({ goodList, ...item }) => {
+    return {
+      ...item,
+      goodList: goodList.map(({ comboList, ...good }) => {
+        return {
+          areaInfo: comboList[0].areaInfo,
+          ...good,
+        };
+      }),
+    };
+  });
+
   return result;
 }
 
@@ -94,7 +62,7 @@ export async function generateMetadata({ params: { locale } }) {
 
 export default async function Home({ params: { locale } }) {
   const area = cookies().get("area")?.value || "us";
-  const { CONFIG, LANG, GOODDISCOUNTFESTIVAL, GOODSORTLIST } = await getData({
+  const { CONFIG, LANG, GOODDISCOUNTFESTIVAL, PRODUCT } = await getData({
     locale,
     area,
   });
@@ -105,7 +73,7 @@ export default async function Home({ params: { locale } }) {
         CONFIG={CONFIG}
         LANG={LANG}
         goodDiscountFestival={GOODDISCOUNTFESTIVAL}
-        goodSortList={GOODSORTLIST}
+        goodSortList={PRODUCT.sort}
         locale={locale}
         area={area}
       >

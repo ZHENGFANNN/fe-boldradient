@@ -1,9 +1,7 @@
 /** @format */
 
-import getGoodList from "@/utils/getConfigData/getGoodList";
 import getConfigList from "@/utils/getConfigData/getConfigList";
 import getLanguageList from "@/utils/getConfigData/getLanguageList";
-import getGoodSortList from "@/utils/getConfigData/getGoodSortList";
 import getGoodDiscountList from "@/utils/getConfigData/getGoodDiscountList";
 
 import getProductData from "@/utils/getConfigData/getProductData";

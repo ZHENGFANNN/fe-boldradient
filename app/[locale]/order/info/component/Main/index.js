@@ -13,6 +13,7 @@ import Loading from "../../../../../components/Loading";
 import moment from "moment";
 
 import { formatCurrency } from "../../../../../utils";
+import Link from "next/link";
 
 export default function Main({ secret, locale, area, LANG, CONFIG }) {
   const router = useRouter();
@@ -498,9 +499,9 @@ export default function Main({ secret, locale, area, LANG, CONFIG }) {
                   />
                 </div>
               </div>
-              <a href="/" className={styles.btn_container}>
+              <Link href="/" className={styles.btn_container}>
                 {LANG["store.order_info.back_store"]}
-              </a>
+              </Link>
             </div>
           ) : null}
         </>

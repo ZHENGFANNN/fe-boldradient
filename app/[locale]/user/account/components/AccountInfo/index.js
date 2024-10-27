@@ -6,7 +6,7 @@ import { isEmail } from "../../../../../utils/pattern";
 import React from "react";
 import { useParams } from "next/navigation";
 import Api from "../../api";
-import GlobalContext from "../@/[locale]/context";
+import GlobalContext from "@/[locale]/context";
 import EditPasswordForm from "../EditPasswordForm/index";
 import Loading from "../../../../../components/Loading";
 

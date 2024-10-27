@@ -26,9 +26,9 @@ export default function BaseLayout({ blogSortList, sortKey, LANG }) {
     <>
       <div className={styles.header_container} data-active-nav={activeMobNav}>
         <div className={styles.header}>
-          <a className={styles.left_content} href="/blog">
+          <Link className={styles.left_content} href="/blog">
             {LANG["store.blog_index.title"]}
-          </a>
+          </Link>
           {blogSortList.length > 1 ? (
             <div className={styles.right_content}>
               <div

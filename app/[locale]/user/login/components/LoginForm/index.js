@@ -4,7 +4,7 @@
 
 import React from "react";
 import styles from "../../page.module.scss";
-import GlobalContext from "../@/[locale]/context";
+import GlobalContext from "@/[locale]/context";
 import Api from "../../../api";
 import Cookies from "js-cookie";
 import { useForm } from "react-hook-form";

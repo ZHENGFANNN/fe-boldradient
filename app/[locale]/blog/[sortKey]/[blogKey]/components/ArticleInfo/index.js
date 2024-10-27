@@ -3,6 +3,7 @@ import styles from "./index.module.scss";
 import { formateTime } from "../../../../utils";
 import { headers } from "next/headers";
 import ShareIconList from "../../../../../../components/ShareIconList";
+import Link from "next/link";
 
 export default async function ArticleInfo({ article, locale }) {
   const headersList = await headers();
@@ -14,11 +15,11 @@ export default async function ArticleInfo({ article, locale }) {
           {formateTime({ time: article.updated_time, locale })}
         </div>
         <div className={styles.nav}>
-          <a href="/blog">Home</a>
+          <Link href="/blog">Home</Link>
           <span>{` > `}</span>
-          <a href={`/blog/${article.blogSortInfo.key}`}>
+          <Link href={`/blog/${article.blogSortInfo.key}`}>
             {article.blogSortInfo.name}
-          </a>
+          </Link>
         </div>
       </div>
       <div className={styles.right_container}>

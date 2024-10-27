@@ -5,7 +5,7 @@ function handleProductList({ productList, area }) {
   if (Array.isArray(productList) && productList.length > 0) {
     return productList.map(({ comboItem, ...item }) => {
       let areaInfo = null;
-      comboItem.areaList.find((area_item) => {
+      comboItem?.areaList.find((area_item) => {
         if (area_item.country_code === area) {
           areaInfo = area_item;
         }
@@ -38,7 +38,7 @@ async function getData({ locale, nameSpace }) {
       data.comboList = data.comboList.map(({ areaList, ...combo }) => {
         // 遍历商品套餐区域, 找到对应的国家列表
         let areaInfo = null;
-        areaList.forEach((areaItem) => {
+        areaList?.forEach((areaItem) => {
           if (areaItem.country_code === area) {
             areaInfo = areaItem;
           }

@@ -23,9 +23,15 @@ import Link from "next/link";
 const FULLYEAR = new Date().getFullYear();
 
 function ShowLanguageItem({ value }) {
+  const { area } = React.useContext(GlobalContext);
   return (
     <div className={styles.show_item}>
-      <svg
+      <img
+        className={styles.icon}
+        alt={area}
+        src={`${process.env.NEXT_PUBLIC_FILE}/image/icon/flags/${area}.svg`}
+      />
+      {/* <svg
         style={{
           opacity: 0,
           position: "fixed",
@@ -48,7 +54,7 @@ function ShowLanguageItem({ value }) {
         width={24}
         height={24}
         src={`${process.env.NEXT_PUBLIC_FILE}/image/icon/min-languages.svg`}
-      />
+      /> */}
       <div>{value}</div>
     </div>
   );

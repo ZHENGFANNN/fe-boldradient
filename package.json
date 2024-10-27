@@ -9,7 +9,7 @@
     "prod": "yarn fetch-prod && next prod -p 8080",
     "start": "next start -p 8080",
     "analyze": "yarn fetch-prod && ANALYZE=true next build",
-    "build": "yarn fetch-prod && next build"
+    "build": "next build"
   },
   "dependencies": {
     "@cloudflare/next-on-pages": "^1.13.2",

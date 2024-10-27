@@ -16,7 +16,7 @@
       height: 100%;
       max-width: 1200px;
       margin: auto;
-      padding: 0 32px;
+      padding: 0 16px;
       line-height: 24px;
       font-weight: 500;
       font-size: 20px;
@@ -28,6 +28,7 @@
     margin: 80px auto 0;
     padding-bottom: 120px;
     max-width: 1200px;
+    padding:  0 16px;
     .content_title {
       display: flex;
       justify-content: center;
@@ -58,7 +59,6 @@
       overflow: hidden;
       word-break: break-all;
       white-space: pre-line;
-      padding: 0 18px;
       a {
         color: #1890ff;
         text-decoration: none;

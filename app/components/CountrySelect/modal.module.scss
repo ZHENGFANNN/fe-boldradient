@@ -52,7 +52,7 @@
     top: 50%;
     transform: translate(-50%, -50%) scale(0.8);
     max-height: calc(84vh - 80px);
-    max-width: 780px;
+    max-width: 840px;
 
     transition: all 300ms;
 
@@ -171,6 +171,15 @@
             cursor: pointer;
 
             transition: all 300ms;
+
+            img {
+              width: 20px;
+              height: 20px;
+              object-fit: cover;
+              border-radius: 50%;
+              margin-right: 6px;
+            }
+
             &:nth-child(3n + 3) {
               margin-right: 0;
             }
@@ -185,7 +194,7 @@
   }
 }
 
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 940px) {
   .modal {
     .modal_content {
       max-width: 800px;
@@ -225,7 +234,7 @@
   }
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 740px) {
   .modal {
     display: flex;
     align-items: flex-end;
@@ -295,6 +304,7 @@
             .country_list {
               .country_item {
                 margin-right: 0;
+                font-size: 12px;
                 &:nth-child(3n + 3) {
                   margin-right: 0;
                 }

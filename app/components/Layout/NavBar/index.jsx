@@ -5,6 +5,7 @@ import React from "react";
 import GlobalContext from "@/[locale]/context";
 
 import NAVFUNC from "../../../config/NAVFUNC";
+import { countryMap } from "@/config/COUNTRY";
 import TipModal from "../../Modal/FunctionTipModal";
 import CountryList from "../../CountrySelect";
 import DropSelect from "../../DropSelect";
@@ -82,25 +83,11 @@ export default function NavBar() {
 
   return (
     <>
-      {/* 顶部选择区域 */}
-      <TopNavBar />
+      {/* 顶部广告位 */}
+      <AnnouncementBar />
+      {/* 网页导航栏 */}
       <nav className={styles.nav}>
         <div className={styles.header + ` ${navActive ? styles.active : ""}`}>
-          {/* 移动端ICON */}
-          <div
-            className={
-              styles.header_mobile_btn +
-              ` ${navActive ? styles.header_mobile_active : ""}`
-            }
-            onClick={() => {
-              setNavActive((value) => !value);
-            }}
-          >
-            <span className={styles.control_icon}></span>
-            <span className={styles.control_icon}></span>
-            <span className={styles.control_icon}></span>
-          </div>
-
           <div className={styles.header_left}>
             <div className={styles.header_logo}>
               <Link
@@ -116,6 +103,9 @@ export default function NavBar() {
                   height={30}
                   src={CONFIG["company.basic.logo"]}
                 />
+                <div className={styles.name}>
+                  {CONFIG["company.basic.company_name"]}
+                </div>
               </Link>
             </div>
             <div
@@ -211,7 +201,7 @@ export default function NavBar() {
             </div>
           </div>
           {/* 左边区域 */}
-          <RightArea />
+          <RightArea setNavActive={setNavActive} navActive={navActive} />
         </div>
       </nav>
       <TipModal LANG={LANG} ref={ModalRef} />
@@ -324,101 +314,22 @@ function NavSubCommonItem({
   );
 }
 
-function TopNavBar() {
-  const { userInfo } = React.useContext(GlobalContext);
+function RightArea({ navActive, setNavActive }) {
   const router = useRouter();
-  return (
-    <div className={styles.announcement_bar}>
-      <div className={styles.top_header_container}>
-        <CountryList />
-        <div
-          className={styles.header_user}
-          onClick={() => {
-            if (userInfo) {
-              router.push(`/user/account`);
-            } else {
-              router.push(`/user/login`);
-            }
-          }}
-        >
-          <svg
-            style={{
-              opacity: 0,
-              position: "fixed",
-              left: "-1000px",
-              top: "-1000px",
-            }}
-          >
-            <defs>
-              <filter id="headerMinUserIcon">
-                <feFlood
-                  floodColor="rgba(0, 0, 0, 0.7)"
-                  floodOpacity="1"
-                  result="color"
-                />
-                <feComposite in="color" in2="SourceGraphic" operator="in" />
-              </filter>
-            </defs>
-          </svg>
-          <img
-            style={{
-              filter: "url('#headerMinUserIcon')",
-            }}
-            alt="avatar"
-            width={18}
-            height={18}
-            src={`${process.env.NEXT_PUBLIC_FILE}/image/icon/min-user.svg`}
-          />
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function RightArea() {
-  const router = useRouter();
-  const { LANG, userInfo, productNum, showCartModal } =
+  const { LANG, userInfo, productNum, showCartModal, area } =
     React.useContext(GlobalContext);
   return (
     <ul className={styles.header_right}>
-      {/* 商店ICON */}
-      <li
-        onClick={() => {
-          tracking.clickNavStoreBtn();
-        }}
-      >
-        <Link
-          scroll={true}
-          className={styles.header_store_container}
-          href={`/`}
-        >
-          <img
-            src={`${process.env.NEXT_PUBLIC_FILE}/image/icon/min-store.svg`}
-            alt="store"
-          />
-          <div className={styles.header_store_title}>
-            {LANG["common.nav.store"]}
+      <li>
+        <CountryList>
+          <div className={styles.header_country_text}>
+            <img
+              alt={area}
+              src={`${process.env.NEXT_PUBLIC_FILE}/image/icon/flags/${area}.svg`}
+            />
+            {`${countryMap[area].country} · ${countryMap[area].currency_symbol}${countryMap[area].currency}`}
           </div>
-        </Link>
-      </li>
-      {/* 购物车ICON */}
-      <li
-        className={styles.header_cart}
-        onClick={() => {
-          showCartModal();
-        }}
-      >
-        <div>
-          {productNum !== 0 ? (
-            <div className={styles.num}>{productNum}</div>
-          ) : null}
-          <img
-            alt="avatar"
-            width={24}
-            height={24}
-            src={`${process.env.NEXT_PUBLIC_FILE}/image/icon/min-cart.svg`}
-          />
-        </div>
+        </CountryList>
       </li>
       {/* 用户ICON */}
       <li className={styles.header_user}>
@@ -465,6 +376,119 @@ function RightArea() {
           />
         </DropSelect>
       </li>
+      {/* 购物车ICON */}
+      <li
+        className={styles.header_cart}
+        onClick={() => {
+          showCartModal();
+        }}
+      >
+        <div>
+          {productNum !== 0 ? (
+            <div className={styles.num}>{productNum}</div>
+          ) : null}
+          <img
+            alt="avatar"
+            width={24}
+            height={24}
+            src={`${process.env.NEXT_PUBLIC_FILE}/image/icon/min-cart.svg`}
+          />
+        </div>
+      </li>
+      {/* 更多ICON */}
+      <li>
+        <div
+          className={
+            styles.header_mobile +
+            ` ${navActive ? styles.header_mobile_active : ""}`
+          }
+          onClick={() => {
+            setNavActive((value) => !value);
+          }}
+        >
+          <span className={styles.control_icon}></span>
+          <span className={styles.control_icon}></span>
+          <span className={styles.control_icon}></span>
+        </div>
+      </li>
     </ul>
+  );
+}
+
+// 顶部广告位
+function AnnouncementBar() {
+  const { userInfo } = React.useContext(GlobalContext);
+  const router = useRouter();
+  return (
+    <div className={styles.announcement_bar}>
+      <div className={styles.top_header_container}>
+        <TextBanner />
+      </div>
+    </div>
+  );
+}
+
+// 文本轮播
+function TextBanner() {
+  const textListRef = React.useRef(null);
+  const [activeIndex, setActiveIndex] = React.useState(0);
+  const bannerList = React.useMemo(() => {
+    return [
+      "You can have more succinct announcements for mobile.You can have more succinct announcements for mobile.You can have more succinct announcements for mobile.You can have more succinct announcements for mobile.You can have more succinct announcements for mobile.You can have more succinct announcements for mobile.You can have more succinct announcements for mobile.You can have more succinct announcements for mobile.You can have more succinct announcements for mobile.You can have more succinct announcements for mobile.You can have more succinct announcements for mobile.You can have more succinct announcements for mobile.",
+      "You get free shipping on orders over $50.",
+      "土由芬兰本土及17万9千多座岛屿所组成，分为19个行政区含309个市镇，面积约33.8",
+    ];
+  }, []);
+
+  React.useEffect(() => {
+    if (activeIndex === bannerList.length) {
+      setTimeout(() => {
+        const $textListDom = textListRef.current;
+        const $activeTextDom = $textListDom.querySelector(
+          "[data-active='true']"
+        );
+        const $firstTextDom = $textListDom.querySelector(
+          "[data-active='false']"
+        );
+        $textListDom.style.transition = "none";
+        $activeTextDom.style.transition = "none";
+        $firstTextDom.style.transition = "none";
+        setActiveIndex(0);
+        setTimeout(() => {
+          $textListDom.style.transition = "all 0.3s ease-in-out";
+          $activeTextDom.style.transition = "all 0.3s ease-in-out";
+          $firstTextDom.style.transition = "all 0.3s ease-in-out";
+        }, 50);
+      }, 300);
+    }
+  }, [activeIndex]);
+
+  React.useEffect(() => {
+    const timer = setInterval(() => {
+      setActiveIndex((state) => state + 1);
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  return (
+    <div className={styles.text_banner}>
+      <div
+        ref={textListRef}
+        className={styles.text_list}
+        style={{
+          transform: `translateY(-${activeIndex * 48}px)`,
+        }}
+      >
+        {[...bannerList, bannerList[0]].map((item, index) => {
+          return (
+            <div key={index} className={styles.text_container}>
+              <div className={styles.text} data-active={index === activeIndex}>
+                {item}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
   );
 }

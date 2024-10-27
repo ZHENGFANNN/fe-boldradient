@@ -1,0 +1,59 @@
+[
+  {
+    "languages": {
+      "cn": "免费运费 🎉",
+      "de": "Kostenloser Versand 🎉",
+      "en": "Free Shipping 🎉",
+      "es": "envío gratis 🎉",
+      "fr": "livraison gratuite 🎉",
+      "hk": "免運費 🎉",
+      "it": "spedizione gratuita 🎉",
+      "ja": "送料無料 🎉",
+      "ko": "무료 배송 🎉",
+      "ru": "бесплатная доставка 🎉"
+    },
+    "start_time": null,
+    "end_time": null,
+    "discount": null,
+    "enabled": true,
+    "long_activity": true
+  },
+  {
+    "languages": {
+      "cn": "周末狂欢🎉",
+      "de": "Wochenendkarneval 🎉",
+      "en": "Weekend carnival 🎉",
+      "es": "Carnaval de fin de semana 🎉",
+      "fr": "Carnaval du week-end 🎉",
+      "hk": "週末狂歡🎉",
+      "it": "Fine settimana di carnevale 🎉",
+      "ja": "週末カーニバル🎉",
+      "ko": "주말 카니발 🎉",
+      "ru": "Карнавал выходного дня 🎉"
+    },
+    "start_time": 1705248016010,
+    "end_time": 1712379600900,
+    "discount": 100,
+    "enabled": true,
+    "long_activity": false
+  },
+  {
+    "languages": {
+      "cn": "限时抢购 🎉",
+      "de": "Blitzangebot🎉",
+      "en": "Flash Sale 🎉",
+      "es": "venta express🎉",
+      "fr": "vente flash🎉",
+      "hk": "限時搶購🎉",
+      "it": "vendita lampo🎉",
+      "ja": "フラッシュセール🎉",
+      "ko": "플래시 세일🎉",
+      "ru": "флэш-распродажа🎉"
+    },
+    "start_time": 1708790400000,
+    "end_time": 1709395199000,
+    "discount": null,
+    "enabled": true,
+    "long_activity": false
+  }
+]

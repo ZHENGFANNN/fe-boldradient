@@ -4,21 +4,12 @@ import GlobalContext from "@/[locale]/context";
 import { countryMap } from "@/config/COUNTRY";
 import { languageMap } from "@/config/LANGUAGE";
 
-import dynamic from "next/dynamic";
-const Modal = dynamic(() => import("./Modal"), { ssr: false });
-
+import Modal from "./Modal";
 import styles from "./index.module.scss";
 
 function CountryList({ children }) {
   const { area } = React.useContext(GlobalContext);
-  const [show, setShow] = React.useState(false);
-  React.useEffect(() => {
-    if (show) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "scroll";
-    }
-  }, [show]);
+  const areaModalRef = React.useRef(null);
 
   const countryText = React.useMemo(() => {
     return `${countryMap[area]?.country} (${
@@ -28,13 +19,20 @@ function CountryList({ children }) {
 
   return (
     <>
-      <div className={styles.input_item} onClick={() => setShow(true)}>
+      <div
+        className={styles.input_item}
+        onClick={() => areaModalRef.current.show()}
+      >
         {children ? (
           React.cloneElement(children, { value: countryText })
         ) : (
           <>
-            {/* <img src="https://cdn.shopify.com/static/images/flags/us.svg?width=20" /> */}
-            <svg
+            <img
+              className={styles.icon}
+              alt={area}
+              src={`${process.env.NEXT_PUBLIC_FILE}/image/icon/flags/${area}.svg`}
+            />
+            {/* <svg
               style={{
                 opacity: 0,
                 position: "fixed",
@@ -61,12 +59,12 @@ function CountryList({ children }) {
               width={24}
               height={24}
               src={`${process.env.NEXT_PUBLIC_FILE}/image/icon/min-languages.svg`}
-            />
+            /> */}
             <div>{countryText}</div>
           </>
         )}
       </div>
-      <Modal languageMap={languageMap} setShow={setShow} show={show} />
+      <Modal ref={areaModalRef} />
     </>
   );
 }

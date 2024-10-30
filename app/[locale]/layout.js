@@ -6,7 +6,6 @@ import "../styles/reset.css";
 import Layout from "../components/Layout";
 import Navbar from "../components/Layout/NavBar";
 import Footer from "../components/Layout/Footer";
-import CustomService from "../components/Layout/CustomService";
 
 import getConfigData from "../utils/getConfigData";
 import { cookies } from "next/headers";
@@ -100,7 +99,6 @@ export default async function RootLayout(props) {
           <Navbar />
           <div id="app-content">{children}</div>
           <Footer />
-          <CustomService />
         </Layout>
       </body>
     </html>

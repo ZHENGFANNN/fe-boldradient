@@ -1,14 +1,22 @@
+import React from "react";
 import Script from "next/script";
+import GlobalContext from "@/[locale]/context";
 
 export default function CustomService() {
-  console.log(`'${process.env.NEXT_PUBLIC_SMARTSUPP_KEY}'`);
+  const { locale } = React.useContext(GlobalContext);
+
+  React.useEffect(() => {
+    window.smartsupp("language", `${locale}`);
+  }, [locale]);
+
   return (
     <>
       <Script
+        id="smarts-upp-customer-service"
         dangerouslySetInnerHTML={{
           __html: `
                 var _smartsupp = _smartsupp || {};
-                _smartsupp.key = '${process.env.NEXT_PUBLIC_SMARTSUPP_KEY}';
+                _smartsupp.key = '${process.env.NEXT_PUBLIC_SMARTS_UPP_KEY}';
                 window.smartsupp||(function(d) {
                 var s,c,o=smartsupp=function(){ o._.push(arguments)};o._=[];
                 s=d.getElementsByTagName('script')[0];c=d.createElement('script');
@@ -17,7 +25,6 @@ export default function CustomService() {
                 })(document);
             `,
         }}
-        on
       />
     </>
   );

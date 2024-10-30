@@ -7,6 +7,8 @@ import GlobalContext from "../../[locale]/context";
 import Cookies from "js-cookie";
 import Api from "../../request";
 import Script from "next/script";
+
+import SmartsUpp from "./Customer/SmartsUpp";
 import CartModal from "./CartModal";
 import AreaModal from "./AreaModal";
 
@@ -179,6 +181,8 @@ export default function Layout({
         }}
       />
       {children}
+      {/* Customer */}
+      <SmartsUpp />
     </GlobalContext.Provider>
   );
 }

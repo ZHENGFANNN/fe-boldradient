@@ -435,9 +435,9 @@ function TextBanner() {
   }, []);
 
   React.useEffect(() => {
-    if (activeIndex === bannerList.length) {
+    const $textListDom = textListRef.current;
+    if (activeIndex === bannerList.length && $textListDom) {
       setTimeout(() => {
-        const $textListDom = textListRef.current;
         const $activeTextDom = $textListDom.querySelector(
           "[data-active='true']"
         );

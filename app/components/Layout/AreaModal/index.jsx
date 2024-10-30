@@ -89,6 +89,7 @@ function Modal(_, ref) {
                               path: "/",
                               expires,
                             });
+                            location.reload();
                             router.refresh({
                               locale: countryItem.language_code,
                             });

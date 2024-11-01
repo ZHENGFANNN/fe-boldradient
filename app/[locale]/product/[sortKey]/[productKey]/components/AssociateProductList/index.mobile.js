@@ -13,7 +13,7 @@ import { lazyLoadImages } from "../../../../../../utils/optimization";
 
 import styles from "./index.mobile.module.scss";
 import Image from "../../../../../../components/Image";
-import GoodReviewsRate from "../GoodReviewsRate";
+import GoodReviewsRate from "../GoodMainRight/GoodReviewsRate";
 import Link from "next/link";
 
 export default function MobProductList({

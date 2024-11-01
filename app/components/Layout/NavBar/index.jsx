@@ -16,6 +16,7 @@ import Api from "../api";
 import tracking from "../tracking";
 
 import styles from "./index.module.scss";
+import { getJsonData } from "@/utils";
 
 export default function NavBar() {
   const { LANG, CONFIG, BLOG, PRODUCT } = React.useContext(GlobalContext);
@@ -403,35 +404,11 @@ function RightArea({ navActive, setNavActive }) {
 
 // 顶部广告位
 function AnnouncementBar() {
-  const { area, showAreaModal } = React.useContext(GlobalContext);
-  return (
-    <div className={styles.announcement_bar}>
-      <div className={styles.top_header_container}>
-        <TextBanner />
-        <div className={styles.country_select} onClick={showAreaModal}>
-          <div className={styles.country_content}>
-            <img
-              alt={area}
-              src={`${process.env.NEXT_PUBLIC_FILE}/image/icon/flags/${area}.svg`}
-            />
-            <div>{`${countryMap[area].country} · ${countryMap[area].currency_symbol}${countryMap[area].currency}`}</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// 文本轮播
-function TextBanner() {
+  const { CONFIG } = React.useContext(GlobalContext);
   const textListRef = React.useRef(null);
   const [activeIndex, setActiveIndex] = React.useState(0);
   const bannerList = React.useMemo(() => {
-    return [
-      "You can have more succinct announcements for mobile.You can have more succinct announcements for mobile.You can have more succinct announcements for mobile.You can have more succinct announcements for mobile.You can have more succinct announcements for mobile.You can have more succinct announcements for mobile.You can have more succinct announcements for mobile.You can have more succinct announcements for mobile.You can have more succinct announcements for mobile.You can have more succinct announcements for mobile.You can have more succinct announcements for mobile.You can have more succinct announcements for mobile.",
-      "You get free shipping on orders over $50.",
-      "土由芬兰本土及17万9千多座岛屿所组成，分为19个行政区含309个市镇，面积约33.8",
-    ];
+    return CONFIG["page.common.top_bar"];
   }, []);
 
   React.useEffect(() => {
@@ -458,30 +435,40 @@ function TextBanner() {
   }, [activeIndex]);
 
   React.useEffect(() => {
+    if (!bannerList || bannerList.length < 2) return;
     const timer = setInterval(() => {
       setActiveIndex((state) => state + 1);
     }, 5000);
     return () => clearInterval(timer);
-  }, []);
+  }, [bannerList]);
 
+  if (!bannerList || bannerList?.length < 1) return null;
   return (
-    <div className={styles.text_banner}>
-      <div
-        ref={textListRef}
-        className={styles.text_list}
-        style={{
-          transform: `translateY(-${activeIndex * 42}px)`,
-        }}
-      >
-        {[...bannerList, bannerList[0]].map((item, index) => {
-          return (
-            <div key={index} className={styles.text_container}>
-              <div className={styles.text} data-active={index === activeIndex}>
-                {item}
-              </div>
-            </div>
-          );
-        })}
+    <div className={styles.announcement_bar}>
+      <div className={styles.top_header_container}>
+        <div className={styles.text_banner}>
+          <div
+            ref={textListRef}
+            className={styles.text_list}
+            style={{
+              transform: `translateY(-${activeIndex * 42}px)`,
+            }}
+          >
+            {[...bannerList, bannerList[0]].map((item, index) => {
+              return (
+                <div key={index} className={styles.text_container}>
+                  <div
+                    className={styles.text}
+                    data-active={index === activeIndex}
+                    dangerouslySetInnerHTML={{
+                      __html: item.content,
+                    }}
+                  />
+                </div>
+              );
+            })}
+          </div>
+        </div>
       </div>
     </div>
   );

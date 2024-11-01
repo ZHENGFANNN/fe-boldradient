@@ -2,32 +2,22 @@
 
 import React from "react";
 
-import GoodMainText from "./components/GoodMainText";
-import GoodMediaDisplay from "./components/GoodMediaDisplay";
-import GoodMediaTabs from "./components/GoodMediaTabs";
-import GoodOptionList from "./components/GoodOptionList";
-import GoodComboList from "./components/GoodComboList";
 import AssociateProductList from "./components/AssociateProductList/index";
 import GoodPackageList from "./components/GoodPackageList";
 import GoodAccessoriesList from "./components/GoodAccessoriesList";
 import GoodFunctionList from "./components/GoodFunctionList";
 import GoodMediaList from "./components/GoodMediaList";
-import GoodNumber from "./components/GoodNumber";
-import GoodContent from "./components/GoodContent";
-import GoodBtnList from "./components/GoodBtnList";
-import Countdown from "./components/Countdown";
 
-import GoodPrice from "./components/GoodPrice";
 import GoodFooter from "./components/GoodFooter";
-import GoodReviewsRate from "./components/GoodReviewsRate";
 import GoodReviewsContent from "./components/GoodReviewsContent";
 
-import GoodGuarantee from "./components/GoodGuarantee";
 import GoodFaq from "./components/GoodFaq";
 
 import GoodNav from "./components/GoodNav";
 
 import styles from "./page.module.scss";
+import GoodMainLeft from "./components/GoodMainLeft";
+import GoodMainRight from "./components/GoodMainRight";
 
 export const runtime = "edge";
 
@@ -40,32 +30,10 @@ export default async function Product() {
         {/* 首屏信息配置 */}
         <section className={styles.main_content}>
           <div className={styles.left_content}>
-            <GoodMediaDisplay />
-            <Countdown />
-            <GoodMediaTabs />
+            <GoodMainLeft />
           </div>
           <div className={styles.right_content}>
-            <div>
-              {/* 主要文本 */}
-              <GoodMainText />
-              {/* 价格配置 */}
-              <GoodPrice />
-              {/* 产品评价 */}
-              <GoodReviewsRate />
-              <div className={styles.line}></div>
-              {/* 产品套餐 */}
-              <GoodComboList />
-              {/* 产品选项 */}
-              <GoodOptionList />
-              {/* 产品数量 */}
-              <GoodNumber />
-              {/* 支付按钮 */}
-              <GoodBtnList />
-              {/* 商品内容 */}
-              <GoodContent />
-              {/* 产品保障 */}
-              <GoodGuarantee />
-            </div>
+            <GoodMainRight />
           </div>
         </section>
         {/* 关联产品列表 */}

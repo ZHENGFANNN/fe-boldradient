@@ -46,6 +46,7 @@ async function getData({ locale, area }) {
       "company.basic",
       "company.sales_channels.index",
       "company.social_media.index",
+      "page.common",
     ],
     blogNameSpace: ["layout"],
     productNameSpace: ["layout", "sort"],

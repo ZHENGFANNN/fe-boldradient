@@ -1,11 +1,11 @@
 import React from "react";
-import Modal from "../../../../../../../components/Modal";
+import Modal from "@/components/Modal";
 import ProductContext from "../../../ProductContext";
 
-import GoodNumber from "../../GoodNumber";
-import GoodOptionList from "../../GoodOptionList";
-import GoodComboList from "../../GoodComboList";
-import GoodBtnList from "../../GoodBtnList";
+import GoodNumber from "../../GoodMainRight/GoodNumber";
+import GoodOptionList from "../../GoodMainRight/GoodOptionList";
+import GoodComboList from "../../GoodMainRight/GoodComboList";
+import GoodBtnList from "../../GoodMainRight/GoodBtnList";
 
 import styles from "./index.module.scss";
 

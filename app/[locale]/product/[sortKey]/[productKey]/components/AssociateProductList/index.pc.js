@@ -10,7 +10,7 @@ import Link from "next/link";
 import Image from "../../../../../../components/Image";
 import { lazyLoadImages } from "../../../../../../utils/optimization";
 
-import GoodReviewsRate from "../GoodReviewsRate";
+import GoodReviewsRate from "../GoodMainRight/GoodReviewsRate";
 
 export default function PcProductList({
   LANG,

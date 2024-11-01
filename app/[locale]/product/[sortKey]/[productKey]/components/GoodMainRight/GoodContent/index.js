@@ -18,8 +18,19 @@ export default function GoodContent() {
 
   if (hide) return null;
 
+  const contentRef = React.useRef();
+  React.useEffect(() => {
+    if (contentRef.current) {
+      const videos = contentRef.current.querySelectorAll("video");
+      videos.forEach((video) => {
+        console.log("[videos]: ", video);
+        video.setAttribute("playsinline", "true");
+      });
+    }
+  }, []);
+
   return (
-    <div className={styles.container}>
+    <div className={styles.container} ref={contentRef}>
       <div
         className="wangeditor-rich-text-css"
         dangerouslySetInnerHTML={{

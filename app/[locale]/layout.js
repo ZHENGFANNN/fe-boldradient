@@ -86,6 +86,14 @@ export default async function RootLayout(props) {
       <head>
         {/* website Logo */}
         <link rel="icon" href={CONFIG["company.basic.logo"]} />
+        {/* image loading */}
+        <style>{`
+          img {
+            &[data-src], &[data-loading] {
+              background-image: url('${CONFIG["company.basic.logo"]}');
+            }
+          }
+        `}</style>
       </head>
       <body>
         <Layout

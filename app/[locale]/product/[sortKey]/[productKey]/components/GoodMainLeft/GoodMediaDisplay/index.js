@@ -228,7 +228,11 @@ export default function GoodMediaDisplay() {
                                 key={item.src}
                                 className={`splide__slide ${styles.splide__slide}`}
                               >
-                                <img alt={productInfo.name} src={item.src} />
+                                <img
+                                  data-loading={true}
+                                  alt={productInfo.name}
+                                  src={item.src}
+                                />
                               </li>
                             );
                           })
@@ -241,7 +245,11 @@ export default function GoodMediaDisplay() {
                                 key={index}
                                 className={`splide__slide ${styles.splide__slide}`}
                               >
-                                <img alt={productInfo.name} src={item.src} />
+                                <img
+                                  data-loading={true}
+                                  alt={productInfo.name}
+                                  src={item.src}
+                                />
                               </li>
                             );
                           })

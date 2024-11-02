@@ -65,12 +65,14 @@ function ProductItem({ goodList }) {
                 data-scenes={!!product.image_scenes}
               >
                 <img
+                  data-loading
                   className={styles.product_image}
                   alt={product.name}
                   src={product.image}
                 />
                 {product.image_scenes ? (
                   <img
+                    data-loading
                     className={styles.scenes_image}
                     alt={product.name}
                     src={product.image_scenes}

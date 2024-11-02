@@ -1,6 +1,5 @@
 .left_content_top_container {
   overflow: hidden;
-  background-color: #fff;
   width: 100%;
   padding-top: calc(100% - 68px);
   position: relative;
@@ -94,6 +93,7 @@
       }
       .splide__track {
         ul {
+          background: #f3f3f3;
           .splide__slide {
             position: relative;
             width: 100%;

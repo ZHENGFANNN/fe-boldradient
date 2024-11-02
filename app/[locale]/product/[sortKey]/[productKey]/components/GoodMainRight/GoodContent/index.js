@@ -21,11 +21,13 @@ export default function GoodContent() {
   const contentRef = React.useRef();
   React.useEffect(() => {
     if (contentRef.current) {
-      const videos = contentRef.current.querySelectorAll("video");
-      videos.forEach((video) => {
-        console.log("[videos]: ", video);
-        video.setAttribute("playsinline", "true");
-      });
+      setTimeout(() => {
+        const videos = contentRef.current.querySelectorAll("video");
+        console.log("videos: ", videos);
+        videos.forEach((video) => {
+          video.setAttribute("playsnline", "true");
+        });
+      }, 50);
     }
   }, []);
 

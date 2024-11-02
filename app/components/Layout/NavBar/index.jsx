@@ -83,7 +83,6 @@ export default function NavBar() {
 
   return (
     <>
-      <div data-tracking-click="nav-logo">Test</div>
       {/* 顶部广告位 */}
       <AnnouncementBar />
       {/* 网页导航栏 */}

@@ -1,10 +1,11 @@
 import ReactDOM from "react-dom";
 import Script from "next/script";
 
-export default function GTM() {
+export function GTM() {
   return (
     <>
       <Script
+        id="google-tag-manager"
         dangerouslySetInnerHTML={{
           __html: `
             (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -14,19 +15,22 @@ export default function GTM() {
             })(window,document,'script','dataLayer','${process.env.NEXT_PUBLIC_GTM}');`,
         }}
       />
-      {/* ReactDOM.createPortal(
-      <noscript>
-        <iframe
-          src={`https://www.googletagmanager.com/ns.html?id=${process.env.NEXT_PUBLIC_GTM}`}
-          height="0"
-          width="0"
-          style={{
-            display: "none",
-            visibility: "hidden",
-          }}
-        ></iframe>
-      </noscript>
-      , document.body ); */}
     </>
+  );
+}
+
+export function GTMNoScript() {
+  return (
+    <noscript>
+      <iframe
+        src={`https://www.googletagmanager.com/ns.html?id=${process.env.NEXT_PUBLIC_GTM}`}
+        height="0"
+        width="0"
+        style={{
+          display: "none",
+          visibility: "hidden",
+        }}
+      ></iframe>
+    </noscript>
   );
 }

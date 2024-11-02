@@ -6,6 +6,7 @@ import "@/styles/reset.css";
 import Layout from "@/components/Layout";
 import Navbar from "@/components/Layout/NavBar";
 import Footer from "@/components/Layout/Footer";
+import { GTMNoScript } from "@/components/Head/GTM";
 
 import Head from "@/components/Head";
 
@@ -87,7 +88,7 @@ export default async function RootLayout(props) {
     <html lang={locale}>
       <Head logoLink={CONFIG["company.basic.logo"]} />
       <body>
-        {/* <GTMNoScript /> */}
+        <GTMNoScript />
         <Layout
           locale={locale}
           area={area}

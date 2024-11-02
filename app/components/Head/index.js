@@ -1,4 +1,4 @@
-import GTM from "./GTM";
+import { GTM } from "./GTM";
 
 export default function Head({ logoLink }) {
   return (

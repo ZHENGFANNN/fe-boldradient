@@ -13,10 +13,9 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 import Api from "../api";
-import tracking from "../tracking";
 
 import styles from "./index.module.scss";
-import { getJsonData } from "@/utils";
+import { trackingCustomClick } from "@/utils";
 
 export default function NavBar() {
   const { LANG, CONFIG, BLOG, PRODUCT } = React.useContext(GlobalContext);
@@ -97,6 +96,7 @@ export default function NavBar() {
               }
               onClick={() => {
                 setNavActive((value) => !value);
+                trackingCustomClick({ click_type: `NavIcon-MobMore` });
               }}
             >
               <span className={styles.control_icon}></span>
@@ -358,7 +358,7 @@ function RightArea({ navActive, setNavActive }) {
           tanslatefromX={-4}
           position="bottom"
           selectValue={async (e) => {
-            tracking.clickNavUser();
+            trackingCustomClick({ click_type: `NavIcon-User` });
             if (e === "loginOut") {
               Api.loginOut();
               location.reload();
@@ -379,7 +379,7 @@ function RightArea({ navActive, setNavActive }) {
       <li
         className={styles.header_cart}
         onClick={() => {
-          tracking.clickNavCart();
+          trackingCustomClick({ click_type: `NavIcon-Cart` });
           showCartModal();
         }}
       >
@@ -398,7 +398,7 @@ function RightArea({ navActive, setNavActive }) {
         className={styles.header_country}
         onClick={() => {
           showAreaModal();
-          tracking.clickNavArea();
+          trackingCustomClick({ click_type: `NavIcon-Area` });
         }}
       >
         <img

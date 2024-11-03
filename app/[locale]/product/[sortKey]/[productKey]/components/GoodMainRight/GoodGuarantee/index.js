@@ -7,6 +7,7 @@ import ProductGuarantee from "./components/ProductGuarantee";
 import ViewOrder from "./components/ViewOrder";
 
 import ProductContext from "../../../ProductContext";
+import { trackingCustomClick } from "@/utils";
 
 export default function GoodGuarantee() {
   const { LANG, CONFIG } = React.useContext(ProductContext);
@@ -21,6 +22,9 @@ export default function GoodGuarantee() {
         <div
           className={styles.item}
           onClick={() => {
+            trackingCustomClick({
+              click_type: "ProductGuarantee-DeliveryTerms",
+            });
             DeliveryTermsModalRef.current.show();
           }}
         >
@@ -39,6 +43,9 @@ export default function GoodGuarantee() {
         </div>
         <div
           onClick={() => {
+            trackingCustomClick({
+              click_type: "ProductGuarantee-ProductGuarantee",
+            });
             ProductGuaranteeRef.current.show();
           }}
           className={styles.item}
@@ -58,6 +65,7 @@ export default function GoodGuarantee() {
         </div>
         <div
           onClick={() => {
+            trackingCustomClick({ click_type: "ProductGuarantee-ViewOrder" });
             ViewOrderRef.current.show();
           }}
           className={styles.item}
@@ -82,6 +90,9 @@ export default function GoodGuarantee() {
           src={`${process.env.NEXT_PUBLIC_FILE}/image/icon/product-email.png`}
         />
         <a
+          onClick={() =>
+            trackingCustomClick({ click_type: "ProductGuarantee-Email" })
+          }
           href={`mailto:${CONFIG["company.basic.customer_service"]}`}
           target="_blank"
         >

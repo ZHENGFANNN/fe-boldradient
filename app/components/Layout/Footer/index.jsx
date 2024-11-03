@@ -21,13 +21,20 @@ import styles from "./index.module.scss";
 import NAVFUNC from "../../../config/NAVFUNC";
 import Api from "../api";
 import Link from "next/link";
+import { trackingCustomClick } from "@/utils";
 
 const FULLYEAR = new Date().getFullYear();
 
 function ShowLanguageItem() {
   const { area, showAreaModal } = React.useContext(GlobalContext);
   return (
-    <div className={styles.show_item} onClick={showAreaModal}>
+    <div
+      className={styles.show_item}
+      onClick={() => {
+        showAreaModal();
+        trackingCustomClick({ click_type: "FooterArea" });
+      }}
+    >
       <img
         className={styles.icon}
         alt={area}
@@ -189,30 +196,26 @@ export default function Footer() {
             {CONFIG["company.social_media.index"]?.map((item, index) => {
               return (
                 <div key={index}>
-                  {
-                    item.href ? (
-                      <a
-                        key={index}
-                        href={item.href}
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        <img
-                          alt={item.alt}
-                          width={24}
-                          height={24}
-                          src={item.src}
-                        />
-                      </a>
-                    ) : null
-                    // <a
-                    //   key={index}
-                    //   onClick={() => {
-                    //     ModalRef.current.showModal()
-                    //   }}>
-                    //   <img alt={item.alt} width={24} height={24} src={item.src} />
-                    // </a>
-                  }
+                  {item.href ? (
+                    <a
+                      key={index}
+                      href={item.href}
+                      target="_blank"
+                      rel="noreferrer"
+                      onClick={() =>
+                        trackingCustomClick({
+                          click_type: `FooterSocialMedia-${item.alt}`,
+                        })
+                      }
+                    >
+                      <img
+                        alt={item.alt}
+                        width={24}
+                        height={24}
+                        src={item.src}
+                      />
+                    </a>
+                  ) : null}
                 </div>
               );
             })}

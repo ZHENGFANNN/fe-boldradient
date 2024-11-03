@@ -7,6 +7,7 @@ import Cookie from "js-cookie";
 import styles from "./index.module.scss";
 import { languageMap } from "@/config/LANGUAGE";
 import { useRouter } from "next/navigation";
+import { trackingCustomClick } from "@/utils";
 
 function Modal(_, ref) {
   const [isMounted, setIsMounted] = React.useState(false);
@@ -78,6 +79,9 @@ function Modal(_, ref) {
                             // 不锁定，Facebook会导致重复重定向，导致404
                             if (lock) return;
                             setLock(true);
+                            trackingCustomClick({
+                              click_type: `AreaModal-${countryItem.country_code}`,
+                            });
                             const expires = new Date(
                               Date.now() + 720 * 24 * 60 * 60 * 1000
                             );

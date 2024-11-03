@@ -1,8 +1,9 @@
+import { trackingCustomClick } from "@/utils";
+
 export default {
   // 购买转化
   purchase: function ({ currency, value, discount, contents, type, from }) {
-    dataLayer.push({
-      event: "custom_click",
+    trackingCustomClick({
       click_type: "Purchase",
       click_data: {
         from,
@@ -23,8 +24,7 @@ export default {
     type,
     from,
   }) {
-    dataLayer.push({
-      event: "custom_click",
+    trackingCustomClick({
       click_type: "InitiateCheckout",
       click_data: {
         currency,

@@ -502,7 +502,7 @@
          
           
           &.header_mobile_height {
-            height: calc(100vh - 50px);
+            height: calc(100vh - 50px - env(safe-area-inset-bottom));
             display: flex;
             opacity: 1;
           }

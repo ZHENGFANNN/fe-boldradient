@@ -14,6 +14,7 @@ export default function LeftArea({ navActive, setNavActive }) {
   const { LANG, CONFIG, BLOG, PRODUCT, showAreaModal, area } =
     React.useContext(GlobalContext);
   const ModalRef = React.useRef(null);
+  const navContentRef = React.useRef(null);
 
   const countryText = React.useMemo(() => {
     const currentArea = countryMap[area];
@@ -33,8 +34,10 @@ export default function LeftArea({ navActive, setNavActive }) {
   // 逻辑处理
   // 展开导航栏屏幕（小于1080）
   React.useEffect(() => {
-    if (window.innerWidth > 1080) return;
+    const $mobileNav = navContentRef.current;
+    if (window.innerWidth > 1080 || !$mobileNav) return;
     if (navActive) {
+      $mobileNav.style = `height: ${window.innerHeight - 50}px;opacity: 1;`;
       document.body.style = "overflow: hidden";
     } else {
       const $navListDom = navListRef.current;
@@ -46,6 +49,7 @@ export default function LeftArea({ navActive, setNavActive }) {
         $activeNavContentDom.style = ``;
       }
       setActiveKey(undefined);
+      $mobileNav.style = "";
       document.body.style = "overflow: auto";
     }
   }, [navActive]);
@@ -168,6 +172,7 @@ export default function LeftArea({ navActive, setNavActive }) {
           </Link>
         </div>
         <div
+          ref={navContentRef}
           className={
             styles.header_nav +
             ` ${navActive ? styles.header_mobile_height : ""}`

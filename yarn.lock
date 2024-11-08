@@ -2764,6 +2764,14 @@ magic-string@^0.25.3:
   dependencies:
     sourcemap-codec "^1.4.8"
 
+maxmind@^4.3.22:
+  version "4.3.22"
+  resolved "https://registry.npmjs.org/maxmind/-/maxmind-4.3.22.tgz#8168a2d890d88626613b97eeecbb13fabe0074c4"
+  integrity sha512-dfLO11mE77ELTEIXNezfW0eslodsFLsZ1lQkLauP+5Zsg1m7kCGtljqRyVOd9E5Ne2RJgvY6UU09qvnVocOZvA==
+  dependencies:
+    mmdb-lib "2.1.1"
+    tiny-lru "11.2.11"
+
 merge2@^1.3.0:
   version "1.4.1"
   resolved "https://registry.npmmirror.com/merge2/-/merge2-1.4.1.tgz#4368892f885e907455a6fd7dc55c0c9d404990ae"
@@ -2848,6 +2856,11 @@ minimist@^1.2.0, minimist@^1.2.6:
   version "1.2.8"
   resolved "https://registry.npmmirror.com/minimist/-/minimist-1.2.8.tgz#c1a464e7693302e082a075cee0c057741ac4772c"
   integrity sha512-2yyAR8qBkN3YuheJanUpWC5U3bb5osDywNB8RzDVlDwDHbocAJveqqj1u8+SVD7jkWT4yvsHCpWqqWqAxb0zCA==
+
+mmdb-lib@2.1.1:
+  version "2.1.1"
+  resolved "https://registry.npmjs.org/mmdb-lib/-/mmdb-lib-2.1.1.tgz#c0d0bd35dc1fca41f0ebd043e43227ab04eb1792"
+  integrity sha512-yx8H/1H5AfnufiLnzzPqPf4yr/dKU9IFT1rPVwSkrKWHsQEeVVd6+X+L0nUbXhlEFTu3y/7hu38CFmEVgzvyeg==
 
 moment@^2.29.4:
   version "2.29.4"
@@ -3757,6 +3770,11 @@ text-table@^0.2.0:
   version "0.2.0"
   resolved "https://registry.npmmirror.com/text-table/-/text-table-0.2.0.tgz#7f5ee823ae805207c00af2df4a84ec3fcfa570b4"
   integrity sha512-N+8UisAXDGk8PFXP4HAzVR9nbfmVJ3zYLAWiTIoqC5v5isinhr+r5uaO8+7r3BMfuNIufIsA7RdpVgacC2cSpw==
+
+tiny-lru@11.2.11:
+  version "11.2.11"
+  resolved "https://registry.npmjs.org/tiny-lru/-/tiny-lru-11.2.11.tgz#5089a6a4a157f5a97b82aa930b44d550ac5c4778"
+  integrity sha512-27BIW0dIWTYYoWNnqSmoNMKe5WIbkXsc0xaCQHd3/3xT2XMuMJrzHdrO9QBFR14emBz1Bu0dOAs2sCBBrvgPQA==
 
 to-regex-range@^5.0.1:
   version "5.0.1"

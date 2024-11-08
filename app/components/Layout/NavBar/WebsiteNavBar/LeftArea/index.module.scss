@@ -249,14 +249,12 @@
                   }
                 }
               }
-  
             }
-  
           }
           &.nav_extend_country_select {
-            padding: 6px 0;
             display: none;
             cursor: pointer;
+            width: auto;
             .nav_item_title {
               align-items: center;
               color: #737373;
@@ -498,8 +496,6 @@
 
             }
           }
-
-         
           
           &.header_mobile_height {
             min-height: calc(100vh - 50px);

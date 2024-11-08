@@ -1,5 +1,3 @@
-/** @format */
-
 import { i18nRouter } from "next-i18n-router";
 import i18nConfig from "@@/i18nConfig";
 
@@ -10,9 +8,21 @@ import qs from "qs";
 import parser from "accept-language-parser";
 import { NextResponse } from "next/server";
 
+// import maxmind, { Reader } from "maxmind";
+
+// import fs from "fs";
+// const buffer = fs.readFileSync("@@/public/GeoLite2-Country.mmdb");
+// const lookup = maxmind.open("@@/public/GeoLite2-Country.mmdb");
+// const lookup = new Reader(buffer);
+
 export function middleware(request) {
   let area = request.cookies.get("area")?.value;
   let locale = request.cookies.get("locale")?.value;
+
+  // requestId({});
+  // const city = lookup.get("8.8.8.8");
+  // console.log("[city]: ", city);
+
   /**
    * 功能：
    *  1、判断地区Cookie是否存在

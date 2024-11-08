@@ -12,7 +12,9 @@ export default function WebsiteNavBar() {
     <>
       {/* 网页导航栏 */}
       <nav className={styles.nav}>
-        <div className={styles.header + ` ${navActive ? styles.active : ""}`}>
+        <div
+          className={[styles.header, navActive ? styles.active : ""].join(" ")}
+        >
           {/* 左边区域 */}
           <LeftArea navActive={navActive} setNavActive={setNavActive} />
           {/* 右边区域 */}

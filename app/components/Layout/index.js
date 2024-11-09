@@ -1,5 +1,3 @@
-/** @format */
-
 "use client";
 import React from "react";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
@@ -9,6 +7,7 @@ import Api from "@/request";
 
 import CartModal from "./CartModal";
 import AreaModal from "./AreaModal";
+import ContactModal from "./ContactModal";
 
 export default function Layout({
   locale,
@@ -95,11 +94,15 @@ export default function Layout({
    * 地区选择器
    */
   const areaRef = React.useRef(null);
+  /**
+   * 联系我们
+   */
+  const contactRef = React.useRef(null);
 
   return (
     <GlobalContext.Provider
       value={{
-        // 配置数据
+        // Config
         locale,
         area,
         LANG,
@@ -107,26 +110,32 @@ export default function Layout({
         CONFIG,
         PRODUCT,
         goodDiscountFestival,
-        // 用户信息
+        // UserInfo
         userInfo,
         setUserInfo,
-        // 购物车数量
+        // ProductNum
         productNum,
         setProductNum,
-        // 展示购物车
+        // Show Cart Modal
         showCartModal: () => {
           cartRef.current.show();
         },
-        // 展示地区选择器
+        // Show Area Modal
         showAreaModal: () => {
           areaRef.current.show();
         },
+        // Show Contact Modal
+        showContactModal: () => {
+          contactRef.current.show();
+        },
       }}
     >
-      {/* 购物车 */}
+      {/* Cart Modal */}
       <CartModal ref={cartRef} />
-      {/* 地区选择 */}
+      {/* Area Modal */}
       <AreaModal ref={areaRef} />
+      {/* Contact Modal */}
+      <ContactModal ref={contactRef} />
       {children}
     </GlobalContext.Provider>
   );

@@ -4,8 +4,8 @@ const request = {
   loginOut: () => {
     return api.get(`/user/loginOut`);
   },
-  subscribeUser: (data) => {
-    return api.post(`/user/subscribeUser`, data);
+  contactForm: (data) => {
+    return api.post(`/user/contactForm`, data);
   },
 };
 

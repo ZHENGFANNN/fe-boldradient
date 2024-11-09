@@ -44,7 +44,6 @@ function Modal(_, ref) {
 
   return ReactDOM.createPortal(
     <div
-      data-role="area-modal"
       className={`${styles.modal}`}
       data-show={show}
       onClick={() => {

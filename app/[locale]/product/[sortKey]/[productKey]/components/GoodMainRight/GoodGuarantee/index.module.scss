@@ -72,16 +72,15 @@
         flex: 1;
         padding: 16px 0;
         margin-top: 24px;
+        color: #4795e9;
+        font-size: 12px;
+        line-height: 18px;
+        text-decoration: none;
+        cursor: pointer;
         img {
             margin-right: 6px;
             width: 18px;
             height: 18px;
-        }
-        a {
-            color: #4795e9;
-            font-size: 12px;
-            line-height: 18px;
-            text-decoration: none;
         }
     }
 }

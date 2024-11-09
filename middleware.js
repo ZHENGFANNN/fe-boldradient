@@ -32,7 +32,6 @@ function getUrlAreaCode(request) {
 export async function middleware(request) {
   let area = request.cookies.get("area")?.value;
   let locale = request.cookies.get("locale")?.value;
-
   /**
    * 功能：
    *  1、判断地区Cookie是否存在
@@ -84,7 +83,6 @@ export async function middleware(request) {
   const curLocale =
     returnOptions.headers.get("x-next-i18n-router-locale") || "en";
   if (curLocale !== locale) {
-    console.log("[curLocale]: ", curLocale, locale);
     let baseUrl;
     // 特殊处理英文
     if (curLocale === "en") {

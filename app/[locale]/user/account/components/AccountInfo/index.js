@@ -2,13 +2,13 @@
 
 import { useForm } from "react-hook-form";
 import styles from "./index.module.scss";
-import { isEmail } from "../../../../../utils/pattern";
+import { isEmail } from "@/utils/pattern";
 import React from "react";
 import { useParams } from "next/navigation";
 import Api from "../../api";
 import GlobalContext from "@/[locale]/context";
 import EditPasswordForm from "../EditPasswordForm/index";
-import Loading from "../../../../../components/Loading";
+import Loading from "@/components/Loading";
 
 function FormInput({ inputProps, label, error }) {
   return (

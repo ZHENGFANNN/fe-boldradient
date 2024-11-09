@@ -35,9 +35,9 @@
       font-weight: 400;
       text-align: center;
       white-space: pre-line;
-      a {
+      .modal_context {
         color: #1890ff;
-        text-decoration: none;
+        cursor: pointer;
       }
     }
   }

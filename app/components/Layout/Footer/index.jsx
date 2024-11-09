@@ -1,5 +1,3 @@
-/** @format */
-
 "use client";
 /**
  * 底部配置
@@ -50,7 +48,7 @@ function ShowLanguageItem() {
 }
 
 export default function Footer() {
-  const { locale, LANG, CONFIG, BLOG, PRODUCT } =
+  const { locale, area, LANG, CONFIG, BLOG, PRODUCT } =
     React.useContext(GlobalContext);
   const ModalRef = React.useRef(null);
   const navList = React.useMemo(() => {
@@ -73,14 +71,17 @@ export default function Footer() {
       setEmailStatue("error");
     } else {
       try {
-        const data = await Api.subscribeUser({
+        const data = await Api.contactForm({
+          type: "subscribe",
           email,
           path: location.pathname,
           language: locale,
+          area,
         });
         if (data.code !== 0) throw new Error("code!==0");
         else setEmailStatue("success");
       } catch (err) {
+        console.log("[contactForm]: ", err);
         setEmailStatue("fail");
       }
     }

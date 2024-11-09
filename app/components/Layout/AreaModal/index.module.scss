@@ -281,27 +281,12 @@
         bottom: auto;
   
         box-sizing: border-box;
-        padding: 24px;
+        padding: 24px 12px;
         border-radius: 20px 20px 0 0;
         max-height: calc(90vh - 80px);
         opacity: 0;
-        .header {
-          .title {
-          }
-          .close {
-          }
-        }
-  
         .conutry_container {
-          .tip {
-            a {
-              &:hover {
-              }
-            }
-          }
           .area_container {
-            h2 {
-            }
             .country_list {
               .country_item {
                 margin-right: 0;

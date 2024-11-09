@@ -1,0 +1,95 @@
+.container {
+  margin-bottom: 12px;
+  width: 100%;
+  .input_container {
+    position: relative;
+    width: auto;
+    height: 120px;
+    textarea {
+      position: relative;
+      z-index: 1;
+
+      width: 100%;
+      height: 100%;
+      box-sizing: border-box;
+
+      font-size: 14px;
+      font-family: 'Open Sans', 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', 'Hiragino Sans GB', 'WenQuanYi Micro Hei', Arial, sans-serif;;
+      color: #000;
+
+      border-radius: 10px;
+      padding: 22px 26px 6px 20px;
+
+      border: 1px solid rgba(0, 0, 0, 0.15);
+      transition: all 0.3s;
+      outline: none;
+      background: transparent;
+
+      background-clip: content-box;
+      &::-webkit-resizer {
+        display: none;
+      }
+      &.input_error {
+        border: 1px solid #f13649;
+      }
+      &:focus {
+        border: 1px solid rgba(0, 0, 0, 0.8);
+      }
+      &:disabled {
+        background: #f5f5f5;
+        cursor: not-allowed;
+      }
+    }
+
+    textarea:disabled + .input_label {
+      z-index: 1;
+    }
+
+    .input_label {
+      position: absolute;
+      left: 20px;
+      right: 0;
+      top: 16px;
+      bottom: 0;
+
+      text-transform: capitalize;
+
+      display: flex;
+      transition: all 0.3s;
+
+      font-size: 14px;
+      color: #afb1b4;
+
+      transform-origin: left top;
+      &:not(.input_empyt) {
+        transform: scale(0.8) translateY(-10px);
+      }
+      &.text_error {
+        color: #f13649;
+      }
+    }
+    .input_symbol {
+      position: absolute;
+      right: 16px;
+      top: 16px;
+      bottom: 0;
+
+      font-size: 14px;
+
+      display: flex;
+      color: red;
+    }
+    textarea:focus + .input_label {
+      transform: scale(0.8) translateY(-10px);
+    }
+  }
+
+  .input_tip {
+    margin-top: 6px;
+    font-size: 12px;
+    line-height: 17px;
+    color: rgb(153, 153, 153);
+
+    text-align: left;
+  }
+}

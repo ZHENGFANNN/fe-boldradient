@@ -1,0 +1,11 @@
+.form_item_container {
+    display: flex;
+    width: 100%;
+    .form_item {
+        flex: 1;
+        margin-right: 12px;
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+  }

@@ -1,10 +1,10 @@
-/** @format */
-
 "use client";
+
 import React from "react";
-import Link from "next/link";
 import styles from "./index.module.scss";
+import GlobalContext from "@/[locale]/context";
 export default function Advantage({ LANG }) {
+  const { showContactModal } = React.useContext(GlobalContext);
   return (
     <div
       className={styles.tip_container}
@@ -41,9 +41,9 @@ export default function Advantage({ LANG }) {
           />
         </div>
         <div className={styles.tip_item_text}>
-          <Link scroll={true} rel="noreferrer" href={`/company/contact`}>
+          <div className={styles.modal_context} onClick={showContactModal}>
             {LANG["common.advantage.contact"]}
-          </Link>
+          </div>
         </div>
       </div>
     </div>

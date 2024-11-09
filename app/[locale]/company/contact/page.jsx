@@ -1,10 +1,13 @@
-/** @format */
-
-import Link from "next/link";
+import React from "react";
 import { contactList } from "./config";
 import { isEmail } from "../../../utils/pattern";
 import styles from "./page.module.scss";
 import getConfigData from "../../../utils/getConfigData";
+import GlobalContext from "@/[locale]/context";
+import Email from "./components/Email";
+import Link from "./components/Link";
+import Text from "./components/Text";
+import Modal from "./components/Modal";
 
 export const runtime = "edge";
 
@@ -71,30 +74,18 @@ export default async function Contact({ params }) {
             <li key={index} className={styles.content_row}>
               <div className={styles.content_row_container}>
                 <h3 className={styles.content_row_title}>{item.title}</h3>
-                {isEmail.exec(item.content) ? (
-                  <a
-                    href={"mailto:" + item.content}
-                    className={
-                      styles.content_row_description + " " + styles.blue
-                    }
-                  >
-                    {item.content}
-                  </a>
-                ) : item.content?.startsWith("/") ? (
-                  <Link
-                    scroll={true}
-                    href={item.content}
-                    className={
-                      styles.content_row_description + " " + styles.blue
-                    }
-                  >
-                    {LANG["www.company_contact.click_view"]}
-                  </Link>
-                ) : (
-                  <div className={styles.content_row_description}>
-                    {item.content}
-                  </div>
-                )}
+                {item.type === "email" ? (
+                  <Email styles={styles} item={item} LANG={LANG} />
+                ) : null}
+                {item.type === "href" ? (
+                  <Link styles={styles} item={item} LANG={LANG} />
+                ) : null}
+                {item.type === "text" ? (
+                  <Text styles={styles} item={item} LANG={LANG} />
+                ) : null}
+                {item.type === "modal" ? (
+                  <Modal styles={styles} item={item} LANG={LANG} />
+                ) : null}
               </div>
             </li>
           );

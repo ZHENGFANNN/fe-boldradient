@@ -1,22 +1,28 @@
-import styles from "./index.module.scss";
 import React from "react";
+import ReactDOM from "react-dom";
+import styles from "./index.module.scss";
 
 function ShowTipModal(_, ref) {
   const t1 = React.useRef(null);
   const [show, setShow] = React.useState(false);
   const [text, setText] = React.useState();
   const [type, setType] = React.useState();
+  const [firstReader, setFirstReader] = React.useState(true);
+
   React.useImperativeHandle(ref, () => {
     return {
       show: ({ text, type }) => {
-        setText(text);
-        setType(type);
-        if (show) return;
-        if (t1.current) clearTimeout(t1);
-        setShow(true);
-        t1.current = setTimeout(() => {
-          setShow(false);
-        }, 3000);
+        setFirstReader(false);
+        setTimeout(() => {
+          setText(text);
+          setType(type);
+          if (show) return;
+          if (t1.current) clearTimeout(t1);
+          setShow(true);
+          t1.current = setTimeout(() => {
+            setShow(false);
+          }, 3000);
+        }, 0);
       },
     };
   });
@@ -25,7 +31,10 @@ function ShowTipModal(_, ref) {
       clearTimeout(t1.current);
     };
   }, []);
-  return (
+
+  if (firstReader) return null;
+
+  return ReactDOM.createPortal(
     <div className={`${styles.contaner} ${show ? styles.show : ""}`}>
       <div className={styles.inner_container}>
         <div className={styles.content}>
@@ -56,7 +65,8 @@ function ShowTipModal(_, ref) {
           <div className={styles.text}>{text}</div>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
 

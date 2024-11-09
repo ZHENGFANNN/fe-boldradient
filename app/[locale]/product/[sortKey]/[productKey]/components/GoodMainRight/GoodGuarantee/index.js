@@ -8,8 +8,10 @@ import ViewOrder from "./components/ViewOrder";
 
 import ProductContext from "../../../ProductContext";
 import { trackingCustomClick } from "@/utils";
+import GlobalContext from "@/[locale]/context";
 
 export default function GoodGuarantee() {
+  const { showContactModal } = React.useContext(GlobalContext);
   const { LANG, CONFIG } = React.useContext(ProductContext);
 
   const DeliveryTermsModalRef = React.useRef();
@@ -84,20 +86,18 @@ export default function GoodGuarantee() {
           <div className={styles.arrow_icon}></div>
         </div>
       </div>
-      <div className={styles.email_question_container}>
+      <div
+        className={styles.email_question_container}
+        onClick={() => {
+          showContactModal();
+          trackingCustomClick({ click_type: "ProductGuarantee-Email" });
+        }}
+      >
         <img
           alt={LANG["store.product.question_email"]}
           src={`${process.env.NEXT_PUBLIC_FILE}/image/icon/product-email.png`}
         />
-        <a
-          onClick={() =>
-            trackingCustomClick({ click_type: "ProductGuarantee-Email" })
-          }
-          href={`mailto:${CONFIG["company.basic.customer_service"]}`}
-          target="_blank"
-        >
-          {LANG["store.product.question_email"]}
-        </a>
+        <div>{LANG["store.product.question_email"]}</div>
       </div>
       <DeliveryTermsModal
         LANG={LANG}

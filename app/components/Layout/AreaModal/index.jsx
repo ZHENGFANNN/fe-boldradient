@@ -67,7 +67,7 @@ function Modal(_, ref) {
             </div>
           </div>
           <div className={styles.conutry_container}>
-            <div className={styles.tip}>
+            <div className={styles.area_tip}>
               {LANG["common.other.not_area_list"]}{" "}
               <Link scroll={true} target="_blank" href="/company/contact">
                 {LANG["common.other.contact_us"]}

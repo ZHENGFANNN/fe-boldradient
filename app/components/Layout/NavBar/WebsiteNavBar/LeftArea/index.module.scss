@@ -8,7 +8,7 @@
     .header_logo {
       position: relative;
       z-index: 3;
-      padding-right: 12px;
+      padding-right: 16px;
       cursor: pointer;
       img {
         height: 32px;
@@ -24,7 +24,7 @@
         color: #000;
         font-weight: 500;
         font-size: 18px;
-        margin-left: 8px;
+        margin-left: 10px;
         letter-spacing: 1px;
       }
     }
@@ -132,12 +132,18 @@
             width: 100%;
             background: #fff;
             box-shadow: 0 2px 5px rgb(0 0 0 / 10%);
-            height: 0px;
             overflow: hidden;
-            transition: all 400ms ease-in-out;
-    
+            
             box-sizing: border-box;
             padding: 0 24px;
+            transition: all 400ms ease-in-out;
+
+            height: 0px;
+
+            &.disabled_animation {
+              transition: none;
+            }
+
             .nav_item_content_wrapper {
               padding: 24px 0;
               max-width: 1200px;
@@ -186,7 +192,7 @@
               }
   
               .nav_item_content_text {
-                  padding-left: 58px;
+                  padding-left: 42px;
                   position: relative;
                   display: block;
                   white-space: pre-line;
@@ -371,10 +377,11 @@
             max-height: none;
             transition: none;
             padding: 8px 16px;
-            margin-bottom: 42px;
 
             white-space: nowrap;
             border-top: 1px solid rgba(0, 0, 0, 0.06);
+
+            margin-bottom: 42px;
             li {
               position: relative;
               width: calc(100% - 32px);

@@ -14,7 +14,10 @@ export default function LeftArea({ navActive, setNavActive }) {
   const { LANG, CONFIG, BLOG, PRODUCT, showAreaModal, area } =
     React.useContext(GlobalContext);
   const ModalRef = React.useRef(null);
-  const navContentRef = React.useRef(null);
+  // Nav Content
+  const navListContainerRef = React.useRef(null);
+  // 下拉激活
+  const [activeKey, setActiveKey] = React.useState();
 
   const countryText = React.useMemo(() => {
     const currentArea = countryMap[area];
@@ -34,10 +37,10 @@ export default function LeftArea({ navActive, setNavActive }) {
   // 逻辑处理
   // 展开导航栏屏幕（小于1080）
   React.useEffect(() => {
-    const $mobileNav = navContentRef.current;
+    const $mobileNav = navListContainerRef.current;
     if (window.innerWidth > 1080 || !$mobileNav) return;
     if (navActive) {
-      $mobileNav.style = `height: ${window.innerHeight - 50}px;opacity: 1;`;
+      $mobileNav.style = `min-height: ${window.innerHeight - 50}px;opacity: 1;`;
       document.body.style = "overflow: hidden";
     } else {
       const $navListDom = navListRef.current;
@@ -58,8 +61,6 @@ export default function LeftArea({ navActive, setNavActive }) {
     屏幕（大于1080）
   */
   const navListRef = React.useRef(null);
-  // 下拉激活
-  const [activeKey, setActiveKey] = React.useState();
   // 下拉选项
   const [navContentActive, setNavContentActive] = React.useState(false);
   // 下拉高度设置
@@ -79,29 +80,26 @@ export default function LeftArea({ navActive, setNavActive }) {
     const $activeNavContentListDom = $navListDom.querySelectorAll(
       `.${styles.nav_item_content}`
     );
+
     let defaultHeight = 0;
     $activeNavContentListDom.forEach(($navContentDom) => {
       defaultHeight += $navContentDom.clientHeight;
-      $navContentDom.style = `height: 0; opacity: 0;`;
+      if (defaultHeight && navContentActive) {
+        $navContentDom.style = `transition: none; height: 0; opacity: 0;`;
+      } else {
+        $navContentDom.style = ` height: 0; opacity: 0;`;
+      }
     });
 
     if (navContentActive) {
-      $activeNavContentDom
-        .querySelectorAll("[data-src]")
-        .forEach(($imageDom) => {
-          const src = $imageDom.getAttribute("data-src");
-          $imageDom.setAttribute("src", src);
-          $imageDom.removeAttribute("data-src");
-        });
-
       if (defaultHeight) {
-        $activeNavContentDom.style = `transition: none; height: ${
+        $activeNavContentDom.style = `transition: none;height: ${
           height + 60
-        }px; opacity: 1;`;
+        }px;opacity: 1;`;
       } else {
         $activeNavContentDom.style = `transition: all 400ms ease-in-out;height: ${
           height + 60
-        }px; opacity: 1;`;
+        }px;opacity: 1;`;
       }
     }
   }, [activeKey, navContentActive]);
@@ -118,7 +116,6 @@ export default function LeftArea({ navActive, setNavActive }) {
         );
         $activeNavContentDom.style = ``;
       }
-
       setActiveKey(undefined);
       setNavContentActive(false);
       setNavActive(false);
@@ -172,7 +169,7 @@ export default function LeftArea({ navActive, setNavActive }) {
           </Link>
         </div>
         <div
-          ref={navContentRef}
+          ref={navListContainerRef}
           className={
             styles.header_nav +
             ` ${navActive ? styles.header_mobile_height : ""}`
@@ -202,51 +199,50 @@ export default function LeftArea({ navActive, setNavActive }) {
                       }
                     }}
                     onClick={() => {
-                      if (window.innerWidth <= 1080) {
-                        const $navListDom = navListRef.current;
-                        if (activeKey === item.key) {
-                          const $navDom = $navListDom.children[index];
-                          const $activeNavContentDom = $navDom.querySelector(
-                            `.${styles.nav_item_content}`
-                          );
-                          setActiveKey(undefined);
-                          $activeNavContentDom.style = `transition: all 400ms ease-in-out;height: 0px; opacity: 1;`;
-                          return;
-                        }
-
-                        for (let i = 0; i < $navListDom.children.length; i++) {
-                          const $navDom = $navListDom.children[i];
-                          const $activeNavContentDom = $navDom.querySelector(
-                            `.${styles.nav_item_content}`
-                          );
-                          $activeNavContentDom.style = `transition: all 400ms ease-in-out;height: 0px; opacity: 1;`;
-                        }
-
-                        const $activeNav = $navListDom.children[index];
-                        setActiveKey(item.key);
-
-                        const $activeNavContentDom = $activeNav.querySelector(
+                      if (window.innerWidth > 1080) return;
+                      const $navListDom = navListRef.current;
+                      // Mob Close Nav
+                      if (activeKey === item.key) {
+                        const $navDom = $navListDom.children[index];
+                        const $activeNavContentDom = $navDom.querySelector(
                           `.${styles.nav_item_content}`
                         );
-
-                        const $activeNavContentWrapperDom =
-                          $activeNav.querySelector(
-                            `.${styles.nav_item_content_wrapper}`
-                          );
-
-                        const height =
-                          $activeNavContentWrapperDom?.clientHeight;
-
-                        $activeNavContentDom
-                          .querySelectorAll("[data-src]")
-                          .forEach(($imageDom) => {
-                            const src = $imageDom.getAttribute("data-src");
-                            $imageDom.setAttribute("src", src);
-                            $imageDom.removeAttribute("data-src");
-                          });
-
-                        $activeNavContentDom.style = `transition: all 400ms ease-in-out;height: ${height}px; opacity: 1;`;
+                        setActiveKey(undefined);
+                        $activeNavContentDom.style = `transition: all 400ms ease-in-out;height: 0px; opacity: 1;`;
+                        return;
                       }
+
+                      // Mob Open Nav
+                      for (let i = 0; i < $navListDom.children.length; i++) {
+                        const $navDom = $navListDom.children[i];
+                        const $activeNavContentDom = $navDom.querySelector(
+                          `.${styles.nav_item_content}`
+                        );
+                        $activeNavContentDom.style = `transition: all 400ms ease-in-out;height: 0px; opacity: 1;`;
+                      }
+
+                      const $activeNav = $navListDom.children[index];
+                      setActiveKey(item.key);
+
+                      const $activeNavContentDom = $activeNav.querySelector(
+                        `.${styles.nav_item_content}`
+                      );
+
+                      const $activeNavContentWrapperDom =
+                        $activeNav.querySelector(
+                          `.${styles.nav_item_content_wrapper}`
+                        );
+
+                      const height = $activeNavContentWrapperDom?.clientHeight;
+                      $activeNavContentDom.style = `transition: all 400ms ease-in-out;height: ${height}px; opacity: 1;`;
+
+                      $activeNavContentDom
+                        .querySelectorAll("[data-src]")
+                        .forEach(($imageDom) => {
+                          const src = $imageDom.getAttribute("data-src");
+                          $imageDom.setAttribute("src", src);
+                          $imageDom.removeAttribute("data-src");
+                        });
                     }}
                     className={styles.nav_item_title}
                   >
@@ -256,10 +252,14 @@ export default function LeftArea({ navActive, setNavActive }) {
                   <div
                     className={styles.nav_item_content}
                     onMouseLeave={() => {
-                      setNavContentActive(false);
+                      if (window.innerWidth > 1080) {
+                        setNavContentActive(false);
+                      }
                     }}
                     onMouseOver={() => {
-                      setNavContentActive(true);
+                      if (window.innerWidth > 1080) {
+                        setNavContentActive(true);
+                      }
                     }}
                   >
                     <div

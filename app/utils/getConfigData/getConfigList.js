@@ -27,11 +27,12 @@ const configDataList = {
 const filterConfig = async function ({ localeConfig, configNameSpace }) {
   const configObj = {};
   configNameSpace.forEach((nameSpace) => {
-    Object.keys(localeConfig).forEach((key) => {
-      if (key.startsWith(nameSpace) && !configObj[key]) {
-        configObj[key] = localeConfig[key];
-      }
-    });
+    localeConfig &&
+      Object.keys(localeConfig).forEach((key) => {
+        if (key.startsWith(nameSpace) && !configObj[key]) {
+          configObj[key] = localeConfig[key];
+        }
+      });
   });
   return configObj;
 };

@@ -26,9 +26,9 @@ export default function AnnouncementBar() {
         $firstTextDom.style.transition = "none";
         setActiveIndex(0);
         setTimeout(() => {
-          $textListDom.style.transition = "all 0.3s ease-in-out";
-          $activeTextDom.style.transition = "all 0.3s ease-in-out";
-          $firstTextDom.style.transition = "all 0.3s ease-in-out";
+          $textListDom.style.transition = "transform 0.3s ease-in-out";
+          $activeTextDom.style.transition = "transform 0.3s ease-in-out";
+          $firstTextDom.style.transition = "transform 0.3s ease-in-out";
         }, 50);
       }, 300);
     }

@@ -120,12 +120,11 @@
         background: #c8c9cd;
         border-radius: 4px;
       }
-      .tip {
+      .area_tip {
         font-size: 14px;
         color: rgba(0, 0, 0, 0.45);
         margin-bottom: 24px;
         text-align: left;
-        width: 100%;
         a {
           font-size: 14px;
           color: #69b1ff;
@@ -196,36 +195,38 @@
 
 @media screen and (max-width: 940px) {
   .modal {
-    .modal_content {
-      max-width: 800px;
-      box-sizing: border-box;
-      .header {
-        .title {
+    .modal_wrapper {
+      .modal_content {
+        max-width: 800px;
+        box-sizing: border-box;
+        .header {
+          .title {
+          }
+          .close {
+          }
         }
-        .close {
-        }
-      }
 
-      .conutry_container {
-        .tip {
-          a {
-            &:hover {
+        .conutry_container {
+          .tip {
+            a {
+              &:hover {
+              }
             }
           }
-        }
-        .area_container {
-          h2 {
-          }
-          .country_list {
-            .country_item {
-            font-size: 14px;
-              &:nth-child(3n + 3) {
-                margin-right: 12px;
+          .area_container {
+            h2 {
+            }
+            .country_list {
+              .country_item {
+              font-size: 14px;
+                &:nth-child(3n + 3) {
+                  margin-right: 12px;
+                }
+                &:nth-child(2n) {
+                  margin-right: 0;
+                }
+                width: calc(50% - 16px);
               }
-              &:nth-child(2n) {
-                margin-right: 0;
-              }
-              width: calc(50% - 16px);
             }
           }
         }

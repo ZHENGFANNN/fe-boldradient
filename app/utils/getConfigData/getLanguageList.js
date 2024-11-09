@@ -28,16 +28,17 @@ const languageList = {
 const filterLanguage = function ({ localeLanguage, languageNameSpace }) {
   const languageObj = {};
   languageNameSpace.forEach((nameSpace) => {
-    Object.keys(localeLanguage).forEach((key) => {
-      if (key.startsWith(nameSpace) && !languageObj[key]) {
-        languageObj[key] = localeLanguage[key];
-      }
-    });
+    localeLanguage &&
+      Object.keys(localeLanguage).forEach((key) => {
+        if (key.startsWith(nameSpace) && !languageObj[key]) {
+          languageObj[key] = localeLanguage[key];
+        }
+      });
   });
   return languageObj;
 };
 
-export default async function getlanguageList({
+export default async function getLanguageList({
   locale,
   configList,
   languageNameSpace,

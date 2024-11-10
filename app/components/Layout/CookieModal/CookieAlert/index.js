@@ -52,7 +52,7 @@ function CookieSetting({ showCookieSetting }, ref) {
         setFirstRender(false);
         setTimeout(() => {
           setShow(true);
-        }, 0)
+        }, 100)
       }, 3000)
     }
   }, []);

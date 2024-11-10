@@ -45,6 +45,7 @@ async function getData({ locale, area }) {
       "common.footer",
       "common.other",
       "common.contact",
+      "common.cookie",
     ],
     configNameSpace: [
       "company.basic",

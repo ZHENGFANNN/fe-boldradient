@@ -36,7 +36,9 @@ function CookieSetting({ showCookieSetting }, ref) {
   React.useImperativeHandle(ref, () => ({
     show: () => {
       setFirstRender(false);
-      setShow(true);
+      setTimeout(() => {
+          setShow(true);
+      }, 0)
     },
   }));
 
@@ -48,7 +50,9 @@ function CookieSetting({ showCookieSetting }, ref) {
       setTimeout(() => {
         trackingCustomClick("cookie-alert-view");
         setFirstRender(false);
-        setShow(true);
+        setTimeout(() => {
+          setShow(true);
+        }, 0)
       }, 3000)
     }
   }, []);

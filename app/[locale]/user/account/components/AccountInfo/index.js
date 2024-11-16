@@ -47,7 +47,7 @@ export default function AccountInfo({ showTip, LANG }) {
         }
       })
       .catch((error) => {
-        location.href = "/";
+        location.href = "/user/login";
         Cookies.remove("token");
         console.log("[tokenLogin Error]: ", error);
       })
@@ -215,8 +215,8 @@ export default function AccountInfo({ showTip, LANG }) {
           <button
             onClick={() => {
               Api.loginOut();
-              location.href = "/";
               Cookies.remove("token");
+              location.href = "/";
             }}
             className={styles.exit_btn}
           >

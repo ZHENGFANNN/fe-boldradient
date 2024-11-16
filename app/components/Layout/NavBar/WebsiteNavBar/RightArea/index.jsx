@@ -54,8 +54,8 @@ export default function RightArea() {
             trackingCustomClick({ click_type: `NavIcon-User` });
             if (e === "loginOut") {
               Api.loginOut();
-              location.href = "/";
               Cookies.remove("token");
+              location.href = "/";
             } else {
               router.push(`/user/${e}`);
             }

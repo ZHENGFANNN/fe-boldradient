@@ -26,8 +26,6 @@ export default function LoginForm({ LANG }) {
     reset,
     formState: { errors },
   } = useForm();
-  const { setUserInfo } = React.useContext(GlobalContext);
-
   const [searchStr, setSearchStr] = React.useState();
   React.useEffect(() => {
     setSearchStr(location.search);
@@ -46,10 +44,6 @@ export default function LoginForm({ LANG }) {
       try {
         const data = await Api.userLogin(formData);
         if (data.code === 0) {
-          setUserInfo({
-            ...data.data,
-            loading: false,
-          });
           tipRef.current.show({
             text: LANG["www.user_login.login_success"],
             type: "success",

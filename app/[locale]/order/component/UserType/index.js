@@ -1,5 +1,3 @@
-/** @format */
-
 "use client";
 
 import React from "react";
@@ -11,6 +9,8 @@ import { useForm } from "react-hook-form";
 import Loading from "../../../../components/Loading";
 import { isEmail } from "../../../../utils/pattern";
 import Link from "next/link";
+import Cookies from "js-cookie";
+import Api from "../../api";
 
 function UserInfo({ LANG, token }, ref) {
   const {
@@ -21,15 +21,19 @@ function UserInfo({ LANG, token }, ref) {
   } = useForm();
   const formRef = React.useRef(null);
   const buttonRef = React.useRef(null);
-  const { userInfo } = React.useContext(GlobalContext);
-  const { setUserType, userType } = React.useContext(OrderContext);
+  const { setUserType, userType, userInfo, userLoading } =
+    React.useContext(OrderContext);
+
   const [touristsEmail, setTouristsEmail] = React.useState("");
 
   React.useEffect(() => {
-    setValue("user_email", userInfo?.email ?? "");
-    const tourists_email = localStorage.getItem("tourists_email");
-    setTouristsEmail(tourists_email);
-    setValue("tourists_email", tourists_email ?? "");
+    if (userInfo?.email) {
+      setValue("user_email", userInfo.email);
+    } else {
+      const tourists_email = localStorage.getItem("tourists_email");
+      setTouristsEmail(tourists_email);
+      setValue("tourists_email", tourists_email ?? "");
+    }
   }, [userInfo]);
 
   React.useImperativeHandle(ref, () => ({
@@ -107,37 +111,38 @@ function UserInfo({ LANG, token }, ref) {
       ) : null}
       {userType === "user" ? (
         <>
-          {userInfo?.email ? (
-            <div>
-              <div className={styles.content}>
-                <div
-                  className={`${styles.form_item} ${
-                    userInfo?.email ? styles.disabled : ""
-                  }`}
-                >
-                  <Input
-                    label={LANG["store.order.user_type.email"]}
-                    error={errors.user_email?.message}
-                    focus={userInfo?.email}
-                    inputProps={{
-                      disabled: userInfo?.email,
-                      maxLength: 15,
-                      ...register("user_email", {
-                        required: LANG["store.order.user_type.email_empyt"],
-                        pattern: {
-                          value: isEmail,
-                          message: LANG["store.order.user_type.email_error"],
-                        },
-                      }),
-                    }}
-                  />
-                </div>
-              </div>
-            </div>
+          {userLoading ? (
+            <Loading height={100} />
           ) : (
             <>
-              {token ? (
-                <Loading height={100} />
+              {userInfo?.email ? (
+                <div>
+                  <div className={styles.content}>
+                    <div
+                      className={`${styles.form_item} ${
+                        userInfo?.email ? styles.disabled : ""
+                      }`}
+                    >
+                      <Input
+                        label={LANG["store.order.user_type.email"]}
+                        error={errors.user_email?.message}
+                        focus={userInfo?.email}
+                        inputProps={{
+                          disabled: userInfo?.email,
+                          maxLength: 15,
+                          ...register("user_email", {
+                            required: LANG["store.order.user_type.email_empyt"],
+                            pattern: {
+                              value: isEmail,
+                              message:
+                                LANG["store.order.user_type.email_error"],
+                            },
+                          }),
+                        }}
+                      />
+                    </div>
+                  </div>
+                </div>
               ) : (
                 <div className={styles.content}>
                   <div className={styles.tip}>

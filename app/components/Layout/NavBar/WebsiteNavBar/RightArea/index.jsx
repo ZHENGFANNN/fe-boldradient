@@ -7,18 +7,26 @@ import { trackingCustomClick } from "@/utils";
 import DropSelect from "@/components/DropSelect";
 import Api from "@/components/Layout/api";
 import styles from "./index.module.scss";
+import Cookies from "js-cookie";
 
 export default function RightArea() {
   const router = useRouter();
-  const { LANG, userInfo, productNum, area, showCartModal, showAreaModal } =
+  const { LANG, productNum, area, showCartModal, showAreaModal } =
     React.useContext(GlobalContext);
+
+  const [isLogin, setIsLogin] = React.useState(false);
+  React.useEffect(() => {
+    const token = Cookies.get("token");
+    setIsLogin(!!token);
+  }, []);
+
   return (
     <ul className={styles.header_right}>
       {/* 用户ICON */}
       <li className={styles.header_user}>
         <DropSelect
           options={
-            userInfo
+            isLogin
               ? [
                   {
                     label: LANG["common.nav.my_account"],
@@ -46,7 +54,8 @@ export default function RightArea() {
             trackingCustomClick({ click_type: `NavIcon-User` });
             if (e === "loginOut") {
               Api.loginOut();
-              location.reload();
+              location.href = "/";
+              Cookies.remove("token");
             } else {
               router.push(`/user/${e}`);
             }

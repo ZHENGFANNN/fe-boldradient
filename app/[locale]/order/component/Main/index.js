@@ -23,6 +23,7 @@ import Advantage from "@/components/Layout/Advantage";
 import { formatCurrency, roundToDecimalPlaces } from "@/utils";
 
 import styles from "./index.module.scss";
+import Cookies from "js-cookie";
 
 export default function Main({
   CONFIG,
@@ -33,7 +34,8 @@ export default function Main({
 }) {
   const router = useRouter();
   const { locale } = useParams();
-  const { userInfo, PRODUCT } = React.useContext(GlobalContext);
+  const { PRODUCT } = React.useContext(GlobalContext);
+  const [userInfo, setUserInfo] = React.useState();
   const [orderLoading, setOrderLoading] = React.useState(false);
   // 订单备注
   const textareaRef = React.useRef();
@@ -48,6 +50,7 @@ export default function Main({
    */
   // 用户类型
   const [userType, setUserType] = React.useState("tourists");
+  const [userLoading, setUserLoading] = React.useState(false);
   // 用地址
   const [addressInfo, setAddressInfo] = React.useState();
   // 地址列表
@@ -55,7 +58,6 @@ export default function Main({
   const [addressLoading, setAddressLoading] = React.useState(false);
   const getAddressList = React.useCallback(() => {
     if (token) {
-      setUserType("user");
       setAddressLoading(true);
       Api.getUserAddress()
         .then((res) => {
@@ -70,6 +72,7 @@ export default function Main({
         });
     }
   }, []);
+
   React.useEffect(() => {
     // 获取地址列表
     getAddressList();
@@ -179,6 +182,31 @@ export default function Main({
     }, 0);
   }, [orderList]);
 
+  // 获取用户信息
+  React.useEffect(() => {
+    if (token) {
+      setUserLoading(true);
+      Api.tokenLogin()
+        .then((res) => {
+          if (res.code === 0) {
+            setUserInfo(res.data);
+            setUserType("user");
+          } else {
+            throw new Error("code !== 0");
+          }
+        })
+        .catch(() => {
+          Cookies.remove("token");
+          setUserType("tourists");
+        })
+        .finally(() => {
+          setUserLoading(false);
+        });
+    } else {
+      setUserType("tourists");
+    }
+  }, []);
+
   const discount = React.useMemo(() => {
     return orderList.reduce((pre, cur) => {
       if (GOODDISCOUNTFESTIVAL && cur.product_discount) {
@@ -255,6 +283,8 @@ export default function Main({
   return (
     <OrderContext.Provider
       value={{
+        userLoading,
+        userInfo,
         userType,
         setUserType,
       }}

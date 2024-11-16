@@ -13,6 +13,10 @@ const request = {
   getUserAddress: () => {
     return api.get("/user/getUserAddress");
   },
+  // Token登录
+  tokenLogin: () => {
+    return api.get("/user/tokenLogin");
+  },
   // 确认Paypal
   confirmPaypal: (data) => {
     return api.post("/pay/confirmPaypal", data);

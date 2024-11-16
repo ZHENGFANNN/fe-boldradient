@@ -27,6 +27,10 @@ const request = {
   getOrderList: () => {
     return api.post("/pay/getOrderList");
   },
+  // Token登陆
+  tokenLogin: () => {
+    return api.get("/user/tokenLogin");
+  },
 };
 
 export default request;

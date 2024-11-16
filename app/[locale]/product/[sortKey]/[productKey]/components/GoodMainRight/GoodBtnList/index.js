@@ -32,7 +32,6 @@ function PayButton({
   CONFIG,
   currency,
 }) {
-  const { userInfo = {} } = React.useContext(GlobalContext);
   const [{ isPending, isRejected, options }, dispatch] =
     usePayPalScriptReducer();
   const router = useRouter();
@@ -155,7 +154,6 @@ function PayButton({
             createOrder={async () => {
               // 处理订单
               return Api.createOrder({
-                ...userInfo,
                 pay_key: "payPal",
                 total_price: totalPrice,
                 discount,

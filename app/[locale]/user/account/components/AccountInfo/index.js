@@ -9,6 +9,7 @@ import Api from "../../api";
 import GlobalContext from "@/[locale]/context";
 import EditPasswordForm from "../EditPasswordForm/index";
 import Loading from "@/components/Loading";
+import Cookies from "js-cookie";
 
 function FormInput({ inputProps, label, error }) {
   return (
@@ -26,23 +27,34 @@ function FormInput({ inputProps, label, error }) {
 export default function AccountInfo({ showTip, LANG }) {
   const { locale } = useParams();
   const [loading, setLoading] = React.useState(true);
-  const { userInfo, setUserInfo } = React.useContext(GlobalContext);
+  const [userInfo, setUserInfo] = React.useState({});
   const {
     register,
     handleSubmit,
-    setValue,
+    reset,
     formState: { errors },
   } = useForm();
 
   React.useEffect(() => {
     setLoading(true);
-    if (userInfo) {
-      Object.keys(userInfo).forEach((key) => {
-        setValue(key, userInfo[key]);
+    Api.tokenLogin()
+      .then((res) => {
+        if (res.code === 0) {
+          setUserInfo(res.data);
+          reset(res.data);
+        } else {
+          throw new Error("code !== 0");
+        }
+      })
+      .catch((error) => {
+        location.href = "/";
+        Cookies.remove("token");
+        console.log("[tokenLogin Error]: ", error);
+      })
+      .finally(() => {
+        setLoading(false);
       });
-      setLoading(false);
-    }
-  }, [userInfo]);
+  }, []);
 
   const onSubmit = React.useCallback(
     async (values) => {
@@ -203,7 +215,8 @@ export default function AccountInfo({ showTip, LANG }) {
           <button
             onClick={() => {
               Api.loginOut();
-              location.reload();
+              location.href = "/";
+              Cookies.remove("token");
             }}
             className={styles.exit_btn}
           >

@@ -20,53 +20,6 @@ export default function Layout({
   goodDiscountFestival,
   children,
 }) {
-  const router = useRouter();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-  /**
-   * 功能：处理全局数据
-   * 数据：
-   *  - 商品数量
-   *  - 用户信息
-   */
-  //
-  // 用户信息
-  const [userInfo, setUserInfo] = React.useState(null);
-  /**
-   * 功能：用户鉴权
-   * 作用：判断页面是否需要鉴权
-   */
-  React.useEffect(() => {
-    if (userInfo) return;
-    const token = Cookies.get("token");
-    const asPath = `${pathname}${searchParams ? `?${searchParams}` : ""}`;
-    // ***需要鉴权的URL列表***
-    const tokenUrlList = ["/user/account"];
-    const isTokenVailable = tokenUrlList.some((item) => {
-      return pathname.endsWith(item);
-    });
-
-    if (token) {
-      setUserInfo({ loading: true });
-      Api.get(`/user/tokenLogin`)
-        .then((res) => {
-          if (res.code === 0) {
-            setUserInfo(res.data);
-          } else {
-            throw new Error("code !== 0");
-          }
-        })
-        .catch(() => {
-          Cookies.remove("token");
-          setUserInfo(null);
-          if (isTokenVailable) {
-            router.push(`/user/login?redirect=${asPath}`);
-          }
-        });
-    } else {
-      if (isTokenVailable) router.push(`/user/login?redirect=${asPath}`);
-    }
-  }, [pathname, searchParams, userInfo]);
   /**
    * 处理购物车数量
    */
@@ -99,7 +52,6 @@ export default function Layout({
    * 联系我们
    */
   const contactRef = React.useRef(null);
-
   return (
     <GlobalContext.Provider
       value={{
@@ -111,9 +63,6 @@ export default function Layout({
         CONFIG,
         PRODUCT,
         goodDiscountFestival,
-        // UserInfo
-        userInfo,
-        setUserInfo,
         // ProductNum
         productNum,
         setProductNum,

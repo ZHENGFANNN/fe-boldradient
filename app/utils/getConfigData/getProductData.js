@@ -1,5 +1,5 @@
 /** @format */
-import { cookies } from "next/headers";
+import { cookies, headers } from "next/headers";
 
 function handleProductList({ productList, area }) {
   if (Array.isArray(productList) && productList.length > 0) {
@@ -26,8 +26,16 @@ async function getData({ locale, nameSpace }) {
   const cacheKey = `${locale}:${area}:${nameSpace}`;
   const cachedData = localeData.get(cacheKey);
   if (!cachedData) {
-    let data =
-      await require(`@@/public/config/product/${nameSpace}/${locale}.json`);
+    // 改为运行时 fetch 静态资源，避免动态 require 把整个 public/config/product 打进 worker
+    const h = await headers();
+    const host = h.get("host");
+    const proto = h.get("x-forwarded-proto") || "https";
+    const res = await fetch(
+      `${proto}://${host}/config/product/${nameSpace}/${locale}.json`,
+      { cache: "force-cache" }
+    );
+    if (!res.ok) return null;
+    let data = await res.json();
 
     if (nameSpace.includes("product:")) {
       data.associateProduct = handleProductList({

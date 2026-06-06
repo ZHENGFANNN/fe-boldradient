@@ -44,6 +44,11 @@ export default function LoginForm({ LANG }) {
       try {
         const data = await Api.userLogin(formData);
         if (data.code === 0) {
+          // 后端把 JWT 放在 body.data，前端需自行落库到 token cookie，
+          // 后续请求由 axios 拦截器注入 Authorization: Bearer 头（否则登录态丢失）。
+          if (data.data) {
+            Cookies.set("token", data.data, { expires: 7 });
+          }
           tipRef.current.show({
             text: LANG["www.user_login.login_success"],
             type: "success",

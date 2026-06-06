@@ -146,10 +146,10 @@ export default function Main({
             // 地区相关
             priceSymbol: comboInfo.areaInfo.currency_symbol,
             priceCurrency: comboInfo.areaInfo.currency,
-            currency_unit: comboInfo.areaInfo.currency_unit,
-            product_price: comboInfo.areaInfo.product_price,
-            selling_price: comboInfo.areaInfo.selling_price,
-            product_discount: comboInfo.areaInfo.product_discount,
+            priceUnit: comboInfo.areaInfo.currency_unit,
+            productPrice: comboInfo.areaInfo.product_price,
+            sellingPrice: comboInfo.areaInfo.selling_price,
+            productDiscount: comboInfo.areaInfo.product_discount,
             stock: comboInfo.areaInfo.stock,
             // 产品相关
             name: product.name,
@@ -178,7 +178,7 @@ export default function Main({
   // 计算总价
   const totalPrice = React.useMemo(() => {
     return orderList.reduce((pre, cur) => {
-      return pre + cur.product_price * cur.productNum;
+      return pre + cur.productPrice * cur.productNum;
     }, 0);
   }, [orderList]);
 
@@ -209,8 +209,8 @@ export default function Main({
 
   const discount = React.useMemo(() => {
     return orderList.reduce((pre, cur) => {
-      if (GOODDISCOUNTFESTIVAL && cur.product_discount) {
-        return pre + (cur.product_price - cur.selling_price) * cur.productNum;
+      if (GOODDISCOUNTFESTIVAL && cur.productDiscount) {
+        return pre + (cur.productPrice - cur.sellingPrice) * cur.productNum;
       } else {
         return pre;
       }
@@ -400,17 +400,17 @@ export default function Main({
                           </div>
                         </div>
                         <div className={styles.order_price}>
-                          {GOODDISCOUNTFESTIVAL && item.product_discount ? (
+                          {GOODDISCOUNTFESTIVAL && item.productDiscount ? (
                             <div className={styles.discount}>{`${
                               item.priceSymbol
                             }${formatCurrency(
-                              item.selling_price * item.productNum,
-                              item.currency_unit
+                              item.sellingPrice * item.productNum,
+                              item.priceUnit
                             )}`}</div>
                           ) : null}
                           <div>{`${item.priceSymbol}${formatCurrency(
-                            item.product_price * item.productNum,
-                            item.currency_unit
+                            item.productPrice * item.productNum,
+                            item.priceUnit
                           )}`}</div>
                         </div>
                       </div>
@@ -422,7 +422,7 @@ export default function Main({
                     <h3>{LANG["store.order.good_total"]}</h3>
                     <span>{`${orderList[0]?.priceSymbol}${formatCurrency(
                       totalPrice - discount,
-                      orderList[0]?.currency_unit
+                      orderList[0]?.priceUnit
                     )}`}</span>
                   </div>
                   <div className={styles.price_item}>
@@ -438,7 +438,7 @@ export default function Main({
                   <h3>{LANG["store.order.total_price"]}</h3>
                   <span>{`${orderList[0]?.priceSymbol}${formatCurrency(
                     totalPrice - discount,
-                    orderList[0]?.currency_unit
+                    orderList[0]?.priceUnit
                   )}`}</span>
                 </div>
               </>
@@ -454,7 +454,7 @@ export default function Main({
               }}
             />
             {/* 银行支付方式 */}
-            {payKey === "bankTransfer" || payKey === "COD" ? (
+            {payKey === "bank" || payKey === "cod" ? (
               <div
                 className={styles.submit_btn}
                 onClick={async () => {
@@ -469,11 +469,11 @@ export default function Main({
                       pay_key: payKey,
                       total_price: roundToDecimalPlaces(
                         totalPrice,
-                        orderList[0]?.currency_unit
+                        orderList[0]?.priceUnit
                       ),
                       discount: roundToDecimalPlaces(
                         discount,
-                        orderList[0]?.currency_unit
+                        orderList[0]?.priceUnit
                       ),
                       order_list: orderList,
                     });
@@ -554,11 +554,11 @@ export default function Main({
                           pay_key: payKey,
                           total_price: roundToDecimalPlaces(
                             totalPrice,
-                            orderList[0]?.currency_unit
+                            orderList[0]?.priceUnit
                           ),
                           discount: roundToDecimalPlaces(
                             discount,
-                            orderList[0]?.currency_unit
+                            orderList[0]?.priceUnit
                           ),
                           order_list: orderList,
                         })

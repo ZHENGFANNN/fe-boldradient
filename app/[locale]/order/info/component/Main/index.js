@@ -35,10 +35,10 @@ export default function Main({ secret, locale, area, LANG, CONFIG }) {
                 productNum,
                 priceSymbol,
                 priceCurrency,
-                currency_unit,
-                selling_price,
-                product_price,
-                product_discount,
+                priceUnit,
+                sellingPrice,
+                productPrice,
+                productDiscount,
                 options,
                 image,
               } = item;
@@ -48,10 +48,10 @@ export default function Main({ secret, locale, area, LANG, CONFIG }) {
                 productNum,
                 priceSymbol,
                 priceCurrency,
-                currency_unit,
-                selling_price,
-                product_price,
-                product_discount,
+                priceUnit,
+                sellingPrice,
+                productPrice,
+                productDiscount,
                 options,
                 image,
               };
@@ -73,10 +73,10 @@ export default function Main({ secret, locale, area, LANG, CONFIG }) {
     return {
       wechat: LANG["store.order_info.wechat"],
       zhifubao: LANG["store.order_info.zhifubao"],
-      bankTransfer: LANG["store.order_info.transfer"],
+      bank: LANG["store.order_info.transfer"],
       creditCard: LANG["store.order_info.credit_card"],
       payPal: LANG["store.order_info.paypal"],
-      COD: LANG["store.order_info.pay_after_arrival"],
+      cod: LANG["store.order_info.pay_after_arrival"],
     };
   }, []);
 
@@ -230,7 +230,7 @@ export default function Main({ secret, locale, area, LANG, CONFIG }) {
                   order.order_list[0].priceSymbol
                 }${formatCurrency(
                   order.total_price,
-                  order.order_list[0].currency_unit
+                  order.order_list[0].priceUnit
                 )}`}</p>
               </li>
 
@@ -245,7 +245,7 @@ export default function Main({ secret, locale, area, LANG, CONFIG }) {
                         order.order_list[0].priceSymbol
                       }${formatCurrency(
                         order.discount,
-                        order.order_list[0].currency_unit
+                        order.order_list[0].priceUnit
                       )}`}</span>
                     </p>
                   </li>
@@ -257,7 +257,7 @@ export default function Main({ secret, locale, area, LANG, CONFIG }) {
                       order.order_list[0].priceSymbol
                     }${formatCurrency(
                       order.total_price - order.discount,
-                      order.order_list[0].currency_unit
+                      order.order_list[0].priceUnit
                     )}`}</p>
                   </li>
                 </>
@@ -272,7 +272,7 @@ export default function Main({ secret, locale, area, LANG, CONFIG }) {
                     order.order_list[0].priceSymbol
                   }${formatCurrency(
                     order.pay_price,
-                    order.order_list[0].currency_unit
+                    order.order_list[0].priceUnit
                   )}`}</p>
                 </li>
               ) : null}
@@ -330,19 +330,19 @@ export default function Main({ secret, locale, area, LANG, CONFIG }) {
                         </div>
                       </div>
                       <div className={styles.product_number}>
-                        {goodItem.product_discount ? (
+                        {goodItem.productDiscount ? (
                           <div className={styles.good_price}>{`${
                             goodItem.priceSymbol
                           }${formatCurrency(
-                            goodItem.selling_price * goodItem.productNum,
-                            order.order_list[0].currency_unit
+                            goodItem.sellingPrice * goodItem.productNum,
+                            order.order_list[0].priceUnit
                           )}`}</div>
                         ) : null}
                         <div className={styles.good_price}>{`${
                           goodItem.priceSymbol
                         }${formatCurrency(
-                          goodItem.product_price * goodItem.productNum,
-                          order.order_list[0].currency_unit
+                          goodItem.productPrice * goodItem.productNum,
+                          order.order_list[0].priceUnit
                         )}`}</div>
                       </div>
                     </div>
@@ -437,7 +437,7 @@ export default function Main({ secret, locale, area, LANG, CONFIG }) {
               </div>
             ) : null}
           </div>
-          {order.pay_key === "bankTransfer" ? (
+          {order.pay_key === "bank" ? (
             <div className={styles.transfer_container}>
               <div className={styles.transfer_title}>
                 <h3>{LANG["store.order_info.transfer_pay"]}</h3>

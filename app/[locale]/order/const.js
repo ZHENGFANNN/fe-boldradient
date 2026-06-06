@@ -14,7 +14,7 @@ export const domesticPay = function ({ CONFIG, LANG }) {
     // },
     // {
     //   title: LANG["store.order.pay_info.transfer"],
-    //   key: "bankTransfoer",
+    //   key: "bank",
     //   description: LANG["store.order.pay_info.transfer_detail"]
     //     .split("${1}")
     //     .join(CONFIG["company.basic.company_name"]),
@@ -48,7 +48,7 @@ export const foreignPay = function ({ CONFIG, LANG }) {
     // {
     //   title: LANG['store.order.pay_info.pay_after_arrival'],
     //   description: LANG['store.order.pay_info.pay_after_arrival_desc'],
-    //   key: 'COD',
+    //   key: 'cod',
     //   // imgList: [`${process.env.NEXT_PUBLIC_FILE}/common/image/icon/pay-paypal.png`],
     // },
     {
@@ -60,7 +60,7 @@ export const foreignPay = function ({ CONFIG, LANG }) {
     // {
     //   title: LANG['store.order.pay_info.transfer'],
     //   description: LANG['store.order.pay_info.transfer_detail'].split('${1}').join(CONFIG['company.basic.company_name']),
-    //   key: 'bankTransfer',
+    //   key: 'bank',
     //   imgList: [`${process.env.NEXT_PUBLIC_FILE}/common/image/icon/pay-transfer.png`],
     // },
   ];

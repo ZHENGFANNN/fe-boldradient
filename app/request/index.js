@@ -3,12 +3,29 @@
  * 请求拦截、响应拦截、错误统一处理
  */
 import axios from "axios";
+import Cookies from "js-cookie";
 // 创建axios实例
 
 const instance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_HOST,
   timeout: 30000,
   withCredentials: true,
+});
+
+/**
+ * 请求拦截器
+ * 后端鉴权只认 Authorization: Bearer <token>，这里从 token cookie 自动注入，
+ * 否则登录后所有需要登录态的接口（tokenLogin / 地址 / 订单）都会被当成游客。
+ */
+instance.interceptors.request.use((config) => {
+  if (typeof window !== "undefined") {
+    const token = Cookies.get("token");
+    if (token) {
+      config.headers = config.headers || {};
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+  }
+  return config;
 });
 
 /**

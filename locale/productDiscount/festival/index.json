@@ -1,51 +1,43 @@
 [
   {
     "languages": {
-      "cn": "免费运费 📦️",
-      "de": "Kostenloser Versand 📦️",
       "en": "Free Shipping 📦️111",
-      "es": "envío gratis 📦️",
-      "fr": "livraison gratuite 📦️",
-      "hk": "免運費 📦️",
-      "it": "spedizione gratuita 📦️",
       "ja": "送料無料 📦️",
-      "ko": "무료 배송 📦️",
-      "ru": "бесплатная доставка 📦️"
+      "zh-CN": "送料無料 📦️"
     },
     "start_time": 1780502400000,
     "end_time": 1780761600000,
     "discount": 0,
     "enabled": true,
-    "long_activity": false
+    "long_activity": false,
+    "enabled_countries": [
+      "CN",
+      "AU"
+    ]
   },
   {
     "languages": {
-      "cn": "黑五活动！！",
-      "en": "黑五活动！！"
+      "en": "黑五活动！！",
+      "zh-CN": "黑五活动！！"
     },
     "start_time": 1739203200000,
     "end_time": 1741363200000,
     "discount": 0,
     "enabled": true,
-    "long_activity": false
+    "long_activity": false,
+    "enabled_countries": null
   },
   {
     "languages": {
-      "cn": "春节",
-      "de": "Frühlingsfest",
       "en": "Spring Festival",
-      "es": "Festival de primavera",
-      "fr": "Fête du Printemps",
-      "hk": "春節",
-      "it": "Festa di Primavera",
       "ja": "春祭り",
-      "ko": "춘절",
-      "ru": "Праздник весны"
+      "zh-CN": "Spring Festival"
     },
     "start_time": 0,
     "end_time": 0,
     "discount": 0,
     "enabled": true,
-    "long_activity": true
+    "long_activity": true,
+    "enabled_countries": null
   }
 ]

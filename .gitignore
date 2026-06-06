@@ -42,5 +42,5 @@ cloudflare-env.d.ts
 next-env.d.ts
 
 
-# /locale/
-# /public/config
+/locale/
+/public/config

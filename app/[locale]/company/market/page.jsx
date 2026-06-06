@@ -48,7 +48,7 @@ export default async function Market({ params }) {
         </div>
         <img
           alt={LANG["www.company_market.contact"]}
-          src={`${process.env.NEXT_PUBLIC_FILE}/image/icon/bg.webp`}
+          src={`${process.env.NEXT_PUBLIC_FILE}/common/image/icon/bg.webp`}
           // CONFIG["www.cooperate.market_img"]
         />
       </section>

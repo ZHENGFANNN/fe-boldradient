@@ -34,7 +34,7 @@ export default function GoodGuarantee() {
             <div className={styles.icon}>
               <img
                 alt={LANG["store.product.service_agreement.delivery_terms"]}
-                src={`${process.env.NEXT_PUBLIC_FILE}/image/icon/product-deliver.svg`}
+                src={`${process.env.NEXT_PUBLIC_FILE}/common/image/icon/product-deliver.svg`}
               />
             </div>
             <div className={styles.text}>
@@ -56,7 +56,7 @@ export default function GoodGuarantee() {
             <div className={styles.icon}>
               <img
                 alt={LANG["store.product.service_agreement.produc_guarantee"]}
-                src={`${process.env.NEXT_PUBLIC_FILE}/image/icon/product-guarantee.svg`}
+                src={`${process.env.NEXT_PUBLIC_FILE}/common/image/icon/product-guarantee.svg`}
               />
             </div>
             <div className={styles.text}>
@@ -76,7 +76,7 @@ export default function GoodGuarantee() {
             <div className={styles.icon}>
               <img
                 alt={LANG["store.product.service_agreement.view_order"]}
-                src={`${process.env.NEXT_PUBLIC_FILE}/image/icon/product-order.svg`}
+                src={`${process.env.NEXT_PUBLIC_FILE}/common/image/icon/product-order.svg`}
               />
             </div>
             <div className={styles.text}>
@@ -95,7 +95,7 @@ export default function GoodGuarantee() {
       >
         <img
           alt={LANG["store.product.question_email"]}
-          src={`${process.env.NEXT_PUBLIC_FILE}/image/icon/product-email.png`}
+          src={`${process.env.NEXT_PUBLIC_FILE}/common/image/icon/product-email.png`}
         />
         <div>{LANG["store.product.question_email"]}</div>
       </div>

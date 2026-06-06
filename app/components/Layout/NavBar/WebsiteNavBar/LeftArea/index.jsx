@@ -324,7 +324,7 @@ export default function LeftArea({ navActive, setNavActive }) {
                   alt={countryMap[area].country}
                   src={`${
                     process.env.NEXT_PUBLIC_FILE
-                  }/image/icon/flags/${countryMap[
+                  }/common/image/icon/flags/${countryMap[
                     area
                   ].country_code.toLowerCase()}.svg`}
                 />
@@ -359,7 +359,7 @@ function NavSubNextItem({ setNavContentActive, setNavActive, href, type }) {
     >
       <img
         alt={LANG["common.nav.learn_more"]}
-        data-src={`${process.env.NEXT_PUBLIC_FILE}/image/icon/nav-learn-more.svg`}
+        data-src={`${process.env.NEXT_PUBLIC_FILE}/common/image/icon/nav-learn-more.svg`}
       />
       <p>{LANG["common.nav.learn_more"]}</p>
     </Link>

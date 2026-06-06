@@ -5,8 +5,8 @@ import ProductContext from "../../../ProductContext";
 import styles from "./index.module.scss";
 import { trackingCustomClick } from "@/utils";
 
-const active_icon = `${process.env.NEXT_PUBLIC_FILE}/image/icon/previews_stars_active_icon.svg`;
-const no_active_icon = `${process.env.NEXT_PUBLIC_FILE}/image/icon/previews_stars_icon.svg`;
+const active_icon = `${process.env.NEXT_PUBLIC_FILE}/common/image/icon/previews_stars_active_icon.svg`;
+const no_active_icon = `${process.env.NEXT_PUBLIC_FILE}/common/image/icon/previews_stars_icon.svg`;
 
 export default function GoodReviewsRate({ reviewNum, reviewScore }) {
   const { LANG, productInfo } = React.useContext(ProductContext);

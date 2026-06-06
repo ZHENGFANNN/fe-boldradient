@@ -11,8 +11,8 @@ import { IndexContent } from "../IndexContext";
 import { formatCurrency } from "@/utils";
 import tracking from "@/[locale]/tracking";
 
-const active_icon = `${process.env.NEXT_PUBLIC_FILE}/image/icon/previews_stars_active_icon.svg`;
-const no_active_icon = `${process.env.NEXT_PUBLIC_FILE}/image/icon/previews_stars_icon.svg`;
+const active_icon = `${process.env.NEXT_PUBLIC_FILE}/common/image/icon/previews_stars_active_icon.svg`;
+const no_active_icon = `${process.env.NEXT_PUBLIC_FILE}/common/image/icon/previews_stars_icon.svg`;
 
 function ReviewRate({ LANG, reviewScore, reviewsNum }) {
   return (

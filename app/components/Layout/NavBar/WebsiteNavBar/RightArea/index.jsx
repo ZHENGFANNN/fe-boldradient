@@ -65,7 +65,7 @@ export default function RightArea() {
             alt="avatar"
             width={24}
             height={24}
-            src={`${process.env.NEXT_PUBLIC_FILE}/image/icon/min-user.svg`}
+            src={`${process.env.NEXT_PUBLIC_FILE}/common/image/icon/min-user.svg`}
           />
         </DropSelect>
       </li>
@@ -83,7 +83,7 @@ export default function RightArea() {
           ) : null}
           <img
             alt="avatar"
-            src={`${process.env.NEXT_PUBLIC_FILE}/image/icon/min-cart.svg`}
+            src={`${process.env.NEXT_PUBLIC_FILE}/common/image/icon/min-cart.svg`}
           />
         </div>
       </li>
@@ -97,7 +97,7 @@ export default function RightArea() {
       >
         <img
           alt={area}
-          src={`${process.env.NEXT_PUBLIC_FILE}/image/icon/flags/${area}.svg`}
+          src={`${process.env.NEXT_PUBLIC_FILE}/common/image/icon/flags/${area}.svg`}
         />
       </li>
     </ul>

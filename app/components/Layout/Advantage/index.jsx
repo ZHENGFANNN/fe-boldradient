@@ -15,7 +15,7 @@ export default function Advantage({ LANG }) {
         <div className={styles.tip_item_img}>
           <img
             alt="store-car"
-            src={`${process.env.NEXT_PUBLIC_FILE}/image/icon/store-car.svg`}
+            src={`${process.env.NEXT_PUBLIC_FILE}/common/image/icon/store-car.svg`}
           />
         </div>
         <div className={styles.tip_item_text}>
@@ -26,7 +26,7 @@ export default function Advantage({ LANG }) {
         <div className={styles.tip_item_img}>
           <img
             alt="store-credit"
-            src={`${process.env.NEXT_PUBLIC_FILE}/image/icon/store-credit.svg`}
+            src={`${process.env.NEXT_PUBLIC_FILE}/common/image/icon/store-credit.svg`}
           />
         </div>
         <div className={styles.tip_item_text}>
@@ -37,7 +37,7 @@ export default function Advantage({ LANG }) {
         <div className={styles.tip_item_img}>
           <img
             alt="store-contact"
-            src={`${process.env.NEXT_PUBLIC_FILE}/image/icon/store-contact.svg`}
+            src={`${process.env.NEXT_PUBLIC_FILE}/common/image/icon/store-contact.svg`}
           />
         </div>
         <div className={styles.tip_item_text}>

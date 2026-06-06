@@ -59,11 +59,11 @@ export default function ArticleInfo({ titleList }) {
         >
           {isExpand ? (
             <img
-              src={`${process.env.NEXT_PUBLIC_FILE}/image/icon/blog-expand-icon.svg`}
+              src={`${process.env.NEXT_PUBLIC_FILE}/common/image/icon/blog-expand-icon.svg`}
             />
           ) : (
             <img
-              src={`${process.env.NEXT_PUBLIC_FILE}/image/icon/blog-collaspe-icon.svg`}
+              src={`${process.env.NEXT_PUBLIC_FILE}/common/image/icon/blog-collaspe-icon.svg`}
             />
           )}
         </div>

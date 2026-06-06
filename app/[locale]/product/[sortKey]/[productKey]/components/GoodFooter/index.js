@@ -111,7 +111,7 @@ export default function GoodFooter() {
                 >
                   <img
                     alt="combo"
-                    src={`${process.env.NEXT_PUBLIC_FILE}/image/icon/product-combo.svg`}
+                    src={`${process.env.NEXT_PUBLIC_FILE}/common/image/icon/product-combo.svg`}
                   />
                   <div className={styles.name_container}>
                     <h3>{productInfo.name}</h3>

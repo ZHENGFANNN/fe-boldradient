@@ -36,7 +36,7 @@ function ShowLanguageItem() {
       <img
         className={styles.icon}
         alt={area}
-        src={`${process.env.NEXT_PUBLIC_FILE}/image/icon/flags/${area}.svg`}
+        src={`${process.env.NEXT_PUBLIC_FILE}/common/image/icon/flags/${area}.svg`}
       />
       <div>{`${countryMap[area]?.country} (${
         languageMap[countryMap[area]?.language_code]?.label

@@ -37,7 +37,7 @@ export default function ShareIconList({ url, text }) {
           rel="noopener noreferrer"
         >
           <img
-            src={`${process.env.NEXT_PUBLIC_FILE}/image/icon/share-facebook.svg`}
+            src={`${process.env.NEXT_PUBLIC_FILE}/common/image/icon/share-facebook.svg`}
             alt="facebook"
           />
         </a>
@@ -48,7 +48,7 @@ export default function ShareIconList({ url, text }) {
           rel="noopener noreferrer"
         >
           <img
-            src={`${process.env.NEXT_PUBLIC_FILE}/image/icon/share-x.svg`}
+            src={`${process.env.NEXT_PUBLIC_FILE}/common/image/icon/share-x.svg`}
             alt="twitter"
           />
         </a>
@@ -59,7 +59,7 @@ export default function ShareIconList({ url, text }) {
           rel="noopener noreferrer"
         >
           <img
-            src={`${process.env.NEXT_PUBLIC_FILE}/image/icon/share-linkedin.svg`}
+            src={`${process.env.NEXT_PUBLIC_FILE}/common/image/icon/share-linkedin.svg`}
             alt="linkedin"
           />
         </a>
@@ -70,7 +70,7 @@ export default function ShareIconList({ url, text }) {
           rel="noopener noreferrer"
         >
           <img
-            src={`${process.env.NEXT_PUBLIC_FILE}/image/icon/share-email.svg`}
+            src={`${process.env.NEXT_PUBLIC_FILE}/common/image/icon/share-email.svg`}
             alt="mail"
           />
         </a>
@@ -85,7 +85,7 @@ export default function ShareIconList({ url, text }) {
           }}
         >
           <img
-            src={`${process.env.NEXT_PUBLIC_FILE}/image/icon/share-copy.svg`}
+            src={`${process.env.NEXT_PUBLIC_FILE}/common/image/icon/share-copy.svg`}
             alt="mail"
           />
         </a>

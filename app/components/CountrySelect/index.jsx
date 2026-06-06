@@ -30,7 +30,7 @@ function CountryList({ children }) {
             <img
               className={styles.icon}
               alt={area}
-              src={`${process.env.NEXT_PUBLIC_FILE}/image/icon/flags/${area}.svg`}
+              src={`${process.env.NEXT_PUBLIC_FILE}/common/image/icon/flags/${area}.svg`}
             />
             {/* <svg
               style={{
@@ -58,7 +58,7 @@ function CountryList({ children }) {
               alt="languages"
               width={24}
               height={24}
-              src={`${process.env.NEXT_PUBLIC_FILE}/image/icon/min-languages.svg`}
+              src={`${process.env.NEXT_PUBLIC_FILE}/common/image/icon/min-languages.svg`}
             /> */}
             <div>{countryText}</div>
           </>

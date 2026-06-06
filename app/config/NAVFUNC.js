@@ -87,22 +87,22 @@ export default function NAVFUNC({ type, LANG, BLOG, CONFIG, PRODUCT }) {
       {
         sub_title: LANG["common.nav.sales_policy"],
         href: "/protocol/sales",
-        img: `${process.env.NEXT_PUBLIC_FILE}/image/icon/nav-sales.svg`
+        img: `${process.env.NEXT_PUBLIC_FILE}/common/image/icon/nav-sales.svg`
       },
       {
         sub_title: LANG["common.nav.privacy_policy"],
         href: "/protocol/policy",
-        img: `${process.env.NEXT_PUBLIC_FILE}/image/icon/nav-privacy.svg`
+        img: `${process.env.NEXT_PUBLIC_FILE}/common/image/icon/nav-privacy.svg`
       },
       {
         sub_title: LANG["common.nav.user_service"],
         href: "/protocol/user",
-        img: `${process.env.NEXT_PUBLIC_FILE}/image/icon/nav-argeement.svg`
+        img: `${process.env.NEXT_PUBLIC_FILE}/common/image/icon/nav-argeement.svg`
       },
       {
         sub_title: LANG["common.nav.faq"],
         href: "/protocol/faq",
-        img: `${process.env.NEXT_PUBLIC_FILE}/image/icon/nav-faq.svg`
+        img: `${process.env.NEXT_PUBLIC_FILE}/common/image/icon/nav-faq.svg`
       }
     ]
   };
@@ -116,27 +116,27 @@ export default function NAVFUNC({ type, LANG, BLOG, CONFIG, PRODUCT }) {
       {
         sub_title: LANG["common.nav.company_profile"],
         href: "/company/introduce",
-        img: `${process.env.NEXT_PUBLIC_FILE}/image/icon/nav-company.svg`
+        img: `${process.env.NEXT_PUBLIC_FILE}/common/image/icon/nav-company.svg`
       },
       {
         sub_title: LANG["common.nav.market_collaboration"],
         href: "/company/market",
-        img: `${process.env.NEXT_PUBLIC_FILE}/image/icon/nav-market.svg`
+        img: `${process.env.NEXT_PUBLIC_FILE}/common/image/icon/nav-market.svg`
       },
       {
         sub_title: LANG["common.nav.technical_cooperation"],
         href: "/company/technology",
-        img: `${process.env.NEXT_PUBLIC_FILE}/image/icon/nav-technology.svg`
+        img: `${process.env.NEXT_PUBLIC_FILE}/common/image/icon/nav-technology.svg`
       },
       {
         sub_title: LANG["common.nav.supplier_cooperation"],
         href: "/company/supplier",
-        img: `${process.env.NEXT_PUBLIC_FILE}/image/icon/nav-suppiler.svg`
+        img: `${process.env.NEXT_PUBLIC_FILE}/common/image/icon/nav-suppiler.svg`
       },
       {
         sub_title: LANG["common.nav.contact_us"],
         href: "/company/contact",
-        img: `${process.env.NEXT_PUBLIC_FILE}/image/icon/nav-contact.svg`
+        img: `${process.env.NEXT_PUBLIC_FILE}/common/image/icon/nav-contact.svg`
       }
     ]
   };

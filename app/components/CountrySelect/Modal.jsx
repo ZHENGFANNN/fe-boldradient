@@ -105,7 +105,7 @@ function Modal(_, ref) {
                             alt={countryItem.country}
                             src={`${
                               process.env.NEXT_PUBLIC_FILE
-                            }/image/icon/flags/${countryItem.country_code.toLowerCase()}.svg`}
+                            }/common/image/icon/flags/${countryItem.country_code.toLowerCase()}.svg`}
                           />
                           {`${countryItem.country}  ( ${
                             languageMap[countryItem.language_code].label

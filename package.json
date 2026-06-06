@@ -48,7 +48,7 @@
     "zustand": "^4.4.6"
   },
   "resolutions": {
-    "esbuild": "0.25.5"
+    "esbuild": "0.27.3"
   },
   "devDependencies": {
     "@types/react": "18.3.12",

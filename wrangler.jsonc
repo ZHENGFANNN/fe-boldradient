@@ -3,7 +3,7 @@
   "account_id": "72b15fa81a48da4b92492a19ead56cf0",
   "name": "boldradiant-storefront",
   "main": ".open-next/worker.js",
-  "compatibility_date": "2025-03-01",
+  "compatibility_date": "2025-05-05",
   "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
   "assets": { "directory": ".open-next/assets", "binding": "ASSETS" },
 

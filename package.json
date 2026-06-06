@@ -47,6 +47,9 @@
     "yarn": "^1.22.21",
     "zustand": "^4.4.6"
   },
+  "resolutions": {
+    "esbuild": "0.25.5"
+  },
   "devDependencies": {
     "@types/react": "18.3.12",
     "autoprefixer": "^10.0.1",

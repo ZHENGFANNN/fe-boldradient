@@ -53,7 +53,8 @@ export default async function Order({ params }) {
     configList: ["config", "language", "goodDiscountFestival"],
     languageNameSpace: [
       "store.order",
-      "store.product.pay_fail",
+      "common.pay",
+      "user_account.shipping_address",
       "common.advantage",
     ],
     configNameSpace: [

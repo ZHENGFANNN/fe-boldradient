@@ -17,7 +17,7 @@ async function getData({ locale, area, sortKey, productKey }) {
     area,
     configList: ["config", "language", "product", "goodDiscountFestival"],
     productNameSpace: [`product:${sortKey}:${productKey}`],
-    languageNameSpace: ["store.product", "common.nav.sales_policy"],
+    languageNameSpace: ["store.product", "common.pay", "common.nav.sales_policy"],
     configNameSpace: [
       "company.basic.company_name",
       "company.basic.customer_service",
@@ -76,7 +76,7 @@ export default async function Layout({ children, params }) {
     sortKey,
     productKey,
     configList: ["config", "language", "good", "goodDiscountFestival"],
-    languageNameSpace: ["store.product", "common.nav.sales_policy"],
+    languageNameSpace: ["store.product", "common.pay", "common.nav.sales_policy"],
     configNameSpace: [
       "company.basic.company_name",
       "company.basic.customer_service",

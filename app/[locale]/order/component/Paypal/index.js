@@ -34,14 +34,14 @@ function PayButton({
           }}
         >
           <div className={styles.title}>
-            {LANG["store.product.pay_fail.title"]}
+            {LANG["common.pay.pay_button.pay_fail_title"]}
           </div>
           <div className={styles.button}>
-            {LANG["store.product.pay_fail.click_reload"]}
+            {LANG["common.pay.pay_button.pay_fail_click_reload"]}
           </div>
         </div>
         <div className={styles.tip}>
-          {LANG["store.product.pay_fail.error_tip"]?.replace(
+          {LANG["common.pay.pay_button.pay_fail_error_tip"]?.replace(
             "${email}",
             CONFIG["company.basic.customer_service"]
           )}

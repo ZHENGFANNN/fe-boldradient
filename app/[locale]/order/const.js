@@ -21,8 +21,8 @@ export const domesticPay = function ({ CONFIG, LANG }) {
     //   imgList: [`${process.env.NEXT_PUBLIC_FILE}/common/image/icon/pay-transfer.png`],
     // },
     {
-      title: LANG["store.order.pay_info.paypal"],
-      description: LANG["store.order.pay_info.paypal_detail"],
+      title: LANG["common.pay.pay_info.pay_list.paypal"],
+      description: LANG["common.pay.pay_info.pay_list.paypal_detail"],
       key: "payPal",
       imgList: [`${process.env.NEXT_PUBLIC_FILE}/common/image/icon/pay-paypal.png`],
     },
@@ -52,8 +52,8 @@ export const foreignPay = function ({ CONFIG, LANG }) {
     //   // imgList: [`${process.env.NEXT_PUBLIC_FILE}/common/image/icon/pay-paypal.png`],
     // },
     {
-      title: LANG["store.order.pay_info.paypal"],
-      description: LANG["store.order.pay_info.paypal_detail"],
+      title: LANG["common.pay.pay_info.pay_list.paypal"],
+      description: LANG["common.pay.pay_info.pay_list.paypal_detail"],
       key: "payPal",
       imgList: [`${process.env.NEXT_PUBLIC_FILE}/common/image/icon/pay-paypal.png`],
     },

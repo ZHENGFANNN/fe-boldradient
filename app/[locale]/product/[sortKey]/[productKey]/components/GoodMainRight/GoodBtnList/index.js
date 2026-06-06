@@ -119,14 +119,14 @@ function PayButton({
           }}
         >
           <div className={styles.title}>
-            {LANG["store.product.pay_fail.title"]}
+            {LANG["common.pay.pay_button.pay_fail_title"]}
           </div>
           <div className={styles.button}>
-            {LANG["store.product.pay_fail.click_reload"]}
+            {LANG["common.pay.pay_button.pay_fail_click_reload"]}
           </div>
         </div>
         <div className={styles.tip}>
-          {LANG["store.product.pay_fail.error_tip"]?.replace(
+          {LANG["common.pay.pay_button.pay_fail_error_tip"]?.replace(
             "${email}",
             CONFIG["company.basic.customer_service"]
           )}
@@ -182,7 +182,7 @@ function PayButton({
                 .catch((error) => {
                   console.log(`[Page Paypal createOrder]: ${error}`);
                   showTip({
-                    text: LANG["store.product.create_error"],
+                    text: LANG["common.pay.pay_button.create_error"],
                     type: "error",
                   });
                 });
@@ -199,7 +199,7 @@ function PayButton({
                       contents: orderList,
                     });
                     showTip({
-                      text: LANG["store.product.pay_success"],
+                      text: LANG["common.pay.pay_button.pay_success"],
                       type: "success",
                     });
                     // 移除订单信息
@@ -214,7 +214,7 @@ function PayButton({
                 .catch(() => {
                   console.log(`[Page Paypal onApprove]: ${error}`);
                   showTip({
-                    text: LANG["store.product.pay_fail_tip"],
+                    text: LANG["common.pay.pay_button.pay_fail_tip"],
                     type: "error",
                   });
                 });
@@ -223,7 +223,7 @@ function PayButton({
               return;
               if (data.orderID) {
                 showTip({
-                  text: LANG["store.product.pay_cancel"],
+                  text: LANG["common.pay.pay_button.pay_cancel"],
                   type: "error",
                 });
                 setTimeout(() => {
@@ -234,7 +234,7 @@ function PayButton({
             onError={(error) => {
               console.log(`[Page Paypal onError]: ${error}`);
               showTip({
-                text: LANG["store.product.pay_error"],
+                text: LANG["common.pay.pay_button.pay_error"],
                 type: "error",
               });
             }}

@@ -85,22 +85,22 @@ export default function NAVFUNC({ type, LANG, BLOG, CONFIG, PRODUCT }) {
     title: LANG["common.nav.support"],
     list: [
       {
-        sub_title: LANG["common.nav.sales_policy"],
+        sub_title: LANG["common.footer.sales_policy"],
         href: "/protocol/sales",
         img: `${process.env.NEXT_PUBLIC_FILE}/common/image/icon/nav-sales.svg`
       },
       {
-        sub_title: LANG["common.nav.privacy_policy"],
+        sub_title: LANG["common.footer.privacy_policy"],
         href: "/protocol/policy",
         img: `${process.env.NEXT_PUBLIC_FILE}/common/image/icon/nav-privacy.svg`
       },
       {
-        sub_title: LANG["common.nav.user_service"],
+        sub_title: LANG["common.footer.user_service"],
         href: "/protocol/user",
         img: `${process.env.NEXT_PUBLIC_FILE}/common/image/icon/nav-argeement.svg`
       },
       {
-        sub_title: LANG["common.nav.faq"],
+        sub_title: LANG["common.footer.faq"],
         href: "/protocol/faq",
         img: `${process.env.NEXT_PUBLIC_FILE}/common/image/icon/nav-faq.svg`
       }

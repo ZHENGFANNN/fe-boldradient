@@ -238,7 +238,7 @@ export default function Main({
 
     if (!emailForm || !addressForm) {
       showTip({
-        text: LANG["store.order.basic_info_tip"],
+        text: LANG["common.pay.pay_info.basic_info_tip"],
         type: "info",
       });
       return null;
@@ -315,7 +315,7 @@ export default function Main({
                 </>
               ) : null}
               <div className={styles.address_header}>
-                <h2>{LANG["store.order.shipping_address"]}</h2>
+                <h2>{LANG["common.pay.pay_info.shipping_address"]}</h2>
                 {userType === "user" ? (
                   <NewAddressForm
                     LANG={LANG}
@@ -345,7 +345,7 @@ export default function Main({
 
             <div className={styles.pay_container}>
               <div className={styles.address_header}>
-                <h2>{LANG["store.order.pay_way"]}</h2>
+                <h2>{LANG["common.pay.pay_info.pay_method_title"]}</h2>
               </div>
               <PayList
                 ref={payRef}
@@ -357,12 +357,12 @@ export default function Main({
             </div>
 
             <div className={styles.order_remark}>
-              <h2>{LANG["store.order.order_remark"]}</h2>
+              <h2>{LANG["common.pay.pay_info.order_remark"]}</h2>
               <div className={styles.textarea_input}>
                 <textarea
                   maxLength={500}
                   ref={textareaRef}
-                  placeholder={LANG["store.order.order_remark_placeholder"]}
+                  placeholder={LANG["common.pay.pay_info.order_remark_placeholder"]}
                 />
               </div>
             </div>
@@ -501,7 +501,7 @@ export default function Main({
                   } catch (error) {
                     setOrderLoading(false);
                     showTip({
-                      text: LANG["store.order.create_error"],
+                      text: LANG["common.pay.pay_button.create_error"],
                       type: "error",
                     });
                   }
@@ -529,7 +529,7 @@ export default function Main({
                           return;
                         } else {
                           showTip({
-                            text: LANG["store.order.pay_error"],
+                            text: LANG["common.pay.pay_button.pay_error"],
                             type: "error",
                           });
                         }
@@ -537,7 +537,7 @@ export default function Main({
                       onCancel={(data) => {
                         if (data.orderID) {
                           showTip({
-                            text: LANG["store.order.pay_cancel"],
+                            text: LANG["common.pay.pay_button.pay_cancel"],
                             type: "error",
                           });
                           setTimeout(() => {
@@ -581,7 +581,7 @@ export default function Main({
                           })
                           .catch(() => {
                             showTip({
-                              text: LANG["store.order.create_error"],
+                              text: LANG["common.pay.pay_button.create_error"],
                               type: "error",
                             });
                           });
@@ -602,7 +602,7 @@ export default function Main({
                                 contents: orderList,
                               });
                               showTip({
-                                text: LANG["store.order.pay_success"],
+                                text: LANG["common.pay.pay_button.pay_success"],
                                 type: "success",
                               });
                               // 移除订单信息
@@ -617,7 +617,7 @@ export default function Main({
                           })
                           .catch(() => {
                             showTip({
-                              text: LANG["store.order.pay_fail_tip"],
+                              text: LANG["common.pay.pay_button.pay_fail_tip"],
                               type: "error",
                             });
                           });

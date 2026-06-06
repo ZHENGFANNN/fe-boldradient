@@ -80,7 +80,7 @@ function AddressForm({ LANG }, ref) {
           error={errors.area?.message}
           inputProps={{
             ...register("area", {
-              required: LANG["store.order.address_form.area_required"],
+              required: LANG["user_account.shipping_address.area_required"],
             }),
           }}
         />
@@ -88,26 +88,26 @@ function AddressForm({ LANG }, ref) {
       <div className={styles.form_group_1_1}>
         <div className={styles.form_item}>
           <FormInput
-            label={LANG["store.order.address_form.first_name"]}
+            label={LANG["user_account.shipping_address.first_name"]}
             error={errors.first_name?.message}
             focus={addressForm?.first_name}
             inputProps={{
               maxLength: 15,
               ...register("first_name", {
-                required: LANG["store.order.address_form.first_name_require"],
+                required: LANG["user_account.shipping_address.first_name_require"],
               }),
             }}
           />
         </div>
         <div className={styles.form_item}>
           <FormInput
-            label={LANG["store.order.address_form.last_name"]}
+            label={LANG["user_account.shipping_address.last_name"]}
             error={errors.last_name?.message}
             focus={addressForm?.last_name}
             inputProps={{
               maxLength: 15,
               ...register("last_name", {
-                required: LANG["store.order.address_form.last_name_require"],
+                required: LANG["user_account.shipping_address.last_name_require"],
               }),
             }}
           />
@@ -118,15 +118,15 @@ function AddressForm({ LANG }, ref) {
           <div className={`${styles.form_item} ${styles.form_item_1}`}>
             <FormInput
               error={errors.short_phone?.message}
-              label={LANG["store.order.address_form.area_code"]}
+              label={LANG["user_account.shipping_address.area_code"]}
               focus={addressForm.short_phone}
               inputProps={{
                 maxLength: 5,
                 ...register("short_phone", {
-                  required: LANG["store.order.address_form.code_require"],
+                  required: LANG["user_account.shipping_address.code_require"],
                   pattern: {
                     value: ISPHONEOBERVER,
-                    message: LANG["store.order.address_form.incorrect_code"],
+                    message: LANG["common.pay.pay_info.incorrect_code"],
                   },
                 }),
               }}
@@ -136,15 +136,15 @@ function AddressForm({ LANG }, ref) {
         <div className={`${styles.form_item} ${styles.form_item_2}`}>
           <FormInput
             error={errors.phone?.message}
-            label={LANG["store.order.address_form.phone"]}
+            label={LANG["user_account.shipping_address.phone"]}
             focus={addressForm.phone}
             inputProps={{
               maxLength: 11,
               ...register("phone", {
-                required: LANG["store.order.address_form.phone_require"],
+                required: LANG["user_account.shipping_address.phone_require"],
                 pattern: {
                   value: areaMap?.area_code === "cn" ? ISPHONE : ISPHONEOBERVER,
-                  message: LANG["store.order.address_form.incorrect_phone"],
+                  message: LANG["user_account.shipping_address.incorrect_phone"],
                 },
               }),
             }}
@@ -154,12 +154,12 @@ function AddressForm({ LANG }, ref) {
       <div className={styles.form_item}>
         <FormInput
           error={errors.zip_code?.message}
-          label={LANG["store.order.address_form.zip_code"]}
+          label={LANG["user_account.shipping_address.zip_code"]}
           focus={addressForm.zip_code}
           inputProps={{
             maxLength: 20,
             ...register("zip_code", {
-              required: LANG["store.order.address_form.zip_code_require"],
+              required: LANG["user_account.shipping_address.zip_code_required"],
             }),
           }}
         />
@@ -167,12 +167,12 @@ function AddressForm({ LANG }, ref) {
       <div className={styles.form_item}>
         <FormInput
           error={errors.address1?.message}
-          label={LANG["store.order.address_form.address"]}
+          label={LANG["user_account.shipping_address.address"]}
           focus={addressForm.address1}
           inputProps={{
             maxLength: 500,
             ...register("address1", {
-              required: LANG["store.order.address_form.address_require"],
+              required: LANG["user_account.shipping_address.address_require"],
             }),
           }}
         />
@@ -181,7 +181,7 @@ function AddressForm({ LANG }, ref) {
         <FormInput
           error={errors.address2?.message}
           required={false}
-          label={LANG["store.order.address_form.detail_address"]}
+          label={LANG["common.pay.pay_info.detail_address"]}
           focus={addressForm.address2}
           inputProps={{
             maxLength: 500,

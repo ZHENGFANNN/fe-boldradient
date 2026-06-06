@@ -92,7 +92,7 @@ function UserInfo({ LANG, token }, ref) {
           <div className={styles.content}>
             <div className={styles.form_item}>
               <Input
-                label={LANG["store.order.user_type.email"]}
+                label={LANG["common.pay.pay_info.email"]}
                 error={errors.tourists_email?.message}
                 focus={touristsEmail}
                 inputProps={{
@@ -100,7 +100,7 @@ function UserInfo({ LANG, token }, ref) {
                     required: LANG["store.order.user_type.email_empyt"],
                     pattern: {
                       value: isEmail,
-                      message: LANG["store.order.user_type.email_error"],
+                      message: LANG["common.pay.pay_info.email_error"],
                     },
                   }),
                 }}
@@ -124,7 +124,7 @@ function UserInfo({ LANG, token }, ref) {
                       }`}
                     >
                       <Input
-                        label={LANG["store.order.user_type.email"]}
+                        label={LANG["common.pay.pay_info.email"]}
                         error={errors.user_email?.message}
                         focus={userInfo?.email}
                         inputProps={{
@@ -135,7 +135,7 @@ function UserInfo({ LANG, token }, ref) {
                             pattern: {
                               value: isEmail,
                               message:
-                                LANG["store.order.user_type.email_error"],
+                                LANG["common.pay.pay_info.email_error"],
                             },
                           }),
                         }}
@@ -154,7 +154,7 @@ function UserInfo({ LANG, token }, ref) {
                       href={`/user/login?redirect=${location.href}`}
                       className={styles.btn_item}
                     >
-                      {LANG["store.order.user_type.login"]}
+                      {LANG["common.pay.pay_info.login"]}
                     </Link>
                     <Link
                       scroll={true}

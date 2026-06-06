@@ -3,7 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import styles from "./index.module.scss";
-import { formatCurrency } from "../../../../../../../utils";
+import { formatCurrency, fillOssImage } from "../../../../../../../utils";
 
 import "@splidejs/splide/css";
 import Splide from "@splidejs/splide";
@@ -69,7 +69,7 @@ export default function ProductList({ products, goodDiscountFestival, LANG }) {
                       <img
                         alt={item.name}
                         className={styles.product_image}
-                        src={item.image}
+                        src={fillOssImage(item.image)}
                       />
                     </div>
                     <div className={styles.content_container}>

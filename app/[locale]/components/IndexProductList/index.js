@@ -8,7 +8,7 @@ import styles from "./index.module.scss";
 import Link from "next/link";
 import { IndexContent } from "../IndexContext";
 
-import { formatCurrency } from "@/utils";
+import { formatCurrency, fillOssImage } from "@/utils";
 import tracking from "@/[locale]/tracking";
 
 const active_icon = `${process.env.NEXT_PUBLIC_FILE}/common/image/icon/previews_stars_active_icon.svg`;
@@ -69,14 +69,14 @@ function ProductItem({ goodList }) {
                   data-loading
                   className={styles.product_image}
                   alt={product.name}
-                  src={product.image}
+                  src={fillOssImage(product.image)}
                 />
                 {product.image_scenes ? (
                   <img
                     data-loading
                     className={styles.scenes_image}
                     alt={product.name}
-                    src={product.image_scenes}
+                    src={fillOssImage(product.image_scenes)}
                   />
                 ) : null}
               </div>

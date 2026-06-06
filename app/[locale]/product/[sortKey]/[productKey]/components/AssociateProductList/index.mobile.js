@@ -6,7 +6,7 @@ import React from "react";
 import "@splidejs/splide/css";
 import Splide from "@splidejs/splide";
 
-import { formatCurrency } from "../../../../../../utils";
+import { formatCurrency, fillOssImage } from "../../../../../../utils";
 
 import ProductContext from "../../ProductContext";
 import { lazyLoadImages } from "../../../../../../utils/optimization";
@@ -84,7 +84,7 @@ export default function MobProductList({
                       <Image
                         alt={item.name}
                         className={styles.product_image}
-                        src={item.image}
+                        src={fillOssImage(item.image)}
                       />
                     </div>
                     <div className={styles.content_container}>

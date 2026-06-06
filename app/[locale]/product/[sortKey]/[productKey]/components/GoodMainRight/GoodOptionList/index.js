@@ -4,6 +4,7 @@
 import React from "react";
 import styles from "./index.module.scss";
 import ProductContext from "../../../ProductContext";
+import { fillOssImage } from "@/utils";
 
 function GoodOptionItem({ title = "", options = [], type }) {
   const {
@@ -61,7 +62,7 @@ function GoodOptionItem({ title = "", options = [], type }) {
                   });
                 }}
               >
-                <img alt={item.title} src={item.image} />
+                <img alt={item.title} src={fillOssImage(item.image)} />
               </div>
             );
           }

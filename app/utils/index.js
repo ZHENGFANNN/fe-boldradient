@@ -95,6 +95,19 @@ export function formatCurrency(value, unit = 100) {
 }
 
 /**
+ * @desc 阿里云 OSS 图片处理：把 m_pad(等比缩放后用底色填充留白) 改成
+ *       m_fill(等比缩放铺满目标框后居中裁切)，并去掉只对 pad 有效的 color_ 参数，
+ *       让非正方形产品图占满正方形卡片、不再出现白边。
+ * @param url 图片地址(可能带 ?x-oss-process=image/resize,m_pad,w_1000,h_1000,color_FFFFFF)
+ */
+export function fillOssImage(url) {
+  if (typeof url !== "string" || !url.includes("x-oss-process")) return url;
+  return url
+    .replace(/m_pad/g, "m_fill")
+    .replace(/,color_[0-9a-fA-F]+/g, "");
+}
+
+/**
  * @desc format JSON
  */
 export function getJsonData(data) {

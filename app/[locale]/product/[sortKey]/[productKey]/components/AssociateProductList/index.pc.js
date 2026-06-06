@@ -2,7 +2,7 @@
 
 import React from "react";
 
-import { formatCurrency } from "../../../../../../utils";
+import { formatCurrency, fillOssImage } from "../../../../../../utils";
 import ProductContext from "../../ProductContext";
 import styles from "./index.module.scss";
 import Link from "next/link";
@@ -103,13 +103,13 @@ export default function PcProductList({
                     <Image
                       className={styles.image_product}
                       alt={item.name}
-                      src={item.image}
+                      src={fillOssImage(item.image)}
                     />
                     {item.image_scenes ? (
                       <Image
                         className={styles.image_scenes}
                         alt={item.name}
-                        src={item.image_scenes}
+                        src={fillOssImage(item.image_scenes)}
                       />
                     ) : null}
                   </div>

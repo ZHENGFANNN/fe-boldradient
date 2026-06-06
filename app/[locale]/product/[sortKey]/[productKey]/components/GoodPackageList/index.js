@@ -7,6 +7,7 @@ import React from "react";
 
 import Image from "../../../../../../components/Image";
 import { lazyLoadImages } from "../../../../../../utils/optimization";
+import { fillOssImage } from "../../../../../../utils";
 import ProductContext from "../../ProductContext";
 
 export default function Package() {
@@ -69,7 +70,7 @@ export default function Package() {
                   key={index}
                 >
                   <Image
-                    src={item.image}
+                    src={fillOssImage(item.image)}
                     alt={`${name}_${LANG["store.product.packaging_list"]}`}
                   />
                 </div>

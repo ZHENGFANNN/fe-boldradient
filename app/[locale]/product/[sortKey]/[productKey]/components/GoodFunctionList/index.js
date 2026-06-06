@@ -5,6 +5,7 @@ import styles from "./index.module.scss";
 
 import Image from "../../../../../../components/Image";
 import { lazyLoadImages } from "../../../../../../utils/optimization";
+import { fillOssImage } from "../../../../../../utils";
 import ProductContext from "../../ProductContext";
 
 export default function GoodFunctionList() {
@@ -38,7 +39,7 @@ export default function GoodFunctionList() {
               return (
                 <li key={index}>
                   <h3>{item.name}</h3>
-                  <Image alt={item.name} src={item.image} />
+                  <Image alt={item.name} src={fillOssImage(item.image)} />
                 </li>
               );
             })}

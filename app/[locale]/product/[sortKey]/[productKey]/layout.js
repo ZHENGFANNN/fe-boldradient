@@ -105,7 +105,10 @@ export default async function Layout({ children, params }) {
                 name: productInfo.name,
                 image: productInfo.image_list.map((item) => item.src),
                 description:
-                  productInfo.description || productInfo.sellingList.join(","),
+                  productInfo.description ||
+                  productInfo.sellingList?.join(",") ||
+                  productInfo.page_description ||
+                  "",
                 offers: {
                   "@type": "Offer",
                   price:

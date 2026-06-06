@@ -20,7 +20,7 @@ export const viewport = {
   maximumScale: 1,
   minimumScale: 1,
   userScalable: "no",
-  appleMobileWebAppCapable: "yes",
+  appleMobileWebAppCapable: "yes"
 };
 
 /**
@@ -37,7 +37,7 @@ async function getData({ locale, area }) {
       "blog",
       "good",
       "product",
-      "goodDiscountFestival",
+      "goodDiscountFestival"
     ],
     languageNameSpace: [
       "common.nav",
@@ -45,16 +45,16 @@ async function getData({ locale, area }) {
       "common.footer",
       "common.other",
       "common.contact",
-      "common.cookie",
+      "common.cookie"
     ],
     configNameSpace: [
       "company.basic",
       "company.sales_channels.index",
       "company.social_media.index",
-      "page.common",
+      "page.common"
     ],
     blogNameSpace: ["layout"],
-    productNameSpace: ["layout", "sort"],
+    productNameSpace: ["layout", "sort"]
   });
 
   const productList = [];
@@ -70,7 +70,7 @@ async function getData({ locale, area }) {
     image: item.image,
     comboList: item.comboList.map(
       ({ img_list, smart_img, description, ...combo }) => combo
-    ),
+    )
   }));
 
   return result;
@@ -83,7 +83,7 @@ export default async function RootLayout(props) {
   const area = cookieStore.get("area")?.value || "us";
   const { CONFIG, LANG, GOODDISCOUNTFESTIVAL, BLOG, PRODUCT } = await getData({
     locale,
-    area,
+    area
   });
 
   return (

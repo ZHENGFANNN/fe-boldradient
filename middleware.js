@@ -73,15 +73,16 @@ export async function middleware(request) {
   // 设置Cookie
   const expires = new Date(Date.now() + 720 * 24 * 60 * 60 * 1000);
   returnOptions.cookies.set("locale", locale, {
-    expires,
+    expires
   });
   returnOptions.cookies.set("area", area, {
-    expires,
+    expires
   });
 
   // 判断URL与locale是否一致;
   const curLocale =
     returnOptions.headers.get("x-next-i18n-router-locale") || "en";
+
   if (curLocale !== locale) {
     let baseUrl;
     // 特殊处理英文
@@ -111,5 +112,5 @@ export async function middleware(request) {
 }
 
 export const config = {
-  matcher: "/((?!service|static|config|icon|.*\\..*|_next).*)",
+  matcher: "/((?!service|static|config|icon|.*\\..*|_next).*)"
 };

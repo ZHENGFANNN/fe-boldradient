@@ -12,11 +12,11 @@
       "ko": "무료 배송 📦️",
       "ru": "бесплатная доставка 📦️"
     },
-    "start_time": 0,
-    "end_time": 0,
+    "start_time": 1780502400000,
+    "end_time": 1780761600000,
     "discount": 0,
     "enabled": true,
-    "long_activity": true
+    "long_activity": false
   },
   {
     "languages": {

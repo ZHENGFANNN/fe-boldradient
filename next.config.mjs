@@ -1,5 +1,12 @@
-const path = require("path");
+import path from "path";
+import { fileURLToPath } from "url";
+import { initOpenNextCloudflareForDev } from "@opennextjs/cloudflare";
 
+initOpenNextCloudflareForDev();
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+/** @type {import('next').NextConfig} */
 const nextConfig = {
   // 构建ID
   generateBuildId: () => {
@@ -11,25 +18,11 @@ const nextConfig = {
   compress: true,
   // 开启ETag
   generateEtags: true,
-  // 图片白名单
-  images: {
-    domains: ["image.sslfly.com", "public.sslfly.com"],
-  },
-  async redirects() {
-    return [
-      {
-        source: "/product",
-        destination: "/",
-        permanent: true,
-      },
-    ];
-  },
-
   webpack: (config) => {
     config.resolve.alias["@"] = path.join(__dirname, "app");
     config.resolve.alias["@@"] = __dirname;
     return config;
-  },
+  }
 };
 
-module.exports = nextConfig;
+export default nextConfig;

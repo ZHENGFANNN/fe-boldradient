@@ -19,21 +19,33 @@ function handleProductList({ productList, area }) {
   return [];
 }
 
-// 通过 Cloudflare Pages 的 ASSETS 绑定读取 public 下的静态 JSON，
-// 避免动态 require 把整个 public/config/product 打进 worker。
+// 通过 Cloudflare ASSETS 绑定读取静态 JSON（部署后位于 .open-next/assets）。
+// 本地 next dev 时 ASSETS 目录通常尚未 build，回退到 public/ 直接读文件。
 async function loadConfig(nameSpace, locale) {
+  const assetPath = `/config/product/${nameSpace}/${locale}.json`;
+
   try {
     const { env } = getCloudflareContext();
-    const url = new URL(
-      `/config/product/${nameSpace}/${locale}.json`,
-      "https://assets.local"
+    const res = await env.ASSETS.fetch(
+      new URL(assetPath, "https://assets.local")
     );
-    const res = await env.ASSETS.fetch(url);
-    if (!res.ok) {
-      console.error(`config not found: ${nameSpace}/${locale} (${res.status})`);
-      return null;
+    if (res.ok) {
+      return await res.json();
     }
-    return await res.json();
+    console.error(`config not found: ${nameSpace}/${locale} (${res.status})`);
+  } catch (err) {
+    console.error(
+      `loadConfig ASSETS failed: ${nameSpace}/${locale}`,
+      err?.message
+    );
+  }
+
+  try {
+    const fs = await import("node:fs/promises");
+    const path = await import("node:path");
+    const filePath = path.join(process.cwd(), "public", assetPath);
+    const content = await fs.readFile(filePath, "utf8");
+    return JSON.parse(content);
   } catch (err) {
     console.error(`loadConfig failed: ${nameSpace}/${locale}`, err?.message);
     return null;

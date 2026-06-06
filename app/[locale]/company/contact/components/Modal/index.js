@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import GlobalContext from "@/[locale]/context";
-export default function ({ item, styles, LANG }) {
+export default function ContactModal({ item, styles, LANG }) {
   const { showContactModal } = React.useContext(GlobalContext);
   return (
     <div

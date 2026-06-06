@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export default function ({ item, styles, LANG }) {
+export default function ContactLink({ item, styles, LANG }) {
   return (
     <Link
       scroll={true}

@@ -1,6 +1,6 @@
 import { trackingCustomClick } from "@/utils";
 
-export default {
+const layoutTracking = {
   enterOrderForm: function ({ currency, value, contents }) {
     trackingCustomClick({
       click_type: "CartModalCheckout",
@@ -12,3 +12,5 @@ export default {
     });
   },
 };
+
+export default layoutTracking;

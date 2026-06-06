@@ -1,7 +1,7 @@
 "use client";
 import { trackingCustomClick } from "@/utils";
 
-export default {
+const productTracking = {
   // 加入购物车
   addToCart: function ({ productName }) {
     trackingCustomClick({
@@ -66,3 +66,5 @@ export default {
     });
   },
 };
+
+export default productTracking;

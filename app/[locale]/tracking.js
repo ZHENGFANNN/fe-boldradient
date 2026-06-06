@@ -1,6 +1,6 @@
 import { trackingCustomClick } from "@/utils";
 
-export default {
+const localeTracking = {
   // 点击轮播图
   clickBannerLink: ({ link }) => {
     trackingCustomClick({
@@ -20,3 +20,5 @@ export default {
     });
   },
 };
+
+export default localeTracking;

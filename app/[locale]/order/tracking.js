@@ -1,6 +1,6 @@
 import { trackingCustomClick } from "@/utils";
 
-export default {
+const orderTracking = {
   // 购买转化
   purchase: function ({ currency, value, discount, contents, type, from }) {
     trackingCustomClick({
@@ -37,3 +37,5 @@ export default {
     });
   },
 };
+
+export default orderTracking;

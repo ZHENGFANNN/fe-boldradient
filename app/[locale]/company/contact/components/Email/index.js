@@ -1,4 +1,4 @@
-export default function ({ item, styles }) {
+export default function ContactEmail({ item, styles }) {
   return (
     <a
       href={"mailto:" + item.content}

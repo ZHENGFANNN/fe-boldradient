@@ -3,16 +3,17 @@ import i18nConfig from "@@/i18nConfig";
 import {
   resolveLocale,
   defaultLocale,
-  locales,
+  locales
 } from "./app/config/languageSettings";
-
-import { countryMap } from "./app/config/COUNTRY";
+import {
+  resolveArea,
+  defaultArea,
+  supportedAreas
+} from "./app/config/marketSettings";
 
 import qs from "qs";
 import parser from "accept-language-parser";
 import { NextResponse } from "next/server";
-
-const DEFAULT_AREA = "us";
 
 function getUrlParams(request) {
   const search = request.nextUrl.search.split("?")[1];
@@ -21,19 +22,17 @@ function getUrlParams(request) {
   return { area_code, language_code };
 }
 
-// 从浏览器 Accept-Language 推断 market area（仅用于 area，与 locale 无关）
 function getAcceptLanguageArea(request) {
   const acceptLanguage = request.headers.get("accept-language");
   if (!acceptLanguage) return null;
   const areaList = parser.parse(acceptLanguage);
   for (const item of areaList) {
     const region = item.region?.toLowerCase();
-    if (region && countryMap[region]) return region;
+    if (region && supportedAreas.includes(region)) return region;
   }
   return null;
 }
 
-// 从浏览器 Accept-Language 推断 locale（仅用于 locale，与 area 无关）
 function getAcceptLanguageLocale(request) {
   const acceptLanguage = request.headers.get("accept-language");
   if (!acceptLanguage) return null;
@@ -49,18 +48,30 @@ function getAcceptLanguageLocale(request) {
   return null;
 }
 
-function resolveArea(area) {
-  if (area && countryMap[area]) return area;
-  return DEFAULT_AREA;
-}
-
+/**
+ * 根据目标语言重写路径（用于 Cookie/参数决定的 locale 与 URL 不一致时 302）。
+ *
+ * next-i18n-router 约定：defaultLocale（当前为 en）不带前缀，其它语言带 /{locale}。
+ * 示例（defaultLocale = en）：
+ *   /product/foo           + en → zh-cn  => /zh-cn/product/foo
+ *   /zh-cn/product/foo     + zh-cn → en => /product/foo
+ *   /en/product/foo        + en → zh-cn  => /zh-cn/product/foo（先去掉多余的 /en）
+ *
+ * 正则里的 (?=/|$) 只匹配「路径首段的 locale」，避免误删
+ * /product/engagement-ring 等路径中间的子串。
+ */
 function buildLocalizedPath(pathname, fromLocale, toLocale) {
   let path = pathname;
+
+  // 1. 去掉当前 URL 上的 locale 前缀，得到语言无关的路径
   if (fromLocale !== defaultLocale) {
     path = path.replace(new RegExp(`^/${fromLocale}(?=/|$)`), "") || "/";
   } else {
+    // 默认语言通常无前缀；若 URL 里仍写了 /en，也一并去掉
     path = path.replace(new RegExp(`^/${defaultLocale}(?=/|$)`), "") || "/";
   }
+
+  // 2. 按目标语言加前缀；默认语言不再加 /en
   if (toLocale === defaultLocale) {
     return path;
   }
@@ -68,21 +79,21 @@ function buildLocalizedPath(pathname, fromLocale, toLocale) {
 }
 
 export async function middleware(request) {
-  const { area_code, language_code } = getUrlParams(request);
+  const {
+    area_code: url_area_code,
+    language_code: url_language_code
+  } = getUrlParams(request);
   const cookieArea = request.cookies.get("area")?.value;
   const cookieLocale = request.cookies.get("locale")?.value;
 
-  // area：URL 参数 → Cookie → 浏览器地区 → 默认 us（与 locale 无关）
+  // area：URL 参数 → Cookie → 浏览器地区 → 默认市场（来自 setting.markets）
   const area = resolveArea(
-    area_code ||
-      cookieArea ||
-      getAcceptLanguageArea(request) ||
-      DEFAULT_AREA
+    url_area_code || cookieArea || getAcceptLanguageArea(request) || defaultArea
   );
 
-  // locale：URL 参数 → Cookie → 浏览器语言 → setting.language 默认语言（与 area 无关）
+  // locale：URL 参数 → Cookie → 浏览器语言 → setting.language 默认语言
   const locale = resolveLocale(
-    language_code || cookieLocale || getAcceptLanguageLocale(request)
+    url_language_code || cookieLocale || getAcceptLanguageLocale(request)
   );
 
   request.locale = locale;
@@ -106,9 +117,10 @@ export async function middleware(request) {
   }
 
   returnOptions.headers.set("x-request-url", request.url);
+
   return returnOptions;
 }
 
 export const config = {
-  matcher: "/((?!service|static|config|icon|.*\\..*|_next).*)",
+  matcher: "/((?!service|static|config|icon|.*\\..*|_next).*)"
 };

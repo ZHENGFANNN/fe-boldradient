@@ -5,9 +5,7 @@ const globalConfig = require("../../fetch-data/globalConfig/index.json");
 const toLocale = (isoCode) => String(isoCode || "").toLowerCase();
 
 const getSettingLanguages = () =>
-  (globalConfig["setting.language"] ?? []).filter(
-    (item) => item.enabled !== false
-  );
+  (globalConfig["setting.language"] ?? []).filter((item) => item.enabled);
 
 const buildLanguageSettings = () => {
   const settings = getSettingLanguages();

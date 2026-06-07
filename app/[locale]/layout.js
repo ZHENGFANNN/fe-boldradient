@@ -51,6 +51,7 @@ async function getData({ locale, area }) {
       "common.base",
       "common.social",
       "common.top_bar",
+      "common.footer_nav",
     ],
     blogNameSpace: ["layout"],
     productNameSpace: ["layout", "sort"]

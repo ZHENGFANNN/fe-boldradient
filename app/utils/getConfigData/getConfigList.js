@@ -26,6 +26,21 @@ const filterConfig = ({ merged, configNameSpace }) => {
   return configObj;
 };
 
+const mergeWithDefaultLocale = (config, locale) => {
+  if (locale === defaultLocale) return config;
+  const defaultPageConfig = pageConfigDataList[defaultLocale] || {};
+  const merged = { ...config };
+
+  if (defaultPageConfig["common.base"] || merged["common.base"]) {
+    merged["common.base"] = {
+      ...defaultPageConfig["common.base"],
+      ...merged["common.base"],
+    };
+  }
+
+  return merged;
+};
+
 export default async function getConfigList({
   locale,
   configList,
@@ -34,6 +49,9 @@ export default async function getConfigList({
   if (!configList.includes("config")) return null;
   const pageConfig =
     pageConfigDataList[locale] || pageConfigDataList[defaultLocale];
-  const merged = { ...pageConfig, ...globalConfig };
+  const merged = mergeWithDefaultLocale(
+    { ...pageConfig, ...globalConfig },
+    locale
+  );
   return filterConfig({ merged, configNameSpace });
 }

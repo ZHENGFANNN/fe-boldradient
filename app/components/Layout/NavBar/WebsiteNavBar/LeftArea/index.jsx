@@ -11,8 +11,9 @@ import { trackingCustomClick } from "@/utils";
 import styles from "./index.module.scss";
 
 export default function LeftArea({ navActive, setNavActive }) {
-  const { LANG, CONFIG, BLOG, PRODUCT, showAreaModal, area } =
-    React.useContext(GlobalContext);
+  const { LANG, CONFIG, BLOG, PRODUCT, showAreaModal, area } = React.useContext(
+    GlobalContext
+  );
   const ModalRef = React.useRef(null);
   // Nav Content
   const navListContainerRef = React.useRef(null);
@@ -31,7 +32,7 @@ export default function LeftArea({ navActive, setNavActive }) {
       BLOG,
       CONFIG,
       PRODUCT,
-      type: "nav",
+      type: "nav"
     });
   }, [LANG, CONFIG, PRODUCT, BLOG]);
 
@@ -170,7 +171,9 @@ export default function LeftArea({ navActive, setNavActive }) {
               setNavActive(false);
             }}
           >
-            <img alt={"logo"} src={CONFIG["common.base"]?.logo} />
+            {CONFIG["common.base"]?.logo && (
+              <img alt={"logo"} src={CONFIG["common.base"]?.logo} />
+            )}
             <div className={styles.name}>
               {CONFIG["common.base"]?.company_name}
             </div>
@@ -236,10 +239,9 @@ export default function LeftArea({ navActive, setNavActive }) {
                         `.${styles.nav_item_content}`
                       );
 
-                      const $activeNavContentWrapperDom =
-                        $activeNav.querySelector(
-                          `.${styles.nav_item_content_wrapper}`
-                        );
+                      const $activeNavContentWrapperDom = $activeNav.querySelector(
+                        `.${styles.nav_item_content_wrapper}`
+                      );
 
                       const height = $activeNavContentWrapperDom?.clientHeight;
                       $activeNavContentDom.style = `transition: all 400ms ease-in-out;height: ${height}px; opacity: 1;`;
@@ -374,7 +376,7 @@ function NavSubTextItem({
   navSubItem,
   navSubIndex,
   setNavContentActive,
-  setNavActive,
+  setNavActive
 }) {
   if (navSubIndex > 8) return null;
   return (
@@ -409,7 +411,7 @@ function NavSubCommonItem({
   navSubItem,
   setNavContentActive,
   setNavActive,
-  showModal,
+  showModal
 }) {
   if (navSubIndex > 15) return null;
   if (navSubIndex === 15)

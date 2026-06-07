@@ -2,7 +2,6 @@ import React from "react";
 import ReactDOM from "react-dom";
 import GlobalContext from "@/[locale]/context";
 import Link from "next/link";
-import { countryList } from "@/config/COUNTRY";
 import Cookie from "js-cookie";
 import styles from "./index.module.scss";
 import { languageMap } from "@/config/LANGUAGE";

@@ -9,8 +9,7 @@ import GlobalContext from "../../../[locale]/context";
 
 import TipModal from "@/components/Modal/FunctionTipModal";
 
-import { languageMap } from "@/config/LANGUAGE";
-import { countryMap } from "@/config/COUNTRY";
+import { countryMap } from "@/config/marketSettings";
 
 import { isEmail } from "../../../utils/pattern";
 
@@ -38,11 +37,7 @@ function ShowLanguageItem() {
         alt={area}
         src={`${process.env.NEXT_PUBLIC_FILE}/common/image/icon/flags/${area}.svg`}
       />
-      <div>{`${countryMap[area]?.country} (${
-        languageMap[countryMap[area]?.language_code]?.label
-      } / ${countryMap[area]?.currency_symbol}${
-        countryMap[area]?.currency
-      })`}</div>
+      <div>{`${countryMap[area]?.country} (${countryMap[area]?.currency_symbol}${countryMap[area]?.currency})`}</div>
     </div>
   );
 }

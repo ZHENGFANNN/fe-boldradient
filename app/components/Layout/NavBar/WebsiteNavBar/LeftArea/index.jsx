@@ -2,7 +2,7 @@ import React from "react";
 import GlobalContext from "@/[locale]/context";
 
 import NAVFUNC from "@/config/NAVFUNC";
-import { countryMap } from "@/config/COUNTRY";
+import { countryMap } from "@/config/marketSettings";
 import TipModal from "@/components/Modal/FunctionTipModal";
 import Link from "next/link";
 
@@ -21,8 +21,9 @@ export default function LeftArea({ navActive, setNavActive }) {
 
   const countryText = React.useMemo(() => {
     const currentArea = countryMap[area];
-    return `${currentArea.country} (${currentArea.language} / ${currentArea.currency_symbol}${currentArea.currency})`;
-  }, []);
+    if (!currentArea) return "";
+    return `${currentArea.country} (${currentArea.currency_symbol}${currentArea.currency})`;
+  }, [area]);
 
   const navList = React.useMemo(() => {
     return NAVFUNC({
@@ -321,12 +322,12 @@ export default function LeftArea({ navActive, setNavActive }) {
             >
               <div className={styles.nav_item_title}>
                 <img
-                  alt={countryMap[area].country}
+                  alt={countryMap[area]?.country}
                   src={`${
                     process.env.NEXT_PUBLIC_FILE
                   }/common/image/icon/flags/${countryMap[
                     area
-                  ].country_code.toLowerCase()}.svg`}
+                  ]?.country_code?.toLowerCase()}.svg`}
                 />
                 <div>{countryText}</div>
               </div>

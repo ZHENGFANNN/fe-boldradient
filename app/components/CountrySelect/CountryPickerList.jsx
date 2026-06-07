@@ -1,0 +1,84 @@
+import React from "react";
+import GlobalContext from "@/[locale]/context";
+
+const searchPlaceholderMap = {
+  en: "Search country or region",
+  "zh-cn": "搜索国家或地区",
+  ja: "国・地域を検索",
+};
+
+function getCountryLabel(item, locale) {
+  if (locale === "zh-cn") return item.country_cn || item.country;
+  return item.country;
+}
+
+export default function CountryPickerList({
+  countries,
+  onSelect,
+  styles,
+  lock,
+}) {
+  const { locale } = React.useContext(GlobalContext);
+  const [keyword, setKeyword] = React.useState("");
+
+  const filteredCountries = React.useMemo(() => {
+    const query = keyword.trim().toLowerCase();
+    if (!query) return countries;
+
+    return countries.filter((item) => {
+      const label = getCountryLabel(item, locale);
+      const searchText = [
+        label,
+        item.country,
+        item.country_cn,
+        item.country_english,
+        item.currency,
+        item.country_code,
+      ]
+        .filter(Boolean)
+        .join(" ")
+        .toLowerCase();
+
+      return searchText.includes(query);
+    });
+  }, [countries, keyword, locale]);
+
+  return (
+    <>
+      <input
+        type="search"
+        className={styles.search_input}
+        value={keyword}
+        onChange={(e) => setKeyword(e.target.value)}
+        placeholder={searchPlaceholderMap[locale] || searchPlaceholderMap.en}
+      />
+      <div className={styles.country_panel}>
+        <div className={styles.country_list}>
+          {filteredCountries.map((countryItem) => (
+            <div
+              className={styles.country_item}
+              key={countryItem.country_code}
+              onClick={() => {
+                if (lock) return;
+                onSelect(countryItem);
+              }}
+            >
+              <img
+                alt={getCountryLabel(countryItem, locale)}
+                src={`${
+                  process.env.NEXT_PUBLIC_FILE
+                }/common/image/icon/flags/${countryItem.country_code.toLowerCase()}.svg`}
+              />
+              {`${getCountryLabel(countryItem, locale)} (${countryItem.currency_symbol}${countryItem.currency})`}
+            </div>
+          ))}
+        </div>
+        {filteredCountries.length === 0 ? (
+          <div className={styles.empty_tip}>
+            {locale === "zh-cn" ? "未找到匹配的国家/地区" : "No matching country or region"}
+          </div>
+        ) : null}
+      </div>
+    </>
+  );
+}

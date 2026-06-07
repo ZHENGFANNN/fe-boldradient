@@ -2,27 +2,19 @@ import React from "react";
 import GlobalContext from "@/[locale]/context";
 
 import Input from "../FormInput";
-import { countryList } from "@/config/COUNTRY";
+import { countryMap } from "@/config/marketSettings";
 
 export default function CountryItem({ setValue, value, inputProps, error }) {
   const { LANG, area } = React.useContext(GlobalContext);
 
   const areaInfo = React.useMemo(() => {
-    let obj = {};
-    for (let i = 0; i < countryList.length; i++) {
-      const data = countryList[i].countries.find(
-        (countryObj) => countryObj.country_code === area
-      );
-      if (data) {
-        obj = {
-          area_code: data.country_code,
-          area_text: data.country,
-        };
-        break;
-      }
-    }
-    return obj;
-  }, [countryList, area]);
+    const data = countryMap[area];
+    if (!data) return {};
+    return {
+      area_code: data.country_code,
+      area_text: data.country,
+    };
+  }, [area]);
 
   React.useEffect(() => {
     setValue(areaInfo);

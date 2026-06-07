@@ -1,8 +1,7 @@
 import React from "react";
 import GlobalContext from "@/[locale]/context";
 
-import { countryMap } from "@/config/COUNTRY";
-import { languageMap } from "@/config/LANGUAGE";
+import { countryMap } from "@/config/marketSettings";
 
 import Modal from "./Modal";
 import styles from "./index.module.scss";
@@ -12,9 +11,7 @@ function CountryList({ children }) {
   const areaModalRef = React.useRef(null);
 
   const countryText = React.useMemo(() => {
-    return `${countryMap[area]?.country} (${
-      languageMap[countryMap[area]?.language_code]?.label
-    } / ${countryMap[area]?.currency_symbol}${countryMap[area]?.currency})`;
+    return `${countryMap[area]?.country} (${countryMap[area]?.currency_symbol}${countryMap[area]?.currency})`;
   }, [area]);
 
   return (

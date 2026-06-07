@@ -19,27 +19,21 @@ import styles from "./page.module.scss";
 import GoodMainLeft from "./components/GoodMainLeft";
 import GoodMainRight from "./components/GoodMainRight";
 
-// 兜底重新验证周期（秒）；实时刷新靠 /api/revalidate 的 on-demand tag。
-export const revalidate = 86400;
-
 // 构建期枚举所有 (locale, sortKey, productKey)，预生成商品页；
-// 未列出的 slug 仍按需 ISR（dynamicParams 默认 true）。
+// 接口失败则构建失败；未列出的 slug 仍按需生成（dynamicParams 默认 true）。
 export async function generateStaticParams() {
-  try {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_HOST}/config/getProductPaths`
-    );
-    if (!res.ok) return [];
-    const json = await res.json();
-    return (json?.data?.list || []).map(({ locale, sortKey, productKey }) => ({
-      locale,
-      sortKey,
-      productKey,
-    }));
-  } catch (err) {
-    console.error("product generateStaticParams 失败:", err?.message);
-    return [];
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_HOST}/config/getProductPaths`
+  );
+  if (!res.ok) {
+    throw new Error(`getProductPaths 失败: HTTP ${res.status}`);
   }
+  const json = await res.json();
+  return (json?.data?.list || []).map(({ locale, sortKey, productKey }) => ({
+    locale,
+    sortKey,
+    productKey
+  }));
 }
 
 export default async function Product() {

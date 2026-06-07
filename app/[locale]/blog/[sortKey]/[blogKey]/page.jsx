@@ -14,26 +14,19 @@ import BaseLayout from "../../components/BaseLayout";
 import ProductModal from "./components/ProductModal";
 import "@/styles/richtext.scss";
 
-// 兜底重新验证周期（秒）；实时刷新靠 /api/revalidate 的 on-demand tag
-// （blog:sortKey:blogKey）。
-export const revalidate = 86400;
-
 // 构建期枚举所有 (locale, sortKey, blogKey) 预生成文章页；
-// 未列出的 slug 仍按需 ISR（dynamicParams 默认 true）。
+// 接口失败则构建失败；未列出的 slug 仍按需生成（dynamicParams 默认 true）。
 export async function generateStaticParams() {
-  try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/config/getBlogPaths`);
-    if (!res.ok) return [];
-    const json = await res.json();
-    return (json?.data?.list || []).map(({ locale, sortKey, blogKey }) => ({
-      locale,
-      sortKey,
-      blogKey,
-    }));
-  } catch (err) {
-    console.error("blog generateStaticParams 失败:", err?.message);
-    return [];
+  const res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/config/getBlogPaths`);
+  if (!res.ok) {
+    throw new Error(`getBlogPaths 失败: HTTP ${res.status}`);
   }
+  const json = await res.json();
+  return (json?.data?.list || []).map(({ locale, sortKey, blogKey }) => ({
+    locale,
+    sortKey,
+    blogKey,
+  }));
 }
 
 // 文章详情走 getBlogDetail（按 slug fetch + tag），与全站 config/language 解耦。

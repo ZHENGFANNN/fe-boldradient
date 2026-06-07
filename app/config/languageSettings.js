@@ -1,6 +1,6 @@
 /** @format */
 
-const globalConfig = require("@@/fetch-data/globalConfig/index.json");
+const globalConfig = require("../../fetch-data/globalConfig/index.json");
 
 const toLocale = (isoCode) => String(isoCode || "").toLowerCase();
 

@@ -14,10 +14,10 @@ const fetchFestivalDiscount = require("./fetch-festival-discount.js");
 const fetchProduct = require("./fetch-product.js");
 
 async function getData() {
+  await fetchConfig();
   await Promise.all([
     fetchBlog(),
     fetchLanguage(),
-    fetchConfig(),
     fetchFestivalDiscount(),
     fetchProduct(),
   ]);

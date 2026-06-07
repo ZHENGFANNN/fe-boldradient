@@ -27,7 +27,10 @@ export function getBrowserPosition() {
         e.code = err?.code;
         reject(e);
       },
-      { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+      // 地址填充只需街道级精度：关掉 enableHighAccuracy 走 Wi-Fi/IP 定位，
+      // 桌面端比强制 GPS 更快更稳（高精度在无 GPS 的笔记本上常报
+      // kCLErrorLocationUnknown）；允许复用 5 分钟内的缓存定位，进一步减少失败。
+      { enableHighAccuracy: false, timeout: 15000, maximumAge: 300000 }
     );
   });
 }

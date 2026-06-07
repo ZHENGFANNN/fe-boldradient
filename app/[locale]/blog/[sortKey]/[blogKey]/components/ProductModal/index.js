@@ -4,8 +4,22 @@ import React from "react";
 import ProductList from "./ProductList";
 import styles from "./index.module.scss";
 
+import Cookies from "js-cookie";
 import Modal from "@/components/Modal";
 import { debounce } from "@/utils";
+
+// 按地区把关联商品的 comboItem.areaList 解析成 areaInfo。
+// 服务端不再按 cookie area 过滤（保持文章页整页可静态化），
+// 选价下沉到此客户端组件。
+function resolveAreaList(productList, area) {
+  return (productList || []).map(({ comboItem, ...item }) => {
+    let areaInfo = null;
+    (comboItem?.areaList || []).forEach((a) => {
+      if (a.country_code === area) areaInfo = a;
+    });
+    return { ...item, areaInfo };
+  });
+}
 
 export default function ProductModal({
   LANG,
@@ -14,6 +28,17 @@ export default function ProductModal({
 }) {
   const modalRef = React.useRef(null);
   const [showTip, setShowTip] = React.useState(false);
+  // 首屏用默认地区 us（与 SSR 一致），mount 后读 cookie 重算价格。
+  const [area, setArea] = React.useState("us");
+  React.useEffect(() => {
+    const real = Cookies.get("area") || "us";
+    if (real !== area) setArea(real);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  const resolvedProductList = React.useMemo(
+    () => resolveAreaList(productList, area),
+    [productList, area]
+  );
 
   React.useEffect(() => {
     // 每个Blog页面只出现一次弹窗
@@ -64,7 +89,7 @@ export default function ProductModal({
     <>
       <Modal ref={modalRef} onClose={() => setShowTip(true)}>
         <ProductList
-          products={productList}
+          products={resolvedProductList}
           LANG={LANG}
           goodDiscountFestival={goodDiscountFestival}
         />

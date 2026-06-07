@@ -3,6 +3,7 @@
 import React from "react";
 import styles from "./page.module.scss";
 import getConfigData from "../../../../utils/getConfigData";
+import getBlogDetail from "../../../../utils/getConfigData/getBlogDetail";
 import Banner from "./components/Banner";
 import ArticleInfo from "./components/ArticleInfo";
 import ArticleNav from "./components/ArticleNav";
@@ -11,38 +12,63 @@ import IdJson from "./components/IdJson";
 import BaseLayout from "../../components/BaseLayout";
 
 import ProductModal from "./components/ProductModal";
-import { cookies } from "next/headers";
 import "@/styles/richtext.scss";
 
-const getData = async function ({ area, locale, blogKey, sortKey }) {
-  const articleKey = `article:${sortKey}:${blogKey}`;
-  const { BLOG, CONFIG, LANG, GOODDISCOUNTFESTIVAL } = await getConfigData({
-    area,
-    locale,
-    configList: ["blog", "config", "language", "goodDiscountFestival"],
-    blogNameSpace: ["sort", articleKey],
-    configNameSpace: ["common.base"],
-    languageNameSpace: [
-      "store.blog_index.all",
-      "store.blog_index.title",
-      "store.blog_index.related_products",
-      "store.product.off",
-      "store.product.no_stock",
-      "store.product.reviews",
-    ],
-  });
-  // 处理文章
-  const blogSortList = Object.keys(BLOG.sort)
+// 兜底重新验证周期（秒）；实时刷新靠 /api/revalidate 的 on-demand tag
+// （blog:sortKey:blogKey）。
+export const revalidate = 86400;
+
+// 构建期枚举所有 (locale, sortKey, blogKey) 预生成文章页；
+// 未列出的 slug 仍按需 ISR（dynamicParams 默认 true）。
+export async function generateStaticParams() {
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/config/getBlogPaths`);
+    if (!res.ok) return [];
+    const json = await res.json();
+    return (json?.data?.list || []).map(({ locale, sortKey, blogKey }) => ({
+      locale,
+      sortKey,
+      blogKey,
+    }));
+  } catch (err) {
+    console.error("blog generateStaticParams 失败:", err?.message);
+    return [];
+  }
+}
+
+// 文章详情走 getBlogDetail（按 slug fetch + tag），与全站 config/language 解耦。
+// blogSortList 用于顶部 BaseLayout，来自 getBlogData 的 "sort" 命名空间。
+// 不再读取 area cookie —— 关联商品保留完整 areaList，选价下沉到客户端 ProductModal。
+const getData = async function ({ locale, blogKey, sortKey }) {
+  const [{ BLOG, CONFIG, LANG, GOODDISCOUNTFESTIVAL }, blogArticle] =
+    await Promise.all([
+      getConfigData({
+        locale,
+        configList: ["blog", "config", "language", "goodDiscountFestival"],
+        blogNameSpace: ["sort"],
+        configNameSpace: [
+          "company.basic.company_name",
+          "company.basic.customer_service",
+        ],
+        languageNameSpace: [
+          "store.blog_index.all",
+          "store.blog_index.title",
+          "store.blog_index.related_products",
+          "store.product.off",
+          "store.product.no_stock",
+          "store.product.reviews",
+        ],
+      }),
+      getBlogDetail({ locale, sortKey, blogKey }),
+    ]);
+
+  const blogSortList = Object.keys(BLOG?.sort || {})
     .map((key) => BLOG.sort[key])
     .sort((a, b) => b.weight - a.weight);
-  BLOG.blogSortList = blogSortList;
-  const blogArticle = BLOG[articleKey];
-  BLOG.blogArticle = blogArticle;
-  BLOG.blogSortList = blogSortList;
-  delete BLOG.sort;
 
   return {
-    BLOG,
+    blogSortList,
+    blogArticle,
     CONFIG,
     LANG,
     GOODDISCOUNTFESTIVAL,
@@ -51,17 +77,13 @@ const getData = async function ({ area, locale, blogKey, sortKey }) {
 
 export async function generateMetadata({ params }) {
   const { locale, blogKey, sortKey } = await params;
-  const cookieStore = await cookies();
-  const area = cookieStore.get("area")?.value || "us";
-  const { BLOG } = await getData({
-    area,
-    locale,
-    blogKey,
-    sortKey,
-  });
-  const title = BLOG.blogArticle.page_title;
-  const description = BLOG.blogArticle.page_description;
-  const keywords = BLOG.blogArticle.page_keywords;
+  const { blogArticle } = await getData({ locale, blogKey, sortKey });
+  if (!blogArticle) {
+    return { title: "" };
+  }
+  const title = blogArticle.page_title;
+  const description = blogArticle.page_description;
+  const keywords = blogArticle.page_keywords;
 
   return {
     title,
@@ -71,14 +93,14 @@ export async function generateMetadata({ params }) {
       card: "summary_large_image",
       title,
       description,
-      images: [BLOG.blogArticle.image], // Must be an absolute URL
+      images: [blogArticle.image],
     },
     openGraph: {
       title,
       description,
       images: [
         {
-          url: BLOG.blogArticle.image, // Must be an absolute URL
+          url: blogArticle.image,
           width: 746,
           height: 420,
         },
@@ -89,37 +111,30 @@ export async function generateMetadata({ params }) {
 
 export default async function Article({ params }) {
   const { locale, blogKey, sortKey } = await params;
-  const cookieStore = await cookies();
-  const area = cookieStore.get("area")?.value || "us";
-  const { CONFIG, LANG, BLOG, GOODDISCOUNTFESTIVAL } = await getData({
-    area,
-    locale,
-    blogKey,
-    sortKey,
-  });
+  const { CONFIG, LANG, blogSortList, blogArticle, GOODDISCOUNTFESTIVAL } =
+    await getData({ locale, blogKey, sortKey });
+
+  if (!blogArticle) return null;
+
   return (
     <>
-      <BaseLayout
-        blogSortList={BLOG.blogSortList}
-        sortKey={sortKey}
-        LANG={LANG}
-      />
+      <BaseLayout blogSortList={blogSortList} sortKey={sortKey} LANG={LANG} />
       <div className={styles.container}>
-        <IdJson CONFIG={CONFIG} article={BLOG.blogArticle} />
+        <IdJson CONFIG={CONFIG} article={blogArticle} />
         <div className={styles.flex_container}>
           {/* 导航栏 */}
-          <ArticleNav titleList={BLOG.blogArticle.titleList} />
+          <ArticleNav titleList={blogArticle.titleList} />
           {/* 内容区 */}
           <div className={styles.flex_right}>
-            <Banner article={BLOG.blogArticle} />
+            <Banner article={blogArticle} />
             <div className={styles.content_container}>
-              <h1 className={styles.title}>{BLOG.blogArticle.title}</h1>
-              <ArticleInfo article={BLOG.blogArticle} locale={locale} />
+              <h1 className={styles.title}>{blogArticle.title}</h1>
+              <ArticleInfo article={blogArticle} locale={locale} />
               <div
                 id="blog-article-content-html"
                 className="wangeditor-rich-text-css"
                 dangerouslySetInnerHTML={{
-                  __html: BLOG.blogArticle.content,
+                  __html: blogArticle.content,
                 }}
               />
             </div>
@@ -127,16 +142,16 @@ export default async function Article({ params }) {
         </div>
       </div>
       {/* 关联文章 */}
-      {BLOG.blogArticle.associateArticle.length > 0 ? (
-        <AssociateArticle articleList={BLOG.blogArticle.associateArticle} />
+      {blogArticle.associateArticle?.length > 0 ? (
+        <AssociateArticle articleList={blogArticle.associateArticle} />
       ) : null}
       {/* 关联产品 */}
-      {BLOG.blogArticle.associateProduct?.length > 0 ? (
+      {blogArticle.associateProduct?.length > 0 ? (
         <ProductModal
           LANG={LANG}
           locale={locale}
           goodDiscountFestival={GOODDISCOUNTFESTIVAL}
-          productList={BLOG.blogArticle.associateProduct}
+          productList={blogArticle.associateProduct}
         />
       ) : null}
     </>

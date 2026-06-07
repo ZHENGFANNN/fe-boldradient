@@ -5,13 +5,46 @@ const { SitemapStream, streamToPromise } = require("sitemap");
 const chalk = require("chalk");
 const { join } = require("path");
 const { Readable } = require("stream");
-
-const productPath = require("../public/config/product/sitemap/en.json");
-const blogPath = require("../public/config/blog/sitemap/en.json");
+const api = require("./api");
 
 const { languageList } = require("../app/config/languageSettings");
 
 const domain = process.env.NEXT_PUBLIC_DOMAIN;
+
+// 构建期从后端拉取 product / blog 路径生成 sitemap（原读本地物化 JSON）。
+// 后端不可达时返回空数组并跳过对应路径，不让 build 崩。
+async function fetchPaths(url, mapFn) {
+  try {
+    const res = await api.get(url);
+    const list = res?.data?.list || [];
+    const set = new Set();
+    list.forEach((item) => {
+      const { sort, detail } = mapFn(item);
+      set.add(detail);
+      set.add(sort);
+    });
+    return [...set];
+  } catch (err) {
+    console.log(`【SITEMAP 拉取 ${url} 失败，跳过】`, err?.message || err);
+    return [];
+  }
+}
+
+// /config/getProductPaths -> /product/{sortKey} & /product/{sortKey}/{productKey}
+function fetchProductPaths() {
+  return fetchPaths("/config/getProductPaths", ({ sortKey, productKey }) => ({
+    sort: `/product/${sortKey}`,
+    detail: `/product/${sortKey}/${productKey}`,
+  }));
+}
+
+// /config/getBlogPaths -> /blog/{sortKey} & /blog/{sortKey}/{blogKey}
+function fetchBlogPaths() {
+  return fetchPaths("/config/getBlogPaths", ({ sortKey, blogKey }) => ({
+    sort: `/blog/${sortKey}`,
+    detail: `/blog/${sortKey}/${blogKey}`,
+  }));
+}
 // 排除路径
 function getExcludePath() {
   return [
@@ -46,23 +79,11 @@ function getNavPath() {
   return pathList;
 }
 
-// 获取博客列表路径
-function getBlogPath() {
+// 把一组去重路径按所有 locale 展开（en 不加前缀）
+function expandLocales(paths) {
   const pathList = [];
   languageList.forEach((languageMap) => {
-    blogPath.forEach((path) => {
-      const locale = languageMap.value === "en" ? "" : `/${languageMap.value}`;
-      pathList.push(`${locale}${path}`);
-    });
-  });
-  return pathList;
-}
-
-// 获取产品列表路径
-function getProductPath() {
-  const pathList = [];
-  languageList.forEach((languageMap) => {
-    productPath.forEach((path) => {
+    paths.forEach((path) => {
       const locale = languageMap.value === "en" ? "" : `/${languageMap.value}`;
       pathList.push(`${locale}${path}`);
     });
@@ -96,6 +117,11 @@ async function getSitMap(times = 1) {
   let error = false;
   console.log(`${chalk.yellow("【开始获取SITEMAP】")}`);
   try {
+    // 构建期从后端拉取 product / blog 路径（去重，不含 locale 前缀）
+    const [productPaths, blogPaths] = await Promise.all([
+      fetchProductPaths(),
+      fetchBlogPaths(),
+    ]);
     // 获取所有可用的 locale
     const locales = languageList.map((item) => item.value);
     // 创建一个 SitemapStream 对象
@@ -133,16 +159,14 @@ async function getSitMap(times = 1) {
 
       // 处理博客路径
       if (page.includes("[locale]/blog/[sortKey]/[blogKey]")) {
-        const blogPaths = getBlogPath();
-        for (const blogPath of blogPaths) {
+        for (const blogPath of expandLocales(blogPaths)) {
           allPages.push({ url: blogPath, lastmod: new Date() });
         }
       }
 
       // 处理产品路径
       if (page.includes("[locale]/product/[sortKey]/[productKey]")) {
-        const productPaths = getProductPath();
-        for (const productPath of productPaths) {
+        for (const productPath of expandLocales(productPaths)) {
           allPages.push({ url: productPath, lastmod: new Date() });
         }
       }

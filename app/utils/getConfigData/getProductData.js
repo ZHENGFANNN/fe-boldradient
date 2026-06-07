@@ -1,121 +1,156 @@
 /** @format */
-import { cookies } from "next/headers";
-import { getCloudflareContext } from "@opennextjs/cloudflare";
 
-function handleProductList({ productList, area }) {
+// 商品列表数据层（运行时从后端拉取，不再读本地物化 JSON）。
+//
+// 复刻 script/fetch-product.js 的整形逻辑：按 locale 过滤全量商品列表，
+// 构造 "sort" 分组结构。地区价(areaInfo)按 cookie area 选取 —— 列表页
+// （首页等）本就读 cookie 属动态渲染，故此处保留 area 维度。
+// 商品「详情」走 getProductDetail（已整页静态化），与此文件解耦。
+
+import { cookies } from "next/headers";
+
+const HOST = process.env.NEXT_PUBLIC_HOST;
+const REVALIDATE = 86400; // 24h，配合后台 on-demand revalidateTag('product:list')
+
+// 分类商品精简（复刻 fetch-product.js handleSimpleProductList）
+function handleSimpleProductList(productList) {
   if (Array.isArray(productList) && productList.length > 0) {
-    return productList.map(({ comboItem, ...item }) => {
-      let areaInfo = null;
-      comboItem?.areaList?.find((area_item) => {
-        if (area_item.country_code === area) {
-          areaInfo = area_item;
-        }
-        return area_item.country_code === area;
-      });
-      item.areaInfo = areaInfo;
-      return item;
-    });
+    return productList.map(
+      ({ reviewsList, image_list, reviews_num, reviews_score, ...item }) => {
+        const totalScore = reviewsList?.reduce((pre, cur) => pre + cur.score, 0);
+        item.reviewScore = totalScore / reviewsList?.length || reviews_score;
+        item.reviewsNum = reviewsList?.length || reviews_num;
+        item.image = image_list?.[0]?.src;
+        return item;
+      }
+    );
   }
   return [];
 }
 
-// 通过 Cloudflare ASSETS 绑定读取静态 JSON（部署后位于 .open-next/assets）。
-// 本地 next dev 时 ASSETS 目录通常尚未 build，回退到 public/ 直接读文件。
-async function loadConfig(nameSpace, locale) {
-  const assetPath = `/config/product/${nameSpace}/${locale}.json`;
-
-  try {
-    const { env } = getCloudflareContext();
-    const res = await env.ASSETS.fetch(
-      new URL(assetPath, "https://assets.local")
-    );
-    if (res.ok) {
-      return await res.json();
-    }
-    console.error(`config not found: ${nameSpace}/${locale} (${res.status})`);
-  } catch (err) {
-    console.error(
-      `loadConfig ASSETS failed: ${nameSpace}/${locale}`,
-      err?.message
-    );
-  }
-
-  try {
-    const fs = await import("node:fs/promises");
-    const path = await import("node:path");
-    const filePath = path.join(process.cwd(), "public", assetPath);
-    const content = await fs.readFile(filePath, "utf8");
-    return JSON.parse(content);
-  } catch (err) {
-    console.error(`loadConfig failed: ${nameSpace}/${locale}`, err?.message);
-    return null;
-  }
+// 构造 "sort" 分组（复刻 fetch-product.js handleProductData 的 sort 部分）
+function buildSortMap(productList) {
+  const sortMap = {};
+  productList.forEach(({ goodSort, ...item }) => {
+    const sortInfo = goodSort?.[0];
+    if (!sortInfo?.enabled) return;
+    const simpleProduct = {
+      key: item.key,
+      sort_key: item.sort_key,
+      name: item.name,
+      reviewsList: item.reviewsList,
+      image_list: item.image_list,
+      reviews_num: item.reviews_num,
+      reviews_score: item.reviews_score,
+      comboList: item.comboList,
+    };
+    sortMap[item.sort_key] = {
+      ...sortInfo,
+      goodList: sortMap[item.sort_key]
+        ? [
+            ...sortMap[item.sort_key].goodList,
+            ...handleSimpleProductList([simpleProduct]),
+          ]
+        : handleSimpleProductList([simpleProduct]),
+    };
+  });
+  return sortMap;
 }
 
-// 过滤商品数据
+// 拉取后端全量商品列表，按 locale 过滤（无配置回退英文）。
+async function fetchProductListByLocale(locale) {
+  if (!HOST) {
+    console.error("getProductData: NEXT_PUBLIC_HOST 未配置");
+    return [];
+  }
+  let res;
+  try {
+    res = await fetch(`${HOST}/config/getProduct`, {
+      next: { tags: ["product:list"], revalidate: REVALIDATE },
+    });
+  } catch (err) {
+    console.error("getProductData fetch 失败:", err?.message);
+    return [];
+  }
+  if (!res.ok) {
+    console.error("getProductData 异常状态:", res.status);
+    return [];
+  }
+  const json = await res.json().catch(() => null);
+  const list = json?.data?.list || [];
+  const byLang = {};
+  list.forEach((item) => {
+    if (!byLang[item.language]) byLang[item.language] = [];
+    byLang[item.language].push(item);
+  });
+  return byLang[locale] || byLang["en"] || [];
+}
+
+// 把 comboList 按地区解析成带 areaInfo 的套餐（复刻原 getData 的 sort 分支）
+function resolveSortByArea(sortMap, area) {
+  return Object.keys(sortMap)
+    .map((key) => {
+      const { goodList, ...sort } = sortMap[key];
+      return {
+        ...sort,
+        goodList: (goodList || []).map(({ comboList, ...item }) => ({
+          ...item,
+          comboList: (comboList || []).map(({ areaList, ...combo }) => {
+            let areaInfo = null;
+            (areaList || []).forEach((areaItem) => {
+              if (areaItem.country_code === area) areaInfo = areaItem;
+            });
+            return { areaInfo, ...combo };
+          }),
+        })),
+      };
+    })
+    .sort((a, b) => b.weight - a.weight);
+}
+
+// 构造 layout（footer 导航）：复刻 fetch-product.js handleProductData 的 layout 部分。
+// 依赖 sortMap（仅含 enabled 分类）+ 原始 productList。
+function buildLayout(sortMap, productList) {
+  const sortList = Object.keys(sortMap).map((key) =>
+    sortMap[key]
+      ? {
+          sub_title: sortMap[key].name,
+          href: `/#${sortMap[key].key}`,
+          img: sortMap[key].image_src,
+        }
+      : {}
+  );
+  const productListLayout = productList
+    .filter((item) => item.goodSort?.[0]?.enabled)
+    .filter((_, index) => index < 8)
+    .map((item) => ({
+      sub_title: item.name,
+      href: `/#${item.key}`,
+      img: item.image_list?.[0]?.src,
+    }));
+  return { sortList, productList: productListLayout };
+}
+
 const localeData = new Map();
 async function getData({ locale, nameSpace }) {
   const cookieStore = await cookies();
   const area = cookieStore.get("area")?.value || "us";
   const cacheKey = `${locale}:${area}:${nameSpace}`;
-  const cachedData = localeData.get(cacheKey);
-  if (!cachedData) {
-    let data = await loadConfig(nameSpace, locale);
-    if (!data) return null;
+  if (localeData.has(cacheKey)) return localeData.get(cacheKey);
 
-    if (nameSpace.includes("product:")) {
-      data.associateProduct = handleProductList({
-        productList: data.associateProduct,
-        area,
-      });
+  const productList = await fetchProductListByLocale(locale);
+  let data = null;
 
-      data.comboList = (data.comboList || []).map(({ areaList, ...combo }) => {
-        // 遍历商品套餐区域, 找到对应的国家列表
-        let areaInfo = null;
-        areaList?.forEach((areaItem) => {
-          if (areaItem.country_code === area) {
-            areaInfo = areaItem;
-          }
-        });
-        return {
-          areaInfo,
-          ...combo,
-        };
-      });
-    }
-
-    if (nameSpace === "sort") {
-      data = Object.keys(data)
-        .map((key) => {
-          const { goodList, ...sort } = data[key];
-          return {
-            ...sort,
-            goodList: goodList.map(({ comboList, ...item }) => {
-              return {
-                ...item,
-                comboList: comboList.map(({ areaList, ...combo }) => {
-                  let areaInfo = null;
-                  areaList?.find((areaItem) => {
-                    if (areaItem.country_code === area) {
-                      areaInfo = areaItem;
-                    }
-                    return areaItem.country_code === area;
-                  });
-                  return {
-                    areaInfo,
-                    ...combo,
-                  };
-                }),
-              };
-            }),
-          };
-        })
-        .sort((a, b) => b.weight - a.weight);
-    }
-
-    localeData.set(cacheKey, data);
+  if (nameSpace === "sort") {
+    const sortMap = buildSortMap(productList);
+    data = resolveSortByArea(sortMap, area);
+  } else if (nameSpace === "layout") {
+    const sortMap = buildSortMap(productList);
+    data = buildLayout(sortMap, productList);
   }
-  return localeData.get(cacheKey);
+
+  localeData.set(cacheKey, data);
+  return data;
 }
 
 export default async function getGoodList({
@@ -131,6 +166,5 @@ export default async function getGoodList({
   productNameSpace.forEach((item, index) => {
     resMap[item] = promiseList[index];
   });
-
   return resMap;
 }

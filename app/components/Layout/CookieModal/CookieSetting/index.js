@@ -4,7 +4,7 @@ import GlobalContext from "@/[locale]/context";
 import Link from "next/link";
 import Cookie from "js-cookie";
 import styles from "./index.module.scss";
-import { languageMap } from "@/config/LANGUAGE";
+import { languageMap } from "@/config/languageSettings";
 import { useRouter } from "next/navigation";
 import { trackingCustomClick } from "@/utils";
 import { FormSwitch } from "@/components/Form";

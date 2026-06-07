@@ -169,9 +169,9 @@ export default function LeftArea({ navActive, setNavActive }) {
               setNavActive(false);
             }}
           >
-            <img alt={"logo"} src={CONFIG["company.basic.logo"]} />
+            <img alt={"logo"} src={CONFIG["common.base"]?.logo} />
             <div className={styles.name}>
-              {CONFIG["company.basic.company_name"]}
+              {CONFIG["common.base"]?.company_name}
             </div>
           </Link>
         </div>

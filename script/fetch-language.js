@@ -10,7 +10,7 @@ const { languageList } = require("../app/config/LANGUAGE");
 const fetchLanguage = async (times = 1, cookie = "") => {
   let error = false;
   const startTime = new Date().getTime();
-  const fileDir = "./locale/languageList";
+  const fileDir = "./fetch-data/languageList";
   if (!fs.existsSync(fileDir)) fs.mkdirSync(fileDir, { recursive: true });
   console.log(`${chalk.yellow("【开始获取文案】")}`);
   await api

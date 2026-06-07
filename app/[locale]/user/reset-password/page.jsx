@@ -10,7 +10,7 @@ async function getData({ locale }) {
     locale,
     configList: ["config", "language"],
     languageNameSpace: ["user_forget"],
-    configNameSpace: ["company.basic.company_name", "company.basic.logo"],
+    configNameSpace: ["common.base"],
   });
   return result;
 }
@@ -19,7 +19,7 @@ export async function generateMetadata({ params }) {
   const { locale } = await params;
   const { LANG, CONFIG } = await getData({ locale });
   return {
-    title: `${CONFIG["company.basic.company_name"]} - ${
+    title: `${CONFIG["common.base"]?.company_name} - ${
       LANG["user_forget.retrieve_password"] || "Reset password"
     }`,
     description: LANG["user_forget.description"],
@@ -38,8 +38,8 @@ export default async function ResetPassword({ params }) {
     >
       <main className={styles.main}>
         <img
-          alt={CONFIG["company.basic.company_name"]}
-          src={CONFIG["company.basic.logo"]}
+          alt={CONFIG["common.base"]?.company_name}
+          src={CONFIG["common.base"]?.logo}
           width={40}
           height={40}
         />

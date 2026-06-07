@@ -464,7 +464,7 @@ export default function Main({
               dangerouslySetInnerHTML={{
                 __html: LANG["store.order.order_policy"]
                   .split("${1}")
-                  .join(CONFIG["company.basic.company_name"]),
+                  .join(CONFIG["common.base"]?.company_name),
               }}
             />
             {/* 银行支付方式 */}

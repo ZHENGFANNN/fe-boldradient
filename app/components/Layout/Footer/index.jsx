@@ -194,7 +194,7 @@ export default function Footer() {
       <section className={styles.content}>
         <div className={styles.content_company}>
           <div className={styles.content_logo}>
-            {CONFIG["company.social_media.index"]?.map((item, index) => {
+            {CONFIG["common.social"]?.map((item, index) => {
               return (
                 <div key={index}>
                   {item.href ? (
@@ -223,11 +223,11 @@ export default function Footer() {
           </div>
           <div className={styles.contact_email}>
             <span>{LANG["common.footer.contact_email"]}：</span>
-            <div>{CONFIG["company.basic.customer_service"]}</div>
+            <div>{CONFIG["common.base"]?.customer_service}</div>
           </div>
-          <time dateTime={CONFIG["company.basic.work_time"]}>
+          <time dateTime={CONFIG["common.base"]?.work_time}>
             <span>{LANG["common.footer.work_time"]}：</span>
-            <div>{CONFIG["company.basic.work_time"]}</div>
+            <div>{CONFIG["common.base"]?.work_time}</div>
           </time>
           {locale === "cn" ? (
             <div>
@@ -239,7 +239,7 @@ export default function Footer() {
                   rel="noreferrer"
                   href="https://beian.miit.gov.cn/#/Integrated/index"
                 >
-                  {CONFIG["company.basic.website_beian"]}
+                  {CONFIG["common.base"]?.website_beian}
                 </a>
               </span>
             </div>
@@ -252,7 +252,7 @@ export default function Footer() {
           <p className={styles.content_description}>
             {LANG["common.footer.subscribe_news"]
               ?.split("${1}")
-              .join(CONFIG["company.basic.company_name"])}
+              .join(CONFIG["common.base"]?.company_name)}
           </p>
           <div className={styles.content_email}>
             <div className={styles.content_input_btn}>
@@ -294,7 +294,7 @@ export default function Footer() {
         <div className={styles.footer_container}>
           <div className={styles.footer_copyright}>
             Copyright &copy; <time dateTime={FULLYEAR}>{FULLYEAR}</time>
-            {` ${CONFIG["company.basic.company_name"]} `}
+            {` ${CONFIG["common.base"]?.company_name} `}
             {LANG["common.footer.right_reserved"]}
           </div>
           <div className={styles.footer_filing}>
@@ -308,7 +308,7 @@ export default function Footer() {
           <p>
             {LANG["common.footer.subscribe_description"]
               ?.split("${1}")
-              .join(CONFIG["company.basic.company_name"])}
+              .join(CONFIG["common.base"]?.company_name)}
           </p>
           <button
             onClick={() => {

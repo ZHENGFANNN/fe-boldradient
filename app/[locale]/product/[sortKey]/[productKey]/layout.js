@@ -27,8 +27,7 @@ async function getData({ locale, sortKey, productKey }) {
         "common.footer.sales_policy",
       ],
       configNameSpace: [
-        "company.basic.company_name",
-        "company.basic.customer_service",
+        "common.base",
       ],
     }),
     getProductDetail({ locale, sortKey, productKey }),
@@ -42,12 +41,12 @@ export async function generateMetadata({ params }) {
   const { CONFIG, productInfo } = await getData({ locale, sortKey, productKey });
   if (productInfo) {
     return {
-      title: `${productInfo.page_title} - ${CONFIG["company.basic.company_name"]}`,
+      title: `${productInfo.page_title} - ${CONFIG["common.base"]?.company_name}`,
       description: productInfo.page_description,
       keywords: productInfo.page_keywords,
       metadataBase: new URL(productInfo.image_list[0].src),
       openGraph: {
-        title: `${productInfo.page_title} - ${CONFIG["company.basic.company_name"]}`,
+        title: `${productInfo.page_title} - ${CONFIG["common.base"]?.company_name}`,
         description: productInfo.page_description,
         images: productInfo.image_list.map((item) => {
           return {
@@ -60,7 +59,7 @@ export async function generateMetadata({ params }) {
     };
   } else {
     return {
-      title: CONFIG["company.basic.company_name"],
+      title: CONFIG["common.base"]?.company_name,
     };
   }
 }
@@ -116,11 +115,11 @@ export default async function Layout({ children, params }) {
                     ) ?? 99999,
                   priceCurrency: ldAreaInfo?.currency ?? "USD",
                 },
-                sku: `${CONFIG["company.basic.company_name"]}:${productInfo.sort_key}:${productInfo.key}`,
+                sku: `${CONFIG["common.base"]?.company_name}:${productInfo.sort_key}:${productInfo.key}`,
                 mpn: productInfo.key,
                 brand: {
                   "@type": "Brand",
-                  name: `${CONFIG["company.basic.company_name"]}`,
+                  name: `${CONFIG["common.base"]?.company_name}`,
                 },
               },
               null,

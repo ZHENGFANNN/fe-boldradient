@@ -2,7 +2,7 @@ export const contactList = ({ CONFIG, LANG }) => {
   return [
     {
       title: LANG["www.company_contact.question_consulting"],
-      content: CONFIG["company.basic.customer_service"],
+      content: CONFIG["common.base"]?.customer_service,
       type: "email",
     },
     {
@@ -12,17 +12,17 @@ export const contactList = ({ CONFIG, LANG }) => {
     },
     {
       title: LANG["www.company_contact.contact_number"],
-      content: CONFIG["company.basic.work_phone"],
+      content: CONFIG["common.base"]?.work_phone,
       type: "text",
     },
     {
       title: LANG["www.company_contact.company_address"],
-      content: CONFIG["company.basic.work_location"],
+      content: CONFIG["common.base"]?.work_location,
       type: "text",
     },
     {
       title: LANG["www.company_contact.operating_hours"],
-      content: CONFIG["company.basic.work_time"],
+      content: CONFIG["common.base"]?.work_time,
       type: "text",
     },
   ];

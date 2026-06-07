@@ -15,9 +15,8 @@ async function getData({ locale }) {
     configList: ["config", "language"],
     languageNameSpace: ["www.company_contact"],
     configNameSpace: [
-      "company.basic",
-      "company.social_media.index",
-      "company.basic.company_name",
+      "common.base",
+      "common.social",
     ],
   });
   return result;
@@ -29,7 +28,7 @@ export async function generateMetadata({ params }) {
     locale,
   });
   return {
-    title: `${CONFIG["company.basic.company_name"]} - ${LANG["www.company_contact.title"]}`,
+    title: `${CONFIG["common.base"]?.company_name} - ${LANG["www.company_contact.title"]}`,
     description: LANG["www.company_contact.description"],
     keywords: LANG["www.company_contact.keywords"],
   };
@@ -49,7 +48,7 @@ export default async function Contact({ params }) {
         />
       </div>
       <ul className={styles.media_list}>
-        {CONFIG["company.social_media.index"]?.map((item, index) => {
+        {CONFIG["common.social"]?.map((item, index) => {
           return (
             <li key={index}>
               {item.href ? (

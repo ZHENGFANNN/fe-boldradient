@@ -8,7 +8,7 @@ export default function AnnouncementBar() {
   const textListRef = React.useRef(null);
   const [activeIndex, setActiveIndex] = React.useState(0);
   const bannerList = React.useMemo(() => {
-    return CONFIG["page.common.top_bar"];
+    return CONFIG["common.top_bar"];
   }, []);
 
   React.useEffect(() => {

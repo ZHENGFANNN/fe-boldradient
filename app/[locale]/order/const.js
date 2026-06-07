@@ -17,7 +17,7 @@ export const domesticPay = function ({ CONFIG, LANG }) {
     //   key: "bank",
     //   description: LANG["store.order.pay_info.transfer_detail"]
     //     .split("${1}")
-    //     .join(CONFIG["company.basic.company_name"]),
+    //     .join(CONFIG["common.base"]?.company_name),
     //   imgList: [`${process.env.NEXT_PUBLIC_FILE}/common/image/icon/pay-transfer.png`],
     // },
     {

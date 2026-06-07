@@ -1,15 +1,15 @@
 /** @format */
 
-const cn = require("@@/locale/languageList/cn.json");
-const de = require("@@/locale/languageList/de.json");
-const en = require("@@/locale/languageList/en.json");
-const es = require("@@/locale/languageList/es.json");
-const fr = require("@@/locale/languageList/fr.json");
-const hk = require("@@/locale/languageList/hk.json");
-const it = require("@@/locale/languageList/it.json");
-const ja = require("@@/locale/languageList/ja.json");
-const ko = require("@@/locale/languageList/ko.json");
-const ru = require("@@/locale/languageList/ru.json");
+const cn = require("@@/fetch-data/languageList/cn.json");
+const de = require("@@/fetch-data/languageList/de.json");
+const en = require("@@/fetch-data/languageList/en.json");
+const es = require("@@/fetch-data/languageList/es.json");
+const fr = require("@@/fetch-data/languageList/fr.json");
+const hk = require("@@/fetch-data/languageList/hk.json");
+const it = require("@@/fetch-data/languageList/it.json");
+const ja = require("@@/fetch-data/languageList/ja.json");
+const ko = require("@@/fetch-data/languageList/ko.json");
+const ru = require("@@/fetch-data/languageList/ru.json");
 
 const languageList = {
   cn,

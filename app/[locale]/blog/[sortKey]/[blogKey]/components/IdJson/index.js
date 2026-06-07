@@ -18,7 +18,7 @@ export default function IdJson({ article, CONFIG }) {
           author: [
             {
               "@type": "Organization",
-              name: CONFIG["company.basic.company_name"],
+              name: CONFIG["common.base"]?.company_name,
             },
           ],
         }),

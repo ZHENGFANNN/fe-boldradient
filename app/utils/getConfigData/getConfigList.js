@@ -1,38 +1,28 @@
 /** @format */
 
-const cn = require("@@/locale/configList/cn.json");
-const de = require("@@/locale/configList/de.json");
-const en = require("@@/locale/configList/en.json");
-const es = require("@@/locale/configList/es.json");
-const fr = require("@@/locale/configList/fr.json");
-const hk = require("@@/locale/configList/hk.json");
-const it = require("@@/locale/configList/it.json");
-const ja = require("@@/locale/configList/ja.json");
-const ko = require("@@/locale/configList/ko.json");
-const ru = require("@@/locale/configList/ru.json");
+const globalConfig = require("@@/fetch-data/globalConfig/index.json");
 
-const configDataList = {
-  cn,
-  de,
-  en,
-  es,
-  fr,
-  hk,
-  it,
-  ja,
-  ko,
-  ru,
+const pageConfigDataList = {
+  cn: require("@@/fetch-data/pageConfig/cn.json"),
+  de: require("@@/fetch-data/pageConfig/de.json"),
+  en: require("@@/fetch-data/pageConfig/en.json"),
+  es: require("@@/fetch-data/pageConfig/es.json"),
+  fr: require("@@/fetch-data/pageConfig/fr.json"),
+  hk: require("@@/fetch-data/pageConfig/hk.json"),
+  it: require("@@/fetch-data/pageConfig/it.json"),
+  ja: require("@@/fetch-data/pageConfig/ja.json"),
+  ko: require("@@/fetch-data/pageConfig/ko.json"),
+  ru: require("@@/fetch-data/pageConfig/ru.json"),
 };
 
-const filterConfig = async function ({ localeConfig, configNameSpace }) {
+const filterConfig = ({ merged, configNameSpace }) => {
   const configObj = {};
   configNameSpace.forEach((nameSpace) => {
-    localeConfig &&
-      Object.keys(localeConfig).forEach((key) => {
-        if (key.startsWith(nameSpace) && !configObj[key]) {
-          configObj[key] = localeConfig[key];
-        }
-      });
+    Object.keys(merged).forEach((key) => {
+      if (key === nameSpace || key.startsWith(`${nameSpace}.`)) {
+        configObj[key] = merged[key];
+      }
+    });
   });
   return configObj;
 };
@@ -43,6 +33,7 @@ export default async function getConfigList({
   configNameSpace,
 }) {
   if (!configList.includes("config")) return null;
-  const localeConfig = configDataList[locale];
-  return filterConfig({ localeConfig, configNameSpace });
+  const pageConfig = pageConfigDataList[locale] || pageConfigDataList.en;
+  const merged = { ...pageConfig, ...globalConfig };
+  return filterConfig({ merged, configNameSpace });
 }

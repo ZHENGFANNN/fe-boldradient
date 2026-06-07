@@ -11,7 +11,7 @@ async function getData({ locale }) {
   const { LANG, BLOG, CONFIG } = await getConfigData({
     locale,
     configList: ["blog", "config", "language"],
-    configNameSpace: ["company.basic.company_name"],
+    configNameSpace: ["common.base"],
     blogNameSpace: ["banner", "sort"],
     languageNameSpace: [
       "store.blog_index.view_all",
@@ -45,7 +45,7 @@ export async function generateMetadata({ params }) {
     });
   });
 
-  const title = `${CONFIG["company.basic.company_name"]} ${LANG["store.blog_index.title"]}`;
+  const title = `${CONFIG["common.base"]?.company_name} ${LANG["store.blog_index.title"]}`;
   const description = BLOG.blogSortList.map((item) => item.name).join(",");
 
   return {

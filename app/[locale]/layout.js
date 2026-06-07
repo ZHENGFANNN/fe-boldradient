@@ -48,9 +48,9 @@ async function getData({ locale, area }) {
       "common.cookie"
     ],
     configNameSpace: [
-      "company.basic",
-      "company.social_media.index",
-      "page.common"
+      "common.base",
+      "common.social",
+      "common.top_bar",
     ],
     blogNameSpace: ["layout"],
     productNameSpace: ["layout", "sort"]
@@ -87,7 +87,7 @@ export default async function RootLayout(props) {
 
   return (
     <html lang={locale}>
-      <Head logoLink={CONFIG["company.basic.logo"]} />
+      <Head logoLink={CONFIG["common.base"]?.logo} />
       <body>
         <GTMNoScript />
         <Layout

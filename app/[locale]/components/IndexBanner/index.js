@@ -16,7 +16,7 @@ export default function Banner() {
   const [splide, setSplide] = React.useState();
   const [active, setActive] = React.useState(0);
   const bannerList = React.useMemo(() => {
-    return CONFIG["store.index.banner"];
+    return CONFIG["home.banner"];
   }, []);
 
   React.useEffect(() => {

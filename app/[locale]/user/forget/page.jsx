@@ -10,7 +10,7 @@ async function getData({ locale }) {
     locale,
     configList: ["config", "language"],
     languageNameSpace: ["user_forget"],
-    configNameSpace: ["company.basic.company_name", "company.basic.logo"],
+    configNameSpace: ["common.base"],
   });
   return result;
 }
@@ -21,7 +21,7 @@ export async function generateMetadata({ params }) {
     locale,
   });
   return {
-    title: `${CONFIG["company.basic.company_name"]} - ${LANG["user_forget.title"]}`,
+    title: `${CONFIG["common.base"]?.company_name} - ${LANG["user_forget.title"]}`,
     description: LANG["user_forget.description"],
     keywords: LANG["user_forget.keywords"],
   };
@@ -42,8 +42,8 @@ export default async function Forget({ params }) {
     >
       <main className={styles.main}>
         <img
-          alt={CONFIG["company.basic.company_name"]}
-          src={CONFIG["company.basic.logo"]}
+          alt={CONFIG["common.base"]?.company_name}
+          src={CONFIG["common.base"]?.logo}
           width={40}
           height={40}
         />

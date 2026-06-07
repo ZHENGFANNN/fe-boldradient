@@ -11,11 +11,11 @@ export async function generateMetadata({ params }) {
     locale,
     configList: ["config", "language"],
     languageNameSpace: ["store.order"],
-    configNameSpace: ["company.basic.company_name"],
+    configNameSpace: ["common.base"],
   });
 
   return {
-    title: `${LANG["store.order.page_title"]} - ${CONFIG["company.basic.company_name"]}`,
+    title: `${LANG["store.order.page_title"]} - ${CONFIG["common.base"]?.company_name}`,
     description: LANG["store.order.page_description"],
     keywords: LANG["store.order.page_keywords"],
   };
@@ -55,10 +55,7 @@ export default async function Order({ params }) {
       "user_account.shipping_address",
       "common.advantage",
     ],
-    configNameSpace: [
-      "company.basic.company_name",
-      "company.basic.customer_service",
-    ],
+    configNameSpace: ["common.base", "setting.pay"],
   });
 
   return (

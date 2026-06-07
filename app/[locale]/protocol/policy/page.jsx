@@ -10,11 +10,7 @@ async function getData({ locale }) {
     locale,
     configList: ["config", "language"],
     languageNameSpace: ["www.protocol_policy"],
-    configNameSpace: [
-      "company.basic.company_name",
-      "company.basic.customer_service",
-      "page.protocol.policy",
-    ],
+    configNameSpace: ["common.base", "protocol.policy"],
   });
   return result;
 }
@@ -25,7 +21,7 @@ export async function generateMetadata({ params }) {
     locale,
   });
   return {
-    title: `${CONFIG["company.basic.company_name"]} - ${LANG["www.protocol_policy.title"]}`,
+    title: `${CONFIG["common.base"]?.company_name} - ${LANG["www.protocol_policy.title"]}`,
     description: LANG["www.protocol_policy.description"],
     keywords: LANG["www.protocol_policy.keywords"],
   };
@@ -37,9 +33,9 @@ export default async function Faq({ params }) {
     locale,
   });
   const title = LANG["www.protocol_policy.title"];
-  const content = fillTemplate(CONFIG["page.protocol.policy.content"], {
-    company_name: CONFIG["company.basic.company_name"],
-    email: CONFIG["company.basic.customer_service"],
+  const content = fillTemplate(CONFIG["protocol.policy.article"], {
+    company_name: CONFIG["common.base"]?.company_name,
+    email: CONFIG["common.base"]?.customer_service,
   });
   return (
     <div className={styles.container}>

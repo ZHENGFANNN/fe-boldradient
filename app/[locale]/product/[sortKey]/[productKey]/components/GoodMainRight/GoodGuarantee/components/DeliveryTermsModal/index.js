@@ -18,7 +18,7 @@ function DeliveryTermsModal({ title, LANG, CONFIG }, ref) {
       <div className={styles.container}>
         {LANG["store.product.service_agreement.delivery_terms_detail"]?.replace(
           "$email",
-          CONFIG["company.basic.customer_service"]
+          CONFIG["common.base"]?.customer_service
         )}
       </div>
     </Modal>

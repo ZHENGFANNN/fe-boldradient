@@ -11,7 +11,7 @@ async function getData({ locale }) {
     locale,
     configList: ["config", "language"],
     languageNameSpace: ["user_login"],
-    configNameSpace: ["company.basic.company_name", "company.basic.logo"],
+    configNameSpace: ["common.base"],
   });
   return result;
 }
@@ -22,7 +22,7 @@ export async function generateMetadata({ params }) {
     locale,
   });
   return {
-    title: `${CONFIG["company.basic.company_name"]} - ${LANG["user_login.title"]}`,
+    title: `${CONFIG["common.base"]?.company_name} - ${LANG["user_login.title"]}`,
     description: LANG["user_login.description"],
     keywords: LANG["user_login.keywords"],
   };
@@ -42,8 +42,8 @@ export default async function Login({ params }) {
     >
       <main className={styles.main}>
         <img
-          alt={CONFIG["company.basic.company_name"]}
-          src={CONFIG["company.basic.logo"]}
+          alt={CONFIG["common.base"]?.company_name}
+          src={CONFIG["common.base"]?.logo}
           width={40}
           height={40}
         />

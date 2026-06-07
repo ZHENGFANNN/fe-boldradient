@@ -41,7 +41,7 @@ export default function GoodFaq() {
         question: LANG["store.product.service_agreement.delivery_terms"],
         answer: LANG[
           "store.product.service_agreement.delivery_terms_detail"
-        ]?.replace("$email", CONFIG["company.basic.customer_service"]),
+        ]?.replace("$email", CONFIG["common.base"]?.customer_service),
       },
       {
         type: "faq",
@@ -50,7 +50,7 @@ export default function GoodFaq() {
           LANG[
             "store.product.service_agreement.product_guarantee_detail"?.replace(
               "$email",
-              CONFIG["company.basic.customer_service"]
+              CONFIG["common.base"]?.customer_service
             )
           ],
       },

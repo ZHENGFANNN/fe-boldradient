@@ -31,12 +31,13 @@ function readEnvHost() {
   } catch (_) {}
   throw new Error("找不到 NEXT_PUBLIC_HOST（请设 BLOG_API_HOST 或 .env）");
 }
+
 function readToken() {
   if (process.env.GH_TOKEN) return process.env.GH_TOKEN;
   // 从仓库根 .mcp.json 解析 Bearer token
   const candidates = [
     path.join(__dirname, "..", "..", ".mcp.json"),
-    path.join(__dirname, "..", ".mcp.json"),
+    path.join(__dirname, "..", ".mcp.json")
   ];
   for (const p of candidates) {
     try {
@@ -58,8 +59,18 @@ const GH = "https://api.github.com";
 function handleAProductList(productList) {
   if (Array.isArray(productList) && productList.length > 0) {
     return productList.map(
-      ({ reviewsList, image_list, reviews_num, reviews_score, comboList, ...item }) => {
-        const totalScore = reviewsList?.reduce((pre, cur) => pre + cur.score, 0);
+      ({
+        reviewsList,
+        image_list,
+        reviews_num,
+        reviews_score,
+        comboList,
+        ...item
+      }) => {
+        const totalScore = reviewsList?.reduce(
+          (pre, cur) => pre + cur.score,
+          0
+        );
         item.reviewScore = totalScore / reviewsList?.length || reviews_score;
         item.reviewsNum = reviewsList?.length || reviews_num;
         item.image = image_list[0].src;
@@ -71,6 +82,7 @@ function handleAProductList(productList) {
   }
   return [];
 }
+
 function getHeadTitleId(title) {
   return title
     .toLowerCase()
@@ -79,6 +91,7 @@ function getHeadTitleId(title) {
     .trim()
     .replace(/\s+/g, "-");
 }
+
 function getHeadTitleList(html) {
   const headerRegex = /<h([23])[^>]*>(.*?)<\/h\1>/gis;
   const tagRegex = /<\/?[^>]+(>|$)/g;
@@ -93,6 +106,7 @@ function getHeadTitleList(html) {
   }
   return matches;
 }
+
 function addHeadTitleId(html) {
   const headerRegex = /<h([23])[^>]*>(.*?)<\/h\1>/gis;
   let match;
@@ -101,10 +115,14 @@ function addHeadTitleId(html) {
     const tagName = `h${match[1]}`;
     const content = match[2];
     const id = getHeadTitleId(content);
-    html = html.replace(contentWithTags, `<${tagName} id="${id}">${content}</${tagName}>`);
+    html = html.replace(
+      contentWithTags,
+      `<${tagName} id="${id}">${content}</${tagName}>`
+    );
   }
   return html;
 }
+
 function handleBlogData(list) {
   const obj = {};
   list.forEach(({ sortInfo, id, created_time, language, ...item }) => {
@@ -126,13 +144,13 @@ function handleBlogData(list) {
         image: item.image,
         title: item.title,
         key: item.key,
-        sort_key: item.sort_key,
+        sort_key: item.sort_key
       });
     }
 
     obj[`article:${item.sort_key}:${item.key}`] = {
       ...item,
-      associateProduct: handleAProductList(item.associateProduct),
+      associateProduct: handleAProductList(item.associateProduct)
     };
 
     const blogSortArticleItem = {
@@ -140,7 +158,7 @@ function handleBlogData(list) {
       title: item.title,
       key: item.key,
       sort_key: item.sort_key,
-      updated_time: item.updated_time,
+      updated_time: item.updated_time
     };
     if (!obj[`sort`]) obj[`sort`] = {};
     obj[`sort`][`${item.sort_key}`] = {
@@ -149,7 +167,7 @@ function handleBlogData(list) {
       name: blogSortInfo.name,
       blogList: obj[`sort`][`${item.sort_key}`]
         ? [...obj[`sort`][`${item.sort_key}`].blogList, blogSortArticleItem]
-        : [blogSortArticleItem],
+        : [blogSortArticleItem]
     };
   });
 
@@ -157,7 +175,9 @@ function handleBlogData(list) {
   obj["layout"]["footer"] = Object.keys(obj["sort"] || {})
     .filter((_, index) => index < 8)
     .map((item) =>
-      obj["sort"][item] ? { name: obj["sort"][item].name, key: obj["sort"][item].key } : {}
+      obj["sort"][item]
+        ? { name: obj["sort"][item].name, key: obj["sort"][item].key }
+        : {}
     );
   obj["layout"]["nav"] = list
     .filter((_, index) => index < 8)
@@ -176,23 +196,25 @@ async function gh(method, url, body) {
       Accept: "application/vnd.github+json",
       "User-Agent": "boldradiant-blog-publisher",
       "X-GitHub-Api-Version": "2022-11-28",
-      ...(body ? { "Content-Type": "application/json" } : {}),
+      ...(body ? { "Content-Type": "application/json" } : {})
     },
-    body: body ? JSON.stringify(body) : undefined,
+    body: body ? JSON.stringify(body) : undefined
   });
   const text = await res.text();
-  if (!res.ok) throw new Error(`${method} ${url} -> ${res.status}: ${text.slice(0, 300)}`);
+  if (!res.ok)
+    throw new Error(`${method} ${url} -> ${res.status}: ${text.slice(0, 300)}`);
   return text ? JSON.parse(text) : {};
 }
 
 async function main() {
   console.log(`[1/5] 拉取 ${API_HOST}/config/getBlog ...`);
   const r = await fetch(`${API_HOST}/config/getBlog`, {
-    headers: { "User-Agent": "boldradiant-blog-publisher" },
+    headers: { "User-Agent": "boldradiant-blog-publisher" }
   });
   const body = await r.json();
   const list = body?.data?.list || [];
-  if (!list.length) throw new Error("getBlog 返回空 list，中止（疑似后端异常），不发布");
+  if (!list.length)
+    throw new Error("getBlog 返回空 list，中止（疑似后端异常），不发布");
   console.log(`      共 ${list.length} 篇文章`);
 
   // 按语言分组（API 目前主要返回 en），缺失语言回退 en
@@ -209,11 +231,19 @@ async function main() {
   Object.keys(byLang).forEach((lang) => {
     const blogMap = handleBlogData(JSON.parse(JSON.stringify(byLang[lang])));
     Object.keys(blogMap).forEach((blogKey) => {
-      files[`public/config/blog/${blogKey}/${lang}.json`] = JSON.stringify(blogMap[blogKey], null, 0);
+      files[`public/config/blog/${blogKey}/${lang}.json`] = JSON.stringify(
+        blogMap[blogKey],
+        null,
+        0
+      );
     });
   });
   const paths = Object.keys(files);
-  console.log(`[2/5] 生成 ${paths.length} 个 JSON 文件（${Object.keys(byLang).length} 种语言）`);
+  console.log(
+    `[2/5] 生成 ${paths.length} 个 JSON 文件（${
+      Object.keys(byLang).length
+    } 种语言）`
+  );
 
   // 暂存模式：把内容写到 STAGE_DIR（文件名用序号，避免冒号），并输出 manifest.tsv（真实git路径\t暂存文件）。
   // 供 Windows 原生 git plumbing（hash-object + commit-tree）使用，绕开 PAT 写权限与 NTFS 冒号限制。
@@ -227,14 +257,22 @@ async function main() {
       manifest.push(`${p}\t${fn}`);
     });
     fs.writeFileSync(path.join(dir, "manifest.tsv"), manifest.join("\n"));
-    console.log(`[stage] 已写出 ${paths.length} 个文件 + manifest.tsv 到 ${dir}`);
+    console.log(
+      `[stage] 已写出 ${paths.length} 个文件 + manifest.tsv 到 ${dir}`
+    );
     return;
   }
 
   console.log(`[3/5] 读取 ${OWNER}/${REPO}@${BRANCH} 基准 commit/tree ...`);
-  const ref = await gh("GET", `/repos/${OWNER}/${REPO}/git/ref/heads/${BRANCH}`);
+  const ref = await gh(
+    "GET",
+    `/repos/${OWNER}/${REPO}/git/ref/heads/${BRANCH}`
+  );
   const baseCommitSha = ref.object.sha;
-  const baseCommit = await gh("GET", `/repos/${OWNER}/${REPO}/git/commits/${baseCommitSha}`);
+  const baseCommit = await gh(
+    "GET",
+    `/repos/${OWNER}/${REPO}/git/commits/${baseCommitSha}`
+  );
   const baseTreeSha = baseCommit.tree.sha;
 
   console.log(`[4/5] 上传 ${paths.length} 个 blob 并建 tree ...`);
@@ -243,14 +281,14 @@ async function main() {
   for (const p of paths) {
     const blob = await gh("POST", `/repos/${OWNER}/${REPO}/git/blobs`, {
       content: Buffer.from(files[p], "utf8").toString("base64"),
-      encoding: "base64",
+      encoding: "base64"
     });
     tree.push({ path: p, mode: "100644", type: "blob", sha: blob.sha });
     if (++n % 20 === 0) console.log(`      ${n}/${paths.length}`);
   }
   const newTree = await gh("POST", `/repos/${OWNER}/${REPO}/git/trees`, {
     base_tree: baseTreeSha,
-    tree,
+    tree
   });
 
   const msg =
@@ -259,9 +297,11 @@ async function main() {
   const commit = await gh("POST", `/repos/${OWNER}/${REPO}/git/commits`, {
     message: msg,
     tree: newTree.sha,
-    parents: [baseCommitSha],
+    parents: [baseCommitSha]
   });
-  await gh("PATCH", `/repos/${OWNER}/${REPO}/git/refs/heads/${BRANCH}`, { sha: commit.sha });
+  await gh("PATCH", `/repos/${OWNER}/${REPO}/git/refs/heads/${BRANCH}`, {
+    sha: commit.sha
+  });
 
   console.log(`[5/5] 已推送到 ${BRANCH}：${commit.sha}`);
   console.log(`      https://github.com/${OWNER}/${REPO}/commit/${commit.sha}`);

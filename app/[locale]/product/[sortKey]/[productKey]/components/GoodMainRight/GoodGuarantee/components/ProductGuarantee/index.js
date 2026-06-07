@@ -20,7 +20,7 @@ function ProductGuarantee({ title, LANG, CONFIG }, ref) {
           LANG[
             "store.product.service_agreement.product_guarantee_detail"?.replace(
               "$email",
-              CONFIG["company.basic.customer_service"]
+              CONFIG["common.base"]?.customer_service
             )
           ]
         }

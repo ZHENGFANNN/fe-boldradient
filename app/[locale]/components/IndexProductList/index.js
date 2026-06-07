@@ -144,11 +144,11 @@ function ProductItem({ goodList }) {
                         ) ?? 99999,
                       priceCurrency: product.areaInfo?.currency ?? "USD",
                     },
-                    sku: CONFIG["company.basic.company_name"],
+                    sku: CONFIG["common.base"]?.company_name,
                     mpn: product.key,
                     brand: {
                       "@type": "Brand",
-                      name: `${CONFIG["company.basic.company_name"]}`,
+                      name: `${CONFIG["common.base"]?.company_name}`,
                     },
                     review: {
                       "@type": " Organization",
@@ -159,7 +159,7 @@ function ProductItem({ goodList }) {
                       },
                       author: {
                         "@type": "Organization",
-                        name: `${CONFIG["company.basic.company_name"]}`,
+                        name: `${CONFIG["common.base"]?.company_name}`,
                       },
                     },
                   },

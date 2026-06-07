@@ -128,7 +128,7 @@ function PayButton({
         <div className={styles.tip}>
           {LANG["common.pay.pay_button.pay_fail_error_tip"]?.replace(
             "${email}",
-            CONFIG["company.basic.customer_service"]
+            CONFIG["common.base"]?.customer_service
           )}
         </div>
       </div>

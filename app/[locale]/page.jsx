@@ -30,7 +30,7 @@ async function getData({ locale, area }) {
       "store.index.description",
       "store.index.keywords",
     ],
-    configNameSpace: ["store.index.banner", "company.basic.company_name"],
+    configNameSpace: ["home.banner", "common.base"],
   });
 
   result.PRODUCT.sort = result.PRODUCT.sort.map(({ goodList, ...item }) => {
@@ -57,7 +57,7 @@ export async function generateMetadata({ params }) {
     area,
   });
   return {
-    title: `${CONFIG["company.basic.company_name"]} - ${LANG["store.index.title"]}`,
+    title: `${CONFIG["common.base"]?.company_name} - ${LANG["store.index.title"]}`,
     description: LANG["store.index.description"],
     keywords: LANG["store.index.keywords"],
   };

@@ -12,10 +12,10 @@ export async function generateMetadata({ params }) {
     locale,
     configList: ["config", "language"],
     languageNameSpace: ["store.order_info.order_info"],
-    configNameSpace: ["company.basic.company_name"],
+    configNameSpace: ["common.base"],
   });
   return {
-    title: `${LANG["store.order_info.order_info"]} - ${CONFIG["company.basic.company_name"]}`,
+    title: `${LANG["store.order_info.order_info"]} - ${CONFIG["common.base"]?.company_name}`,
   };
 }
 
@@ -28,7 +28,7 @@ export default async function Info({ params, searchParams }) {
     locale,
     configList: ["config", "language"],
     languageNameSpace: ["store.order_info", "common.pay"],
-    configNameSpace: ["company.basic.company_name"],
+    configNameSpace: ["common.base"],
   });
   return (
     <Main

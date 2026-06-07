@@ -6,7 +6,7 @@ const api = require("./api");
 const fetchFestivalDiscount = async (times = 1, cookie = "") => {
   let error = false;
   const startTime = new Date().getTime();
-  const fileDir = "./locale/productDiscount/festival";
+  const fileDir = "./fetch-data/productDiscount/festival";
   if (!fs.existsSync(fileDir)) fs.mkdirSync(fileDir, { recursive: true });
   console.log(`${chalk.yellow("【开始获取产品折扣】")}`);
   await api

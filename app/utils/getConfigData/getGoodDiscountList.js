@@ -1,6 +1,6 @@
 /** @format */
 
-import productDiscount from "@@/locale/productDiscount/festival";
+import productDiscount from "@@/fetch-data/productDiscount/festival";
 
 // 判断该折扣是否对当前访客所在国家(area=country_code)生效。
 // enabled_countries 为空数组 / 缺失 / 非数组时表示对所有国家生效（向后兼容旧记录）。

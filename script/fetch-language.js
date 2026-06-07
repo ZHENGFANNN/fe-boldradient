@@ -4,12 +4,14 @@ const chalk = require("chalk");
 const fs = require("fs");
 const api = require("./api");
 
-const { languageList } = require("../app/config/languageSettings");
+const languageSettings = require("../app/config/languageSettings");
 
 // 获取多语言信息
 const fetchLanguage = async (times = 1, cookie = "") => {
   let error = false;
   const startTime = new Date().getTime();
+  // 语言列表派生自 globalConfig，需在 fetch-config 写盘后重新读取（见 script/index.js 顺序约束）
+  const { languageList } = languageSettings.reload();
   const fileDir = "./fetch-data/languageList";
   if (!fs.existsSync(fileDir)) fs.mkdirSync(fileDir, { recursive: true });
   console.log(`${chalk.yellow("【开始获取文案】")}`);

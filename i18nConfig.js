@@ -1,4 +1,4 @@
-import languageSettings from "@/config/languageSettings.js";
+import languageSettings from "@/config/languageSettings";
 
 const { locales, defaultLocale, resolveLocale } = languageSettings;
 

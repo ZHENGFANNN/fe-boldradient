@@ -21,6 +21,17 @@ const nextConfig = {
   webpack: (config) => {
     config.resolve.alias["@"] = path.join(__dirname, "app");
     config.resolve.alias["@@"] = __dirname;
+    // 纯 JS 项目渐进引入 .ts：无扩展名 import 时优先解析 .ts（避免仍找已删除的 .js）
+    config.resolve.extensions = [
+      ".ts",
+      ".tsx",
+      ...(config.resolve.extensions || []),
+    ];
+    config.resolve.extensionAlias = {
+      ".js": [".ts", ".tsx", ".js", ".jsx"],
+      ".mjs": [".mts", ".mjs"],
+      ".cjs": [".cts", ".cjs"],
+    };
     return config;
   }
 };

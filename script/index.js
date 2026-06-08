@@ -1,5 +1,7 @@
 /** @format */
 
+require("./register-ts");
+
 // 加载特定环境的 .env 文件
 const dotenv = require("dotenv");
 const env = process.env.NODE_ENV === "local" ? ".local" : "";

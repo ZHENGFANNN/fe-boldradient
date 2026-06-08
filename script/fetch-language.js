@@ -18,8 +18,8 @@ const fetchLanguage = async (times = 1, cookie = "") => {
   await api
     .get("/config/getLanguage", {
       headers: {
-        cookie,
-      },
+        cookie
+      }
     })
     .then((res) => {
       let obj = {};

@@ -12,23 +12,50 @@
 const HOST = process.env.NEXT_PUBLIC_HOST;
 const REVALIDATE_FALLBACK = 86400; // 24h，兜底；实时性靠 on-demand revalidateTag
 
-// 从 typeList 聚合出该商品的筛选标签：{ dim: 维度名(如 Metal), value: 取值 }。
-// 客户端筛选用，不参与 SEO。
-function extractTags(typeList) {
-  if (!Array.isArray(typeList)) return [];
+// ⚠️ 临时测试标签（mock）。
+// 后端 erp_goods_tag / erp_goods_tag_relation 已存在，但商城接口 /config/getProduct
+// 目前不返回商品标签（user-service ErpGoodsInfo 未关联 Tags）。为先把「按商品标签
+// 筛选」跑通且可测试，这里按需给商品注入测试标签——数据不要求准确。
+// 待后端让接口返回真实 item.tags / item.tagList 后，把下面 resolveTags 改成读真实字段即可。
+const MOCK_TAG_POOL = [
+  "New Arrival",
+  "Best Seller",
+  "Lab Grown",
+  "Limited Edition",
+  "On Sale",
+  "Ethically Sourced",
+];
+
+// 用商品 key 做稳定哈希，保证 SSR 与客户端、每次构建给同一商品分到同一组标签
+// （不能用随机数，否则 hydration 不一致）。每个商品分到 1~3 个标签。
+function mockTagsForKey(key) {
+  let h = 0;
+  for (let i = 0; i < (key || "").length; i++) {
+    h = (h * 31 + key.charCodeAt(i)) >>> 0;
+  }
+  const count = (h % 3) + 1; // 1~3 个
   const tags = [];
-  typeList.forEach((t) => {
-    if (t?.enabled === 0) return;
-    const dim = t?.title;
-    (t?.options || []).forEach((o) => {
-      if (o?.title) tags.push({ dim, value: o.title });
-    });
-  });
-  return tags;
+  for (let i = 0; i < count; i++) {
+    tags.push(MOCK_TAG_POOL[(h + i * 7) % MOCK_TAG_POOL.length]);
+  }
+  return Array.from(new Set(tags));
+}
+
+// 解析商品标签：优先用后端真实字段（未来），否则回退到 mock。返回字符串数组。
+function resolveTags(item) {
+  const real =
+    item.tagList || item.tags || item.tag_list || item.labelList || null;
+  if (Array.isArray(real) && real.length > 0) {
+    // 真实字段可能是 [{name}] 或 ["xxx"]，统一成字符串
+    return real
+      .map((t) => (typeof t === "string" ? t : t?.name || t?.title))
+      .filter(Boolean);
+  }
+  return mockTagsForKey(item.key);
 }
 
 // 商品卡片精简：算评分/评论数、取主图，保留 comboList(含 areaList) 供客户端选地区价，
-// 附带 tags(来自 typeList) 供客户端筛选。
+// 附带 tags（商品标签）供客户端筛选。
 function toSimpleProduct(item) {
   const { reviewsList, reviews_num, reviews_score, image_list } = item;
   const totalScore = reviewsList?.reduce((pre, cur) => pre + cur.score, 0);
@@ -46,7 +73,7 @@ function toSimpleProduct(item) {
     reviews_num,
     weight: item.weight,
     comboList: Array.isArray(item.comboList) ? item.comboList : [],
-    tags: extractTags(item.typeList),
+    tags: resolveTags(item),
   };
 }
 

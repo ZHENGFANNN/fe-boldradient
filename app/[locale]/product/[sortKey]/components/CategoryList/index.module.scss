@@ -30,37 +30,34 @@
   }
 }
 
-/* 分类头 */
+/* 分类头（Shopify 风格：左对齐，无商品数量） */
 .collection_header {
-  text-align: center;
-  margin-bottom: 40px;
+  text-align: left;
+  margin-bottom: 36px;
   .collection_title {
-    font-weight: 700;
-    font-size: 40px;
-    line-height: 1.2;
-    color: #262629;
-    margin-bottom: 12px;
+    font-weight: 600;
+    font-size: 44px;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    color: #1a1a1a;
+    margin-bottom: 16px;
   }
   .collection_desc {
-    max-width: 720px;
-    margin: 0 auto 12px;
+    max-width: 760px;
+    margin: 0;
     font-size: 16px;
-    line-height: 1.6;
-    color: rgba(0, 0, 0, 0.55);
-  }
-  .count {
-    font-size: 14px;
-    color: rgba(0, 0, 0, 0.45);
+    line-height: 1.7;
+    color: rgba(0, 0, 0, 0.6);
   }
 }
 
-/* 分类切换 chips */
+/* 分类切换 chips（左对齐） */
 .category_nav {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 12px;
-  margin-bottom: 48px;
+  margin-bottom: 40px;
   .category_chip {
     padding: 8px 20px;
     border: 1px solid rgba(0, 0, 0, 0.12);

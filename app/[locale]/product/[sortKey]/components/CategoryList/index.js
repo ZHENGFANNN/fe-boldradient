@@ -119,19 +119,15 @@ function ProductCard({ product, LANG, goodDiscountFestival, area }) {
   );
 }
 
-// 把全部商品的 tags 聚合成 { 维度: [取值,...] }，用于渲染筛选项（按维度分组）。
-function buildTagGroups(goodList) {
-  const groups = {};
+// 把全部商品的商品标签聚合成去重列表（按字母序），用于渲染标签筛选项。
+function buildTagList(goodList) {
+  const set = new Set();
   goodList.forEach((p) => {
-    (p.tags || []).forEach(({ dim, value }) => {
-      if (!dim || !value) return;
-      (groups[dim] ||= new Set()).add(value);
+    (p.tags || []).forEach((tag) => {
+      if (tag) set.add(tag);
     });
   });
-  return Object.keys(groups).map((dim) => ({
-    dim,
-    values: Array.from(groups[dim]).sort(),
-  }));
+  return Array.from(set).sort();
 }
 
 // t(key, fallback)：有文案用文案，没有回退英文，保证不依赖后端文案也能用。
@@ -160,31 +156,25 @@ export default function CategoryList({
     setMounted(true);
   }, []);
 
-  // 筛选状态：selectedTags = { 维度: Set(取值) }；价格区间字符串（受控输入）。
-  const [selectedTags, setSelectedTags] = React.useState({});
+  // 筛选状态：selectedTags = Set(已选商品标签)；价格区间字符串（受控输入）。
+  const [selectedTags, setSelectedTags] = React.useState(() => new Set());
   const [minPrice, setMinPrice] = React.useState("");
   const [maxPrice, setMaxPrice] = React.useState("");
   const [visible, setVisible] = React.useState(PAGE_SIZE);
 
-  const tagGroups = React.useMemo(() => buildTagGroups(goodList), [goodList]);
+  const tagList = React.useMemo(() => buildTagList(goodList), [goodList]);
   const hasAnyFilter =
-    Object.values(selectedTags).some((s) => s && s.size > 0) ||
-    minPrice !== "" ||
-    maxPrice !== "";
+    selectedTags.size > 0 || minPrice !== "" || maxPrice !== "";
 
-  // 筛选：标签按「维度内 OR、维度间 AND」匹配；价格按当前地区展示价落在 [min,max]。
+  // 筛选：商品标签按 OR 匹配（选中任一标签即命中）；价格按当前地区展示价落在 [min,max]。
   const filtered = React.useMemo(() => {
     if (!mounted) return goodList; // 首屏不筛选
     const min = minPrice === "" ? -Infinity : Number(minPrice);
     const max = maxPrice === "" ? Infinity : Number(maxPrice);
     return goodList.filter((p) => {
-      for (const dim of Object.keys(selectedTags)) {
-        const picked = selectedTags[dim];
-        if (!picked || picked.size === 0) continue;
-        const vals = (p.tags || [])
-          .filter((tg) => tg.dim === dim)
-          .map((tg) => tg.value);
-        if (!vals.some((v) => picked.has(v))) return false;
+      if (selectedTags.size > 0) {
+        const tags = p.tags || [];
+        if (!tags.some((tg) => selectedTags.has(tg))) return false;
       }
       if (min !== -Infinity || max !== Infinity) {
         const price = getDisplayPrice(p, area);
@@ -203,19 +193,17 @@ export default function CategoryList({
   const shown = filtered.slice(0, visible);
   const hasMore = visible < filtered.length;
 
-  const toggleTag = (dim, value) => {
+  const toggleTag = (tag) => {
     setSelectedTags((prev) => {
-      const next = { ...prev };
-      const set = new Set(next[dim] || []);
-      if (set.has(value)) set.delete(value);
-      else set.add(value);
-      next[dim] = set;
+      const next = new Set(prev);
+      if (next.has(tag)) next.delete(tag);
+      else next.add(tag);
       return next;
     });
   };
 
   const clearFilters = () => {
-    setSelectedTags({});
+    setSelectedTags(new Set());
     setMinPrice("");
     setMaxPrice("");
   };
@@ -229,19 +217,12 @@ export default function CategoryList({
         <span className={styles.current}>{category.name}</span>
       </nav>
 
-      {/* 分类标题 + 描述 */}
+      {/* 分类标题 + 描述（左对齐，不显示商品数量） */}
       <header className={styles.collection_header}>
         <h1 className={styles.collection_title}>{category.name}</h1>
         {category.description ? (
           <p className={styles.collection_desc}>{category.description}</p>
         ) : null}
-        <div className={styles.count}>
-          {goodList.length}{" "}
-          {t(
-            "store.product_category.products",
-            goodList.length === 1 ? "product" : "products"
-          )}
-        </div>
       </header>
 
       {/* 分类切换 chips */}
@@ -263,27 +244,27 @@ export default function CategoryList({
       {/* 筛选区：纯客户端，mount 后渲染（SSR 不输出，避免影响首屏/SEO） */}
       {mounted ? (
         <div className={styles.filter_bar}>
-          {tagGroups.map(({ dim, values }) => (
-            <div className={styles.filter_group} key={dim}>
-              <div className={styles.filter_label}>{dim}</div>
+          {/* 商品标签筛选 */}
+          {tagList.length > 0 ? (
+            <div className={styles.filter_group}>
+              <div className={styles.filter_label}>
+                {t("store.product_category.tags", "Tags")}
+              </div>
               <div className={styles.filter_options}>
-                {values.map((v) => {
-                  const active = selectedTags[dim]?.has(v);
-                  return (
-                    <button
-                      type="button"
-                      key={v}
-                      className={styles.filter_tag}
-                      data-active={!!active}
-                      onClick={() => toggleTag(dim, v)}
-                    >
-                      {v}
-                    </button>
-                  );
-                })}
+                {tagList.map((tag) => (
+                  <button
+                    type="button"
+                    key={tag}
+                    className={styles.filter_tag}
+                    data-active={selectedTags.has(tag)}
+                    onClick={() => toggleTag(tag)}
+                  >
+                    {tag}
+                  </button>
+                ))}
               </div>
             </div>
-          ))}
+          ) : null}
 
           {/* 价格范围 */}
           <div className={styles.filter_group}>

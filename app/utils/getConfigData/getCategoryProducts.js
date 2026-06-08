@@ -12,46 +12,15 @@
 const HOST = process.env.NEXT_PUBLIC_HOST;
 const REVALIDATE_FALLBACK = 86400; // 24h，兜底；实时性靠 on-demand revalidateTag
 
-// ⚠️ 临时测试标签（mock）。
-// 后端 erp_goods_tag / erp_goods_tag_relation 已存在，但商城接口 /config/getProduct
-// 目前不返回商品标签（user-service ErpGoodsInfo 未关联 Tags）。为先把「按商品标签
-// 筛选」跑通且可测试，这里按需给商品注入测试标签——数据不要求准确。
-// 待后端让接口返回真实 item.tags / item.tagList 后，把下面 resolveTags 改成读真实字段即可。
-const MOCK_TAG_POOL = [
-  "New Arrival",
-  "Best Seller",
-  "Lab Grown",
-  "Limited Edition",
-  "On Sale",
-  "Ethically Sourced",
-];
-
-// 用商品 key 做稳定哈希，保证 SSR 与客户端、每次构建给同一商品分到同一组标签
-// （不能用随机数，否则 hydration 不一致）。每个商品分到 1~3 个标签。
-function mockTagsForKey(key) {
-  let h = 0;
-  for (let i = 0; i < (key || "").length; i++) {
-    h = (h * 31 + key.charCodeAt(i)) >>> 0;
-  }
-  const count = (h % 3) + 1; // 1~3 个
-  const tags = [];
-  for (let i = 0; i < count; i++) {
-    tags.push(MOCK_TAG_POOL[(h + i * 7) % MOCK_TAG_POOL.length]);
-  }
-  return Array.from(new Set(tags));
-}
-
-// 解析商品标签：优先用后端真实字段（未来），否则回退到 mock。返回字符串数组。
+// 解析商品标签：读后端 /config/getProduct 返回的真实标签字段（tagList）。
+// tagList 元素为 { key, name, language, ... }，统一取 name 成字符串数组；
+// 无标签时返回 []（该商品在筛选里不命中任何标签）。
 function resolveTags(item) {
-  const real =
-    item.tagList || item.tags || item.tag_list || item.labelList || null;
-  if (Array.isArray(real) && real.length > 0) {
-    // 真实字段可能是 [{name}] 或 ["xxx"]，统一成字符串
-    return real
-      .map((t) => (typeof t === "string" ? t : t?.name || t?.title))
-      .filter(Boolean);
-  }
-  return mockTagsForKey(item.key);
+  const real = item.tagList || item.tags || null;
+  if (!Array.isArray(real)) return [];
+  return real
+    .map((t) => (typeof t === "string" ? t : t?.name || t?.title))
+    .filter(Boolean);
 }
 
 // 商品卡片精简：算评分/评论数、取主图，保留 comboList(含 areaList) 供客户端选地区价，

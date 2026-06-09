@@ -13,7 +13,7 @@ import GoogleAuthProvider from "@/components/GoogleAuth";
 import GoogleOneTap from "@/components/GoogleAuth/GoogleOneTap";
 
 import getConfigData from "@/utils/getConfigData";
-import { cookies } from "next/headers";
+// import { cookies } from "next/headers";
 
 // Meta - viewport
 export const viewport = {
@@ -53,7 +53,7 @@ async function getData({ locale, area }) {
       "common.base",
       "common.social",
       "common.top_bar",
-      "common.footer_nav",
+      "common.footer_nav"
     ],
     blogNameSpace: ["layout"],
     productNameSpace: ["layout", "sort"]
@@ -81,8 +81,9 @@ async function getData({ locale, area }) {
 export default async function RootLayout(props) {
   const { children, params } = props;
   const { locale } = await params;
-  const cookieStore = await cookies();
-  const area = cookieStore.get("area")?.value || "us";
+  // const cookieStore = await cookies();
+  // const area = cookieStore.get("area")?.value || "us";
+  const area = "us";
   const { CONFIG, LANG, GOODDISCOUNTFESTIVAL, BLOG, PRODUCT } = await getData({
     locale,
     area

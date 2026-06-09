@@ -17,7 +17,10 @@ function handleSimpleProductList(productList) {
   if (Array.isArray(productList) && productList.length > 0) {
     return productList.map(
       ({ reviewsList, image_list, reviews_num, reviews_score, ...item }) => {
-        const totalScore = reviewsList?.reduce((pre, cur) => pre + cur.score, 0);
+        const totalScore = reviewsList?.reduce(
+          (pre, cur) => pre + cur.score,
+          0
+        );
         item.reviewScore = totalScore / reviewsList?.length || reviews_score;
         item.reviewsNum = reviewsList?.length || reviews_num;
         item.image = image_list?.[0]?.src;
@@ -42,16 +45,16 @@ function buildSortMap(productList) {
       image_list: item.image_list,
       reviews_num: item.reviews_num,
       reviews_score: item.reviews_score,
-      comboList: item.comboList,
+      comboList: item.comboList
     };
     sortMap[item.sort_key] = {
       ...sortInfo,
       goodList: sortMap[item.sort_key]
         ? [
             ...sortMap[item.sort_key].goodList,
-            ...handleSimpleProductList([simpleProduct]),
+            ...handleSimpleProductList([simpleProduct])
           ]
-        : handleSimpleProductList([simpleProduct]),
+        : handleSimpleProductList([simpleProduct])
     };
   });
   return sortMap;
@@ -66,7 +69,7 @@ async function fetchProductListByLocale(locale) {
   let res;
   try {
     res = await fetch(`${HOST}/config/getProduct`, {
-      next: { tags: ["product:list"], revalidate: REVALIDATE },
+      next: { tags: ["product:list"], revalidate: REVALIDATE }
     });
   } catch (err) {
     console.error("getProductData fetch 失败:", err?.message);
@@ -101,8 +104,8 @@ function resolveSortByArea(sortMap, area) {
               if (areaItem.country_code === area) areaInfo = areaItem;
             });
             return { areaInfo, ...combo };
-          }),
-        })),
+          })
+        }))
       };
     })
     .sort((a, b) => b.weight - a.weight);
@@ -116,7 +119,7 @@ function buildLayout(sortMap, productList) {
       ? {
           sub_title: sortMap[key].name,
           href: `/#${sortMap[key].key}`,
-          img: sortMap[key].image_src,
+          img: sortMap[key].image_src
         }
       : {}
   );
@@ -126,15 +129,16 @@ function buildLayout(sortMap, productList) {
     .map((item) => ({
       sub_title: item.name,
       href: `/#${item.key}`,
-      img: item.image_list?.[0]?.src,
+      img: item.image_list?.[0]?.src
     }));
   return { sortList, productList: productListLayout };
 }
 
 const localeData = new Map();
 async function getData({ locale, nameSpace }) {
-  const cookieStore = await cookies();
-  const area = cookieStore.get("area")?.value || "us";
+  // const cookieStore = await cookies();
+  // const area = cookieStore.get("area")?.value || "us";
+  const area = "us";
   const cacheKey = `${locale}:${area}:${nameSpace}`;
   if (localeData.has(cacheKey)) return localeData.get(cacheKey);
 
@@ -156,7 +160,7 @@ async function getData({ locale, nameSpace }) {
 export default async function getGoodList({
   locale,
   configList,
-  productNameSpace,
+  productNameSpace
 }) {
   if (!configList.includes("product")) return null;
   const promiseList = await Promise.all(

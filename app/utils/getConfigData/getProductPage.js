@@ -1,21 +1,24 @@
 /** @format */
 
+import { cacheLife, cacheTag } from "next/cache";
 import getConfigData from "./index";
 
 const HOST = process.env.NEXT_PUBLIC_HOST;
-const REVALIDATE_FALLBACK = 86400;
 
 /**
  * 商品详情页聚合数据（不含地区价格）。
- * ISR：fetch + tag(product:page:sortKey:productKey)，on-demand revalidateTag 失效。
+ * Next 16 Cache Components：'use cache' + cacheTag + cacheLife('max') → ISR。
  */
 export async function getProductPage({ locale, sortKey, productKey }) {
+  "use cache";
+  cacheTag(`product:page:${sortKey}:${productKey}`);
+  cacheLife("max");
+
   if (!HOST) {
     console.error("getProductPage: NEXT_PUBLIC_HOST 未配置");
     return { productInfo: null, LANG: null, CONFIG: null };
   }
 
-  const tag = `product:page:${sortKey}:${productKey}`;
   const url =
     `${HOST}/config/getProductPage` +
     `?sortKey=${encodeURIComponent(sortKey)}` +
@@ -24,9 +27,7 @@ export async function getProductPage({ locale, sortKey, productKey }) {
 
   let productInfo = null;
   try {
-    const res = await fetch(url, {
-      next: { tags: [tag], revalidate: REVALIDATE_FALLBACK },
-    });
+    const res = await fetch(url);
     if (res.ok) {
       const json = await res.json().catch(() => null);
       productInfo = json?.data?.product ?? null;
@@ -34,10 +35,12 @@ export async function getProductPage({ locale, sortKey, productKey }) {
         productInfo = null;
       }
     } else if (res.status !== 404) {
-      console.error(`getProductPage 异常状态 ${tag}: ${res.status}`);
+      console.error(
+        `getProductPage 异常状态 product:page:${sortKey}:${productKey}: ${res.status}`
+      );
     }
   } catch (err) {
-    console.error(`getProductPage fetch 失败 ${tag}:`, err?.message);
+    console.error(`getProductPage fetch 失败:`, err?.message);
   }
 
   const { LANG, CONFIG } = await getConfigData({

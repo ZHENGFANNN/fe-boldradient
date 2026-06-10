@@ -12,17 +12,21 @@ export default function Layout({
   sortKey,
   productKey,
   area: areaProp,
+  serverArea = "us",
   LANG,
   CONFIG,
   isMobile,
-  productInfo: baseProductInfo,
+  baseProductInfo,
+  productInfo: initialProductInfo,
+  goodDiscountFestival: initialFestival = false,
+  pricingLoading: initialPricingLoading = false,
 }) {
   const router = useRouter();
   React.useEffect(() => {
-    if (!baseProductInfo) {
+    if (!initialProductInfo && !baseProductInfo) {
       router.push("/not-found");
     }
-  }, [baseProductInfo, router]);
+  }, [baseProductInfo, initialProductInfo, router]);
 
   const [area, setArea] = React.useState(areaProp || "us");
   React.useEffect(() => {
@@ -32,19 +36,20 @@ export default function Layout({
   }, []);
 
   const [lazyLoading, setLazyLoading] = React.useState(true);
-  const [pricingLoading, setPricingLoading] = React.useState(true);
-  const [goodDiscountFestival, setGoodDiscountFestival] = React.useState(false);
-  const [productInfo, setProductInfo] = React.useState(baseProductInfo);
+  const [pricingLoading, setPricingLoading] = React.useState(initialPricingLoading);
+  const [goodDiscountFestival, setGoodDiscountFestival] =
+    React.useState(initialFestival);
+  const [productInfo, setProductInfo] = React.useState(initialProductInfo);
   const [productNum, setProductNum] = React.useState(1);
   const [productCurCombo, setProductCurCombo] = React.useState(() =>
-    pickCombo(baseProductInfo?.comboList)
+    pickCombo(initialProductInfo?.comboList)
   );
   const [productOptions, setProductOptions] = React.useState(() => {
-    const typeList = Array.isArray(baseProductInfo?.typeList)
-      ? baseProductInfo.typeList
+    const typeList = Array.isArray(initialProductInfo?.typeList)
+      ? initialProductInfo.typeList
       : [];
     const formateList = [];
-    const curComboKey = pickCombo(baseProductInfo?.comboList)?.key;
+    const curComboKey = pickCombo(initialProductInfo?.comboList)?.key;
     typeList.forEach((item) => {
       if (!Array.isArray(item.options) || !item.options[0]) return;
       if (
@@ -63,11 +68,15 @@ export default function Layout({
   const [productShowType, setProductShowType] = React.useState("image");
 
   React.useEffect(() => {
-    setProductInfo(baseProductInfo);
-    setProductCurCombo(pickCombo(baseProductInfo?.comboList));
-    setPricingLoading(true);
-    setGoodDiscountFestival(false);
-  }, [baseProductInfo]);
+    setProductInfo(initialProductInfo);
+    setProductCurCombo(pickCombo(initialProductInfo?.comboList));
+    setGoodDiscountFestival(initialFestival);
+    setPricingLoading(initialPricingLoading);
+  }, [
+    initialProductInfo,
+    initialFestival,
+    initialPricingLoading,
+  ]);
 
   const setPricingState = React.useCallback((patch) => {
     if (patch.pricingLoading !== undefined) {
@@ -91,7 +100,7 @@ export default function Layout({
     });
   }, []);
 
-  if (!baseProductInfo) return null;
+  if (!initialProductInfo && !baseProductInfo) return null;
 
   return (
     <ProductContext.Provider
@@ -135,6 +144,7 @@ export default function Layout({
         productKey={productKey}
         locale={locale}
         baseProductInfo={baseProductInfo}
+        serverArea={serverArea}
       />
       {children}
     </ProductContext.Provider>

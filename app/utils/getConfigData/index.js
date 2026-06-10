@@ -1,5 +1,6 @@
 /** @format */
 
+import { cacheLife, cacheTag } from "next/cache";
 import getConfigList from "./getConfigList";
 import getLanguageList from "./getLanguageList";
 import getGoodDiscountList from "./getGoodDiscountList";
@@ -15,7 +16,10 @@ export default async function getConfigData({
   blogNameSpace = [],
   productNameSpace = [],
 }) {
-  const startTIme = Date.now();
+  "use cache";
+  cacheTag(`config:${locale}:${area || "us"}`);
+  cacheLife("max");
+
   const [CONFIG, LANG, GOODDISCOUNTFESTIVAL, BLOG, PRODUCT] = await Promise.all(
     [
       getConfigList({ locale, configList, configNameSpace }),
@@ -25,7 +29,6 @@ export default async function getConfigData({
       getProductData({ locale, configList, productNameSpace }),
     ]
   );
-  console.log(`---获取CONFIG时间: ${Date.now() - startTIme}---`);
   return {
     CONFIG,
     LANG,

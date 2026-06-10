@@ -6,7 +6,6 @@ import { getCloudflareContext } from "@opennextjs/cloudflare";
 
 // On-demand 重新验证：后台改商品后由 Go 后端调用本接口，
 // 按 tag(`product:sortKey:productKey`) 让对应商品页在下次访问时重建。
-export const dynamic = "force-dynamic";
 
 function readSecret() {
   try {
@@ -44,6 +43,7 @@ export async function POST(request) {
   if (body.sortKey && body.productKey) {
     tags.push(`product:${body.sortKey}:${body.productKey}`);
     tags.push(`product:page:${body.sortKey}:${body.productKey}`);
+    tags.push(`product:pricing:${body.sortKey}:${body.productKey}`);
   }
 
   if (tags.length === 0) {

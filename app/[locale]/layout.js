@@ -1,4 +1,5 @@
-import React from "react";
+import React, { Suspense } from "react";
+import { cacheLife, cacheTag } from "next/cache";
 
 import "@/styles/globals.css";
 import "@/styles/reset.css";
@@ -13,7 +14,13 @@ import GoogleAuthProvider from "@/components/GoogleAuth";
 import GoogleOneTap from "@/components/GoogleAuth/GoogleOneTap";
 
 import getConfigData from "@/utils/getConfigData";
+import languageSettings from "@/config/languageSettings";
 // import { cookies } from "next/headers";
+
+// cacheComponents 要求 [locale] 段在构建期可枚举
+export function generateStaticParams() {
+  return languageSettings.locales.map((locale) => ({ locale }));
+}
 
 // Meta - viewport
 export const viewport = {
@@ -26,9 +33,13 @@ export const viewport = {
 };
 
 /**
- * 获取数据
+ * 获取数据（Cache Component，避免 cacheComponents 下 Date.now 等限制）
  */
 async function getData({ locale, area }) {
+  "use cache";
+  cacheTag(`layout:${locale}`);
+  cacheLife("max");
+
   const result = await getConfigData({
     locale,
     area,
@@ -95,7 +106,9 @@ export default async function RootLayout(props) {
       <body>
         <GTMNoScript />
         <GoogleAuthProvider>
-          <GoogleOneTap />
+          <Suspense fallback={null}>
+            <GoogleOneTap />
+          </Suspense>
           <Layout
             locale={locale}
             area={area}
@@ -106,7 +119,9 @@ export default async function RootLayout(props) {
             goodDiscountFestival={GOODDISCOUNTFESTIVAL}
           >
             <Navbar />
-            <div id="app-content">{children}</div>
+            <div id="app-content">
+              <Suspense fallback={null}>{children}</Suspense>
+            </div>
             <Footer />
           </Layout>
         </GoogleAuthProvider>

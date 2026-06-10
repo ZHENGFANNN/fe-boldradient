@@ -1,11 +1,11 @@
 /** @format */
 
+import React, { Suspense } from "react";
 import getConfigData from "../../utils/getConfigData";
 import { cookies } from "next/headers";
 import Main from "./Main";
 
-export default async function NotFound({ params }) {
-  const { locale } = await params;
+async function NotFoundContent({ locale }) {
   const cookieStore = await cookies();
   const area = cookieStore.get("area")?.value || "us";
   const { LANG } = await getConfigData({
@@ -16,4 +16,13 @@ export default async function NotFound({ params }) {
   });
 
   return <Main LANG={LANG} />;
+}
+
+export default async function NotFound({ params }) {
+  const { locale } = await params;
+  return (
+    <Suspense fallback={null}>
+      <NotFoundContent locale={locale} />
+    </Suspense>
+  );
 }

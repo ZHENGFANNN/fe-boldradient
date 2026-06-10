@@ -2,7 +2,8 @@
 
 import BaseLayout from "./components/BaseLayout";
 import { getProductPage } from "../../../../utils/getConfigData/getProductPage";
-import { fetchProductPricing } from "../../../../utils/productPricing";
+import { getProductPricing } from "../../../../utils/getConfigData/getProductPricing";
+import { applyProductPricing } from "../../../../utils/productPricing";
 import Script from "next/script";
 
 import { formatCurrency } from "../../../../utils";
@@ -43,24 +44,27 @@ export async function generateMetadata({ params }) {
 
 export default async function Layout({ children, params }) {
   const { locale, sortKey, productKey } = await params;
-  const { LANG, CONFIG, productInfo } = await getData({
+  const { LANG, CONFIG, productInfo: baseProductInfo } = await getData({
     locale,
     sortKey,
     productKey,
   });
 
+  let productInfo = baseProductInfo;
+  let goodDiscountFestival = false;
   let ldAreaInfo = null;
-  if (productInfo?.key) {
-    try {
-      const pricing = await fetchProductPricing({
-        sortKey,
-        productKey,
-        area: DEFAULT_AREA,
-        language: locale,
-      });
+
+  if (baseProductInfo?.key) {
+    const pricing = await getProductPricing({
+      sortKey,
+      productKey,
+      area: DEFAULT_AREA,
+      language: locale,
+    });
+    if (pricing) {
+      productInfo = applyProductPricing(baseProductInfo, pricing);
+      goodDiscountFestival = !!pricing.festivalDiscount;
       ldAreaInfo = pricing?.combos?.[0]?.areaInfo || null;
-    } catch {
-      ldAreaInfo = null;
     }
   }
 
@@ -70,10 +74,14 @@ export default async function Layout({ children, params }) {
       sortKey={sortKey}
       productKey={productKey}
       area={DEFAULT_AREA}
+      serverArea={DEFAULT_AREA}
       LANG={LANG}
       CONFIG={CONFIG}
       isMobile={false}
+      baseProductInfo={baseProductInfo}
       productInfo={productInfo}
+      goodDiscountFestival={goodDiscountFestival}
+      pricingLoading={false}
     >
       {children}
       {productInfo ? (

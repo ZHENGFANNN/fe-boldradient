@@ -1,6 +1,6 @@
 /** @format */
 
-import React from "react";
+import React, { Suspense } from "react";
 import { cookies } from "next/headers";
 import Main from "./component/Main";
 import getConfigData from "../../utils/getConfigData";
@@ -28,19 +28,16 @@ async function getData({
   languageNameSpace,
   configNameSpace,
 }) {
-  const result = await getConfigData({
+  return getConfigData({
     locale,
     area,
     configList,
     languageNameSpace,
     configNameSpace,
   });
-
-  return result;
 }
 
-export default async function Order({ params }) {
-  const { locale } = await params;
+async function OrderContent({ locale }) {
   const cookieStore = await cookies();
   const area = cookieStore.get("area")?.value || "us";
   const token = cookieStore.get("token")?.value;
@@ -66,5 +63,14 @@ export default async function Order({ params }) {
       token={token}
       area={area}
     />
+  );
+}
+
+export default async function Order({ params }) {
+  const { locale } = await params;
+  return (
+    <Suspense fallback={null}>
+      <OrderContent locale={locale} />
+    </Suspense>
   );
 }

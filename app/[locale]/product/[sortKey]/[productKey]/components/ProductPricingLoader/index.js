@@ -3,31 +3,24 @@
 import React from "react";
 import Cookies from "js-cookie";
 import ProductContext from "../../ProductContext";
-import {
-  applyProductPricing,
-  fetchProductPricing,
-  pickCombo,
-} from "@/utils/productPricing";
+import { applyProductPricing, pickCombo } from "@/utils/productPricing";
+import { loadProductPricing } from "../../actions";
 
 /**
- * 客户端按 area cookie 拉取地区价格，合并进 ProductContext。
- * 价格未就绪时 pricingLoading=true，GoodPrice 显示方块 skeleton。
+ * area cookie 与 ISR 默认地区不一致时，通过 Server Action 读取 use cache 定价缓存。
+ * 默认地区价格在 layout 服务端已合并，首屏 pricingLoading=false。
  */
 export default function ProductPricingLoader({
   sortKey,
   productKey,
   locale,
   baseProductInfo,
+  serverArea = "us",
 }) {
   const ctx = React.useContext(ProductContext);
   if (!ctx) return null;
 
-  const {
-    area,
-    setPricingState,
-    productCurCombo,
-    setProductCurCombo,
-  } = ctx;
+  const { area, setPricingState, productCurCombo } = ctx;
 
   const comboKeyRef = React.useRef(productCurCombo?.key);
 
@@ -38,15 +31,20 @@ export default function ProductPricingLoader({
   React.useEffect(() => {
     if (!baseProductInfo?.key) return;
 
+    const currentArea = area || Cookies.get("area") || "us";
+    if (currentArea === serverArea) {
+      return;
+    }
+
     let cancelled = false;
-    setPricingState({ pricingLoading: true, goodDiscountFestival: false });
+    setPricingState({ pricingLoading: true });
 
     (async () => {
       try {
-        const pricing = await fetchProductPricing({
+        const pricing = await loadProductPricing({
           sortKey,
           productKey,
-          area: area || Cookies.get("area") || "us",
+          area: currentArea,
           language: locale,
         });
         if (cancelled) return;
@@ -75,6 +73,7 @@ export default function ProductPricingLoader({
     baseProductInfo,
     locale,
     productKey,
+    serverArea,
     setPricingState,
     sortKey,
   ]);

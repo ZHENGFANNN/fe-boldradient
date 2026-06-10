@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 
 import Advantage from "../components/Layout/Advantage";
 import getConfigData from "../utils/getConfigData";
@@ -9,15 +9,7 @@ import IndexContext from "./components/IndexContext";
 
 import { cookies } from "next/headers";
 
-/**
- * 获取数据
- */
-const cache = new Map();
 async function getData({ locale, area }) {
-  const cacheKey = `page:${locale}:${area}`;
-  if (cache.has(cacheKey)) {
-    return cache.get(cacheKey);
-  }
   const result = await getConfigData({
     locale,
     area,
@@ -44,17 +36,14 @@ async function getData({ locale, area }) {
       }),
     };
   });
-  cache.set(cacheKey, result);
   return result;
 }
 
 export async function generateMetadata({ params }) {
   const { locale } = await params;
-  const cookieStore = await cookies();
-  const area = cookieStore.get("area")?.value || "us";
   const { LANG, CONFIG } = await getData({
     locale,
-    area,
+    area: "us",
   });
   return {
     title: `${CONFIG["common.base"]?.company_name} - ${LANG["store.index.title"]}`,
@@ -63,8 +52,7 @@ export async function generateMetadata({ params }) {
   };
 }
 
-export default async function Home({ params }) {
-  const { locale } = await params;
+async function HomeContent({ locale }) {
   const cookieStore = await cookies();
   const area = cookieStore.get("area")?.value || "us";
   const { CONFIG, LANG, GOODDISCOUNTFESTIVAL, PRODUCT } = await getData({
@@ -82,12 +70,19 @@ export default async function Home({ params }) {
         locale={locale}
         area={area}
       >
-        {/* Banner */}
         <IndexBanner />
-        {/* List */}
         <IndexProductList />
         <Advantage LANG={LANG} />
       </IndexContext>
     </main>
+  );
+}
+
+export default async function Home({ params }) {
+  const { locale } = await params;
+  return (
+    <Suspense fallback={null}>
+      <HomeContent locale={locale} />
+    </Suspense>
   );
 }

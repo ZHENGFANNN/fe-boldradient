@@ -1,6 +1,6 @@
 /** @format */
 
-import React from "react";
+import React, { Suspense } from "react";
 
 import getConfigData from "../../../utils/getConfigData";
 import Main from "./component/Main";
@@ -19,8 +19,7 @@ export async function generateMetadata({ params }) {
   };
 }
 
-export default async function Info({ params, searchParams }) {
-  const { locale } = await params;
+async function OrderInfoContent({ locale, searchParams }) {
   const { secret } = await searchParams;
   const cookieStore = await cookies();
   const area = cookieStore.get("area")?.value || "us";
@@ -38,5 +37,14 @@ export default async function Info({ params, searchParams }) {
       area={area}
       locale={locale}
     />
+  );
+}
+
+export default async function Info({ params, searchParams }) {
+  const { locale } = await params;
+  return (
+    <Suspense fallback={null}>
+      <OrderInfoContent locale={locale} searchParams={searchParams} />
+    </Suspense>
   );
 }

@@ -6,7 +6,7 @@ import { getCloudflareContext } from "@opennextjs/cloudflare";
 
 // On-demand 重新验证：后台改商品后由 Go 后端调用本接口，
 // 按 tag(`product:sortKey:productKey`) 让对应商品页在下次访问时重建。
-export const dynamic = "force-dynamic";
+// Next 16 cacheComponents 下不可再 export dynamic = "force-dynamic"；POST 路由本身即动态执行。
 
 function readSecret() {
   try {

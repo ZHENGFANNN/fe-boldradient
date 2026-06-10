@@ -5,8 +5,6 @@ import styles from "./index.module.scss";
 import ProductContext from "../../ProductContext";
 import tracking from "../../tracking";
 import ComboModal from "./components/ComboModal";
-import PriceSkeleton from "../GoodMainRight/GoodPrice/PriceSkeleton";
-
 import { formatCurrency } from "@/utils";
 import { debounce } from "@/utils";
 
@@ -19,7 +17,6 @@ export default function GoodFooter() {
     productCurCombo,
     productOptions,
     lazyLoading,
-    showPriceSkeleton,
   } = React.useContext(ProductContext);
   const comboModalRef = React.useRef(null);
 
@@ -133,9 +130,7 @@ export default function GoodFooter() {
         </div>
         <div className={styles.footer_right}>
           <div className={styles.footer_price}>
-            {showPriceSkeleton ? (
-              <PriceSkeleton />
-            ) : productCurCombo.areaInfo?.product_price ? (
+            {productCurCombo.areaInfo?.product_price ? (
               <div className={styles.price}>
                 <div>{`${
                   productCurCombo.areaInfo.currency_symbol

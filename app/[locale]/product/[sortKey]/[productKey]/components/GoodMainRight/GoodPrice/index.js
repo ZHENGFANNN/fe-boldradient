@@ -1,18 +1,13 @@
 "use client";
-import React, { Suspense } from "react";
+import React from "react";
 import ProductContext from "../../../ProductContext";
 
 import { formatCurrency } from "@/utils";
 import styles from "./index.module.scss";
-import PriceSkeleton from "./PriceSkeleton";
 
-function GoodPriceContent() {
-  const { LANG, productCurCombo, goodDiscountFestival, showPriceSkeleton } =
+export default function GoodPrice() {
+  const { LANG, productCurCombo, goodDiscountFestival } =
     React.useContext(ProductContext);
-
-  if (showPriceSkeleton) {
-    return <PriceSkeleton />;
-  }
 
   return (
     <>
@@ -45,13 +40,5 @@ function GoodPriceContent() {
         </div>
       ) : null}
     </>
-  );
-}
-
-export default function GoodPrice() {
-  return (
-    <Suspense fallback={<PriceSkeleton />}>
-      <GoodPriceContent />
-    </Suspense>
   );
 }

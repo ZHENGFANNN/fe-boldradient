@@ -38,8 +38,6 @@ export const viewport = {
 async function getData({ locale, area }) {
   "use cache";
   cacheTag(`layout:${locale}`);
-  cacheLife("max");
-
   const result = await getConfigData({
     locale,
     area,

@@ -20,6 +20,7 @@ import Api from "../../../api";
 import GlobalContext from "@/[locale]/context";
 
 import { roundToDecimalPlaces } from "@/utils";
+import { readClientArea } from "@/utils/readClientArea";
 
 function PayButton({
   goodDiscountFestival,
@@ -256,12 +257,11 @@ export default function GoodBtnList() {
     goodDiscountFestival,
     productInfo,
     locale,
-    area,
     productNum,
     productCurCombo,
-    productOptions,
-    showPriceSkeleton,
+    productOptions
   } = React.useContext(ProductContext);
+  const area = readClientArea();
   const countryCode = React.useMemo(() => {
     let countryCode;
     if (area === "hk_en") {
@@ -292,9 +292,7 @@ export default function GoodBtnList() {
 
   return (
     <div className={styles.container} data-role="buy-btn-list">
-      {showPriceSkeleton ? (
-        <div className={styles.btn_loading} aria-hidden="true" />
-      ) : !productCurCombo.areaInfo?.product_price ||
+      {!productCurCombo.areaInfo?.product_price ||
       !productCurCombo.areaInfo?.stock ? (
         <div className={styles.btn_stock}>{LANG["store.product.no_stock"]}</div>
       ) : (

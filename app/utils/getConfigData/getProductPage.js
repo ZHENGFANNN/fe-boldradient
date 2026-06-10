@@ -26,21 +26,26 @@ export async function getProductPage({ locale, sortKey, productKey }) {
     `&language=${encodeURIComponent(locale)}`;
 
   let productInfo = null;
+
   try {
-    const res = await fetch(url);
+    const res = await fetch(url, { signal: AbortSignal.timeout(15000) });
     if (res.ok) {
       const json = await res.json().catch(() => null);
       productInfo = json?.data?.product ?? null;
       if (productInfo && !productInfo.key) {
         productInfo = null;
       }
-    } else if (res.status !== 404) {
-      console.error(
-        `getProductPage 异常状态 product:page:${sortKey}:${productKey}: ${res.status}`
+    } else if (res.status === 404) {
+      productInfo = null;
+    } else {
+      throw new Error(
+        `getProductPage HTTP ${res.status}: ${sortKey}/${productKey}`
       );
     }
   } catch (err) {
     console.error(`getProductPage fetch 失败:`, err?.message);
+    // 网络/超时错误不吞掉，避免 use cache 把 null 缓存成「永久 404」
+    throw err;
   }
 
   const { LANG, CONFIG } = await getConfigData({
@@ -49,9 +54,9 @@ export async function getProductPage({ locale, sortKey, productKey }) {
     languageNameSpace: [
       "store.product",
       "common.pay",
-      "common.footer.sales_policy",
+      "common.footer.sales_policy"
     ],
-    configNameSpace: ["common.base", "setting.pay"],
+    configNameSpace: ["common.base", "setting.pay"]
   });
 
   return { productInfo, LANG, CONFIG };

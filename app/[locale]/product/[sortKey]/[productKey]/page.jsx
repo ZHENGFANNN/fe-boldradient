@@ -1,8 +1,9 @@
 /** @format */
 
-import React from "react";
+import React, { Suspense } from "react";
 
 import AssociateProductList from "./components/AssociateProductList/index";
+import ProductLdJson from "./components/ProductLdJson";
 import GoodPackageList from "./components/GoodPackageList";
 import GoodAccessoriesList from "./components/GoodAccessoriesList";
 import GoodFunctionList from "./components/GoodFunctionList";
@@ -18,25 +19,15 @@ import GoodNav from "./components/GoodNav";
 import styles from "./page.module.scss";
 import GoodMainLeft from "./components/GoodMainLeft";
 import GoodMainRight from "./components/GoodMainRight";
+import PricedProductBoundary from "./components/PricedProductBoundary";
+import getProductPaths from "../../../../utils/getConfigData/getProductPaths";
 
-// 构建期枚举所有 (locale, sortKey, productKey)，预生成商品页；
-// 接口失败则构建失败；未列出的 slug 仍按需生成（dynamicParams 默认 true）。
 export async function generateStaticParams() {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_HOST}/config/getProductPaths`
-  );
-  if (!res.ok) {
-    throw new Error(`getProductPaths 失败: HTTP ${res.status}`);
-  }
-  const json = await res.json();
-  return (json?.data?.list || []).map(({ locale, sortKey, productKey }) => ({
-    locale,
-    sortKey,
-    productKey
-  }));
+  return getProductPaths();
 }
 
-export default async function Product() {
+export default async function Product({ params }) {
+  const { locale, sortKey, productKey } = await params;
   return (
     <div className={styles.container}>
       <>
@@ -45,14 +36,30 @@ export default async function Product() {
         {/* 首屏信息配置 */}
         <section className={styles.main_content}>
           <div className={styles.left_content}>
-            <GoodMainLeft />
+            <GoodMainLeft
+              locale={locale}
+              sortKey={sortKey}
+              productKey={productKey}
+            />
           </div>
           <div className={styles.right_content}>
-            <GoodMainRight />
+            <GoodMainRight
+              locale={locale}
+              sortKey={sortKey}
+              productKey={productKey}
+            />
           </div>
         </section>
-        {/* 关联产品列表 */}
-        <AssociateProductList />
+        {/* 关联产品列表（独立 Suspense，不阻塞首屏） */}
+        <Suspense fallback={null}>
+          <PricedProductBoundary
+            locale={locale}
+            sortKey={sortKey}
+            productKey={productKey}
+          >
+            <AssociateProductList />
+          </PricedProductBoundary>
+        </Suspense>
         <GoodNav />
         {/* 产品媒体列表 */}
         <GoodMediaList />
@@ -67,13 +74,28 @@ export default async function Product() {
         {/* 产品评论 */}
         <GoodReviewsContent />
         {/* 产品底部 */}
-        <GoodFooter />
+        <Suspense fallback={null}>
+          <PricedProductBoundary
+            locale={locale}
+            sortKey={sortKey}
+            productKey={productKey}
+          >
+            <GoodFooter />
+          </PricedProductBoundary>
+        </Suspense>
         {/* <Script
             id="product-3d-script"
             defer
             type="module"
             src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.3.0/model-viewer.min.js"
           ></Script> */}
+        <Suspense fallback={null}>
+          <ProductLdJson
+            locale={locale}
+            sortKey={sortKey}
+            productKey={productKey}
+          />
+        </Suspense>
       </>
     </div>
   );

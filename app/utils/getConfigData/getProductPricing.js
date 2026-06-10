@@ -8,12 +8,7 @@ const HOST = process.env.NEXT_PUBLIC_HOST;
  * 商品地区价格（ISR Cache Components）。
  * tag: product:pricing:{sortKey}:{productKey}:{area} + product:pricing:{sortKey}:{productKey}
  */
-export async function getProductPricing({
-  sortKey,
-  productKey,
-  area = "us",
-  language = "en",
-}) {
+export async function getProductPricing({ sortKey, productKey, area, locale }) {
   "use cache";
   cacheTag(`product:pricing:${sortKey}:${productKey}:${area}`);
   cacheTag(`product:pricing:${sortKey}:${productKey}`);
@@ -29,7 +24,7 @@ export async function getProductPricing({
     `?sortKey=${encodeURIComponent(sortKey)}` +
     `&productKey=${encodeURIComponent(productKey)}` +
     `&area=${encodeURIComponent(area)}` +
-    `&language=${encodeURIComponent(language)}`;
+    `&language=${encodeURIComponent(locale)}`;
 
   try {
     const res = await fetch(url);

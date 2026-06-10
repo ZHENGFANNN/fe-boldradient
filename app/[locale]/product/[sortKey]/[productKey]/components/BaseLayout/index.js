@@ -7,6 +7,11 @@ import { useRouter } from "next/navigation";
 import ProductPricingLoader from "../ProductPricingLoader";
 import { pickCombo } from "@/utils/productPricing";
 
+function readCookieArea(fallback = "us") {
+  if (typeof document === "undefined") return fallback;
+  return Cookies.get("area") || fallback;
+}
+
 export default function Layout({
   children,
   locale,
@@ -19,7 +24,6 @@ export default function Layout({
   isMobile,
   baseProductInfo,
   productInfo: initialProductInfo,
-  pricingLoading: initialPricingLoading = false,
 }) {
   const router = useRouter();
   const { goodDiscountFestival: globalFestival } =
@@ -39,20 +43,9 @@ export default function Layout({
 
   const [area, setArea] = React.useState(areaProp || "us");
   const [lazyLoading, setLazyLoading] = React.useState(true);
-  const [pricingLoading, setPricingLoading] = React.useState(
-    initialPricingLoading
-  );
-
-  // cookie 地区与 ISR 默认地区不一致时，首帧即显示 skeleton，避免先闪 USD 再变当地货币。
-  React.useLayoutEffect(() => {
-    const cookieArea = Cookies.get("area") || "us";
-    if (cookieArea !== area) {
-      setArea(cookieArea);
-    }
-    if (cookieArea !== serverArea) {
-      setPricingLoading(true);
-    }
-  }, [area, serverArea]);
+  // 默认不展示 ISR 美元价，等客户端确认 cookie 地区后再显示当地价格。
+  const [pricingLoading, setPricingLoading] = React.useState(true);
+  const [pricingResolved, setPricingResolved] = React.useState(false);
   const [productInfo, setProductInfo] = React.useState(initialProductInfo);
   const [productNum, setProductNum] = React.useState(1);
   const [productCurCombo, setProductCurCombo] = React.useState(() =>
@@ -81,9 +74,22 @@ export default function Layout({
   });
   const [productShowType, setProductShowType] = React.useState("image");
 
-  // 仅切换商品 slug 时重置；勿监听 initialProductInfo，否则 RSC 重传或
-  // 客户端已合并 cn/hk 定价后会被 serverArea=us 的美元价覆盖。
-  const productSlugRef = React.useRef("");
+  React.useLayoutEffect(() => {
+    const cookieArea = readCookieArea(serverArea);
+    if (cookieArea !== area) {
+      setArea(cookieArea);
+    }
+    if (cookieArea === serverArea) {
+      setPricingLoading(false);
+      setPricingResolved(true);
+    } else {
+      setPricingLoading(true);
+      setPricingResolved(false);
+    }
+  }, [area, serverArea]);
+
+  // 仅导航到另一商品时重置；初始 slug 写入 ref，避免首 mount 用美元 seed 覆盖 cn 价。
+  const productSlugRef = React.useRef(`${sortKey}/${productKey}`);
   React.useEffect(() => {
     const slug = `${sortKey}/${productKey}`;
     if (productSlugRef.current === slug) return;
@@ -92,12 +98,23 @@ export default function Layout({
     const seed = initialProductRef.current;
     setProductInfo(seed);
     setProductCurCombo(pickCombo(seed?.comboList));
-    setPricingLoading(initialPricingLoading);
-  }, [sortKey, productKey, initialPricingLoading]);
+
+    const cookieArea = readCookieArea(serverArea);
+    if (cookieArea === serverArea) {
+      setPricingLoading(false);
+      setPricingResolved(true);
+    } else {
+      setPricingLoading(true);
+      setPricingResolved(false);
+    }
+  }, [sortKey, productKey, serverArea]);
 
   const setPricingState = React.useCallback((patch) => {
     if (patch.pricingLoading !== undefined) {
       setPricingLoading(patch.pricingLoading);
+    }
+    if (patch.pricingResolved !== undefined) {
+      setPricingResolved(patch.pricingResolved);
     }
     if (patch.productInfo !== undefined) {
       setProductInfo(patch.productInfo);
@@ -116,6 +133,8 @@ export default function Layout({
 
   if (!initialProductInfo && !baseProductInfo) return null;
 
+  const showPriceSkeleton = pricingLoading || !pricingResolved;
+
   return (
     <ProductContext.Provider
       value={{
@@ -127,6 +146,8 @@ export default function Layout({
         productInfo,
         goodDiscountFestival: globalFestival,
         pricingLoading,
+        pricingResolved,
+        showPriceSkeleton,
         lazyLoading,
         setLazyLoading,
         setPricingState,

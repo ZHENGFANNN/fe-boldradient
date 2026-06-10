@@ -78,7 +78,6 @@ export default async function Layout({ children, params }) {
       isMobile={false}
       baseProductInfo={baseProductInfo}
       productInfo={productInfo}
-      pricingLoading={false}
     >
       {children}
       {productInfo ? (

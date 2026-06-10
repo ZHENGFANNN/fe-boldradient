@@ -42,7 +42,7 @@ function updateCountdown(endTime) {
 }
 
 export default function Countdown() {
-  const { lazyLoading, productCurCombo, goodDiscountFestival, LANG } =
+  const { lazyLoading, productCurCombo, goodDiscountFestival, LANG, showPriceSkeleton } =
     React.useContext(ProductContext);
   React.useEffect(() => {
     if (!lazyLoading && !goodDiscountFestival?.long_activity) {
@@ -54,7 +54,11 @@ export default function Countdown() {
       };
     }
   }, [lazyLoading]);
-  if (!goodDiscountFestival || !productCurCombo.areaInfo?.product_discount)
+  if (
+    showPriceSkeleton ||
+    !goodDiscountFestival ||
+    !productCurCombo.areaInfo?.product_discount
+  )
     return null;
   return (
     <div className={styles.container}>

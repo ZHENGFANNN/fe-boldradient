@@ -13,7 +13,7 @@ export default function GoodComboList() {
     productCurCombo,
     setProductCurCombo,
     goodDiscountFestival,
-    pricingLoading,
+    showPriceSkeleton,
     productInfo: { comboList },
   } = React.useContext(ProductContext);
   // console.log("[comboList]: ", comboList);
@@ -48,7 +48,7 @@ export default function GoodComboList() {
               <div className={styles.list_item}>
                 <div className={styles.top_container}>
                   {/* 提示 */}
-                  {pricingLoading ? (
+                  {showPriceSkeleton ? (
                     <div className={styles.price_skeleton} />
                   ) : !item.areaInfo?.product_price || !item.areaInfo?.stock ? (
                     <div className={styles.stock_tip}>
@@ -77,7 +77,7 @@ export default function GoodComboList() {
                     <div className={styles.item_left_title}>{item.title}</div>
                   </div>
                   {/* 套餐价格 */}
-                  {pricingLoading ? (
+                  {showPriceSkeleton ? (
                     <div className={styles.price_skeleton} />
                   ) : item.areaInfo?.product_price ? (
                     <div className={styles.top_container_right}>

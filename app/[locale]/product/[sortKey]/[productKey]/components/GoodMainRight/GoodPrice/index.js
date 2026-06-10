@@ -7,10 +7,10 @@ import styles from "./index.module.scss";
 import PriceSkeleton from "./PriceSkeleton";
 
 function GoodPriceContent() {
-  const { LANG, productCurCombo, goodDiscountFestival, pricingLoading } =
+  const { LANG, productCurCombo, goodDiscountFestival, showPriceSkeleton } =
     React.useContext(ProductContext);
 
-  if (pricingLoading) {
+  if (showPriceSkeleton) {
     return <PriceSkeleton />;
   }
 

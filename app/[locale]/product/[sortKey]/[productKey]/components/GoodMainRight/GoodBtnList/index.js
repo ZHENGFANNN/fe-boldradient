@@ -260,7 +260,7 @@ export default function GoodBtnList() {
     productNum,
     productCurCombo,
     productOptions,
-    pricingLoading,
+    showPriceSkeleton,
   } = React.useContext(ProductContext);
   const countryCode = React.useMemo(() => {
     let countryCode;
@@ -292,7 +292,7 @@ export default function GoodBtnList() {
 
   return (
     <div className={styles.container} data-role="buy-btn-list">
-      {pricingLoading ? (
+      {showPriceSkeleton ? (
         <div className={styles.btn_loading} aria-hidden="true" />
       ) : !productCurCombo.areaInfo?.product_price ||
       !productCurCombo.areaInfo?.stock ? (

@@ -42,10 +42,10 @@ async function OrderContent({ locale }) {
   const area = cookieStore.get("area")?.value || "us";
   const token = cookieStore.get("token")?.value;
 
-  const { CONFIG, LANG, GOODDISCOUNTFESTIVAL } = await getData({
+  const { CONFIG, LANG } = await getData({
     locale,
     area,
-    configList: ["config", "language", "goodDiscountFestival"],
+    configList: ["config", "language"],
     languageNameSpace: [
       "store.order",
       "common.pay",
@@ -56,13 +56,7 @@ async function OrderContent({ locale }) {
   });
 
   return (
-    <Main
-      GOODDISCOUNTFESTIVAL={GOODDISCOUNTFESTIVAL}
-      CONFIG={CONFIG}
-      LANG={LANG}
-      token={token}
-      area={area}
-    />
+    <Main CONFIG={CONFIG} LANG={LANG} token={token} area={area} />
   );
 }
 

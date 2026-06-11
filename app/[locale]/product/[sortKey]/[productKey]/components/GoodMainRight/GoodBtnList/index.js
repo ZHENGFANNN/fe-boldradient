@@ -22,8 +22,12 @@ import GlobalContext from "@/[locale]/context";
 import { roundToDecimalPlaces } from "@/utils";
 import { readClientArea } from "@/utils/readClientArea";
 
+function parsePreviewAmount(value) {
+  if (typeof value === "number") return value;
+  return parseFloat(value) || 0;
+}
+
 function PayButton({
-  goodDiscountFestival,
   productInfo,
   productCurCombo,
   productOptions,
@@ -31,7 +35,8 @@ function PayButton({
   locale,
   LANG,
   CONFIG,
-  currency
+  currency,
+  area
 }) {
   const [
     { isPending, isRejected, options },
@@ -44,40 +49,25 @@ function PayButton({
     tipRef.current.show({ text, type });
   }, []);
 
-  const discount = React.useMemo(() => {
-    if (!productCurCombo.areaInfo.product_discount || !goodDiscountFestival) {
-      return 0;
-    } else {
-      return roundToDecimalPlaces(
-        (productCurCombo.areaInfo.product_price -
-          productCurCombo.areaInfo.selling_price) *
-          productNum,
-        productCurCombo.areaInfo.currency_unit
-      );
-    }
-  }, [productCurCombo, productNum]);
-
-  const totalPrice = React.useMemo(() => {
+  const subtotalPrice = React.useMemo(() => {
     return roundToDecimalPlaces(
       productCurCombo.areaInfo.product_price * productNum,
       productCurCombo.areaInfo.currency_unit
     );
-  });
+  }, [productCurCombo, productNum]);
 
   const orderList = React.useMemo(() => {
     return [
       {
-        // 套餐相关
         id: productCurCombo.id,
         comboName: productCurCombo.title,
-        // 地区相关
         priceSymbol: productCurCombo.areaInfo.currency_symbol,
         priceCurrency: productCurCombo.areaInfo.currency,
-        product_price: productCurCombo.areaInfo.product_price,
-        selling_price: productCurCombo.areaInfo.selling_price,
-        product_discount: productCurCombo.areaInfo.product_discount || 0,
+        priceUnit: productCurCombo.areaInfo.currency_unit,
+        productPrice: productCurCombo.areaInfo.product_price,
+        sellingPrice: productCurCombo.areaInfo.selling_price,
+        productDiscount: productCurCombo.areaInfo.product_discount || 0,
         stock: productCurCombo.areaInfo.stock,
-        // 产品相关
         name: productInfo.name,
         image: Array.isArray(productInfo.image_list)
           ? productInfo.image_list[0]?.src
@@ -86,28 +76,66 @@ function PayButton({
         sortKey: productInfo.sort_key,
         productKey: productInfo.key,
         comboKey: productCurCombo.key,
-        // 其他
         productNum,
         options: productOptions
       }
     ];
   }, [productNum, productCurCombo, productInfo, productOptions, locale]);
 
+  const [previewData, setPreviewData] = React.useState(null);
+  const [previewLoading, setPreviewLoading] = React.useState(false);
+
+  React.useEffect(() => {
+    if (!orderList.length || !area) return;
+    let cancelled = false;
+    setPreviewLoading(true);
+    Api.previewOrder({
+      area_code: area,
+      include_automatic: true,
+      discount_codes: [],
+      order_list: orderList
+    })
+      .then((res) => {
+        if (cancelled) return;
+        if (res.code !== 0) throw new Error("preview failed");
+        setPreviewData({
+          total_price: parsePreviewAmount(res.data.total_price),
+          discount: parsePreviewAmount(res.data.discount),
+          pay_price: parsePreviewAmount(res.data.pay_price)
+        });
+      })
+      .catch(() => {
+        if (!cancelled) setPreviewData(null);
+      })
+      .finally(() => {
+        if (!cancelled) setPreviewLoading(false);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [orderList, area]);
+
+  const orderPricing = React.useMemo(() => {
+    const unit = productCurCombo.areaInfo.currency_unit;
+    const total_price = previewData?.total_price ?? subtotalPrice;
+    const discount = previewData?.discount ?? 0;
+    const pay_price = previewData?.pay_price ?? subtotalPrice;
+    return {
+      total_price: roundToDecimalPlaces(total_price, unit),
+      discount: roundToDecimalPlaces(discount, unit),
+      pay_price: roundToDecimalPlaces(pay_price, unit)
+    };
+  }, [previewData, subtotalPrice, productCurCombo]);
+
   const trackingInitiateCheckout = React.useCallback(() => {
     tracking.initiateCheckout({
       currency: orderList[0].priceCurrency,
-      value: roundToDecimalPlaces(
-        totalPrice - discount,
-        productCurCombo.areaInfo.currency_unit
-      ),
-      discount: roundToDecimalPlaces(
-        discount,
-        productCurCombo.areaInfo.currency_unit
-      ),
+      value: orderPricing.pay_price,
+      discount: orderPricing.discount,
       type: "payPal",
       contents: orderList
     });
-  }, [orderList, discount, totalPrice, productCurCombo]);
+  }, [orderList, orderPricing]);
 
   if (isRejected) {
     return (
@@ -139,7 +167,7 @@ function PayButton({
   } else {
     return (
       <>
-        {isPending ? (
+        {isPending || previewLoading ? (
           <Loading height={108} />
         ) : (
           <PayPalButtons
@@ -153,15 +181,15 @@ function PayButton({
               productCurCombo,
               productInfo,
               locale,
-              discount,
+              orderPricing.pay_price,
               currency
             ]}
             createOrder={async () => {
-              // 处理订单
               return Api.createOrder({
                 pay_key: "payPal",
-                total_price: totalPrice,
-                discount,
+                total_price: orderPricing.total_price,
+                discount: orderPricing.discount,
+                pricing_area_code: area,
                 order_list: orderList
               })
                 .then((res) => {
@@ -169,7 +197,6 @@ function PayButton({
                     secret.current = res.data.secret;
                     trackingInitiateCheckout();
 
-                    // 保存订单号
                     localStorage.setItem(
                       "order",
                       JSON.stringify({
@@ -197,7 +224,7 @@ function PayButton({
                     tracking.purchase({
                       currency: res.data.currency_code,
                       value: res.data.value,
-                      discount,
+                      discount: orderPricing.discount,
                       type: "payPal",
                       contents: orderList
                     });
@@ -205,7 +232,6 @@ function PayButton({
                       text: LANG["common.pay.pay_button.pay_success"],
                       type: "success"
                     });
-                    // 移除订单信息
                     localStorage.removeItem("order");
                     setTimeout(() => {
                       router.push(`/order/info?secret=${res.data.secret}`);
@@ -215,24 +241,14 @@ function PayButton({
                   }
                 })
                 .catch(() => {
-                  console.log(`[Page Paypal onApprove]: ${error}`);
                   showTip({
                     text: LANG["common.pay.pay_button.pay_fail_tip"],
                     type: "error"
                   });
                 });
             }}
-            onCancel={(data) => {
+            onCancel={() => {
               return;
-              if (data.orderID) {
-                showTip({
-                  text: LANG["common.pay.pay_button.pay_cancel"],
-                  type: "error"
-                });
-                setTimeout(() => {
-                  router.push(`/order/info?secret=${secret.current}`);
-                }, 1000);
-              }
             }}
             onError={(error) => {
               console.log(`[Page Paypal onError]: ${error}`);
@@ -254,7 +270,6 @@ export default function GoodBtnList() {
   const {
     LANG,
     CONFIG,
-    goodDiscountFestival,
     productInfo,
     locale,
     productNum,
@@ -280,7 +295,6 @@ export default function GoodBtnList() {
     return productCurCombo?.areaInfo?.currency || "USD";
   }, [productCurCombo]);
 
-  // PayPal 是否对当前地区开放（来自 config_global_settings 的 setting.pay）
   const paypalEnabled = React.useMemo(() => {
     const paypal = CONFIG["setting.pay"]?.paypal;
     return (
@@ -296,9 +310,7 @@ export default function GoodBtnList() {
       !productCurCombo.areaInfo?.stock ? (
         <div className={styles.btn_stock}>{LANG["store.product.no_stock"]}</div>
       ) : (
-        // 购买按钮
         <>
-          {/* 加入购物车 */}
           <div
             onClick={() => {
               if (
@@ -313,7 +325,6 @@ export default function GoodBtnList() {
               } catch {
                 cartList = [];
               }
-              // 新卡片
               let newCart = [
                 {
                   sortKey: productInfo.sort_key,
@@ -323,7 +334,6 @@ export default function GoodBtnList() {
                   options: productOptions
                 }
               ];
-              // 购物车是否存在
               if (cartList?.length > 0) {
                 let includeCurCombo = false;
                 const returnCart = cartList.map((item) => {
@@ -344,7 +354,6 @@ export default function GoodBtnList() {
                     return item;
                   }
                 });
-                // 判断是否商品是否购物车里
                 if (includeCurCombo) {
                   newCart = returnCart;
                 } else {
@@ -362,7 +371,6 @@ export default function GoodBtnList() {
           >
             {LANG["store.product.add_cart"]}
           </div>
-          {/* Paypal按钮（受 setting.pay.paypal.enabled + supportArea 门控） */}
           {paypalEnabled ? (
             <PayPalScriptProvider
               options={{
@@ -379,11 +387,11 @@ export default function GoodBtnList() {
                 CONFIG={CONFIG}
                 locale={locale}
                 currency={currency}
+                area={area}
                 productInfo={productInfo}
                 productCurCombo={productCurCombo}
                 productOptions={productOptions}
                 productNum={productNum}
-                goodDiscountFestival={goodDiscountFestival}
               />
             </PayPalScriptProvider>
           ) : null}

@@ -16,6 +16,7 @@ import AddressForm from "../AddressForm";
 import NewAddressForm from "../NewAddressForm";
 import { domesticPay, foreignPay } from "../../const";
 import Paypal from "../Paypal";
+import StripePay from "../StripePay";
 
 import ShowTipModal from "@/components/Modal/ShowTipModal";
 import Loading from "@/components/Loading";
@@ -25,13 +26,12 @@ import { formatCurrency, roundToDecimalPlaces } from "@/utils";
 import styles from "./index.module.scss";
 import Cookies from "js-cookie";
 
-export default function Main({
-  CONFIG,
-  LANG,
-  GOODDISCOUNTFESTIVAL,
-  area,
-  token,
-}) {
+function parsePreviewAmount(value) {
+  if (typeof value === "number") return value;
+  return parseFloat(value) || 0;
+}
+
+export default function Main({ CONFIG, LANG, area, token }) {
   const router = useRouter();
   const { locale } = useParams();
   const { PRODUCT } = React.useContext(GlobalContext);
@@ -92,6 +92,15 @@ export default function Main({
     );
   }, [CONFIG, area]);
 
+  const stripeEnabled = React.useMemo(() => {
+    const stripe = CONFIG["setting.pay"]?.stripe;
+    return (
+      stripe?.enabled === true &&
+      Array.isArray(stripe?.supportArea) &&
+      stripe.supportArea.includes(area)
+    );
+  }, [CONFIG, area]);
+
   // 选中支付方式
   const [payKey, setPayKey] = React.useState();
   const payWayList = React.useMemo(() => {
@@ -99,13 +108,15 @@ export default function Main({
       locale === "zh-cn"
         ? domesticPay({ CONFIG, LANG })
         : foreignPay({ CONFIG, LANG });
-    // PayPal 受 setting.pay.paypal.enabled + supportArea 门控
-    const pay = base.filter((item) =>
-      item.key === "payPal" ? paypalEnabled : true
-    );
+    // PayPal / Stripe 受 setting.pay 门控
+    const pay = base.filter((item) => {
+      if (item.key === "payPal") return paypalEnabled;
+      if (item.key === "stripe") return stripeEnabled;
+      return true;
+    });
     setPayKey(pay[0]?.key);
     return pay;
-  }, [locale, paypalEnabled]);
+  }, [locale, paypalEnabled, stripeEnabled, CONFIG, LANG]);
 
   // 设置销售政策
   React.useEffect(() => {
@@ -189,12 +200,130 @@ export default function Main({
     }
   }, [payKey]);
 
-  // 计算总价
-  const totalPrice = React.useMemo(() => {
+  // 商品小计（标价 product_price，仅作 preview 未返回时的兜底）
+  const subtotalPrice = React.useMemo(() => {
     return orderList.reduce((pre, cur) => {
       return pre + cur.productPrice * cur.productNum;
     }, 0);
   }, [orderList]);
+
+  const [discountCodeInput, setDiscountCodeInput] = React.useState("");
+  const [discountCodes, setDiscountCodes] = React.useState([]);
+  const [previewLoading, setPreviewLoading] = React.useState(false);
+  const [previewData, setPreviewData] = React.useState(null);
+  const [previewError, setPreviewError] = React.useState(null);
+
+  const fetchOrderPreview = React.useCallback(
+    async (codes) => {
+      if (!orderList.length) return null;
+      setPreviewLoading(true);
+      try {
+        const res = await Api.previewOrder({
+          area_code: area,
+          discount_codes: codes,
+          include_automatic: true,
+          order_list: orderList,
+        });
+        if (res.code !== 0) {
+          const message =
+            typeof res.data === "string"
+              ? res.data
+              : LANG["store.order.discount_code_invalid"] ||
+                "Invalid discount code";
+          throw new Error(message);
+        }
+        const data = {
+          total_price: parsePreviewAmount(res.data.total_price),
+          discount: parsePreviewAmount(res.data.discount),
+          pay_price: parsePreviewAmount(res.data.pay_price),
+          discount_breakdown: res.data.discount_breakdown,
+          applied_rules: res.data.applied_rules || [],
+          preview_token: res.data.preview_token,
+        };
+        setPreviewData(data);
+        setPreviewError(null);
+        return data;
+      } catch (err) {
+        setPreviewError(err?.message || "Preview failed");
+        throw err;
+      } finally {
+        setPreviewLoading(false);
+      }
+    },
+    [orderList, area, LANG]
+  );
+
+  React.useEffect(() => {
+    if (!orderList.length) return;
+    fetchOrderPreview(discountCodes).catch(() => {});
+  }, [orderList, discountCodes, fetchOrderPreview]);
+
+  const priceUnit = orderList[0]?.priceUnit;
+  const priceSymbol = orderList[0]?.priceSymbol;
+
+  const orderPricing = React.useMemo(() => {
+    const total_price = previewData?.total_price ?? subtotalPrice;
+    const discount = previewData?.discount ?? 0;
+    const pay_price = previewData?.pay_price ?? subtotalPrice;
+    return {
+      total_price: roundToDecimalPlaces(total_price, priceUnit),
+      discount: roundToDecimalPlaces(discount, priceUnit),
+      pay_price: roundToDecimalPlaces(pay_price, priceUnit),
+      preview_token: previewData?.preview_token,
+    };
+  }, [previewData, subtotalPrice, priceUnit]);
+
+  const buildCreateOrderPayload = React.useCallback(
+    (userInfo) => {
+      const payload = {
+        ...userInfo,
+        pay_key: payKey,
+        total_price: orderPricing.total_price,
+        discount: orderPricing.discount,
+        order_list: orderList,
+      };
+      if (discountCodes.length) {
+        payload.discount_codes = discountCodes;
+      }
+      if (orderPricing.preview_token) {
+        payload.preview_token = orderPricing.preview_token;
+      }
+      payload.pricing_area_code = area;
+      return payload;
+    },
+    [payKey, orderPricing, orderList, discountCodes, area]
+  );
+
+  const handleApplyDiscountCode = React.useCallback(async () => {
+    const code = discountCodeInput.trim().toUpperCase();
+    if (!code) return;
+    if (discountCodes.includes(code)) {
+      showTip({
+        text:
+          LANG["store.order.discount_code_applied"] ||
+          "Discount code already applied",
+        type: "info",
+      });
+      return;
+    }
+    try {
+      await fetchOrderPreview([...discountCodes, code]);
+      setDiscountCodes((prev) => [...prev, code]);
+      setDiscountCodeInput("");
+    } catch (err) {
+      showTip({
+        text: err?.message || LANG["store.order.discount_code_invalid"],
+        type: "error",
+      });
+    }
+  }, [discountCodeInput, discountCodes, fetchOrderPreview, showTip, LANG]);
+
+  const handleRemoveDiscountCode = React.useCallback(
+    (code) => {
+      setDiscountCodes((prev) => prev.filter((item) => item !== code));
+    },
+    []
+  );
 
   // 获取用户信息
   React.useEffect(() => {
@@ -221,17 +350,6 @@ export default function Main({
     }
   }, []);
 
-  const discount = React.useMemo(() => {
-    return orderList.reduce((pre, cur) => {
-      if (GOODDISCOUNTFESTIVAL && cur.productDiscount) {
-        return pre + (cur.productPrice - cur.sellingPrice) * cur.productNum;
-      } else {
-        return pre;
-      }
-    }, 0);
-  }, [orderList, GOODDISCOUNTFESTIVAL]);
-
-  // 获取用户信息
   const getUserInfo = React.useCallback(() => {
     const user_remark = textareaRef.current.value;
     let addressForm, emailForm;
@@ -274,6 +392,15 @@ export default function Main({
     }, 400);
   }, [userType, addressInfo]);
 
+  const [stripeClientSecret, setStripeClientSecret] = React.useState(null);
+  const [stripeOrderSecret, setStripeOrderSecret] = React.useState(null);
+  const [stripeLoading, setStripeLoading] = React.useState(false);
+
+  React.useEffect(() => {
+    setStripeClientSecret(null);
+    setStripeOrderSecret(null);
+  }, [payKey, userType, addressInfo]);
+
   // 清空购物车
   const clearOrderList = React.useCallback(() => {
     // 获取购物车列表
@@ -285,12 +412,61 @@ export default function Main({
     tracking.initiateCheckout({
       from: "order_page",
       currency: orderList[0].priceCurrency,
-      value: totalPrice - discount,
-      discount,
-      type: "payPal",
+      value: orderPricing.pay_price,
+      discount: orderPricing.discount,
+      type: payKey === "stripe" ? "stripe" : "payPal",
       contents: orderList,
     });
-  }, [orderList, totalPrice, discount]);
+  }, [orderList, orderPricing, payKey]);
+
+  const handleStripePrepare = React.useCallback(async () => {
+    if (orderLoading || previewLoading || stripeLoading) return;
+    const userInfo = getUserInfo();
+    if (!userInfo) return;
+
+    setStripeLoading(true);
+    try {
+      const res = await Api.createOrder(buildCreateOrderPayload(userInfo));
+      if (res.code === 0 && res.data?.client_secret) {
+        setStripeClientSecret(res.data.client_secret);
+        setStripeOrderSecret(res.data.secret);
+        secret.current = res.data.secret;
+        trackingInitiateCheckout();
+        localStorage.setItem(
+          "order",
+          JSON.stringify({
+            secret: res.data.secret,
+            time: Date.now(),
+          })
+        );
+      } else {
+        throw new Error("missing client_secret");
+      }
+    } catch {
+      showTip({
+        text: LANG["common.pay.pay_button.create_error"],
+        type: "error",
+      });
+    } finally {
+      setStripeLoading(false);
+    }
+  }, [
+    orderLoading,
+    previewLoading,
+    stripeLoading,
+    getUserInfo,
+    buildCreateOrderPayload,
+    trackingInitiateCheckout,
+    showTip,
+    LANG,
+  ]);
+
+  const stripeReturnUrl = React.useMemo(() => {
+    if (typeof window === "undefined") {
+      return `${process.env.NEXT_PUBLIC_DOMAIN}/${locale}/order/info?secret=${stripeOrderSecret || ""}`;
+    }
+    return `${window.location.origin}/${locale}/order/info?secret=${stripeOrderSecret || ""}`;
+  }, [locale, stripeOrderSecret]);
 
   const secret = React.useRef();
 
@@ -383,7 +559,7 @@ export default function Main({
           </div>
           <div className={styles.order_container}>
             <h2>{LANG["store.order.order_info"]}</h2>
-            {totalPrice ? (
+            {subtotalPrice ? (
               <>
                 <div className={styles.order_list}>
                   {orderList.map((item, index) => {
@@ -414,14 +590,6 @@ export default function Main({
                           </div>
                         </div>
                         <div className={styles.order_price}>
-                          {GOODDISCOUNTFESTIVAL && item.productDiscount ? (
-                            <div className={styles.discount}>{`${
-                              item.priceSymbol
-                            }${formatCurrency(
-                              item.sellingPrice * item.productNum,
-                              item.priceUnit
-                            )}`}</div>
-                          ) : null}
                           <div>{`${item.priceSymbol}${formatCurrency(
                             item.productPrice * item.productNum,
                             item.priceUnit
@@ -431,14 +599,102 @@ export default function Main({
                     );
                   })}
                 </div>
+                <div className={styles.discount_code_container}>
+                  <h3>
+                    {LANG["store.order.discount_code"] || "Discount code"}
+                  </h3>
+                  <div className={styles.discount_code_input_row}>
+                    <input
+                      type="text"
+                      value={discountCodeInput}
+                      placeholder={
+                        LANG["store.order.discount_code_placeholder"] ||
+                        "Enter code"
+                      }
+                      onChange={(e) => setDiscountCodeInput(e.target.value)}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                          e.preventDefault();
+                          handleApplyDiscountCode();
+                        }
+                      }}
+                    />
+                    <button
+                      type="button"
+                      className={styles.discount_code_apply_btn}
+                      disabled={previewLoading || !discountCodeInput.trim()}
+                      onClick={handleApplyDiscountCode}
+                    >
+                      {LANG["store.order.discount_code_apply"] || "Apply"}
+                    </button>
+                  </div>
+                  {discountCodes.length ? (
+                    <div className={styles.discount_code_tags}>
+                      {discountCodes.map((code) => (
+                        <div key={code} className={styles.discount_code_tag}>
+                          <span>{code}</span>
+                          <button
+                            type="button"
+                            aria-label={
+                              LANG["store.order.discount_code_remove"] ||
+                              "Remove"
+                            }
+                            onClick={() => handleRemoveDiscountCode(code)}
+                          >
+                            ×
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  ) : null}
+                  {previewError && !previewLoading ? (
+                    <div className={styles.discount_code_error}>
+                      {previewError}
+                    </div>
+                  ) : null}
+                </div>
                 <div className={styles.price_list}>
                   <div className={styles.price_item}>
                     <h3>{LANG["store.order.good_total"]}</h3>
-                    <span>{`${orderList[0]?.priceSymbol}${formatCurrency(
-                      totalPrice - discount,
-                      orderList[0]?.priceUnit
+                    <span>{`${priceSymbol}${formatCurrency(
+                      orderPricing.total_price,
+                      priceUnit
                     )}`}</span>
                   </div>
+                  {previewData?.applied_rules?.length ? (
+                    <div className={styles.applied_rules_list}>
+                      {previewData.applied_rules.map((rule) => (
+                        <div
+                          key={`${rule.rule_id}-${rule.code || rule.method}`}
+                          className={styles.price_item}
+                        >
+                          <h3>
+                            {rule.code ||
+                              rule.title ||
+                              (rule.method === "automatic"
+                                ? LANG["store.order.automatic_discount"] ||
+                                  "Promotion"
+                                : LANG["store.order.discount_amount"] ||
+                                  "Discount")}
+                          </h3>
+                          <span className={styles.discount_value}>{`-${priceSymbol}${formatCurrency(
+                            parsePreviewAmount(rule.amount),
+                            priceUnit
+                          )}`}</span>
+                        </div>
+                      ))}
+                    </div>
+                  ) : orderPricing.discount > 0 ? (
+                    <div className={styles.price_item}>
+                      <h3>
+                        {LANG["store.order.discount_amount"] || "Discount"}
+                      </h3>
+                      <span className={styles.discount_value}>{`-${priceSymbol}${formatCurrency(
+                        orderPricing.discount,
+                        priceUnit
+                      )}`}</span>
+                    </div>
+                  ) : null}
                   <div className={styles.price_item}>
                     <h3>{LANG["store.order.express_price"]}</h3>
                     <span>{LANG["store.order.express_free"]}</span>
@@ -450,10 +706,16 @@ export default function Main({
                 </div>
                 <div className={styles.price_total}>
                   <h3>{LANG["store.order.total_price"]}</h3>
-                  <span>{`${orderList[0]?.priceSymbol}${formatCurrency(
-                    totalPrice - discount,
-                    orderList[0]?.priceUnit
-                  )}`}</span>
+                  <span>
+                    {previewLoading ? (
+                      <span className={styles.preview_loading}>...</span>
+                    ) : (
+                      `${priceSymbol}${formatCurrency(
+                        orderPricing.pay_price,
+                        priceUnit
+                      )}`
+                    )}
+                  </span>
                 </div>
               </>
             ) : (
@@ -472,25 +734,15 @@ export default function Main({
               <div
                 className={styles.submit_btn}
                 onClick={async () => {
-                  if (orderLoading) return;
+                  if (orderLoading || previewLoading) return;
                   const userInfo = getUserInfo();
                   if (!userInfo) return;
                   // 处理订单
                   try {
                     setOrderLoading(true);
-                    const res = await Api.createOrder({
-                      ...userInfo,
-                      pay_key: payKey,
-                      total_price: roundToDecimalPlaces(
-                        totalPrice,
-                        orderList[0]?.priceUnit
-                      ),
-                      discount: roundToDecimalPlaces(
-                        discount,
-                        orderList[0]?.priceUnit
-                      ),
-                      order_list: orderList,
-                    });
+                    const res = await Api.createOrder(
+                      buildCreateOrderPayload(userInfo)
+                    );
                     if (res.code === 0) {
                       trackingInitiateCheckout();
                       showTip({
@@ -561,21 +813,10 @@ export default function Main({
                         }
                       }}
                       createOrder={() => {
+                        if (previewLoading) return;
                         const userInfo = getUserInfo();
                         if (!userInfo) return;
-                        return Api.createOrder({
-                          ...userInfo,
-                          pay_key: payKey,
-                          total_price: roundToDecimalPlaces(
-                            totalPrice,
-                            orderList[0]?.priceUnit
-                          ),
-                          discount: roundToDecimalPlaces(
-                            discount,
-                            orderList[0]?.priceUnit
-                          ),
-                          order_list: orderList,
-                        })
+                        return Api.createOrder(buildCreateOrderPayload(userInfo))
                           .then((res) => {
                             if (res.code === 0) {
                               secret.current = res.data.secret;
@@ -611,7 +852,7 @@ export default function Main({
                                 from: "order_page",
                                 currency: res.data.currency_code,
                                 value: res.data.value,
-                                discount,
+                                discount: orderPricing.discount,
                                 type: "payPal",
                                 contents: orderList,
                               });
@@ -640,6 +881,53 @@ export default function Main({
                   </div>
                 )}
               </>
+            ) : null}
+            {/* Stripe 支付方式 */}
+            {payKey === "stripe" && stripeEnabled && orderList[0]?.priceCurrency ? (
+              <div className={styles.stripe_btn}>
+                {!stripeClientSecret ? (
+                  <div
+                    className={styles.submit_btn}
+                    onClick={handleStripePrepare}
+                  >
+                    {stripeLoading
+                      ? "..."
+                      : LANG["store.order.submit_order"]}
+                  </div>
+                ) : (
+                  <StripePay
+                    clientSecret={stripeClientSecret}
+                    locale={locale}
+                    LANG={LANG}
+                    returnUrl={stripeReturnUrl}
+                    onError={() => {
+                      showTip({
+                        text: LANG["common.pay.pay_button.pay_error"],
+                        type: "error",
+                      });
+                    }}
+                    onSuccess={() => {
+                      tracking.purchase({
+                        from: "order_page",
+                        currency: orderList[0].priceCurrency,
+                        value: orderPricing.pay_price,
+                        discount: orderPricing.discount,
+                        type: "stripe",
+                        contents: orderList,
+                      });
+                      showTip({
+                        text: LANG["common.pay.pay_button.pay_success"],
+                        type: "success",
+                      });
+                      localStorage.removeItem("order");
+                      setTimeout(() => {
+                        clearOrderList();
+                        router.push(`/order/info?secret=${stripeOrderSecret}`);
+                      }, 1000);
+                    }}
+                  />
+                )}
+              </div>
             ) : null}
           </div>
         </div>

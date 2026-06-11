@@ -276,6 +276,86 @@
             }
           }
         }
+        .discount_code_container {
+          margin-bottom: 20px;
+          padding-bottom: 20px;
+          border-bottom: 1px solid #e6e6e6;
+          h3 {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 12px;
+          }
+          .discount_code_input_row {
+            display: flex;
+            gap: 8px;
+            input {
+              flex: 1;
+              min-width: 0;
+              height: 40px;
+              padding: 0 12px;
+              border: 1px solid #e6e6e6;
+              border-radius: 8px;
+              font-size: 14px;
+              outline: none;
+              box-sizing: border-box;
+              text-transform: uppercase;
+              &::placeholder {
+                text-transform: none;
+                color: #afb1b4;
+              }
+            }
+            .discount_code_apply_btn {
+              min-width: 72px;
+              height: 40px;
+              padding: 0 16px;
+              border: 0;
+              border-radius: 8px;
+              background: #272929;
+              color: #fff;
+              font-size: 14px;
+              font-weight: 600;
+              cursor: pointer;
+              &:disabled {
+                opacity: 0.5;
+                cursor: not-allowed;
+              }
+            }
+          }
+          .discount_code_tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 12px;
+            .discount_code_tag {
+              display: inline-flex;
+              align-items: center;
+              gap: 6px;
+              padding: 4px 10px;
+              border-radius: 16px;
+              background: #f0f1f5;
+              font-size: 12px;
+              font-weight: 600;
+              button {
+                border: 0;
+                background: transparent;
+                color: #898a8e;
+                font-size: 16px;
+                line-height: 1;
+                cursor: pointer;
+                padding: 0;
+              }
+            }
+          }
+          .discount_code_error {
+            margin-top: 8px;
+            font-size: 12px;
+            color: #e54545;
+            line-height: 1.4;
+          }
+        }
+        .applied_rules_list {
+          margin-bottom: 4px;
+        }
         .price_list {
           margin-bottom: 12px;
           .price_item {
@@ -290,7 +370,14 @@
             span {
               font-size: 14px;
             }
+            .discount_value {
+              color: #e54545;
+            }
           }
+        }
+        .preview_loading {
+          display: inline-block;
+          min-width: 24px;
         }
         .price_total {
           color: #000;
@@ -316,7 +403,8 @@
             text-decoration: none;
           }
         }
-        .paypal_btn {
+        .paypal_btn,
+        .stripe_btn {
           width: 100%;
           position: relative;
         }
@@ -410,10 +498,11 @@
         position: relative;
         top: 0;
 
-        .paypal_btn {
-        min-width: 260px;
-        width: 320px;
-        margin: auto;
+        .paypal_btn,
+        .stripe_btn {
+          min-width: 260px;
+          width: 320px;
+          margin: auto;
         }
 
         .submit_btn {
@@ -485,7 +574,8 @@
         position: relative;
         top: 0;
 
-        .paypal_btn {
+        .paypal_btn,
+        .stripe_btn {
         min-width: 260px;
         width: 300px;
         margin: auto;

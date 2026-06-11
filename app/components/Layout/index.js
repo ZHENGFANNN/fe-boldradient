@@ -9,6 +9,8 @@ import CartModal from "./CartModal";
 import AreaModal from "./AreaModal";
 import ContactModal from "./ContactModal";
 import CookieModal from "./CookieModal";
+import LiveChat from "@/components/LiveChat";
+import openLiveChat from "@/components/LiveChat/openLiveChat";
 
 export default function Layout({
   locale,
@@ -78,6 +80,10 @@ export default function Layout({
         showContactModal: () => {
           contactRef.current.show();
         },
+        // Open live chat widget
+        showLiveChat: (forceOpen = true) => {
+          openLiveChat(forceOpen);
+        },
       }}
     >
       {/* Cart Modal */}
@@ -88,6 +94,8 @@ export default function Layout({
       <ContactModal ref={contactRef} />
       {/* Cookie Modal */}
       <CookieModal />
+      {/* Live Chat */}
+      <LiveChat locale={locale} area={area} />
       {children}
     </GlobalContext.Provider>
   );

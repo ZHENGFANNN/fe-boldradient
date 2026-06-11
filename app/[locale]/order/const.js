@@ -30,27 +30,25 @@ export const domesticPay = function ({ CONFIG, LANG }) {
 };
 
 export const foreignPay = function ({ CONFIG, LANG }) {
+  const cardIcons = [
+    `${process.env.NEXT_PUBLIC_FILE}/common/image/icon/pay-visa.png`,
+    `${process.env.NEXT_PUBLIC_FILE}/common/image/icon/pay-master.png`,
+    `${process.env.NEXT_PUBLIC_FILE}/common/image/icon/pay-american-express.png`,
+    `${process.env.NEXT_PUBLIC_FILE}/common/image/icon/pay-discover.png`,
+  ];
+
   return [
-    // {
-    //   title: LANG["store.order.pay_info.credit_card"],
-    //   key: "creditCard",
-    //   imgList: [
-    //     `${process.env.NEXT_PUBLIC_FILE}/common/image/icon/pay-visa.png`,
-    //     `${process.env.NEXT_PUBLIC_FILE}/common/image/icon/pay-master.png`,
-    //     `${process.env.NEXT_PUBLIC_FILE}/common/image/icon/pay-maestro.png`,
-    //     `${process.env.NEXT_PUBLIC_FILE}/common/image/icon/pay-american-express.png`,
-    //     `${process.env.NEXT_PUBLIC_FILE}/common/image/icon/pay-diners-clubs.png`,
-    //     `${process.env.NEXT_PUBLIC_FILE}/common/image/icon/pay-discover.png`,
-    //     `${process.env.NEXT_PUBLIC_FILE}/common/image/icon/pay-jcb.png`,
-    //     `${process.env.NEXT_PUBLIC_FILE}/common/image/icon/pay-unionpay.png`,
-    //   ],
-    // },
-    // {
-    //   title: LANG['store.order.pay_info.pay_after_arrival'],
-    //   description: LANG['store.order.pay_info.pay_after_arrival_desc'],
-    //   key: 'cod',
-    //   // imgList: [`${process.env.NEXT_PUBLIC_FILE}/common/image/icon/pay-paypal.png`],
-    // },
+    {
+      title:
+        LANG["common.pay.pay_info.pay_list.stripe"] ||
+        LANG["store.order.pay_info.credit_card"] ||
+        "Credit / Debit Card",
+      description:
+        LANG["common.pay.pay_info.pay_list.stripe_detail"] ||
+        "Pay securely with card, Apple Pay, or Google Pay.",
+      key: "stripe",
+      imgList: cardIcons,
+    },
     {
       title: LANG["common.pay.pay_info.pay_list.paypal"],
       description: LANG["common.pay.pay_info.pay_list.paypal_detail"],

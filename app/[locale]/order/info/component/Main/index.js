@@ -20,7 +20,7 @@ export default function Main({ secret, locale, area, LANG, CONFIG }) {
   const [loading, setLoading] = React.useState(true);
   React.useEffect(() => {
     setLoading(true);
-    Api.getOrderList({
+    Api.getOrderDetail({
       secret,
     })
       .then((res) => {
@@ -75,6 +75,7 @@ export default function Main({ secret, locale, area, LANG, CONFIG }) {
       bank: LANG["store.order_info.transfer"],
       creditCard: LANG["store.order_info.credit_card"],
       payPal: LANG["store.order_info.paypal"],
+      stripe: LANG["store.order_info.credit_card"] || "Card",
       cod: LANG["store.order_info.pay_after_arrival"],
     };
   }, []);

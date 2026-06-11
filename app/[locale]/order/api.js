@@ -1,6 +1,10 @@
 import api from "../../request";
 
 const request = {
+  // 订单计价预览（折扣由服务端计算）
+  previewOrder: (data) => {
+    return api.post("/pay/previewOrder", data);
+  },
   // 支付
   createOrder: (data) => {
     return api.post("/pay/createOrder", data);
@@ -36,6 +40,10 @@ const request = {
   // 确认Paypal
   confirmPaypal: (data) => {
     return api.post("/pay/confirmPaypal", data);
+  },
+  // 可选：Stripe 支付状态查询（加速跳转，不能替代 Webhook）
+  confirmStripe: (data) => {
+    return api.post("/pay/confirmStripe", data);
   },
 };
 

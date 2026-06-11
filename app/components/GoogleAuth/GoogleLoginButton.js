@@ -2,7 +2,7 @@
 
 import React from "react";
 import { GoogleLogin } from "@react-oauth/google";
-import { useParams, useSearchParams } from "next/navigation";
+import { useParams } from "next/navigation";
 import exchangeGoogleCredential from "./exchange";
 
 const CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
@@ -14,8 +14,12 @@ const CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
  */
 export default function GoogleLoginButton({ onSuccess, onError }) {
   const { locale } = useParams();
-  const searchParams = useSearchParams();
-  const redirect = searchParams.get("redirect");
+  // redirect 来自 URL query，挂载后从 window 读取，避免 useSearchParams 触发
+  // 静态预渲染的 CSR bailout（需 Suspense 包裹），使登录/注册页可整页静态化。
+  const [redirect, setRedirect] = React.useState(null);
+  React.useEffect(() => {
+    setRedirect(new URLSearchParams(location.search).get("redirect"));
+  }, []);
 
   if (!CLIENT_ID) return null;
 

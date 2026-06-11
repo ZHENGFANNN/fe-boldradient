@@ -2,7 +2,7 @@
 
 import styles from "../../../forget/page.module.scss";
 import { useForm } from "react-hook-form";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 import Api from "../../../api";
 
@@ -11,8 +11,12 @@ import ShowTipModal from "../../../../../components/Modal/ShowTipModal";
 
 export default function ResetForm({ LANG }) {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const token = searchParams.get("token");
+  // token 来自 URL query，挂载后从 window 读取，避免 useSearchParams 触发
+  // 静态预渲染的 CSR bailout（需 Suspense 包裹），使本页可整页静态化。
+  const [token, setToken] = React.useState(null);
+  React.useEffect(() => {
+    setToken(new URLSearchParams(location.search).get("token"));
+  }, []);
   const {
     register,
     handleSubmit,

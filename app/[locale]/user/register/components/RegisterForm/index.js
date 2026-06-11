@@ -6,15 +6,19 @@ import Api from "../../../api";
 import Cookies from "js-cookie";
 import { useForm } from "react-hook-form";
 import { isEmail } from "../../../../../utils/pattern";
-import { useRouter, useParams, useSearchParams } from "next/navigation";
+import { useRouter, useParams } from "next/navigation";
 import ShowTipModal from "../../../../../components/Modal/ShowTipModal";
 
 export default function RegisterForm({ LANG }) {
   const [loading, setLoading] = React.useState(false);
   const router = useRouter();
   const { locale } = useParams();
-  const searchParams = useSearchParams();
-  const redirect = searchParams.get("redirect");
+  // redirect 来自 URL query，挂载后从 window 读取，避免 useSearchParams 触发
+  // 静态预渲染的 CSR bailout（需 Suspense 包裹），使本页可整页静态化。
+  const [redirect, setRedirect] = React.useState(null);
+  React.useEffect(() => {
+    setRedirect(new URLSearchParams(location.search).get("redirect"));
+  }, []);
 
   const {
     register,

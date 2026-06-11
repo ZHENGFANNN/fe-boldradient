@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import GlobalContext from "@/[locale]/context";
 import Cookies from "js-cookie";
 import Api from "@/request";

@@ -1,5 +1,3 @@
-import React, { Suspense } from "react";
-
 import Advantage from "../components/Layout/Advantage";
 import getConfigData from "../utils/getConfigData";
 
@@ -20,9 +18,9 @@ async function getData({ locale, area }) {
       "common.advantage",
       "store.index.title",
       "store.index.description",
-      "store.index.keywords",
+      "store.index.keywords"
     ],
-    configNameSpace: ["home.banner", "common.base"],
+    configNameSpace: ["home.banner", "common.base"]
   });
 
   result.PRODUCT.sort = result.PRODUCT.sort.map(({ goodList, ...item }) => {
@@ -31,11 +29,12 @@ async function getData({ locale, area }) {
       goodList: goodList.map(({ comboList, ...good }) => {
         return {
           areaInfo: comboList[0].areaInfo,
-          ...good,
+          ...good
         };
-      }),
+      })
     };
   });
+
   return result;
 }
 
@@ -43,12 +42,12 @@ export async function generateMetadata({ params }) {
   const { locale } = await params;
   const { LANG, CONFIG } = await getData({
     locale,
-    area: "us",
+    area: "us"
   });
   return {
     title: `${CONFIG["common.base"]?.company_name} - ${LANG["store.index.title"]}`,
     description: LANG["store.index.description"],
-    keywords: LANG["store.index.keywords"],
+    keywords: LANG["store.index.keywords"]
   };
 }
 
@@ -57,7 +56,7 @@ async function HomeContent({ locale }) {
   const area = cookieStore.get("area")?.value || "us";
   const { CONFIG, LANG, GOODDISCOUNTFESTIVAL, PRODUCT } = await getData({
     locale,
-    area,
+    area
   });
 
   return (
@@ -80,9 +79,5 @@ async function HomeContent({ locale }) {
 
 export default async function Home({ params }) {
   const { locale } = await params;
-  return (
-    <Suspense fallback={null}>
-      <HomeContent locale={locale} />
-    </Suspense>
-  );
+  return <HomeContent locale={locale} />;
 }

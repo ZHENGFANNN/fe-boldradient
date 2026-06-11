@@ -8,7 +8,9 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  cacheComponents: true,
+  // cacheComponents（Cache Components / PPR）已关闭：
+  // 该模式会把页面渲染为「静态 HTML 外壳 + 动态 server-streamed 块」(◐ Partial Prerender)，
+  // 即流式渲染。改用传统 ISR：fetch 打 next:{tags,revalidate}，由 /api/revalidate 按需重建。
   // 构建ID
   generateBuildId: () => {
     return "official:" + new Date().getTime();

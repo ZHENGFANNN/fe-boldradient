@@ -20,6 +20,7 @@ export const FAQ_COPY = {
     chatEnded: "Chat ended",
     typePlaceholder: "Type a message...",
     chatEndedHint: "This conversation has ended.",
+    startNewChat: "Start a new chat",
   },
   zh: {
     panelTitle: "帮助中心",
@@ -40,6 +41,7 @@ export const FAQ_COPY = {
     chatEnded: "会话已结束",
     typePlaceholder: "输入消息…",
     chatEndedHint: "本次会话已结束。",
+    startNewChat: "开始新会话",
   },
 };
 

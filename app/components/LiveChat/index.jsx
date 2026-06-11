@@ -264,6 +264,29 @@ export default function LiveChat({ locale, area }) {
     [clearReconnectTimer, shouldKeepWsAlive]
   );
 
+  const fetchMissedMessages = React.useCallback(async (conversationId) => {
+    if (!conversationId || !visitorKeyRef.current) return;
+    try {
+      const res = await getChatMessages({
+        conversation_id: conversationId,
+        visitor_key: visitorKeyRef.current,
+        after_id: lastIdRef.current,
+      });
+      if (res?.code === 0 && Array.isArray(res.data) && res.data.length) {
+        setMessages((prev) => {
+          let next = prev;
+          res.data.forEach((msg) => {
+            next = upsertMessage(next, msg);
+            lastIdRef.current = Math.max(lastIdRef.current, Number(msg.id) || 0);
+          });
+          return next;
+        });
+      }
+    } catch (err) {
+      console.warn("[LiveChat] fetch missed messages failed", err);
+    }
+  }, []);
+
   const connectWs = React.useCallback(
     async (sess) => {
       if (!sess?.ws_token || !sess?.conversation_id) return;
@@ -287,6 +310,7 @@ export default function LiveChat({ locale, area }) {
       ws.onopen = () => {
         if (wsRef.current !== ws) return;
         reconnectAttemptRef.current = 0;
+        fetchMissedMessages(sess.conversation_id);
       };
 
       ws.onmessage = (evt) => {
@@ -314,7 +338,7 @@ export default function LiveChat({ locale, area }) {
         scheduleWsReconnect(sess);
       };
     },
-    [clearReconnectTimer, scheduleWsReconnect, shouldKeepWsAlive]
+    [clearReconnectTimer, fetchMissedMessages, scheduleWsReconnect, shouldKeepWsAlive]
   );
 
   connectWsRef.current = connectWs;
@@ -350,15 +374,24 @@ export default function LiveChat({ locale, area }) {
           ...sess.messages.map((m) => Number(m.id) || 0),
           0
         );
+      } else {
+        lastIdRef.current = 0;
       }
       setView("chat");
       await connectWs(sess);
+      return sess;
     } catch (err) {
       console.warn("[LiveChat] start live chat failed", err);
+      return null;
     } finally {
       setLoading(false);
     }
   }, [area, connectWs, locale]);
+
+  const handleStartNewChat = React.useCallback(async () => {
+    reconnectBlockedRef.current = false;
+    return startLiveChat();
+  }, [startLiveChat]);
 
   const handleTransferToAgent = React.useCallback(async () => {
     let cfg = config;
@@ -441,12 +474,17 @@ export default function LiveChat({ locale, area }) {
 
   const handleSend = async () => {
     const body = input.trim();
-    if (!body || !session?.conversation_id || closed) return;
+    if (!body) return;
+    let activeSession = session;
+    if (!activeSession?.conversation_id || closed) {
+      activeSession = await handleStartNewChat();
+      if (!activeSession?.conversation_id) return;
+    }
     const clientMsgId = uuid();
     setInput("");
     try {
       const res = await sendChatMessage({
-        conversation_id: session.conversation_id,
+        conversation_id: activeSession.conversation_id,
         visitor_key: visitorKeyRef.current,
         body,
         client_msg_id: clientMsgId,
@@ -466,8 +504,11 @@ export default function LiveChat({ locale, area }) {
     const email = offline.email.trim();
     const content = offline.content.trim();
     if (!email || !content) return;
+    const visitorKey = getVisitorKey();
+    visitorKeyRef.current = visitorKey;
     try {
       const res = await sendOfflineMessage({
+        visitor_key: visitorKey,
         email,
         phone: offline.phone.trim(),
         content,
@@ -741,7 +782,17 @@ export default function LiveChat({ locale, area }) {
         </div>
         <div className={styles.footer}>
           {closed ? (
-            <div className={styles.hint}>{copy.chatEndedHint}</div>
+            <div className={styles.closedFooter}>
+              <div className={styles.hint}>{copy.chatEndedHint}</div>
+              <button
+                type="button"
+                className={styles.transferBtn}
+                disabled={loading}
+                onClick={handleStartNewChat}
+              >
+                {copy.startNewChat}
+              </button>
+            </div>
           ) : (
             <div className={styles.inputWrap}>
               <div className={styles.inputBox}>

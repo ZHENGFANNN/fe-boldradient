@@ -33,6 +33,11 @@ export default function RightArea() {
                     value: "account",
                   },
                   {
+                    label:
+                      LANG["common.nav.after_sale"] || "After-Sales Service",
+                    value: "after_sale",
+                  },
+                  {
                     label: LANG["common.nav.sign_out"],
                     value: "loginOut",
                   },
@@ -56,6 +61,8 @@ export default function RightArea() {
               Api.loginOut();
               Cookies.remove("token");
               location.href = "/";
+            } else if (e === "after_sale") {
+              router.push(`/user/account?type=afterSaleInfo`);
             } else {
               router.push(`/user/${e}`);
             }

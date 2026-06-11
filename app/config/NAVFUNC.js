@@ -71,6 +71,12 @@ export default function NAVFUNC({ type, LANG, BLOG, CONFIG, PRODUCT }) {
     title: LANG["common.nav.support"],
     list: [
       {
+        sub_title:
+          LANG["common.footer.after_sale"] || "After-Sales Service",
+        href: "/after-sale",
+        img: `${process.env.NEXT_PUBLIC_FILE}/common/image/icon/nav-sales.svg`
+      },
+      {
         sub_title: LANG["common.footer.sales_policy"],
         href: "/protocol/sales",
         img: `${process.env.NEXT_PUBLIC_FILE}/common/image/icon/nav-sales.svg`

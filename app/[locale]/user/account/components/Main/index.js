@@ -2,23 +2,25 @@
 
 import React from "react";
 import ShowTipModal from "../../../../../components/Modal/ShowTipModal";
-import { useSearchParams } from "next/navigation";
 import styles from "../../page.module.scss";
 
 import AddressInfo from "../AddressList";
 import OrderInfo from "../OrderInfo";
 import AccountInfo from "../AccountInfo";
+import AfterSaleInfo from "../AfterSaleInfo";
 
 export default function Main({ LANG }) {
-  const searchType = useSearchParams().get("type");
   const tipRef = React.useRef();
-  const [type, setType] = React.useState(searchType ?? "accountInfo");
-  const showTip = React.useCallback(
-    ({ text, type }) => {
-      tipRef.current.show({ text, type });
-    },
-    [searchType]
-  );
+  // type 来自 URL query，改为挂载后从 window 读取，避免 useSearchParams 触发
+  // cacheComponents 的「非缓存数据需 Suspense」约束，使本页可整页静态化。
+  const [type, setType] = React.useState("accountInfo");
+  React.useEffect(() => {
+    const t = new URLSearchParams(window.location.search).get("type");
+    if (t) setType(t);
+  }, []);
+  const showTip = React.useCallback(({ text, type }) => {
+    tipRef.current.show({ text, type });
+  }, []);
   return (
     <div className={styles.container}>
       <div className={styles.nav}>
@@ -67,6 +69,23 @@ export default function Main({ LANG }) {
           />
           <span>{LANG["user_account.my_order"]}</span>
         </div>
+        <div
+          className={`${styles.item} ${
+            type === "afterSaleInfo" ? styles.active : ""
+          }`}
+          onClick={() => {
+            setType("afterSaleInfo");
+          }}
+        >
+          <img
+            alt="after-sale"
+            className={styles.img_container}
+            src={`${process.env.NEXT_PUBLIC_FILE}/common/image/icon/min-order.svg`}
+          />
+          <span>
+            {LANG["user_account.after_sale"] || "After-Sales Service"}
+          </span>
+        </div>
       </div>
       <div className={styles.content}>
         {type === "accountInfo" ? (
@@ -102,6 +121,13 @@ export default function Main({ LANG }) {
                   showTip({ text, type });
                 }}
               />
+            </div>
+          </>
+        ) : null}
+        {type === "afterSaleInfo" ? (
+          <>
+            <div>
+              <AfterSaleInfo LANG={LANG} />
             </div>
           </>
         ) : null}

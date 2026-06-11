@@ -43,6 +43,14 @@ const request = {
   getOrderList: () => {
     return api.post("/pay/getOrderList");
   },
+  // 发起售后申请
+  createAfterService: (data) => {
+    return api.post("/pay/createAfterService", data);
+  },
+  // 获取本人售后列表
+  getAfterServiceList: () => {
+    return api.post("/pay/getAfterServiceList");
+  },
   // Token登陆
   tokenLogin: () => {
     return api.get("/user/tokenLogin");

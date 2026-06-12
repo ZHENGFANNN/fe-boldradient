@@ -634,6 +634,11 @@ $shadow-md: 0 8px 28px rgba(0, 0, 0, 0.14);
   resize: vertical;
 }
 
+.formError {
+  font-size: 12px;
+  color: #d23b3b;
+}
+
 .submitBtn {
   align-self: flex-start;
   margin: 16px;
@@ -655,6 +660,12 @@ $shadow-md: 0 8px 28px rgba(0, 0, 0, 0.14);
 
   &:active {
     transform: scale(0.98);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
   }
 }
 

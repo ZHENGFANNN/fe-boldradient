@@ -7,6 +7,13 @@ export const FAQ_COPY = {
     intro: "Browse common questions below, or talk to our team.",
     transferBtn: "Talk to an agent",
     backToFaq: "Back to FAQ",
+    leadIntro:
+      "Please share your name and email so our team can assist you better.",
+    name: "Name",
+    namePlaceholder: "Your name",
+    continueBtn: "Continue",
+    invalidName: "Please enter your name.",
+    invalidEmail: "Please enter a valid email address.",
     offlineIntro:
       "Our team is currently offline. Leave your contact details and we will reply by email as soon as possible.",
     offlineBanner:
@@ -32,6 +39,12 @@ export const FAQ_COPY = {
     intro: "请先查看常见问题，如需进一步帮助可转接人工客服。",
     transferBtn: "转人工客服",
     backToFaq: "返回常见问题",
+    leadIntro: "请先留下您的姓名和邮箱，方便客服更好地为您服务。",
+    name: "姓名",
+    namePlaceholder: "请输入您的姓名",
+    continueBtn: "继续",
+    invalidName: "请输入您的姓名。",
+    invalidEmail: "请输入有效的邮箱地址。",
     offlineIntro:
       "当前客服不在，可留下联系方式，后续客服会通过邮箱回复您。",
     offlineBanner: "当前为非营业时间，客服离线，您可以留言，我们会通过邮件回复。",

@@ -16,14 +16,6 @@ export function sendChatMessage(body) {
   return Api.post("/chat/message", body);
 }
 
-export function createOfflineSession(body) {
-  return Api.post("/chat/offline-session", body);
-}
-
-export function getOfflineThread(params) {
-  return Api.get("/chat/offline-thread", { params });
-}
-
 export function sendOfflineMessage(body) {
   return Api.post("/chat/offline-message", body);
 }

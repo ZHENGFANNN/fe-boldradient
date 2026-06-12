@@ -5,10 +5,8 @@ import Cookies from "js-cookie";
 import styles from "./index.module.scss";
 import {
   createChatSession,
-  createOfflineSession,
   getChatConfig,
   getChatMessages,
-  getOfflineThread,
   refreshWsToken,
   sendChatMessage,
   sendOfflineMessage,
@@ -17,6 +15,7 @@ import { getFaqCopy, getFaqItems } from "./faq";
 import openLiveChat, { registerLiveChatOpen } from "./openLiveChat";
 
 const VISITOR_KEY = "boldradiant_chat_visitor_key";
+const LEAD_KEY = "boldradiant_chat_lead";
 const CHAT_END_BODY = "__CHAT_END__";
 const BRAND_NAME = "BoldRadiant";
 
@@ -31,6 +30,39 @@ function getVisitorKey() {
     localStorage.setItem(VISITOR_KEY, key);
   }
   return key;
+}
+
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+function isValidEmail(value) {
+  return EMAIL_RE.test(String(value || "").trim());
+}
+
+function loadLead() {
+  if (typeof window === "undefined") return null;
+  try {
+    const raw = localStorage.getItem(LEAD_KEY);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw);
+    if (parsed && parsed.name && isValidEmail(parsed.email)) {
+      return { name: String(parsed.name), email: String(parsed.email) };
+    }
+  } catch (err) {
+    // ignore malformed storage
+  }
+  return null;
+}
+
+function saveLead(lead) {
+  if (typeof window === "undefined" || !lead) return;
+  try {
+    localStorage.setItem(
+      LEAD_KEY,
+      JSON.stringify({ name: lead.name, email: lead.email })
+    );
+  } catch (err) {
+    // ignore quota errors
+  }
 }
 
 function getWsBaseUrl() {
@@ -71,21 +103,6 @@ function upsertMessage(list, msg) {
     return next;
   }
   if (!msg.id && !msg.client_msg_id) return list;
-  return [...list, msg];
-}
-
-function upsertOfflineMessage(list, msg) {
-  if (!msg) return list;
-  const idx = list.findIndex(
-    (item) =>
-      (msg.id && String(item.id) === String(msg.id)) ||
-      (msg.client_msg_id && item.client_msg_id === msg.client_msg_id)
-  );
-  if (idx >= 0) {
-    const next = [...list];
-    next[idx] = { ...next[idx], ...msg, isInflight: false };
-    return next;
-  }
   return [...list, msg];
 }
 
@@ -182,10 +199,15 @@ export default function LiveChat({ locale, area }) {
     phone: "",
     content: "",
   });
-  const [offlineSession, setOfflineSession] = React.useState(null);
-  const [offlineMessages, setOfflineMessages] = React.useState([]);
-  const [offlineThreadReady, setOfflineThreadReady] = React.useState(false);
   const [offlineSent, setOfflineSent] = React.useState(false);
+  const [offlineSubmitting, setOfflineSubmitting] = React.useState(false);
+  // 进入人工客服前收集的访客身份（姓名 + 邮箱）
+  const [lead, setLead] = React.useState(() => loadLead());
+  const [leadForm, setLeadForm] = React.useState(
+    () => loadLead() || { name: "", email: "" }
+  );
+  const [leadError, setLeadError] = React.useState({ name: "", email: "" });
+  const leadRef = React.useRef(null);
   const wsRef = React.useRef(null);
   const pingTimerRef = React.useRef(null);
   const lastIdRef = React.useRef(0);
@@ -211,6 +233,10 @@ export default function LiveChat({ locale, area }) {
   React.useEffect(() => {
     sessionRef.current = session;
   }, [session]);
+
+  React.useEffect(() => {
+    leadRef.current = lead;
+  }, [lead]);
 
   const isWorkTime = config?.is_work_time !== false;
   const showOfflineBanner = !isWorkTime;
@@ -397,8 +423,11 @@ export default function LiveChat({ locale, area }) {
       const visitorKey = getVisitorKey();
       visitorKeyRef.current = visitorKey;
       const areaCode = area || Cookies.get("area") || "us";
+      const currentLead = leadRef.current;
       const sessRes = await createChatSession({
         visitor_key: visitorKey,
+        visitor_name: currentLead?.name || undefined,
+        visitor_email: currentLead?.email || undefined,
         locale: locale || "en",
         area: areaCode,
         page_url: typeof window !== "undefined" ? window.location.href : "",
@@ -431,52 +460,7 @@ export default function LiveChat({ locale, area }) {
     return startLiveChat();
   }, [startLiveChat]);
 
-  const loadOfflineThread = React.useCallback(async (conversationId) => {
-    if (!conversationId || !visitorKeyRef.current) return;
-    try {
-      const res = await getOfflineThread({
-        conversation_id: conversationId,
-        visitor_key: visitorKeyRef.current,
-      });
-      if (res?.code === 0 && Array.isArray(res.data)) {
-        setOfflineMessages(res.data);
-        setOfflineThreadReady(true);
-      }
-    } catch (err) {
-      console.warn("[LiveChat] load offline thread failed", err);
-    }
-  }, []);
-
-  const ensureOfflineSession = React.useCallback(async (email, phone) => {
-    const visitorKey = getVisitorKey();
-    visitorKeyRef.current = visitorKey;
-    try {
-      const res = await createOfflineSession({
-        visitor_key: visitorKey,
-        email: email.trim(),
-        phone: phone.trim(),
-        locale: locale || "en",
-        area: area || Cookies.get("area") || "us",
-        page_url: typeof window !== "undefined" ? window.location.href : "",
-      });
-      if (res?.code !== 0) return null;
-      const sess = res.data;
-      setOfflineSession(sess);
-      setOfflineMessages(Array.isArray(sess.messages) ? sess.messages : []);
-      const hasThread =
-        !!sess.conversation_id || (Array.isArray(sess.messages) && sess.messages.length > 0);
-      setOfflineThreadReady(hasThread);
-      if (sess.conversation_id) {
-        await loadOfflineThread(sess.conversation_id);
-      }
-      return sess;
-    } catch (err) {
-      console.warn("[LiveChat] create offline session failed", err);
-      return null;
-    }
-  }, [area, loadOfflineThread, locale]);
-
-  const handleTransferToAgent = React.useCallback(async () => {
+  const proceedToAgent = React.useCallback(async () => {
     let cfg = config;
     if (!cfg) {
       try {
@@ -502,10 +486,39 @@ export default function LiveChat({ locale, area }) {
     }
     setView("offline");
     setOfflineSent(false);
-    if (offline.email.trim()) {
-      await ensureOfflineSession(offline.email, offline.phone);
+    const presetEmail = leadRef.current?.email || "";
+    if (presetEmail && !offline.email) {
+      setOffline((s) => ({ ...s, email: presetEmail }));
     }
-  }, [config, ensureOfflineSession, offline.email, offline.phone, session, startLiveChat]);
+  }, [config, offline.email, session, startLiveChat]);
+
+  // 进入人工客服前先收集访客姓名 + 邮箱；已留过则直接进入
+  const handleTransferToAgent = React.useCallback(async () => {
+    if (leadRef.current) {
+      await proceedToAgent();
+      return;
+    }
+    setLeadError({ name: "", email: "" });
+    setView("lead");
+  }, [proceedToAgent]);
+
+  const handleLeadSubmit = React.useCallback(async () => {
+    const name = leadForm.name.trim();
+    const email = leadForm.email.trim();
+    const nextError = {
+      name: name ? "" : copy.invalidName,
+      email: isValidEmail(email) ? "" : copy.invalidEmail,
+    };
+    setLeadError(nextError);
+    if (nextError.name || nextError.email) return;
+
+    const nextLead = { name, email };
+    setLead(nextLead);
+    leadRef.current = nextLead;
+    saveLead(nextLead);
+    setOffline((s) => ({ ...s, email }));
+    await proceedToAgent();
+  }, [copy.invalidEmail, copy.invalidName, leadForm.email, leadForm.name, proceedToAgent]);
 
   const handleTransferRef = React.useRef(handleTransferToAgent);
   handleTransferRef.current = handleTransferToAgent;
@@ -553,10 +566,10 @@ export default function LiveChat({ locale, area }) {
   }, [open, session?.conversation_id, view]);
 
   React.useEffect(() => {
-    if (open && (view === "chat" || view === "offline")) {
+    if (open && view === "chat") {
       scrollToBottom();
     }
-  }, [open, view, messages, offlineMessages, scrollToBottom]);
+  }, [open, view, messages, scrollToBottom]);
 
   const handleSend = async () => {
     const body = input.trim();
@@ -600,70 +613,33 @@ export default function LiveChat({ locale, area }) {
     }
   };
 
-  const handleOfflineSend = async () => {
-    const content = offline.content.trim();
-    if (!content) return;
+  // 离线留言：直接提交到 /chat/offline-message（客服稍后邮件回复），提交成功展示成功页
+  const handleOfflineSubmit = async () => {
     const email = offline.email.trim();
-    if (!email) return;
-
-    let sess = offlineSession;
-    if (!sess) {
-      sess = await ensureOfflineSession(email, offline.phone);
-      if (!sess) return;
-    }
-
-    const clientMsgId = uuid();
-    const optimistic = {
-      client_msg_id: clientMsgId,
-      sender_type: "visitor",
-      body: content,
-      isInflight: true,
-    };
-    setOfflineMessages((prev) => upsertOfflineMessage(prev, optimistic));
-    setOffline((s) => ({ ...s, content: "" }));
-    setOfflineThreadReady(true);
-
+    const content = offline.content.trim();
+    if (!isValidEmail(email) || !content) return;
+    if (offlineSubmitting) return;
+    setOfflineSubmitting(true);
     try {
       const res = await sendOfflineMessage({
-        conversation_id: sess.conversation_id || undefined,
-        visitor_key: visitorKeyRef.current,
+        visitor_key: getVisitorKey(),
+        visitor_name: leadRef.current?.name || undefined,
         email,
         phone: offline.phone.trim(),
         content,
-        client_msg_id: clientMsgId,
         locale: locale || "en",
         area: area || Cookies.get("area") || "us",
         page_url: typeof window !== "undefined" ? window.location.href : "",
       });
       if (res?.code === 0) {
-        setOfflineMessages((prev) =>
-          upsertOfflineMessage(prev, { ...res.data, client_msg_id: clientMsgId })
-        );
-        if (res.data?.conversation_id) {
-          setOfflineSession((prev) => ({
-            ...(prev || sess),
-            conversation_id: res.data.conversation_id,
-          }));
-        }
-      } else {
-        setOfflineMessages((prev) =>
-          prev.filter((m) => m.client_msg_id !== clientMsgId)
-        );
+        setOffline((s) => ({ ...s, content: "" }));
+        setOfflineSent(true);
       }
     } catch (err) {
-      setOfflineMessages((prev) =>
-        prev.filter((m) => m.client_msg_id !== clientMsgId)
-      );
-      console.warn("[LiveChat] offline send failed", err);
+      console.warn("[LiveChat] offline submit failed", err);
+    } finally {
+      setOfflineSubmitting(false);
     }
-  };
-
-  const handleOfflineSubmit = async () => {
-    const email = offline.email.trim();
-    const content = offline.content.trim();
-    if (!email || !content) return;
-    await ensureOfflineSession(email, offline.phone);
-    await handleOfflineSend();
   };
 
   const closePanel = () => {
@@ -678,9 +654,6 @@ export default function LiveChat({ locale, area }) {
     setView("faq");
     setExpandedFaqId(null);
     setOfflineSent(false);
-    setOfflineThreadReady(false);
-    setOfflineSession(null);
-    setOfflineMessages([]);
   };
 
   const openPanel = () => {
@@ -776,83 +749,97 @@ export default function LiveChat({ locale, area }) {
     </>
   );
 
+  const renderLeadView = () => (
+    <>
+      {renderHeader(
+        copy.panelTitle,
+        isWorkTime ? copy.panelStatusOnline : copy.panelStatusOffline,
+        isWorkTime,
+        true
+      )}
+      <div className={styles.body}>
+        <div className={styles.offlineScroll}>
+          <p className={styles.offlineIntro}>{copy.leadIntro}</p>
+          <div className={styles.offlineForm}>
+            <div className={styles.formField}>
+              <label className={styles.formLabel} htmlFor="chat-lead-name">
+                {copy.name}
+              </label>
+              <input
+                id="chat-lead-name"
+                className={styles.formInput}
+                placeholder={copy.namePlaceholder}
+                value={leadForm.name}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  setLeadForm((s) => ({ ...s, name: value }));
+                  if (leadError.name) {
+                    setLeadError((s) => ({ ...s, name: "" }));
+                  }
+                }}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    e.preventDefault();
+                    handleLeadSubmit();
+                  }
+                }}
+              />
+              {leadError.name ? (
+                <span className={styles.formError}>{leadError.name}</span>
+              ) : null}
+            </div>
+            <div className={styles.formField}>
+              <label className={styles.formLabel} htmlFor="chat-lead-email">
+                {copy.email}
+              </label>
+              <input
+                id="chat-lead-email"
+                type="email"
+                className={styles.formInput}
+                placeholder="you@example.com"
+                value={leadForm.email}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  setLeadForm((s) => ({ ...s, email: value }));
+                  if (leadError.email) {
+                    setLeadError((s) => ({ ...s, email: "" }));
+                  }
+                }}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    e.preventDefault();
+                    handleLeadSubmit();
+                  }
+                }}
+              />
+              {leadError.email ? (
+                <span className={styles.formError}>{leadError.email}</span>
+              ) : null}
+            </div>
+          </div>
+        </div>
+        <button
+          type="button"
+          className={styles.submitBtn}
+          disabled={loading}
+          onClick={handleLeadSubmit}
+        >
+          {copy.continueBtn}
+        </button>
+      </div>
+    </>
+  );
+
   const renderOfflineView = () => (
     <>
       {renderHeader(
         copy.panelTitle,
-        offlineThreadReady ? copy.panelStatusOffline : offlineSent ? copy.offlineSuccessTitle : copy.panelStatusOffline,
+        offlineSent ? copy.offlineSuccessTitle : copy.panelStatusOffline,
         false,
         true
       )}
       <div className={styles.body}>
-        {offlineThreadReady ? (
-          <>
-            <div className={styles.messages}>
-              <div className={styles.offlineBanner}>{copy.offlineBanner}</div>
-              {offlineMessages.map((msg) => {
-                const isVisitor = msg.sender_type === "visitor";
-                return (
-                  <div
-                    key={msg.id || msg.client_msg_id}
-                    className={`${styles.msgRow} ${
-                      isVisitor ? styles.msgRowVisitor : styles.msgRowAgent
-                    }`}
-                  >
-                    {!isVisitor ? (
-                      <div className={styles.agentAvatar} aria-hidden="true">
-                        BR
-                      </div>
-                    ) : null}
-                    <div
-                      className={`${styles.bubble} ${
-                        isVisitor ? styles.bubbleVisitor : styles.bubbleAgent
-                      }`}
-                    >
-                      {msg.body}
-                      {msg.created_time && !msg.isInflight ? (
-                        <div className={styles.time}>
-                          {formatMsgTime(msg.created_time)}
-                        </div>
-                      ) : (
-                        <div className={styles.time}>&nbsp;</div>
-                      )}
-                    </div>
-                  </div>
-                );
-              })}
-              <div ref={messagesEndRef} />
-            </div>
-            <div className={styles.footer}>
-              <div className={styles.inputWrap}>
-                <div className={styles.inputBox}>
-                  <input
-                    className={styles.input}
-                    value={offline.content}
-                    placeholder={copy.offlineThreadPlaceholder}
-                    onChange={(e) =>
-                      setOffline((s) => ({ ...s, content: e.target.value }))
-                    }
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter" && !e.shiftKey) {
-                        e.preventDefault();
-                        handleOfflineSend();
-                      }
-                    }}
-                  />
-                </div>
-                <button
-                  type="button"
-                  className={styles.sendBtnRound}
-                  aria-label="Send offline message"
-                  disabled={!offline.content.trim()}
-                  onClick={handleOfflineSend}
-                >
-                  <SendIcon />
-                </button>
-              </div>
-            </div>
-          </>
-        ) : offlineSent ? (
+        {offlineSent ? (
           <div className={styles.successCard}>
             <div className={styles.successIcon}>
               <CheckIcon />
@@ -913,6 +900,11 @@ export default function LiveChat({ locale, area }) {
             <button
               type="button"
               className={styles.submitBtn}
+              disabled={
+                offlineSubmitting ||
+                !isValidEmail(offline.email) ||
+                !offline.content.trim()
+              }
               onClick={handleOfflineSubmit}
             >
               {copy.submit}
@@ -1058,6 +1050,7 @@ export default function LiveChat({ locale, area }) {
       {open && (
         <div className={styles.panel} role="dialog" aria-label="Live chat">
           {view === "faq" ? renderFaqView() : null}
+          {view === "lead" ? renderLeadView() : null}
           {view === "offline" ? renderOfflineView() : null}
           {view === "chat" ? renderChatView() : null}
         </div>

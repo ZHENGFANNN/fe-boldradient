@@ -316,6 +316,10 @@ export default function LiveChat({ locale, area }) {
   // 未读消息数（面板未开或不在 chat 视图时累计，客服来消息时亮红点）
   const [unread, setUnread] = React.useState(0);
   const lastReadIdRef = React.useRef(0);
+  // 坐席「正在输入」指示：收到 typing 事件即点亮，3s 无新事件自动熄灭
+  const [agentTyping, setAgentTyping] = React.useState(false);
+  const agentTypingTimerRef = React.useRef(null);
+  const lastTypingSentRef = React.useRef(0);
   // 进入人工客服前收集的访客身份（姓名 + 邮箱）
   const [lead, setLead] = React.useState(() => loadLead());
   const [leadForm, setLeadForm] = React.useState(
@@ -390,6 +394,30 @@ export default function LiveChat({ locale, area }) {
 
   const scrollToBottom = React.useCallback(() => {
     messagesEndRef.current?.scrollIntoView?.({ behavior: "smooth" });
+  }, []);
+
+  // 访客输入时向坐席发「正在输入」心跳（节流 ~2s，坐席端 3s 自动熄灭）
+  const sendTypingSignal = React.useCallback(() => {
+    const ws = wsRef.current;
+    if (!ws || ws.readyState !== WebSocket.OPEN) return;
+    const now = Date.now();
+    if (now - lastTypingSentRef.current < 2000) return;
+    lastTypingSentRef.current = now;
+    try {
+      ws.send(JSON.stringify({ type: "typing" }));
+    } catch (err) {
+      /* ws 已断开，忽略 */
+    }
+  }, []);
+
+  // 收到坐席 typing 事件：点亮指示并重置 3s 熄灭定时器
+  const markAgentTyping = React.useCallback(() => {
+    setAgentTyping(true);
+    if (agentTypingTimerRef.current) clearTimeout(agentTypingTimerRef.current);
+    agentTypingTimerRef.current = setTimeout(() => {
+      setAgentTyping(false);
+      agentTypingTimerRef.current = null;
+    }, 3000);
   }, []);
 
   const shouldKeepWsAlive = React.useCallback(() => {
@@ -539,6 +567,9 @@ export default function LiveChat({ locale, area }) {
           if (frame.type === "conversation.updated" && frame.data?.status) {
             setSession((prev) => (prev ? { ...prev, status: frame.data.status } : prev));
           }
+          if (frame.type === "typing" && frame.data?.from === "agent") {
+            markAgentTyping();
+          }
         } catch (err) {
           console.warn("[LiveChat] ws parse failed", err);
         }
@@ -551,7 +582,7 @@ export default function LiveChat({ locale, area }) {
         scheduleWsReconnect(sess);
       };
     },
-    [clearPingTimer, clearReconnectTimer, fetchMissedMessages, scheduleWsReconnect, shouldKeepWsAlive]
+    [clearPingTimer, clearReconnectTimer, fetchMissedMessages, markAgentTyping, scheduleWsReconnect, shouldKeepWsAlive]
   );
 
   connectWsRef.current = connectWs;
@@ -777,6 +808,9 @@ export default function LiveChat({ locale, area }) {
       if (closePanelTimerRef.current) {
         clearTimeout(closePanelTimerRef.current);
       }
+      if (agentTypingTimerRef.current) {
+        clearTimeout(agentTypingTimerRef.current);
+      }
     };
   }, [disconnectWs, loadConfig]);
 
@@ -949,7 +983,8 @@ export default function LiveChat({ locale, area }) {
   };
 
   const handlePickFile = () => {
-    if (uploading || closed) return;
+    // 关闭态也允许选文件：sendMediaMessage 会自动开新会话续聊（对标 herodash）
+    if (uploading) return;
     fileInputRef.current?.click();
   };
 
@@ -1477,6 +1512,20 @@ export default function LiveChat({ locale, area }) {
               </div>
             );
           })}
+          {agentTyping && !closed ? (
+            <div className={`${styles.msgRow} ${styles.msgRowAgent}`}>
+              {renderAvatar(styles.agentAvatar)}
+              <div className={styles.bubbleCol}>
+                <div className={`${styles.bubble} ${styles.bubbleAgent}`}>
+                  <span className={styles.loadingDots} aria-label={copy.typing}>
+                    <span />
+                    <span />
+                    <span />
+                  </span>
+                </div>
+              </div>
+            </div>
+          ) : null}
           {loading ? (
             <div className={styles.hint}>
               <span className={styles.loadingDots} aria-label="Loading">
@@ -1492,6 +1541,8 @@ export default function LiveChat({ locale, area }) {
           {closed ? (
             <div className={styles.closedFooter}>
               <div className={styles.hint}>{copy.chatEndedHint}</div>
+              {/* 对标 herodash：关闭后输入框仍可用，直接打字即自动开新会话续聊；
+                  满意度评价降级为可选，不再卡住输入。 */}
               {evaluation.rated ? (
                 <div className={styles.rateBox}>
                   <div className={styles.rateThanks}>{copy.rateThanks}</div>
@@ -1569,67 +1620,61 @@ export default function LiveChat({ locale, area }) {
                   </button>
                 </div>
               )}
-              <button
-                type="button"
-                className={styles.startNewBtn}
-                disabled={loading}
-                onClick={handleStartNewChat}
-              >
-                {copy.startNewChat}
-              </button>
             </div>
-          ) : (
-            <div className={styles.inputWrap}>
+          ) : null}
+          <div className={styles.inputWrap}>
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept={UPLOAD_ACCEPT}
+              style={{ display: "none" }}
+              onChange={handleFileChange}
+            />
+            <button
+              type="button"
+              className={styles.attachBtn}
+              aria-label="Attach file"
+              disabled={uploading}
+              onClick={handlePickFile}
+            >
+              <AttachIcon />
+            </button>
+            <div className={styles.inputBox}>
               <input
-                ref={fileInputRef}
-                type="file"
-                accept={UPLOAD_ACCEPT}
-                style={{ display: "none" }}
-                onChange={handleFileChange}
-              />
-              <button
-                type="button"
-                className={styles.attachBtn}
-                aria-label="Attach file"
-                disabled={uploading}
-                onClick={handlePickFile}
-              >
-                <AttachIcon />
-              </button>
-              <div className={styles.inputBox}>
-                <input
-                  className={styles.input}
-                  value={input}
-                  placeholder={copy.typePlaceholder}
-                  onChange={(e) => setInput(e.target.value)}
-                  onCompositionStart={() => {
-                    isComposingRef.current = true;
-                  }}
-                  onCompositionEnd={() => {
-                    isComposingRef.current = false;
-                  }}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter" && !e.shiftKey) {
-                      if (isComposingRef.current || e.nativeEvent.isComposing) {
-                        return;
-                      }
-                      e.preventDefault();
-                      handleSend();
+                className={styles.input}
+                value={input}
+                placeholder={copy.typePlaceholder}
+                onChange={(e) => {
+                  setInput(e.target.value);
+                  sendTypingSignal();
+                }}
+                onCompositionStart={() => {
+                  isComposingRef.current = true;
+                }}
+                onCompositionEnd={() => {
+                  isComposingRef.current = false;
+                }}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" && !e.shiftKey) {
+                    if (isComposingRef.current || e.nativeEvent.isComposing) {
+                      return;
                     }
-                  }}
-                />
-              </div>
-              <button
-                type="button"
-                className={styles.sendBtnRound}
-                aria-label="Send message"
-                disabled={!input.trim()}
-                onClick={handleSend}
-              >
-                <SendIcon />
-              </button>
+                    e.preventDefault();
+                    handleSend();
+                  }
+                }}
+              />
             </div>
-          )}
+            <button
+              type="button"
+              className={styles.sendBtnRound}
+              aria-label="Send message"
+              disabled={!input.trim()}
+              onClick={handleSend}
+            >
+              <SendIcon />
+            </button>
+          </div>
         </div>
       </div>
     </>

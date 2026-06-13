@@ -62,7 +62,6 @@
     "eslint": "^9",
     "eslint-config-next": "^16.2.7",
     "typescript": "6.0.3",
-    "vercel": "^39.0.0",
     "wrangler": "^4.49.1"
   }
 }

@@ -20,6 +20,12 @@ export function sendChatMessage(body) {
   return Api.post("/chat/message", body);
 }
 
+// Phase 2 订单分享：登录用户「我的订单」列表，复用 be-order-service 现有接口（零后端改动），
+// 仅登录态（token cookie）可调，未登录后端按游客返回失败。
+export function getMyOrders() {
+  return Api.post("/pay/getOrderList");
+}
+
 // 上传图片/文件到 OSS，返回 { url, name, type, size }；浏览器对 FormData 自动设置 multipart
 export function uploadChatFile(file) {
   const form = new FormData();

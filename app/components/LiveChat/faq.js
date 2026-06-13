@@ -39,6 +39,17 @@ export const FAQ_COPY = {
     feedbackPlaceholder: "Tell us more (optional)",
     yourRating: "Your rating",
     ratingLabels: ["Very bad", "Bad", "Okay", "Good", "Excellent"],
+    shareOrder: "Share an order",
+    orderPickerTitle: "Share an order",
+    orderPickerEmpty: "No orders to share yet.",
+    orderStatus: {
+      status0: "Awaiting payment",
+      status1: "Awaiting delivery",
+      status2: "Delivered",
+      status3: "Completed",
+      status4: "Closed",
+      status5: "Error",
+    },
   },
   zh: {
     panelTitle: "帮助中心",
@@ -76,6 +87,17 @@ export const FAQ_COPY = {
     feedbackPlaceholder: "补充说明（选填）",
     yourRating: "您的评分",
     ratingLabels: ["很差", "较差", "一般", "满意", "非常满意"],
+    shareOrder: "分享订单",
+    orderPickerTitle: "分享订单",
+    orderPickerEmpty: "暂无可分享的订单。",
+    orderStatus: {
+      status0: "待付款",
+      status1: "待发货",
+      status2: "已发货",
+      status3: "已完成",
+      status4: "已关闭",
+      status5: "异常",
+    },
   },
 };
 

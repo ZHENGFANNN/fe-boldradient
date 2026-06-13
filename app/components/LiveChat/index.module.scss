@@ -1050,6 +1050,234 @@ $shadow-md: 0 8px 28px rgba(0, 0, 0, 0.14);
   }
 }
 
+// Phase 2 订单分享：消息流中的订单卡片气泡
+.orderCard {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 200px;
+  max-width: 260px;
+}
+
+.orderCardTop {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.orderCardThumb {
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  object-fit: cover;
+  background: $brand-light;
+  flex-shrink: 0;
+}
+
+.orderCardInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.orderCardNo {
+  font-size: 13px;
+  font-weight: 700;
+  color: $text-primary;
+  word-break: break-all;
+}
+
+.orderCardName {
+  font-size: 13px;
+  color: $text-primary;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.orderCardStatus {
+  font-size: 12px;
+  color: $text-secondary;
+}
+
+.orderCardTotal {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--lc-brand-dark);
+  border-top: 1px solid $border;
+  padding-top: 6px;
+}
+
+// Phase 2 订单分享：选择器（桌面浮层 / 移动端底部抽屉），覆盖在面板内
+.orderPickerOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  background: rgba(0, 0, 0, 0.32);
+  animation: overlayFadeIn 0.2s ease;
+}
+
+.orderPickerSheet {
+  display: flex;
+  flex-direction: column;
+  max-height: 70%;
+  background: #fff;
+  border-radius: $panel-radius $panel-radius 0 0;
+  box-shadow: $shadow-lg;
+  overflow: hidden;
+  animation: panelSlideUp 0.24s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.orderPickerHead {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  border-bottom: 1px solid $border;
+}
+
+.orderPickerTitle {
+  font-size: 15px;
+  font-weight: 700;
+  color: $text-primary;
+}
+
+.orderPickerClose {
+  width: 30px;
+  height: 30px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.05);
+  color: $text-secondary;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.1);
+  }
+}
+
+.orderPickerBody {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px 0;
+
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 3px;
+  }
+}
+
+.orderPickerHint {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 28px 16px;
+}
+
+.orderPickerEmpty {
+  padding: 28px 16px;
+  text-align: center;
+  color: $text-secondary;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.orderPickerList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.orderPickerItem {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.orderPickerItemDisabled {
+  opacity: 0.5;
+}
+
+.orderPickerItemBtn {
+  width: 100%;
+  border: none;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  text-align: left;
+  cursor: pointer;
+  font-family: inherit;
+
+  &:hover:not(:disabled) {
+    background: rgba(0, 0, 0, 0.02);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+}
+
+.orderPickerThumb {
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+  object-fit: cover;
+  background: $brand-light;
+  flex-shrink: 0;
+}
+
+.orderPickerInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+  flex: 1;
+}
+
+.orderPickerNo {
+  font-size: 13px;
+  font-weight: 700;
+  color: $text-primary;
+  word-break: break-all;
+}
+
+.orderPickerName {
+  font-size: 13px;
+  color: $text-primary;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.orderPickerMeta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.orderPickerStatus {
+  font-size: 12px;
+  color: $text-secondary;
+}
+
+.orderPickerPrice {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--lc-brand-dark);
+}
+
 .overlay {
   display: none;
 }
@@ -1152,5 +1380,24 @@ $shadow-md: 0 8px 28px rgba(0, 0, 0, 0.14);
 
   .footer {
     padding-bottom: max(16px, env(safe-area-inset-bottom));
+  }
+
+  // 移动端订单卡片随气泡放宽，避免过窄折行
+  .orderCard {
+    max-width: 70vw;
+  }
+}
+
+// 平板/中屏：面板为浮层，订单卡片随气泡宽度
+@media (min-width: 780px) and (max-width: 1440px) {
+  .orderCard {
+    max-width: 260px;
+  }
+}
+
+// 大屏桌面：略放宽订单卡片与选择器缩略图
+@media (min-width: 1440px) and (max-width: 1920px) {
+  .orderCard {
+    max-width: 280px;
   }
 }

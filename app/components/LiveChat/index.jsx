@@ -18,6 +18,7 @@ import {
 } from "./api";
 import { getFaqCopy, getFaqItems } from "./faq";
 import openLiveChat, { registerLiveChatOpen } from "./openLiveChat";
+import OrderPicker, { getOrderStatusText } from "./orderPicker";
 
 const VISITOR_KEY = "boldradiant_chat_visitor_key";
 const LEAD_KEY = "boldradiant_chat_lead";
@@ -212,6 +213,25 @@ function FileIcon() {
   );
 }
 
+function OrderIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path
+        d="M6 4h9l3 3v13a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Z"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M8.5 10.5h7M8.5 14h7M8.5 17h4"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
 function CloseIcon() {
   return (
     <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -304,6 +324,9 @@ export default function LiveChat({ locale, area }) {
   // 文件/图片上传
   const [uploading, setUploading] = React.useState(false);
   const fileInputRef = React.useRef(null);
+  // Phase 2 订单分享：登录态（token cookie）决定入口可见，picker 控制选择器开关
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+  const [orderPickerOpen, setOrderPickerOpen] = React.useState(false);
   // 切片3 满意度评价：rated 已评价态、rating 选中分值(1~5)、feedback 反馈文本
   const [evaluation, setEvaluation] = React.useState({
     rated: false,
@@ -357,6 +380,12 @@ export default function LiveChat({ locale, area }) {
   React.useEffect(() => {
     leadRef.current = lead;
   }, [lead]);
+
+  // 登录态：token cookie 存在即视为已登录（与站内 RightArea/AfterSale 同口径）；
+  // 面板打开时刷新一次，覆盖打开聊天前刚登录/登出的情况。
+  React.useEffect(() => {
+    setIsLoggedIn(!!Cookies.get("token"));
+  }, [open]);
 
   const isWorkTime = config?.is_work_time !== false;
   const showOfflineBanner = !isWorkTime;
@@ -1002,6 +1031,66 @@ export default function LiveChat({ locale, area }) {
     }
   };
 
+  // Phase 2 订单分享：发送一条 msg_type=order 消息，携带订单引用 + 最小快照。
+  // 越权由后端双校验（订单.user_id == 会话.user_id），前端仅乐观渲染。
+  const sendOrderMessage = async (picked) => {
+    if (!picked?.order_id) return;
+    let activeSession = session;
+    if (!activeSession?.conversation_id) {
+      activeSession = await handleStartNewChat();
+      if (!activeSession?.conversation_id) return;
+    } else if (closed) {
+      activeSession = await reopenClosedChat(activeSession);
+      if (!activeSession?.conversation_id) return;
+    }
+    const snapshotStr = JSON.stringify(picked.snapshot || {});
+    const clientMsgId = uuid();
+    const optimistic = {
+      client_msg_id: clientMsgId,
+      sender_type: "visitor",
+      body: "",
+      msg_type: "order",
+      order_id: picked.order_id,
+      order_no: picked.order_no,
+      order_snapshot: snapshotStr,
+      isInflight: true,
+    };
+    setMessages((prev) => upsertMessage(prev, optimistic));
+    try {
+      const res = await sendChatMessage({
+        conversation_id: activeSession.conversation_id,
+        visitor_key: visitorKeyRef.current,
+        client_msg_id: clientMsgId,
+        order_id: picked.order_id,
+        order_no: picked.order_no,
+        order_snapshot: snapshotStr,
+      });
+      if (res?.code === 0) {
+        setMessages((prev) =>
+          upsertMessage(prev, { ...res.data, client_msg_id: clientMsgId })
+        );
+        if (res.data?.id) {
+          lastIdRef.current = Math.max(lastIdRef.current, Number(res.data.id));
+        }
+      } else {
+        setMessages((prev) => prev.filter((m) => m.client_msg_id !== clientMsgId));
+      }
+    } catch (err) {
+      setMessages((prev) => prev.filter((m) => m.client_msg_id !== clientMsgId));
+      console.warn("[LiveChat] send order failed", err);
+    }
+  };
+
+  const handlePickOrder = async (picked) => {
+    setOrderPickerOpen(false);
+    await sendOrderMessage(picked);
+  };
+
+  const handleOpenOrderPicker = () => {
+    if (!isLoggedIn) return;
+    setOrderPickerOpen(true);
+  };
+
   const handlePickFile = () => {
     // 关闭态也允许选文件：sendMediaMessage 会自动开新会话续聊（对标 herodash）
     if (uploading) return;
@@ -1031,8 +1120,57 @@ export default function LiveChat({ locale, area }) {
     }
   };
 
-  // 消息气泡内容：媒体消息渲染图片/文件，否则文本
+  // 订单分享卡片：解析 order_snapshot（JSON 文本），解析失败兜底为订单号文本，勿崩会话流
+  const renderOrderCard = (msg) => {
+    let snap = {};
+    try {
+      snap =
+        typeof msg.order_snapshot === "string"
+          ? JSON.parse(msg.order_snapshot || "{}")
+          : msg.order_snapshot || {};
+    } catch (err) {
+      snap = {};
+    }
+    const orderNo = snap.order_no || msg.order_no || "";
+    const currency = snap.currency || "";
+    const total = snap.total_price;
+    const statusText = getOrderStatusText(copy, snap.order_status);
+    return (
+      <div className={styles.orderCard}>
+        <div className={styles.orderCardTop}>
+          {snap.image ? (
+            <img
+              className={styles.orderCardThumb}
+              src={snap.image}
+              alt={snap.title || ""}
+            />
+          ) : (
+            <span className={styles.orderCardThumb} />
+          )}
+          <div className={styles.orderCardInfo}>
+            <div className={styles.orderCardNo}>{orderNo}</div>
+            {snap.title ? (
+              <div className={styles.orderCardName}>{snap.title}</div>
+            ) : null}
+            {statusText ? (
+              <div className={styles.orderCardStatus}>{statusText}</div>
+            ) : null}
+          </div>
+        </div>
+        {total !== undefined && total !== "" ? (
+          <div className={styles.orderCardTotal}>
+            {snap.pay_symbol || currency} {total}
+          </div>
+        ) : null}
+      </div>
+    );
+  };
+
+  // 消息气泡内容：订单卡片 > 媒体消息（图片/文件）> 文本
   const renderBubbleContent = (msg) => {
+    if (msg.msg_type === "order") {
+      return renderOrderCard(msg);
+    }
     if (msg.media_url) {
       if (msg.media_type === "image") {
         return (
@@ -1672,6 +1810,17 @@ export default function LiveChat({ locale, area }) {
             >
               <AttachIcon />
             </button>
+            {isLoggedIn ? (
+              <button
+                type="button"
+                className={styles.attachBtn}
+                aria-label={copy.shareOrder}
+                title={copy.shareOrder}
+                onClick={handleOpenOrderPicker}
+              >
+                <OrderIcon />
+              </button>
+            ) : null}
             <div className={styles.inputBox}>
               <input
                 className={styles.input}
@@ -1737,6 +1886,13 @@ export default function LiveChat({ locale, area }) {
             {view === "lead" ? renderLeadView() : null}
             {view === "offline" ? renderOfflineView() : null}
             {view === "chat" ? renderChatView() : null}
+            {orderPickerOpen ? (
+              <OrderPicker
+                copy={copy}
+                onPick={handlePickOrder}
+                onClose={() => setOrderPickerOpen(false)}
+              />
+            ) : null}
           </div>
         </>
       )}

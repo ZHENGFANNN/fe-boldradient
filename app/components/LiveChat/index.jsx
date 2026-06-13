@@ -2,15 +2,19 @@
 
 import React from "react";
 import Cookies from "js-cookie";
+import Compressor from "compressorjs";
 import styles from "./index.module.scss";
 import {
   createChatSession,
+  evaluateChat,
   getChatConfig,
+  getChatEvaluation,
   getChatFaq,
   getChatMessages,
   refreshWsToken,
   sendChatMessage,
   sendOfflineMessage,
+  uploadChatFile,
 } from "./api";
 import { getFaqCopy, getFaqItems } from "./faq";
 import openLiveChat, { registerLiveChatOpen } from "./openLiveChat";
@@ -22,6 +26,13 @@ const UNREAD_KEY = "boldradiant_chat_last_read_id";
 const CHAT_END_BODY = "__CHAT_END__";
 const BRAND_NAME = "BoldRadiant";
 const MOBILE_PANEL_CLOSE_MS = 280;
+// 上传：accept 列表与图片判定（对标 herodash guest），10MB 上限与后端一致
+const UPLOAD_ACCEPT =
+  ".jpg,.jpeg,.png,.gif,.webp,.pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.xlsm,.ods,.csv,.txt,.zip,.rar";
+const IMAGE_EXT_RE = /\.(jpe?g|png|gif|webp)$/i;
+const UPLOAD_MAX_SIZE = 10 * 1024 * 1024;
+// 满意度评价：五级表情，索引 0~4 对应 rating 1~5
+const RATING_EMOJIS = ["😞", "🙁", "😐", "🙂", "😄"];
 
 function getStoredConversationId() {
   if (typeof window === "undefined") return 0;
@@ -135,6 +146,17 @@ function formatMsgTime(value) {
   return d.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
 }
 
+// 取坐席姓名首字母作头像（支持多词取前两词首字母），无姓名时返回空
+function getNameInitials(name) {
+  const trimmed = String(name || "").trim();
+  if (!trimmed) return "";
+  const parts = trimmed.split(/\s+/).filter(Boolean);
+  if (parts.length >= 2) {
+    return (parts[0][0] + parts[1][0]).toUpperCase();
+  }
+  return trimmed.slice(0, 2).toUpperCase();
+}
+
 function ChatBubbleIcon() {
   return (
     <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -158,6 +180,34 @@ function SendIcon() {
         strokeLinejoin="round"
       />
       <path d="M11 14 19 4" stroke="currentColor" strokeWidth="1.6" />
+    </svg>
+  );
+}
+
+function AttachIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path
+        d="M8 12.5l6.5-6.5a3 3 0 0 1 4.24 4.24l-8.13 8.13a4.5 4.5 0 0 1-6.36-6.36l7.78-7.78"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+function FileIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path
+        d="M13 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V9l-6-6Z"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinejoin="round"
+      />
+      <path d="M13 3v6h6" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
     </svg>
   );
 }
@@ -251,6 +301,18 @@ export default function LiveChat({ locale, area }) {
   });
   const [offlineSent, setOfflineSent] = React.useState(false);
   const [offlineSubmitting, setOfflineSubmitting] = React.useState(false);
+  // 文件/图片上传
+  const [uploading, setUploading] = React.useState(false);
+  const fileInputRef = React.useRef(null);
+  // 切片3 满意度评价：rated 已评价态、rating 选中分值(1~5)、feedback 反馈文本
+  const [evaluation, setEvaluation] = React.useState({
+    rated: false,
+    rating: 0,
+    feedback: "",
+  });
+  const [ratingSelected, setRatingSelected] = React.useState(0);
+  const [ratingFeedback, setRatingFeedback] = React.useState("");
+  const [ratingSubmitting, setRatingSubmitting] = React.useState(false);
   // 未读消息数（面板未开或不在 chat 视图时累计，客服来消息时亮红点）
   const [unread, setUnread] = React.useState(0);
   const lastReadIdRef = React.useRef(0);
@@ -297,6 +359,34 @@ export default function LiveChat({ locale, area }) {
   const welcomeText =
     !showOfflineBanner && (session?.welcome_text || config?.welcome_text || "");
   const closed = session?.status === "closed";
+
+  // 外观配置（来自渠道 /chat/config；字段为空时回退内置默认，保证零回归）
+  const logoUrl = config?.logo_url || "";
+  const headerTitle = config?.title || copy.panelTitle;
+  const chatTitle = config?.title || BRAND_NAME;
+  const bubbleLeft = config?.bubble_position === "left";
+  const primaryColor = config?.primary_color || "";
+  const wrapperStyle = primaryColor
+    ? { "--lc-brand-dark": primaryColor, "--lc-brand-mid": primaryColor }
+    : undefined;
+  // 头像渲染：
+  // - 品牌头像（header / 无坐席姓名）：优先 logo_url，回退 "BR"
+  // - 坐席个人头像（传入 senderName）：用姓名首字母，无姓名时回退品牌逻辑
+  const renderAvatar = (className, senderName) => {
+    const initials = getNameInitials(senderName);
+    if (initials) {
+      return (
+        <div className={className} aria-hidden="true">
+          {initials}
+        </div>
+      );
+    }
+    return (
+      <div className={className} aria-hidden="true">
+        {logoUrl ? <img src={logoUrl} alt="" /> : "BR"}
+      </div>
+    );
+  };
 
   const scrollToBottom = React.useCallback(() => {
     messagesEndRef.current?.scrollIntoView?.({ behavior: "smooth" });
@@ -519,6 +609,10 @@ export default function LiveChat({ locale, area }) {
 
   const handleStartNewChat = React.useCallback(async () => {
     reconnectBlockedRef.current = false;
+    // 新会话重置评价状态，避免沿用上一会话的已评价态
+    setEvaluation({ rated: false, rating: 0, feedback: "" });
+    setRatingSelected(0);
+    setRatingFeedback("");
     return startLiveChat();
   }, [startLiveChat]);
 
@@ -568,6 +662,37 @@ export default function LiveChat({ locale, area }) {
     }
   }, [connectWs]);
 
+  // 切回聊天视图时确保 WS 在线：closePanel / goBackToFaq 会主动断开并阻止重连，
+  // 重新进入聊天必须用最新 token 重建连接，否则只能靠轮询兜底、实时消息会延迟十几秒。
+  const ensureWsConnected = React.useCallback(
+    async (sess) => {
+      if (!sess?.conversation_id || sess.status === "closed") return;
+      const ws = wsRef.current;
+      if (
+        ws &&
+        (ws.readyState === WebSocket.OPEN || ws.readyState === WebSocket.CONNECTING)
+      ) {
+        return;
+      }
+      reconnectBlockedRef.current = false;
+      if (!visitorKeyRef.current) {
+        visitorKeyRef.current = getVisitorKey();
+      }
+      try {
+        const res = await refreshWsToken({
+          conversation_id: sess.conversation_id,
+          visitor_key: visitorKeyRef.current,
+        });
+        if (res?.code === 0 && res.data?.ws_token) {
+          await connectWs({ ...sess, ws_token: res.data.ws_token });
+        }
+      } catch (err) {
+        console.warn("[LiveChat] ensure ws failed", err);
+      }
+    },
+    [connectWs]
+  );
+
   const proceedToAgent = React.useCallback(async () => {
     let cfg = config;
     if (!cfg) {
@@ -587,6 +712,7 @@ export default function LiveChat({ locale, area }) {
     if (online) {
       if (session?.conversation_id && session.status !== "closed") {
         setView("chat");
+        ensureWsConnected(session);
         return;
       }
       await startLiveChat();
@@ -598,7 +724,7 @@ export default function LiveChat({ locale, area }) {
     if (presetEmail && !offline.email) {
       setOffline((s) => ({ ...s, email: presetEmail }));
     }
-  }, [config, offline.email, session, startLiveChat]);
+  }, [config, offline.email, session, startLiveChat, ensureWsConnected]);
 
   // 进入人工客服前先收集访客姓名 + 邮箱；已留过则直接进入
   const handleTransferToAgent = React.useCallback(async () => {
@@ -630,12 +756,18 @@ export default function LiveChat({ locale, area }) {
 
   const handleTransferRef = React.useRef(handleTransferToAgent);
   handleTransferRef.current = handleTransferToAgent;
+  // openPanel 定义在后面，用 ref 让外部 openLiveChat 入口也能走完整的"恢复历史会话 + 重连 WS"逻辑
+  const openPanelRef = React.useRef(null);
 
   React.useEffect(() => {
     registerLiveChatOpen((forceOpen) => {
-      setOpen(true);
       if (forceOpen) {
+        // 站内"直接转人工"：进入 lead gate / 在线会话（proceedToAgent 内已重连 WS）
+        setOpen(true);
         handleTransferRef.current();
+      } else {
+        // 站内"打开客服"：走 openPanel，恢复历史会话并重连 WS，与气泡按钮一致
+        openPanelRef.current?.();
       }
     });
     loadConfig();
@@ -705,6 +837,14 @@ export default function LiveChat({ locale, area }) {
     }
   }, [open, view, messages, scrollToBottom]);
 
+  // 切片3：在 chat 视图查看已关闭会话时，查询评价状态决定显示评价表单还是已评价态
+  React.useEffect(() => {
+    const convId = session?.conversation_id || getStoredConversationId();
+    if (open && view === "chat" && closed && convId) {
+      loadEvaluation(convId);
+    }
+  }, [open, view, closed, session?.conversation_id, loadEvaluation]);
+
   const handleSend = async () => {
     const body = input.trim();
     if (!body) return;
@@ -747,6 +887,132 @@ export default function LiveChat({ locale, area }) {
     }
   };
 
+  // 图片压缩（仅图片；失败回退原文件），对齐 herodash guest compressorjs
+  const compressImage = (file) =>
+    new Promise((resolve) => {
+      try {
+        // eslint-disable-next-line no-new
+        new Compressor(file, {
+          quality: 0.6,
+          convertSize: 1000000,
+          success: (result) => resolve(result),
+          error: () => resolve(file),
+        });
+      } catch (err) {
+        resolve(file);
+      }
+    });
+
+  const sendMediaMessage = async (media) => {
+    let activeSession = session;
+    if (!activeSession?.conversation_id || closed) {
+      activeSession = await handleStartNewChat();
+      if (!activeSession?.conversation_id) return;
+    }
+    const clientMsgId = uuid();
+    const optimistic = {
+      client_msg_id: clientMsgId,
+      sender_type: "visitor",
+      body: "",
+      msg_type: media.type === "image" ? "image" : "file",
+      media_url: media.url,
+      media_name: media.name,
+      media_type: media.type,
+      media_size: media.size,
+      isInflight: true,
+    };
+    setMessages((prev) => upsertMessage(prev, optimistic));
+    try {
+      const res = await sendChatMessage({
+        conversation_id: activeSession.conversation_id,
+        visitor_key: visitorKeyRef.current,
+        client_msg_id: clientMsgId,
+        media_url: media.url,
+        media_name: media.name,
+        media_type: media.type,
+        media_size: media.size,
+      });
+      if (res?.code === 0) {
+        setMessages((prev) =>
+          upsertMessage(prev, { ...res.data, client_msg_id: clientMsgId })
+        );
+        if (res.data?.id) {
+          lastIdRef.current = Math.max(lastIdRef.current, Number(res.data.id));
+        }
+      } else {
+        setMessages((prev) => prev.filter((m) => m.client_msg_id !== clientMsgId));
+      }
+    } catch (err) {
+      setMessages((prev) => prev.filter((m) => m.client_msg_id !== clientMsgId));
+      console.warn("[LiveChat] send media failed", err);
+    }
+  };
+
+  const handlePickFile = () => {
+    if (uploading || closed) return;
+    fileInputRef.current?.click();
+  };
+
+  const handleFileChange = async (e) => {
+    const file = e.target.files?.[0];
+    e.target.value = ""; // 允许重复选同一文件
+    if (!file) return;
+    if (file.size > UPLOAD_MAX_SIZE) return;
+    setUploading(true);
+    try {
+      const isImage = IMAGE_EXT_RE.test(file.name);
+      const blob = isImage ? await compressImage(file) : file;
+      const toUpload =
+        blob instanceof File
+          ? blob
+          : new File([blob], file.name, { type: blob.type || file.type });
+      const res = await uploadChatFile(toUpload);
+      if (res?.code !== 0 || !res.data?.url) return;
+      await sendMediaMessage(res.data);
+    } catch (err) {
+      console.warn("[LiveChat] upload failed", err);
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  // 消息气泡内容：媒体消息渲染图片/文件，否则文本
+  const renderBubbleContent = (msg) => {
+    if (msg.media_url) {
+      if (msg.media_type === "image") {
+        return (
+          <a
+            className={styles.mediaImageLink}
+            href={msg.media_url}
+            target="_blank"
+            rel="noreferrer"
+          >
+            <img
+              className={styles.mediaImage}
+              src={msg.media_url}
+              alt={msg.media_name || ""}
+            />
+          </a>
+        );
+      }
+      return (
+        <a
+          className={styles.mediaFile}
+          href={msg.media_url}
+          target="_blank"
+          rel="noreferrer"
+          download
+        >
+          <span className={styles.mediaFileIcon}>
+            <FileIcon />
+          </span>
+          <span className={styles.mediaFileName}>{msg.media_name || "file"}</span>
+        </a>
+      );
+    }
+    return msg.body;
+  };
+
   // 离线留言：直接提交到 /chat/offline-message（客服稍后邮件回复），提交成功展示成功页
   const handleOfflineSubmit = async () => {
     const email = offline.email.trim();
@@ -773,6 +1039,59 @@ export default function LiveChat({ locale, area }) {
       console.warn("[LiveChat] offline submit failed", err);
     } finally {
       setOfflineSubmitting(false);
+    }
+  };
+
+  // 切片3：拉取会话评价状态（打开已关闭会话时调用），已评价则进入已评价态
+  const loadEvaluation = React.useCallback(async (conversationId) => {
+    if (!conversationId) return;
+    if (!visitorKeyRef.current) {
+      visitorKeyRef.current = getVisitorKey();
+    }
+    try {
+      const res = await getChatEvaluation({
+        conversation_id: conversationId,
+        visitor_key: visitorKeyRef.current,
+      });
+      if (res?.code === 0 && res.data?.rated) {
+        setEvaluation({
+          rated: true,
+          rating: Number(res.data.rating) || 0,
+          feedback: res.data.feedback || "",
+        });
+      } else {
+        setEvaluation({ rated: false, rating: 0, feedback: "" });
+      }
+    } catch (err) {
+      // 接口未就绪/失败时静默，评价区按未评价处理（不展示已评价态）
+    }
+  }, []);
+
+  // 切片3：提交满意度评价
+  const handleSubmitRating = async () => {
+    if (!ratingSelected || ratingSubmitting) return;
+    const conversationId =
+      session?.conversation_id || getStoredConversationId();
+    if (!conversationId) return;
+    if (!visitorKeyRef.current) {
+      visitorKeyRef.current = getVisitorKey();
+    }
+    const feedback = ratingFeedback.trim();
+    setRatingSubmitting(true);
+    try {
+      const res = await evaluateChat({
+        conversation_id: conversationId,
+        visitor_key: visitorKeyRef.current,
+        rating: ratingSelected,
+        feedback,
+      });
+      if (res?.code === 0) {
+        setEvaluation({ rated: true, rating: ratingSelected, feedback });
+      }
+    } catch (err) {
+      console.warn("[LiveChat] submit rating failed", err);
+    } finally {
+      setRatingSubmitting(false);
     }
   };
 
@@ -831,6 +1150,7 @@ export default function LiveChat({ locale, area }) {
         setUnread(0);
         lastReadIdRef.current = lastIdRef.current;
         reconnectBlockedRef.current = false;
+        ensureWsConnected(session);
       } else {
         resumeChat(convId);
       }
@@ -838,6 +1158,7 @@ export default function LiveChat({ locale, area }) {
     }
     setView("faq");
   };
+  openPanelRef.current = openPanel;
 
   const renderHeader = (title, statusText, online = true, showBack = false) => (
     <div className={styles.header}>
@@ -852,9 +1173,7 @@ export default function LiveChat({ locale, area }) {
             ‹
           </button>
         ) : null}
-        <div className={styles.headerAvatar} aria-hidden="true">
-          BR
-        </div>
+        {renderAvatar(styles.headerAvatar)}
         <div className={styles.headerText}>
           <div className={styles.headerTitle}>{title}</div>
           <div className={styles.headerStatus}>
@@ -880,7 +1199,7 @@ export default function LiveChat({ locale, area }) {
   const renderFaqView = () => (
     <>
       {renderHeader(
-        copy.panelTitle,
+        headerTitle,
         isWorkTime ? copy.panelStatusOnline : copy.panelStatusOffline,
         isWorkTime
       )}
@@ -928,7 +1247,7 @@ export default function LiveChat({ locale, area }) {
   const renderLeadView = () => (
     <>
       {renderHeader(
-        copy.panelTitle,
+        headerTitle,
         isWorkTime ? copy.panelStatusOnline : copy.panelStatusOffline,
         isWorkTime,
         true
@@ -1009,7 +1328,7 @@ export default function LiveChat({ locale, area }) {
   const renderOfflineView = () => (
     <>
       {renderHeader(
-        copy.panelTitle,
+        headerTitle,
         offlineSent ? copy.offlineSuccessTitle : copy.panelStatusOffline,
         false,
         true
@@ -1094,7 +1413,7 @@ export default function LiveChat({ locale, area }) {
   const renderChatView = () => (
     <>
       {renderHeader(
-        BRAND_NAME,
+        chatTitle,
         closed ? copy.chatEnded : copy.chatOnline,
         !closed,
         true
@@ -1125,6 +1444,9 @@ export default function LiveChat({ locale, area }) {
                 </div>
               );
             }
+            // 切片4：坐席真实姓名（sender_type==="agent" 且有 sender_name）
+            const agentName =
+              msg.sender_type === "agent" ? msg.sender_name || "" : "";
             return (
               <div
                 key={msg.id || msg.client_msg_id}
@@ -1132,24 +1454,25 @@ export default function LiveChat({ locale, area }) {
                   isVisitor ? styles.msgRowVisitor : styles.msgRowAgent
                 }`}
               >
-                {!isVisitor ? (
-                  <div className={styles.agentAvatar} aria-hidden="true">
-                    BR
-                  </div>
-                ) : null}
-                <div
-                  className={`${styles.bubble} ${
-                    isVisitor ? styles.bubbleVisitor : styles.bubbleAgent
-                  }`}
-                >
-                  {msg.body}
-                  {msg.created_time && !msg.isInflight ? (
-                    <div className={styles.time}>
-                      {formatMsgTime(msg.created_time)}
-                    </div>
-                  ) : msg.isInflight ? (
-                    <div className={styles.time}>&nbsp;</div>
+                {!isVisitor ? renderAvatar(styles.agentAvatar, agentName) : null}
+                <div className={styles.bubbleCol}>
+                  {agentName ? (
+                    <div className={styles.agentName}>{agentName}</div>
                   ) : null}
+                  <div
+                    className={`${styles.bubble} ${
+                      isVisitor ? styles.bubbleVisitor : styles.bubbleAgent
+                    } ${msg.media_url ? styles.bubbleMedia : ""}`}
+                  >
+                    {renderBubbleContent(msg)}
+                    {msg.created_time && !msg.isInflight ? (
+                      <div className={styles.time}>
+                        {formatMsgTime(msg.created_time)}
+                      </div>
+                    ) : msg.isInflight ? (
+                      <div className={styles.time}>&nbsp;</div>
+                    ) : null}
+                  </div>
                 </div>
               </div>
             );
@@ -1169,9 +1492,86 @@ export default function LiveChat({ locale, area }) {
           {closed ? (
             <div className={styles.closedFooter}>
               <div className={styles.hint}>{copy.chatEndedHint}</div>
+              {evaluation.rated ? (
+                <div className={styles.rateBox}>
+                  <div className={styles.rateThanks}>{copy.rateThanks}</div>
+                  <div className={styles.rateEmojiRow}>
+                    {RATING_EMOJIS.map((emoji, idx) => {
+                      const value = idx + 1;
+                      const active = evaluation.rating === value;
+                      return (
+                        <span
+                          key={value}
+                          className={`${styles.rateEmoji} ${
+                            active ? styles.rateEmojiActive : styles.rateEmojiDim
+                          }`}
+                          aria-hidden="true"
+                        >
+                          {emoji}
+                        </span>
+                      );
+                    })}
+                  </div>
+                  {evaluation.feedback ? (
+                    <div className={styles.rateFeedbackText}>
+                      {evaluation.feedback}
+                    </div>
+                  ) : null}
+                </div>
+              ) : (
+                <div className={styles.rateBox}>
+                  <div className={styles.rateTitle}>{copy.rateTitle}</div>
+                  <div className={styles.rateSubtitle}>{copy.rateSubtitle}</div>
+                  <div className={styles.rateEmojiRow}>
+                    {RATING_EMOJIS.map((emoji, idx) => {
+                      const value = idx + 1;
+                      const active = ratingSelected === value;
+                      const label =
+                        (copy.ratingLabels && copy.ratingLabels[idx]) || "";
+                      return (
+                        <button
+                          key={value}
+                          type="button"
+                          className={`${styles.rateEmojiBtn} ${
+                            active ? styles.rateEmojiBtnActive : ""
+                          }`}
+                          aria-label={label}
+                          title={label}
+                          aria-pressed={active}
+                          onClick={() => setRatingSelected(value)}
+                        >
+                          {emoji}
+                        </button>
+                      );
+                    })}
+                  </div>
+                  {ratingSelected ? (
+                    <div className={styles.rateSelectedLabel}>
+                      {(copy.ratingLabels &&
+                        copy.ratingLabels[ratingSelected - 1]) ||
+                        ""}
+                    </div>
+                  ) : null}
+                  <textarea
+                    className={styles.rateFeedback}
+                    rows={2}
+                    placeholder={copy.feedbackPlaceholder}
+                    value={ratingFeedback}
+                    onChange={(e) => setRatingFeedback(e.target.value)}
+                  />
+                  <button
+                    type="button"
+                    className={styles.transferBtn}
+                    disabled={!ratingSelected || ratingSubmitting}
+                    onClick={handleSubmitRating}
+                  >
+                    {copy.rateSubmit}
+                  </button>
+                </div>
+              )}
               <button
                 type="button"
-                className={styles.transferBtn}
+                className={styles.startNewBtn}
                 disabled={loading}
                 onClick={handleStartNewChat}
               >
@@ -1180,6 +1580,22 @@ export default function LiveChat({ locale, area }) {
             </div>
           ) : (
             <div className={styles.inputWrap}>
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept={UPLOAD_ACCEPT}
+                style={{ display: "none" }}
+                onChange={handleFileChange}
+              />
+              <button
+                type="button"
+                className={styles.attachBtn}
+                aria-label="Attach file"
+                disabled={uploading}
+                onClick={handlePickFile}
+              >
+                <AttachIcon />
+              </button>
               <div className={styles.inputBox}>
                 <input
                   className={styles.input}
@@ -1222,7 +1638,10 @@ export default function LiveChat({ locale, area }) {
   if (config && config.enabled === false) return null;
 
   return (
-    <div className={styles.wrapper}>
+    <div
+      className={`${styles.wrapper} ${bubbleLeft ? styles.wrapperLeft : ""}`}
+      style={wrapperStyle}
+    >
       {open && (
         <>
           <button
@@ -1232,7 +1651,7 @@ export default function LiveChat({ locale, area }) {
             onClick={closePanel}
           />
           <div
-            className={`${styles.panel} ${panelClosing ? styles.panelClosing : ""}`}
+            className={`${styles.panel} ${panelClosing ? styles.panelClosing : ""} ${bubbleLeft ? styles.panelLeft : ""}`}
             role="dialog"
             aria-label="Live chat"
           >

@@ -31,6 +31,13 @@ export const FAQ_COPY = {
     typePlaceholder: "Type a message...",
     chatEndedHint: "This conversation has ended.",
     startNewChat: "Start a new chat",
+    rateTitle: "How was your experience?",
+    rateSubtitle: "Your feedback helps us improve.",
+    rateSubmit: "Submit rating",
+    rateThanks: "Thank you for your feedback!",
+    feedbackPlaceholder: "Tell us more (optional)",
+    yourRating: "Your rating",
+    ratingLabels: ["Very bad", "Bad", "Okay", "Good", "Excellent"],
   },
   zh: {
     panelTitle: "帮助中心",
@@ -60,6 +67,13 @@ export const FAQ_COPY = {
     typePlaceholder: "输入消息…",
     chatEndedHint: "本次会话已结束。",
     startNewChat: "开始新会话",
+    rateTitle: "本次服务体验如何？",
+    rateSubtitle: "您的评价将帮助我们持续改进。",
+    rateSubmit: "提交评价",
+    rateThanks: "感谢您的评价！",
+    feedbackPlaceholder: "补充说明（选填）",
+    yourRating: "您的评分",
+    ratingLabels: ["很差", "较差", "一般", "满意", "非常满意"],
   },
 };
 

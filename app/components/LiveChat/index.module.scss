@@ -15,6 +15,15 @@ $shadow-md: 0 8px 28px rgba(0, 0, 0, 0.14);
   bottom: 24px;
   z-index: 99999999999;
   font-family: inherit;
+  // 主题色 CSS 变量（默认回退内置黑金；组件按渠道配置 primary_color 覆盖）
+  --lc-brand-dark: #{$brand-dark};
+  --lc-brand-mid: #{$brand-mid};
+}
+
+// 气泡位于左侧（渠道 bubble_position = 'left'）
+.wrapperLeft {
+  right: auto;
+  left: 24px;
 }
 
 .toggle {
@@ -28,7 +37,7 @@ $shadow-md: 0 8px 28px rgba(0, 0, 0, 0.14);
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, $brand-dark 0%, $brand-mid 100%);
+  background: linear-gradient(135deg, var(--lc-brand-dark) 0%, var(--lc-brand-mid) 100%);
   box-shadow: $shadow-md;
   transition: transform 0.25s ease, box-shadow 0.25s ease, opacity 0.25s ease;
 
@@ -108,6 +117,11 @@ $shadow-md: 0 8px 28px rgba(0, 0, 0, 0.14);
   animation: panelSlideUp 0.32s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+.panelLeft {
+  right: auto;
+  left: 0;
+}
+
 @keyframes panelSlideUp {
   from {
     opacity: 0;
@@ -123,7 +137,7 @@ $shadow-md: 0 8px 28px rgba(0, 0, 0, 0.14);
 .header {
   position: relative;
   flex-shrink: 0;
-  background: linear-gradient(to right, $brand-dark, $brand-mid);
+  background: linear-gradient(to right, var(--lc-brand-dark), var(--lc-brand-mid));
   color: #fff;
   padding: 16px 16px 0;
 }
@@ -256,7 +270,7 @@ $shadow-md: 0 8px 28px rgba(0, 0, 0, 0.14);
   height: 46px;
   border: none;
   border-radius: 12px;
-  background: linear-gradient(135deg, $brand-dark 0%, $brand-mid 100%);
+  background: linear-gradient(135deg, var(--lc-brand-dark) 0%, var(--lc-brand-mid) 100%);
   color: #fff;
   font-size: 15px;
   font-weight: 600;
@@ -280,7 +294,7 @@ $shadow-md: 0 8px 28px rgba(0, 0, 0, 0.14);
   height: 46px;
   border-radius: 50%;
   background: #fff;
-  color: $brand-dark;
+  color: var(--lc-brand-dark);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -288,6 +302,14 @@ $shadow-md: 0 8px 28px rgba(0, 0, 0, 0.14);
   font-weight: 700;
   letter-spacing: 0.04em;
   flex-shrink: 0;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+  }
 }
 
 .headerText {
@@ -361,7 +383,7 @@ $shadow-md: 0 8px 28px rgba(0, 0, 0, 0.14);
     right: 0;
     bottom: 0;
     height: 14px;
-    background: linear-gradient(to right, $brand-dark, $brand-mid);
+    background: linear-gradient(to right, var(--lc-brand-dark), var(--lc-brand-mid));
     clip-path: polygon(0 0, 100% 0, 50% 100%);
   }
 }
@@ -432,14 +454,22 @@ $shadow-md: 0 8px 28px rgba(0, 0, 0, 0.14);
   height: 34px;
   border-radius: 50%;
   background: #fff;
-  color: $brand-dark;
+  color: var(--lc-brand-dark);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 11px;
   font-weight: 700;
   flex-shrink: 0;
+  overflow: hidden;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+
+  img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+  }
 }
 
 .bubble {
@@ -545,7 +575,7 @@ $shadow-md: 0 8px 28px rgba(0, 0, 0, 0.14);
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, $brand-dark 0%, $brand-mid 100%);
+  background: linear-gradient(135deg, var(--lc-brand-dark) 0%, var(--lc-brand-mid) 100%);
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
   transition: transform 0.2s ease, opacity 0.2s ease;
 
@@ -562,6 +592,79 @@ $shadow-md: 0 8px 28px rgba(0, 0, 0, 0.14);
     opacity: 0.45;
     cursor: not-allowed;
   }
+}
+
+.attachBtn {
+  width: 44px;
+  height: 48px;
+  border: none;
+  background: transparent;
+  flex-shrink: 0;
+  cursor: pointer;
+  color: $text-secondary;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease, opacity 0.2s ease;
+
+  svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  &:hover:not(:disabled) {
+    color: var(--lc-brand-dark);
+  }
+
+  &:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+}
+
+// 媒体消息气泡：图片去内边距，文件附件横向排版
+.bubbleMedia {
+  padding: 4px;
+}
+
+.mediaImageLink {
+  display: block;
+  line-height: 0;
+}
+
+.mediaImage {
+  max-width: 220px;
+  max-height: 220px;
+  width: auto;
+  height: auto;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.mediaFile {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  text-decoration: none;
+  color: inherit;
+
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.mediaFileIcon {
+  display: flex;
+  flex-shrink: 0;
+  color: $text-secondary;
+}
+
+.mediaFileName {
+  font-size: 14px;
+  word-break: break-all;
+  text-decoration: underline;
 }
 
 .hint {
@@ -583,6 +686,180 @@ $shadow-md: 0 8px 28px rgba(0, 0, 0, 0.14);
 
   .transferBtn {
     width: 100%;
+  }
+}
+
+// 切片4：坐席气泡列（姓名一行 + 气泡）
+.bubbleCol {
+  display: flex;
+  flex-direction: column;
+  max-width: calc(100% - 46px);
+
+  .bubble {
+    max-width: 100%;
+  }
+}
+
+.msgRowVisitor .bubbleCol {
+  align-items: flex-end;
+}
+
+.agentName {
+  margin: 0 0 4px 2px;
+  font-size: 12px;
+  font-weight: 600;
+  color: $text-secondary;
+  line-height: 1.2;
+}
+
+// 切片3：满意度评价
+.rateBox {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+}
+
+.rateTitle {
+  font-size: 15px;
+  font-weight: 700;
+  color: $text-primary;
+}
+
+.rateSubtitle {
+  font-size: 13px;
+  line-height: 1.5;
+  color: $text-secondary;
+  margin-top: -4px;
+}
+
+.rateThanks {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--lc-brand-dark);
+  text-align: center;
+}
+
+.rateEmojiRow {
+  display: flex;
+  justify-content: space-between;
+  gap: 6px;
+}
+
+.rateEmojiBtn {
+  flex: 1;
+  border: 1px solid $border;
+  background: #fff;
+  border-radius: 10px;
+  padding: 8px 0;
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+  filter: grayscale(0.6);
+  opacity: 0.7;
+  transition: transform 0.15s ease, border-color 0.15s ease, filter 0.15s ease,
+    opacity 0.15s ease, background 0.15s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    filter: grayscale(0);
+    opacity: 1;
+  }
+}
+
+.rateEmojiBtnActive {
+  border-color: var(--lc-brand-dark);
+  background: rgba(17, 17, 17, 0.05);
+  filter: grayscale(0);
+  opacity: 1;
+  transform: scale(1.06);
+}
+
+// 已评价态：仅高亮选中表情，其余淡化
+.rateEmoji {
+  flex: 1;
+  text-align: center;
+  font-size: 24px;
+  line-height: 1.4;
+}
+
+.rateEmojiActive {
+  filter: grayscale(0);
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+.rateEmojiDim {
+  filter: grayscale(1);
+  opacity: 0.35;
+}
+
+.rateSelectedLabel {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--lc-brand-dark);
+  text-align: center;
+}
+
+.rateFeedback {
+  width: 100%;
+  border: 1px solid $border;
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 14px;
+  line-height: 1.45;
+  background: #fff;
+  font-family: inherit;
+  resize: vertical;
+  min-height: 56px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+  &:focus {
+    outline: none;
+    border-color: rgba(17, 17, 17, 0.25);
+    box-shadow: 0 0 0 3px rgba(17, 17, 17, 0.06);
+  }
+
+  &::placeholder {
+    color: #a8abb2;
+  }
+}
+
+.rateFeedbackText {
+  font-size: 13px;
+  line-height: 1.5;
+  color: $text-secondary;
+  text-align: center;
+  padding: 8px 10px;
+  background: $chat-bg;
+  border-radius: 8px;
+}
+
+// 已结束会话的「开始新会话」改为次级描边按钮，与评价主按钮区分
+.startNewBtn {
+  width: 100%;
+  height: 44px;
+  border: 1px solid $border;
+  border-radius: 12px;
+  background: #fff;
+  color: $text-primary;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  transition: border-color 0.2s ease, background 0.2s ease;
+
+  &:hover:not(:disabled) {
+    border-color: rgba(17, 17, 17, 0.3);
+    background: rgba(0, 0, 0, 0.02);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
   }
 }
 
@@ -668,7 +945,7 @@ $shadow-md: 0 8px 28px rgba(0, 0, 0, 0.14);
   padding: 0 24px;
   border: none;
   border-radius: 10px;
-  background: $brand-dark;
+  background: var(--lc-brand-dark);
   color: #fff;
   font-size: 15px;
   font-weight: 600;
@@ -676,7 +953,7 @@ $shadow-md: 0 8px 28px rgba(0, 0, 0, 0.14);
   transition: background 0.2s ease, transform 0.2s ease;
 
   &:hover {
-    background: $brand-mid;
+    background: var(--lc-brand-mid);
   }
 
   &:active {
@@ -708,7 +985,7 @@ $shadow-md: 0 8px 28px rgba(0, 0, 0, 0.14);
   height: 64px;
   border-radius: 50%;
   background: rgba(17, 17, 17, 0.06);
-  color: $brand-dark;
+  color: var(--lc-brand-dark);
   display: flex;
   align-items: center;
   justify-content: center;

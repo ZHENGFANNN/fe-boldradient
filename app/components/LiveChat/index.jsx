@@ -871,14 +871,6 @@ export default function LiveChat({ locale, area }) {
     }
   }, [open, view, messages, scrollToBottom]);
 
-  // 切片3：在 chat 视图查看已关闭会话时，查询评价状态决定显示评价表单还是已评价态
-  React.useEffect(() => {
-    const convId = session?.conversation_id || getStoredConversationId();
-    if (open && view === "chat" && closed && convId) {
-      loadEvaluation(convId);
-    }
-  }, [open, view, closed, session?.conversation_id, loadEvaluation]);
-
   const handleSend = async () => {
     const body = input.trim();
     if (!body) return;
@@ -1101,6 +1093,14 @@ export default function LiveChat({ locale, area }) {
       // 接口未就绪/失败时静默，评价区按未评价处理（不展示已评价态）
     }
   }, []);
+
+  // 切片3：在 chat 视图查看已关闭会话时，查询评价状态决定显示评价表单还是已评价态
+  React.useEffect(() => {
+    const convId = session?.conversation_id || getStoredConversationId();
+    if (open && view === "chat" && closed && convId) {
+      loadEvaluation(convId);
+    }
+  }, [open, view, closed, session?.conversation_id, loadEvaluation]);
 
   // 切片3：提交满意度评价
   const handleSubmitRating = async () => {

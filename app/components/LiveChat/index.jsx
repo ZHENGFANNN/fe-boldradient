@@ -363,6 +363,14 @@ export default function LiveChat({ locale, area }) {
   const welcomeText =
     !showOfflineBanner && (session?.welcome_text || config?.welcome_text || "");
   const closed = session?.status === "closed";
+  // 切片3：最后一条结束系统消息(__CHAT_END__)的下标，满意度评价内联锚定其后随历史留存
+  const lastEndIdx = (() => {
+    for (let i = messages.length - 1; i >= 0; i -= 1) {
+      const m = messages[i];
+      if (m.msg_type === "system" || m.body === CHAT_END_BODY) return i;
+    }
+    return -1;
+  })();
 
   // 外观配置（来自渠道 /chat/config；字段为空时回退内置默认，保证零回归）
   const logoUrl = config?.logo_url || "";
@@ -871,12 +879,29 @@ export default function LiveChat({ locale, area }) {
     }
   }, [open, view, messages, scrollToBottom]);
 
+  // 续聊：访客向已结束会话再发消息时复用同一会话（不另开新会话）。
+  // 后端 SendVisitorChatMessage 落库时把 closed 复位 waiting；前端先本地复位状态退出结束态、重连 WS，
+  // 保留 evaluation/messages 不重置，使已评价留痕与历史消息留在同一聊天流。
+  const reopenClosedChat = React.useCallback(
+    async (sess) => {
+      reconnectBlockedRef.current = false;
+      const reopened = { ...sess, status: "waiting" };
+      setSession(reopened);
+      await ensureWsConnected(reopened);
+      return reopened;
+    },
+    [ensureWsConnected]
+  );
+
   const handleSend = async () => {
     const body = input.trim();
     if (!body) return;
     let activeSession = session;
-    if (!activeSession?.conversation_id || closed) {
+    if (!activeSession?.conversation_id) {
       activeSession = await handleStartNewChat();
+      if (!activeSession?.conversation_id) return;
+    } else if (closed) {
+      activeSession = await reopenClosedChat(activeSession);
       if (!activeSession?.conversation_id) return;
     }
     const clientMsgId = uuid();
@@ -931,8 +956,11 @@ export default function LiveChat({ locale, area }) {
 
   const sendMediaMessage = async (media) => {
     let activeSession = session;
-    if (!activeSession?.conversation_id || closed) {
+    if (!activeSession?.conversation_id) {
       activeSession = await handleStartNewChat();
+      if (!activeSession?.conversation_id) return;
+    } else if (closed) {
+      activeSession = await reopenClosedChat(activeSession);
       if (!activeSession?.conversation_id) return;
     }
     const clientMsgId = uuid();
@@ -1445,6 +1473,95 @@ export default function LiveChat({ locale, area }) {
     </>
   );
 
+  // 切片3：满意度评价——内联锚定在结束系统消息之后，随会话历史留存。
+  // 已评价态恒展示（历史留痕，续聊后仍在线程里）；未评价表单仅当会话当前处于结束态(closed)时可填。
+  const renderEndedRating = () => {
+    if (evaluation.rated) {
+      return (
+        <div className={styles.endedInline}>
+          <div className={styles.rateBox}>
+            <div className={styles.rateThanks}>{copy.rateThanks}</div>
+            <div className={styles.rateEmojiRow}>
+              {RATING_EMOJIS.map((emoji, idx) => {
+                const value = idx + 1;
+                const active = evaluation.rating === value;
+                return (
+                  <span
+                    key={value}
+                    className={`${styles.rateEmoji} ${
+                      active ? styles.rateEmojiActive : styles.rateEmojiDim
+                    }`}
+                    aria-hidden="true"
+                  >
+                    {emoji}
+                  </span>
+                );
+              })}
+            </div>
+            {evaluation.feedback ? (
+              <div className={styles.rateFeedbackText}>
+                {evaluation.feedback}
+              </div>
+            ) : null}
+          </div>
+        </div>
+      );
+    }
+    if (!closed) return null;
+    return (
+      <div className={styles.endedInline}>
+        <div className={styles.rateBox}>
+          <div className={styles.rateTitle}>{copy.rateTitle}</div>
+          <div className={styles.rateSubtitle}>{copy.rateSubtitle}</div>
+          <div className={styles.rateEmojiRow}>
+            {RATING_EMOJIS.map((emoji, idx) => {
+              const value = idx + 1;
+              const active = ratingSelected === value;
+              const label =
+                (copy.ratingLabels && copy.ratingLabels[idx]) || "";
+              return (
+                <button
+                  key={value}
+                  type="button"
+                  className={`${styles.rateEmojiBtn} ${
+                    active ? styles.rateEmojiBtnActive : ""
+                  }`}
+                  aria-label={label}
+                  title={label}
+                  aria-pressed={active}
+                  onClick={() => setRatingSelected(value)}
+                >
+                  {emoji}
+                </button>
+              );
+            })}
+          </div>
+          {ratingSelected ? (
+            <div className={styles.rateSelectedLabel}>
+              {(copy.ratingLabels && copy.ratingLabels[ratingSelected - 1]) ||
+                ""}
+            </div>
+          ) : null}
+          <textarea
+            className={styles.rateFeedback}
+            rows={2}
+            placeholder={copy.feedbackPlaceholder}
+            value={ratingFeedback}
+            onChange={(e) => setRatingFeedback(e.target.value)}
+          />
+          <button
+            type="button"
+            className={styles.transferBtn}
+            disabled={!ratingSelected || ratingSubmitting}
+            onClick={handleSubmitRating}
+          >
+            {copy.rateSubmit}
+          </button>
+        </div>
+      </div>
+    );
+  };
+
   const renderChatView = () => (
     <>
       {renderHeader(
@@ -1461,22 +1578,22 @@ export default function LiveChat({ locale, area }) {
           {welcomeText ? (
             <div className={styles.welcome}>{welcomeText}</div>
           ) : null}
-          {messages.map((msg) => {
+          {messages.map((msg, idx) => {
             const isVisitor = msg.sender_type === "visitor";
             const isSystem =
               msg.msg_type === "system" || msg.body === CHAT_END_BODY;
             if (isSystem) {
               return (
-                <div
-                  key={msg.id || msg.client_msg_id}
-                  className={`${styles.msgRow} ${styles.msgRowAgent}`}
-                >
-                  <div className={`${styles.bubble} ${styles.bubbleSystem}`}>
-                    <div className={styles.systemLine}>
-                      {msg.body === CHAT_END_BODY ? copy.chatEnded : msg.body}
+                <React.Fragment key={msg.id || msg.client_msg_id}>
+                  <div className={`${styles.msgRow} ${styles.msgRowAgent}`}>
+                    <div className={`${styles.bubble} ${styles.bubbleSystem}`}>
+                      <div className={styles.systemLine}>
+                        {msg.body === CHAT_END_BODY ? copy.chatEnded : msg.body}
+                      </div>
                     </div>
                   </div>
-                </div>
+                  {idx === lastEndIdx ? renderEndedRating() : null}
+                </React.Fragment>
               );
             }
             // 切片4：坐席真实姓名（sender_type==="agent" 且有 sender_name）
@@ -1538,90 +1655,6 @@ export default function LiveChat({ locale, area }) {
           <div ref={messagesEndRef} />
         </div>
         <div className={styles.footer}>
-          {closed ? (
-            <div className={styles.closedFooter}>
-              <div className={styles.hint}>{copy.chatEndedHint}</div>
-              {/* 对标 herodash：关闭后输入框仍可用，直接打字即自动开新会话续聊；
-                  满意度评价降级为可选，不再卡住输入。 */}
-              {evaluation.rated ? (
-                <div className={styles.rateBox}>
-                  <div className={styles.rateThanks}>{copy.rateThanks}</div>
-                  <div className={styles.rateEmojiRow}>
-                    {RATING_EMOJIS.map((emoji, idx) => {
-                      const value = idx + 1;
-                      const active = evaluation.rating === value;
-                      return (
-                        <span
-                          key={value}
-                          className={`${styles.rateEmoji} ${
-                            active ? styles.rateEmojiActive : styles.rateEmojiDim
-                          }`}
-                          aria-hidden="true"
-                        >
-                          {emoji}
-                        </span>
-                      );
-                    })}
-                  </div>
-                  {evaluation.feedback ? (
-                    <div className={styles.rateFeedbackText}>
-                      {evaluation.feedback}
-                    </div>
-                  ) : null}
-                </div>
-              ) : (
-                <div className={styles.rateBox}>
-                  <div className={styles.rateTitle}>{copy.rateTitle}</div>
-                  <div className={styles.rateSubtitle}>{copy.rateSubtitle}</div>
-                  <div className={styles.rateEmojiRow}>
-                    {RATING_EMOJIS.map((emoji, idx) => {
-                      const value = idx + 1;
-                      const active = ratingSelected === value;
-                      const label =
-                        (copy.ratingLabels && copy.ratingLabels[idx]) || "";
-                      return (
-                        <button
-                          key={value}
-                          type="button"
-                          className={`${styles.rateEmojiBtn} ${
-                            active ? styles.rateEmojiBtnActive : ""
-                          }`}
-                          aria-label={label}
-                          title={label}
-                          aria-pressed={active}
-                          onClick={() => setRatingSelected(value)}
-                        >
-                          {emoji}
-                        </button>
-                      );
-                    })}
-                  </div>
-                  {ratingSelected ? (
-                    <div className={styles.rateSelectedLabel}>
-                      {(copy.ratingLabels &&
-                        copy.ratingLabels[ratingSelected - 1]) ||
-                        ""}
-                    </div>
-                  ) : null}
-                  <textarea
-                    className={styles.rateFeedback}
-                    rows={2}
-                    placeholder={copy.feedbackPlaceholder}
-                    value={ratingFeedback}
-                    onChange={(e) => setRatingFeedback(e.target.value)}
-                  />
-                  <button
-                    type="button"
-                    className={styles.transferBtn}
-                    disabled={!ratingSelected || ratingSubmitting}
-                    onClick={handleSubmitRating}
-                  >
-                    {copy.rateSubmit}
-                  </button>
-                </div>
-              )}
-            </div>
-          ) : null}
           <div className={styles.inputWrap}>
             <input
               ref={fileInputRef}

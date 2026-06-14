@@ -3,6 +3,7 @@
 import styles from "./page.module.scss";
 import getConfigData from "@/utils/getConfigData";
 import AfterSaleClient from "./components/AfterSaleClient";
+import { buildAlternates } from "@/config/seo";
 
 async function getData({ locale }) {
   const result = await getConfigData({
@@ -22,6 +23,7 @@ export async function generateMetadata({ params }) {
     title: `${company} - After-Sales Service`,
     description:
       "Submit a return, refund, exchange or repair request. Our team is here to help with your order.",
+    alternates: buildAlternates("/after-sale", locale),
   };
 }
 

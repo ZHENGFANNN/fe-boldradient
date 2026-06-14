@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import BaseLayout from "./components/BaseLayout";
 import { getProductPage } from "@/config/Api/getProductPage";
 import getPricedProduct from "../../../../utils/getConfigData/getPricedProduct";
+import { buildAlternates } from "@/config/seo";
 
 // 首屏统一用默认 area=us 价格做纯 SSG 预渲染（不读 cookie，避免动态/流式）。
 // 非 us 地区的价格差异由客户端 BaseLayout 挂载后补差。
@@ -23,6 +24,7 @@ export async function generateMetadata({ params }) {
     description: productInfo.page_description,
     keywords: productInfo.page_keywords,
     metadataBase: new URL(productInfo.image_list[0].src),
+    alternates: buildAlternates(`/product/${sortKey}/${productKey}`, locale),
     openGraph: {
       title: `${productInfo.page_title} - ${CONFIG["common.base"]?.company_name}`,
       description: productInfo.page_description,

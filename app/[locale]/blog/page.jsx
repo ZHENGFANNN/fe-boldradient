@@ -6,6 +6,7 @@ import ArticleCard from "./components/ArticleCard";
 import BaseLayout from "./components/BaseLayout";
 import Link from "next/link";
 import Banner from "./components/Banner";
+import { buildAlternates } from "@/config/seo";
 
 async function getData({ locale }) {
   const { LANG, BLOG, CONFIG } = await getConfigData({
@@ -52,6 +53,7 @@ export async function generateMetadata({ params }) {
     title,
     description,
     keywords: description,
+    alternates: buildAlternates("/blog", locale),
     twitter: {
       card: "summary_large_image",
       title,

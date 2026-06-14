@@ -4,6 +4,7 @@ import styles from "./page.module.scss";
 import StickyTitle from "./components/StickyTitle";
 import getConfigData from "../../../utils/getConfigData";
 import fillTemplate from "../../../utils/fillTemplate";
+import { buildAlternates } from "@/config/seo";
 
 async function getData({ locale }) {
   const result = await getConfigData({
@@ -24,6 +25,7 @@ export async function generateMetadata({ params }) {
     title: `${CONFIG["common.base"]?.company_name} - ${LANG["www.protocol_user.title"]}`,
     description: LANG["www.protocol_user.description"],
     keywords: LANG["www.protocol_user.keywords"],
+    alternates: buildAlternates("/protocol/user", locale),
   };
 }
 

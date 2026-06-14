@@ -5,6 +5,7 @@ import getConfigData from "../../../utils/getConfigData";
 import styles from "./page.module.scss";
 import ArticleCard from "../components/ArticleCard";
 import BaseLayout from "../components/BaseLayout";
+import { buildAlternates } from "@/config/seo";
 
 async function getData({ locale }) {
   const { LANG, BLOG } = await getConfigData({
@@ -42,6 +43,7 @@ export async function generateMetadata({ params }) {
     title,
     description,
     keywords: description,
+    alternates: buildAlternates(`/blog/${sortKey}`, locale),
     twitter: {
       card: "summary_large_image",
       title,

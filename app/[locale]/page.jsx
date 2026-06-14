@@ -5,6 +5,7 @@ import IndexProductList from "./components/IndexProductList";
 import IndexBanner from "./components/IndexBanner";
 import IndexContext from "./components/IndexContext";
 
+import { buildAlternates } from "@/config/seo";
 import { cookies } from "next/headers";
 
 async function getData({ locale, area }) {
@@ -47,7 +48,8 @@ export async function generateMetadata({ params }) {
   return {
     title: `${CONFIG["common.base"]?.company_name} - ${LANG["store.index.title"]}`,
     description: LANG["store.index.description"],
-    keywords: LANG["store.index.keywords"]
+    keywords: LANG["store.index.keywords"],
+    alternates: buildAlternates("/", locale)
   };
 }
 

@@ -3,6 +3,7 @@
 import styles from "./page.module.scss";
 import getConfigData from "../../../utils/getConfigData";
 import fillTemplate from "../../../utils/fillTemplate";
+import { buildAlternates } from "@/config/seo";
 import StickyTitle from "./components/StickyTitle";
 
 async function getData({ locale }) {
@@ -24,6 +25,7 @@ export async function generateMetadata({ params }) {
     title: `${CONFIG["common.base"]?.company_name} - ${LANG["www.sales_policy.title"]}`,
     description: LANG["www.sales_policy.description"],
     keywords: LANG["www.sales_policy.keywords"],
+    alternates: buildAlternates("/protocol/sales", locale),
   };
 }
 

@@ -3,6 +3,7 @@ import { contactList } from "./config";
 import { isEmail } from "../../../utils/pattern";
 import styles from "./page.module.scss";
 import getConfigData from "../../../utils/getConfigData";
+import { buildAlternates } from "@/config/seo";
 import GlobalContext from "@/[locale]/context";
 import Email from "./components/Email";
 import Link from "./components/Link";
@@ -31,6 +32,7 @@ export async function generateMetadata({ params }) {
     title: `${CONFIG["common.base"]?.company_name} - ${LANG["www.company_contact.title"]}`,
     description: LANG["www.company_contact.description"],
     keywords: LANG["www.company_contact.keywords"],
+    alternates: buildAlternates("/company/contact", locale),
   };
 }
 

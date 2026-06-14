@@ -10,6 +10,7 @@ import getCategoryProducts, {
 import getProductPaths from "@/config/Api/getProductPaths";
 
 import CategoryList from "./components/CategoryList";
+import { buildAlternates } from "@/config/seo";
 
 // 构建期枚举所有 (locale, sortKey)，预生成分类页；
 // 数据源同商品详情页的 getProductPaths（已内部容错，失败返回 []），去重到分类粒度。
@@ -60,6 +61,7 @@ export async function generateMetadata({ params }) {
     title,
     description,
     keywords: category.category.name,
+    alternates: buildAlternates(`/product/${sortKey}`, locale),
     openGraph: {
       title,
       description,

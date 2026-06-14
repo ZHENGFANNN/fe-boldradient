@@ -12,6 +12,7 @@ import IdJson from "./components/IdJson";
 import BaseLayout from "../../components/BaseLayout";
 
 import ProductModal from "./components/ProductModal";
+import { buildAlternates } from "@/config/seo";
 import "@/styles/richtext.scss";
 
 // 构建期枚举所有 (locale, sortKey, blogKey) 预生成文章页；
@@ -79,6 +80,7 @@ export async function generateMetadata({ params }) {
     title,
     description,
     keywords,
+    alternates: buildAlternates(`/blog/${sortKey}/${blogKey}`, locale),
     twitter: {
       card: "summary_large_image",
       title,

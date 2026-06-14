@@ -832,7 +832,8 @@ export default function Main({ CONFIG, LANG, area, token }) {
                       currency={orderList[0]?.priceCurrency}
                       onError={(error) => {
                         console.log("[Order Page Paypal Error]: ", error);
-                        if (userType === "user" && !addressInfo) {
+                        // 前置校验失败 / 建单失败已各自提示过，静默处理避免二次报错
+                        if (error?.silent || (userType === "user" && !addressInfo)) {
                           return;
                         } else {
                           showTip({
@@ -854,9 +855,24 @@ export default function Main({ CONFIG, LANG, area, token }) {
                         }
                       }}
                       createOrder={() => {
-                        if (previewLoading) return;
+                        // createOrder 必须返回 order id 或 reject；返回 undefined 会触发
+                        // PayPal "Expected an order id to be passed"
+                        if (previewLoading) {
+                          return Promise.reject(
+                            Object.assign(new Error("preview loading"), {
+                              silent: true,
+                            })
+                          );
+                        }
                         const userInfo = getUserInfo();
-                        if (!userInfo) return;
+                        if (!userInfo) {
+                          // getUserInfo 已弹基础资料提示，静默 reject 即可
+                          return Promise.reject(
+                            Object.assign(new Error("invalid user info"), {
+                              silent: true,
+                            })
+                          );
+                        }
                         return Api.createOrder(buildCreateOrderPayload(userInfo))
                           .then((res) => {
                             if (res.code === 0) {
@@ -875,11 +891,14 @@ export default function Main({ CONFIG, LANG, area, token }) {
                               throw new Error("code !== 0");
                             }
                           })
-                          .catch(() => {
+                          .catch((err) => {
                             showTip({
                               text: LANG["common.pay.pay_button.create_error"],
                               type: "error",
                             });
+                            // 已提示，标记静默后 reject —— 满足 PayPal 合约且避免 onError 二次报错
+                            err.silent = true;
+                            throw err;
                           });
                       }}
                       onApprove={(data) => {

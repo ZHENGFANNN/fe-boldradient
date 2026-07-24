@@ -7,13 +7,8 @@
 
 const HOST = process.env.NEXT_PUBLIC_HOST;
 
-// 兜底 revalidate（秒）。实时性靠后台 on-demand revalidateTag。
-const REVALIDATE_FALLBACK = 86400; // 24h
-
 /**
- * 商品地区价格（传统 ISR）。
- * tag: product:pricing:{sortKey}:{productKey}:{area} + product:pricing:{sortKey}:{productKey}
- *      + product:{sortKey}:{productKey}（与后台 revalidate 对齐）
+ * 商品地区价格（纯 SSG：构建期固化 force-cache，靠「发布」全站重建更新）。
  */
 export async function getProductPricing({
   sortKey,
@@ -40,14 +35,7 @@ export async function getProductPricing({
 
   try {
     const res = await fetch(url, {
-      next: {
-        tags: [
-          `product:pricing:${sortKey}:${productKey}:${area}`,
-          `product:pricing:${sortKey}:${productKey}`,
-          `product:${sortKey}:${productKey}`,
-        ],
-        revalidate: REVALIDATE_FALLBACK,
-      },
+      cache: "force-cache",
     });
     if (!res.ok) {
       if (res.status !== 404) {

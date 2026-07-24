@@ -9,7 +9,6 @@
 import type { ProductOptions } from "./types";
 
 const HOST = process.env.NEXT_PUBLIC_HOST;
-const REVALIDATE_FALLBACK = 86400; // 24h；实时性靠 on-demand revalidateTag('product:...')
 
 const EMPTY: ProductOptions = { axes: [], variants: [] };
 
@@ -34,10 +33,7 @@ export async function getProductOptions({
 
   try {
     const res = await fetch(url, {
-      next: {
-        tags: [`product:options:${sortKey}:${productKey}`, `product:${sortKey}:${productKey}`],
-        revalidate: REVALIDATE_FALLBACK,
-      },
+      cache: "force-cache",
     });
     if (!res.ok) {
       if (res.status !== 404) {

@@ -10,12 +10,10 @@
 //        { category, blogList, categories }（category 命中的当前分类，
 //        categories 为轻量导航列表 [{key,name,weight}]）
 //
-// 数据源与 getBlogDetail/getRemoteBlogBanner 共用 /config/getBlog + tag('blog:list')，
-// 后台改文章调用 revalidateTag('blog:list') 即可让列表/分类页下次访问重建。
+// 数据源与 getBlogDetail/getRemoteBlogBanner 共用 /config/getBlog；纯 SSG，构建期固化，靠「发布」重建。
 // ============================================================
 
 const HOST = process.env.NEXT_PUBLIC_HOST;
-const REVALIDATE = 86400; // 24h，兜底；实时性靠 on-demand revalidateTag
 
 import type { BlogSort, BlogCategoryResult } from "./types";
 
@@ -28,7 +26,7 @@ async function fetchBlogListByLocale(locale: string): Promise<any[]> {
   let res;
   try {
     res = await fetch(`${HOST}/config/getBlog`, {
-      next: { tags: ["blog:list", `blog:list:${locale}`], revalidate: REVALIDATE },
+      cache: "force-cache",
     });
   } catch (err: any) {
     console.error("getRemoteBlogList fetch 失败:", err?.message);

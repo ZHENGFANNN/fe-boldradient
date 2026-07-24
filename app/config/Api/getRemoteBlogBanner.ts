@@ -5,11 +5,10 @@
 // 运行时按 locale 拉取博客 banner（recommend 文章），供 blog 首页独立调用。
 //
 // 从原 layout 聚合数据中拆出：banner 只在 blog 首页用到，不再混进布局取数。
-// 缓存：fetch 级 next:{tags,revalidate}（24h + 按需 revalidateTag('blog:list')）。
+// 缓存：纯 SSG，fetch 构建期固化（force-cache），靠「发布」全站重建更新。
 // ============================================================
 
 const HOST = process.env.NEXT_PUBLIC_HOST;
-const REVALIDATE = 86400; // 24h
 
 import type { BlogBannerItem, LocaleArg } from "./types";
 
@@ -31,10 +30,7 @@ export default async function getRemoteBlogBanner({
   let res;
   try {
     res = await fetch(url, {
-      next: {
-        tags: ["blog:list", `blog:list:${locale}`],
-        revalidate: REVALIDATE,
-      },
+      cache: "force-cache",
     });
   } catch (err: any) {
     console.error("getRemoteBlogBanner fetch 失败:", err?.message);

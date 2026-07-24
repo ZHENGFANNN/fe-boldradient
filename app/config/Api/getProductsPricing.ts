@@ -3,9 +3,8 @@
 // ============================================================
 // 远程数据 API · GET ${HOST}/config/getProductsPricing
 // 批量按 area 取多个商品的地区价格（首页/分类页客户端按 area cookie 一次取齐用）。
-// 与单商品版本 getProductPricing.ts 对称：
-//   - tag: product:pricing:list:{area} + product:pricing:list（与现有 product:pricing:* 体系平行）
-//   - revalidate fallback 24h，由后台 on-demand revalidateTag 主动失效。
+// 与单商品版本 getProductPricing.ts 对称：纯 SSG，构建期固化（force-cache），靠「发布」重建。
+//   运行时聚合路由 /api/products-offer 复用本函数，价格随部署刷新，折扣走 no-store 实时取。
 //
 // ----- 返回数据结构（后端 → 前端透传，未做整形）-----
 // {
@@ -49,7 +48,6 @@
 // ============================================================
 
 const HOST = process.env.NEXT_PUBLIC_HOST;
-const REVALIDATE_FALLBACK = 86400; // 24h
 
 export interface ProductsPricingItem {
   sortKey: string;
@@ -107,13 +105,7 @@ export async function getProductsPricing({
 
   try {
     const res = await fetch(url, {
-      next: {
-        tags: [
-          `product:pricing:list:${area || "us"}`,
-          "product:pricing:list",
-        ],
-        revalidate: REVALIDATE_FALLBACK,
-      },
+      cache: "force-cache",
     });
     if (!res.ok) {
       console.error(`getProductsPricing HTTP ${res.status}`);

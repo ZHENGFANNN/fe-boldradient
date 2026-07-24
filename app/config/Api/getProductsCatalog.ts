@@ -10,7 +10,6 @@
 import { unstable_cache } from "next/cache";
 
 const HOST = process.env.NEXT_PUBLIC_HOST;
-const SLIM_REVALIDATE = 300; // 5 分钟；后台改商品仍可再靠 tag 失效
 
 export interface CatalogProduct {
   key: string;
@@ -68,8 +67,8 @@ function getCachedSlimCatalog(locale: string): Promise<SlimProduct[]> {
     () => loadSlimCatalog(locale),
     ["products-catalog-slim", locale],
     {
-      revalidate: SLIM_REVALIDATE,
-      tags: ["product:list", `product:list:${locale}`],
+      // 纯 SSG：目录永久缓存（进程内），靠「发布」重建/冷启动刷新。
+      revalidate: false,
     }
   );
   return cached();

@@ -11,11 +11,9 @@
 // 价格与折扣由客户端按 area cookie 调 /api/products-offer 批量取齐（避免货币闪动）。
 // JSON-LD 走 server 子组件 SSG 以默认 us 兜底。
 //
-// 数据源与 getProductData 共用 /config/getProduct + tag('product:list')，
-// 后台改商品调用 revalidateTag('product:list') 即可让分类页下次访问重建。
+// 数据源与 getProductData 共用 /config/getProduct；纯 SSG，构建期固化，靠「发布」重建。
 
 const HOST = process.env.NEXT_PUBLIC_HOST;
-const REVALIDATE_FALLBACK = 86400; // 24h，兜底；实时性靠 on-demand revalidateTag
 
 import type { SimpleProduct, CategoryNav } from "./types";
 
@@ -93,7 +91,7 @@ export default async function getCategoryProducts({
   let res;
   try {
     res = await fetch(`${HOST}/config/getProduct`, {
-      next: { tags: ["product:list"], revalidate: REVALIDATE_FALLBACK },
+      cache: "force-cache",
     });
   } catch (err: any) {
     console.error("getCategoryProducts fetch 失败:", err?.message);
@@ -148,7 +146,7 @@ export async function getAllCategories({
   let res;
   try {
     res = await fetch(`${HOST}/config/getProduct`, {
-      next: { tags: ["product:list"], revalidate: REVALIDATE_FALLBACK },
+      cache: "force-cache",
     });
   } catch {
     return [];

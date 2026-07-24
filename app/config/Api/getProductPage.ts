@@ -10,14 +10,9 @@
 
 const HOST = process.env.NEXT_PUBLIC_HOST;
 
-// 兜底 revalidate（秒）。真正实时性靠后台 on-demand revalidateTag；
-// 兜底周期收紧到 5min：当 tag 漏触发（如直接改库设 three_d、或 git push 构建复用了
-// 旧 fetch 缓存）时，商详页（含 3D）最多 5 分钟自愈，而非陈旧 24h。
-const REVALIDATE_FALLBACK = 300; // 5min
-
 /**
  * 商品详情数据（不含地区价格、不含多语言/配置）。
- * 传统 ISR：fetch 打 tag，由 /api/revalidate 按 tag 触发重建。
+ * 纯 SSG：fetch 构建期固化（force-cache），内容更新靠「发布」全站重建。
  *
  * customizeFields：商品定制字段配置（仅 enabled，后端按 weight 升序），
  * 与 product 平级返回；定制字段下沉 user-service 后随详情一并下发，
@@ -49,13 +44,7 @@ export async function getProductPage({
   try {
     const res = await fetch(url, {
       signal: AbortSignal.timeout(15000),
-      next: {
-        tags: [
-          `product:page:${sortKey}:${productKey}`,
-          `product:${sortKey}:${productKey}`,
-        ],
-        revalidate: REVALIDATE_FALLBACK,
-      },
+      cache: "force-cache",
     });
     if (res.ok) {
       const json = await res.json().catch(() => null);

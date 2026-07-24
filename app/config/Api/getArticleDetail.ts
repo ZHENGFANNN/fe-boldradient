@@ -4,15 +4,11 @@
 // 远程数据 API · GET ${HOST}/config/getArticleDetail
 // app/config/Api 远程数据接口层：运行时从后端拉取数据。
 //
-// 文章详情：按 sortKey/articleKey 从后端实时拉取单篇文章，并打上缓存 tag。
-// 后台改某篇文章后，只需 revalidateTag('article:sortKey:articleKey')
-// 即可让该文章页在下次访问时重新生成，无需全站重建（对齐 getBlogDetail）。
+// 文章详情：按 sortKey/articleKey 从后端拉取单篇文章。
+// 纯 SSG：构建期固化（force-cache），内容更新靠「发布」全站重建（对齐 getBlogDetail）。
 // ============================================================
 
 const HOST = process.env.NEXT_PUBLIC_HOST;
-
-// 兜底重新验证周期（秒）。真正的实时性靠 on-demand 的 revalidateTag。
-const REVALIDATE_FALLBACK = 86400; // 24h
 
 // 生成文章内标题 id（复刻 getBlogDetail getHeadTitleId）
 function getHeadTitleId(title: string) {
@@ -72,7 +68,7 @@ export default async function getArticleDetail({
   let res;
   try {
     res = await fetch(url, {
-      next: { tags: [tag], revalidate: REVALIDATE_FALLBACK },
+      cache: "force-cache",
     });
   } catch (err: any) {
     console.error(`getArticleDetail fetch 失败 ${tag}:`, err?.message);

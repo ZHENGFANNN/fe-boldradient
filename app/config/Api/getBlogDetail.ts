@@ -5,9 +5,8 @@
 // app/config/Api 远程数据接口层：运行时从后端拉取数据。
 // ============================================================
 
-// 文章详情：按 sortKey/blogKey 从后端实时拉取单篇文章，并打上缓存 tag。
-// 后台改某篇文章后，只需 revalidateTag('blog:sortKey:blogKey')
-// 即可让该文章页在下次访问时重新生成，无需全站重建。
+// 文章详情：按 sortKey/blogKey 从后端拉取单篇文章。
+// 纯 SSG：构建期固化（force-cache），内容更新靠「发布」全站重建。
 //
 // 注意：这里返回的是「未按地区过滤」的完整文章 —— 关联商品 associateProduct
 // 内 comboItem.areaList 全量保留。按地区选价(areaInfo)的逻辑下沉到客户端
@@ -16,9 +15,6 @@
 // 本文件是 getProductDetail.js 的镜像，整形逻辑复刻自 script/fetch-blog.js。
 
 const HOST = process.env.NEXT_PUBLIC_HOST;
-
-// 兜底重新验证周期（秒）。真正的实时性靠 on-demand 的 revalidateTag。
-const REVALIDATE_FALLBACK = 86400; // 24h
 
 // 关联商品整形：复刻 fetch-blog.js handleAProductList。
 // 保留完整 comboItem（含 areaList），客户端再按 area 选价。
@@ -128,7 +124,7 @@ export default async function getBlogDetail({
   let res;
   try {
     res = await fetch(url, {
-      next: { tags: [tag], revalidate: REVALIDATE_FALLBACK },
+      cache: "force-cache",
     });
   } catch (err: any) {
     console.error(`getBlogDetail fetch 失败 ${tag}:`, err?.message);

@@ -10,28 +10,14 @@
     "binding": "ASSETS"
   },
 
-  "r2_buckets": [{
-    "binding": "NEXT_INC_CACHE_R2_BUCKET",
-    "bucket_name": "boldradiant-isr-cache"
-  }],
+  // 纯 SSG：已移除 ISR 的 R2 增量缓存 / D1 tag 缓存 / DO 刷新队列绑定。
+  // 删除 DO class 必须走迁移声明 deleted_classes，否则部署报错。
+  "migrations": [
+    { "tag": "v1", "new_sqlite_classes": ["DOQueueHandler"] },
+    { "tag": "v2", "deleted_classes": ["DOQueueHandler"] }
+  ],
 
-  "d1_databases": [{
-    "binding": "NEXT_TAG_CACHE_D1",
-    "database_name": "boldradiant-isr-tags",
-    "database_id": "b1872735-c5c7-4ad8-8d75-d63743d1312c"
-  }],
-
-  "durable_objects": {
-    "bindings": [{
-      "name": "NEXT_CACHE_DO_QUEUE",
-      "class_name": "DOQueueHandler"
-    }]
-  },
-  "migrations": [{
-    "tag": "v1",
-    "new_sqlite_classes": ["DOQueueHandler"]
-  }],
-
+  // 实时取价路由(/api/cart、/api/products-offer、/api/products-catalog)仍需 worker 运行。
   "services": [{
     "binding": "WORKER_SELF_REFERENCE",
     "service": "fe-boldsaasify-store"

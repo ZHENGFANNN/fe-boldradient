@@ -8,12 +8,10 @@
 // 价格与折扣由客户端按 area cookie 调 /api/products-offer 批量取齐（避免 us→cn 货币闪动）。
 // JSON-LD（爬虫不执行 JS）走单独的 server 子组件 SSG 阶段以默认 us 取价兜底。
 //
-// 数据源与 getCategoryProducts 共用 /config/getProduct + tag('product:list')，
-// 后台改商品调用 revalidateTag('product:list') 即可让首页下次访问重建。
+// 数据源与 getCategoryProducts 共用 /config/getProduct；纯 SSG，构建期固化，靠「发布」重建。
 // ============================================================
 
 const HOST = process.env.NEXT_PUBLIC_HOST;
-const REVALIDATE = 86400; // 24h
 
 // 商品卡片精简（复刻 getProductData.js handleSimpleProductList，
 // comboList 只保留客户端取价需要的 key + associate_country_key 元数据）。
@@ -59,10 +57,7 @@ export default async function getRemoteProductList({
   let res;
   try {
     res = await fetch(`${HOST}/config/getProduct`, {
-      next: {
-        tags: ["product:list", `product:list:${locale}`],
-        revalidate: REVALIDATE,
-      },
+      cache: "force-cache",
     });
   } catch (err: any) {
     console.error("getRemoteProductList fetch 失败:", err?.message);

@@ -95,7 +95,11 @@ export default function Layout({ locale, LANG, CONFIG, analytics, children }) {
       {/* 语言/地区偏好补偿：cookie 丢失时用 localStorage 镜像补回并纠正语言 */}
       <LocalePrefsSync locale={locale} />
       {/* Live Chat */}
-      <LiveChat locale={locale} area={areaReady ? area || "us" : "us"} />
+      <LiveChat
+        locale={locale}
+        area={areaReady ? area || "us" : "us"}
+        LANG={LANG}
+      />
       {children}
     </GlobalContext.Provider>
   );

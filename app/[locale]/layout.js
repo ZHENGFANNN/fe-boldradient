@@ -41,7 +41,9 @@ const LANG_NAMESPACE = [
   "common.footer",
   "common.other",
   "common.contact",
-  "common.cookie"
+  "common.cookie",
+  // 在线客服（LiveChat）UI 文案：面板/表单/评分/订单商品分享等，统一走公共多语言
+  "store.chat"
 ];
 
 const CONFIG_NAMESPACE = [

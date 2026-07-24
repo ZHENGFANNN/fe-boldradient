@@ -1068,6 +1068,7 @@ export default function Main({ CONFIG, LANG, area, token }) {
                   currency={orderList[0].priceCurrency.toLowerCase()}
                   locale={locale}
                   LANG={LANG}
+                  publishableKey={paySetting.stripe?.publishableKey}
                   onCreateOrder={handleStripeCreateOrder}
                   amountLabel={`${priceSymbol}${formatCurrency(
                     orderPricing.pay_price,

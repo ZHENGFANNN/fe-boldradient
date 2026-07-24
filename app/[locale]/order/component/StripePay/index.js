@@ -12,9 +12,18 @@ import {
 import Loading from "@/components/Loading";
 import styles from "./index.module.scss";
 
-const stripePromise = loadStripe(
-  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || ""
-);
+// 可发布密钥优先级：后台 setting.pay.stripe.publishableKey（每站点独立，经 CONFIG 下发）
+// > 构建期 env NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY（回退，兼容未在后台配置的旧站点）。
+// loadStripe 结果按 key 缓存，避免同一 key 重复初始化。
+const stripePromiseCache = {};
+function getStripePromise(publishableKey) {
+  const key =
+    publishableKey || process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || "";
+  if (!stripePromiseCache[key]) {
+    stripePromiseCache[key] = loadStripe(key);
+  }
+  return stripePromiseCache[key];
+}
 
 // 品牌化外观：对齐 BoldRadiant 商城（Open Sans / 主色 #272929 / 圆角 / 聚焦态），
 // 不用 Stripe 原生灰白。参考企业级收银台（Shopify / Stripe 官方推荐）做法。
@@ -194,11 +203,17 @@ export default function StripePay({
   LANG,
   onCreateOrder,
   amountLabel,
+  publishableKey,
 }) {
   const stripeLocale = React.useMemo(() => {
     if (locale === "zh-cn" || locale === "zh-hk") return "zh";
     return locale || "auto";
   }, [locale]);
+
+  const stripePromise = React.useMemo(
+    () => getStripePromise(publishableKey),
+    [publishableKey]
+  );
 
   if (!amount || amount <= 0 || !currency) {
     return <Loading height={108} />;

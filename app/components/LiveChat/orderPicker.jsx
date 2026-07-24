@@ -4,7 +4,7 @@ import React from "react";
 import styles from "./index.module.scss";
 import { getMyOrders } from "./api";
 
-// 订单状态 -> 文案，取自 FAQ_COPY.orderStatus（按 locale 解析）；缺失回退状态码
+// 订单状态 -> 文案，取自 copy.orderStatus（由公共 LANG store.chat.orderStatus_* 构建）；缺失回退状态码
 export function getOrderStatusText(copy, status) {
   const map = copy?.orderStatus || {};
   return map[status] || status || "";

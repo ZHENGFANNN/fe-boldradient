@@ -1,4 +1,5 @@
 /** @format */
+import { ssrFetch } from "@/config/Api/ssrFetch";
 
 // ============================================================
 // 远程数据 API · GET ${HOST}/config/getBlogPaths
@@ -20,7 +21,7 @@ export async function getBlogPaths(): Promise<BlogPathItem[]> {
   }
 
   try {
-    const res = await fetch(`${HOST}/config/getBlogPaths`);
+    const res = await ssrFetch(`${HOST}/config/getBlogPaths`);
     if (!res.ok) {
       console.error(`getBlogPaths 失败: HTTP ${res.status}`);
       return [];

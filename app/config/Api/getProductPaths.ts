@@ -1,4 +1,5 @@
 /** @format */
+import { ssrFetch } from "@/config/Api/ssrFetch";
 
 // ============================================================
 // 远程数据 API · GET ${HOST}/config/getProductPaths
@@ -20,7 +21,7 @@ export async function getProductPaths(): Promise<ProductPathItem[]> {
   }
 
   try {
-    const res = await fetch(`${HOST}/config/getProductPaths`);
+    const res = await ssrFetch(`${HOST}/config/getProductPaths`);
     if (!res.ok) {
       console.error(`getProductPaths 失败: HTTP ${res.status}`);
       return [];

@@ -1,4 +1,5 @@
 /** @format */
+import { ssrFetch } from "@/config/Api/ssrFetch";
 
 // ============================================================
 // 远程数据 API · GET ${HOST}/config/getProduct
@@ -90,7 +91,7 @@ export default async function getCategoryProducts({
 
   let res;
   try {
-    res = await fetch(`${HOST}/config/getProduct`, {
+    res = await ssrFetch(`${HOST}/config/getProduct`, {
       cache: "force-cache",
     });
   } catch (err: any) {
@@ -145,7 +146,7 @@ export async function getAllCategories({
   if (!HOST) return [];
   let res;
   try {
-    res = await fetch(`${HOST}/config/getProduct`, {
+    res = await ssrFetch(`${HOST}/config/getProduct`, {
       cache: "force-cache",
     });
   } catch {

@@ -1,4 +1,5 @@
 /** @format */
+import { ssrFetch } from "@/config/Api/ssrFetch";
 
 // ============================================================
 // 远程数据 API · GET ${HOST}/config/getBlogCategoryPaths
@@ -21,7 +22,7 @@ export async function getBlogCategoryPaths(): Promise<BlogCategoryPathItem[]> {
   }
 
   try {
-    const res = await fetch(`${HOST}/config/getBlogCategoryPaths`);
+    const res = await ssrFetch(`${HOST}/config/getBlogCategoryPaths`);
     if (!res.ok) {
       console.error(`getBlogCategoryPaths 失败: HTTP ${res.status}`);
       return [];

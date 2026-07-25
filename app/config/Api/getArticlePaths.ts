@@ -1,4 +1,5 @@
 /** @format */
+import { ssrFetch } from "@/config/Api/ssrFetch";
 
 // ============================================================
 // 远程数据 API · GET ${HOST}/config/getArticlePaths
@@ -20,7 +21,7 @@ export async function getArticlePaths(): Promise<ArticlePathItem[]> {
   }
 
   try {
-    const res = await fetch(`${HOST}/config/getArticlePaths`);
+    const res = await ssrFetch(`${HOST}/config/getArticlePaths`);
     if (!res.ok) {
       console.error(`getArticlePaths 失败: HTTP ${res.status}`);
       return [];

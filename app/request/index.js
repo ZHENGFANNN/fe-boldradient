@@ -4,6 +4,7 @@
  */
 import axios from "axios";
 import Cookies from "js-cookie";
+import { SITE_DOMAIN } from "@/config/siteDomain";
 // 创建axios实例
 
 const instance = axios.create({
@@ -18,11 +19,11 @@ const instance = axios.create({
  * 否则登录后所有需要登录态的接口（tokenLogin / 地址 / 订单）都会被当成游客。
  */
 instance.interceptors.request.use((config) => {
-  // 多站点：品牌分支用 NEXT_PUBLIC_SITE_ID 声明自己是哪个站，注入 X-Site-Id 让后端按站切库。
-  // 未设置时不注入（主站按域名解析，行为不变）。SSR + 浏览器两侧都要带。
-  if (process.env.NEXT_PUBLIC_SITE_ID) {
+  // 多站点：显式带自身域名 X-Site-Domain，后端按域名匹配 boldsaasify.site → 业务库。
+  // 浏览器请求虽自带 Origin，仍显式带上以对齐 SSR，且不受 referrer-policy 影响。
+  if (SITE_DOMAIN) {
     config.headers = config.headers || {};
-    config.headers["X-Site-Id"] = process.env.NEXT_PUBLIC_SITE_ID;
+    config.headers["X-Site-Domain"] = SITE_DOMAIN;
   }
   if (typeof window !== "undefined") {
     const token = Cookies.get("token");

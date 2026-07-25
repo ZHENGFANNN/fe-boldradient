@@ -1,4 +1,5 @@
 /** @format */
+import { ssrFetch } from "@/config/Api/ssrFetch";
 
 // ============================================================
 // 远程数据 API · GET ${HOST}/config/getProductPricing
@@ -34,7 +35,7 @@ export async function getProductPricing({
     `&language=${encodeURIComponent(locale)}`;
 
   try {
-    const res = await fetch(url, {
+    const res = await ssrFetch(url, {
       cache: "force-cache",
     });
     if (!res.ok) {

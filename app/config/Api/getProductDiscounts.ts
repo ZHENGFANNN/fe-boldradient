@@ -1,4 +1,5 @@
 /** @format */
+import { ssrFetch } from "@/config/Api/ssrFetch";
 
 // ============================================================
 // 远程数据 API · POST ${HOST}/pay/getProductDiscounts（order-service）
@@ -26,7 +27,7 @@ async function fetchChunk(
   chunk: Array<{ sortKey: string; productKey: string }>
 ): Promise<ProductDiscount[]> {
   try {
-    const res = await fetch(`${HOST}/pay/getProductDiscounts`, {
+    const res = await ssrFetch(`${HOST}/pay/getProductDiscounts`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

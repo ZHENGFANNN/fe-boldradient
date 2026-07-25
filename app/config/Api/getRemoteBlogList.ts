@@ -1,4 +1,5 @@
 /** @format */
+import { ssrFetch } from "@/config/Api/ssrFetch";
 
 // ============================================================
 // 远程数据 API · GET ${HOST}/config/getBlog
@@ -25,7 +26,7 @@ async function fetchBlogListByLocale(locale: string): Promise<any[]> {
   }
   let res;
   try {
-    res = await fetch(`${HOST}/config/getBlog`, {
+    res = await ssrFetch(`${HOST}/config/getBlog`, {
       cache: "force-cache",
     });
   } catch (err: any) {

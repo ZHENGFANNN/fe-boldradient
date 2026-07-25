@@ -1,4 +1,5 @@
 /** @format */
+import { ssrFetch } from "@/config/Api/ssrFetch";
 
 // ============================================================
 // 远程数据 API · GET ${HOST}/config/getProduct
@@ -29,7 +30,7 @@ async function loadSlimCatalog(locale: string): Promise<SlimProduct[]> {
   let res: Response;
   try {
     // no-store：绕过 Next 对超大响应的 Data Cache（>2MB 无法写入）
-    res = await fetch(`${HOST}/config/getProduct`, { cache: "no-store" });
+    res = await ssrFetch(`${HOST}/config/getProduct`, { cache: "no-store" });
   } catch (err: any) {
     console.error("getProductsCatalog fetch 失败:", err?.message);
     return [];

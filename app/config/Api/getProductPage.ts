@@ -1,4 +1,5 @@
 /** @format */
+import { ssrFetch } from "@/config/Api/ssrFetch";
 
 // ============================================================
 // 远程数据 API · GET ${HOST}/config/getProductPage
@@ -42,7 +43,7 @@ export async function getProductPage({
   let customizeFields: any[] = [];
 
   try {
-    const res = await fetch(url, {
+    const res = await ssrFetch(url, {
       signal: AbortSignal.timeout(15000),
       cache: "force-cache",
     });

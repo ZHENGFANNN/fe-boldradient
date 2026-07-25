@@ -1,4 +1,5 @@
 /** @format */
+import { ssrFetch } from "@/config/Api/ssrFetch";
 
 // ============================================================
 // 远程数据 API · GET ${HOST}/config/getBlogBanner
@@ -29,7 +30,7 @@ export default async function getRemoteBlogBanner({
 
   let res;
   try {
-    res = await fetch(url, {
+    res = await ssrFetch(url, {
       cache: "force-cache",
     });
   } catch (err: any) {

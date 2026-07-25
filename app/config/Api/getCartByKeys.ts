@@ -1,4 +1,5 @@
 /** @format */
+import { ssrFetch } from "@/config/Api/ssrFetch";
 
 // ============================================================
 // 远程数据 API · POST ${HOST}/config/getCartByKeys
@@ -28,7 +29,7 @@ export default async function getCartByKeys({
 
   let res;
   try {
-    res = await fetch(`${HOST}/config/getCartByKeys`, {
+    res = await ssrFetch(`${HOST}/config/getCartByKeys`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ area, language, items }),

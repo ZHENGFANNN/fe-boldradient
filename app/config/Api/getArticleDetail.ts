@@ -1,4 +1,5 @@
 /** @format */
+import { ssrFetch } from "@/config/Api/ssrFetch";
 
 // ============================================================
 // 远程数据 API · GET ${HOST}/config/getArticleDetail
@@ -67,7 +68,7 @@ export default async function getArticleDetail({
 
   let res;
   try {
-    res = await fetch(url, {
+    res = await ssrFetch(url, {
       cache: "force-cache",
     });
   } catch (err: any) {

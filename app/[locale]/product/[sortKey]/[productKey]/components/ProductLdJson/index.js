@@ -38,7 +38,7 @@ export default async function ProductLdJson({ locale, sortKey, productKey }) {
     "@context": "https://schema.org/",
     "@type": "Product",
     name: productInfo.name,
-    image: productInfo.image_list.map((item) => item.src),
+    image: (productInfo.image_list || []).map((item) => item.src),
     description:
       productInfo.description ||
       productInfo.sellingList?.join(",") ||

@@ -39,12 +39,16 @@ export async function generateMetadata({ params }) {
     title: `${productInfo.page_title} - ${CONFIG["common.base"]?.company_name}`,
     description: productInfo.page_description,
     keywords: productInfo.page_keywords,
-    metadataBase: new URL(productInfo.image_list[0].src),
+    metadataBase: new URL(
+      productInfo.image_list?.[0]?.src ||
+        process.env.NEXT_PUBLIC_DOMAIN ||
+        "https://boldradiant.com"
+    ),
     alternates: buildAlternates(`/product/${sortKey}/${productKey}`, locale),
     openGraph: {
       title: `${productInfo.page_title} - ${CONFIG["common.base"]?.company_name}`,
       description: productInfo.page_description,
-      images: productInfo.image_list.map((item) => {
+      images: (productInfo.image_list || []).map((item) => {
         return {
           url: item.src,
           width: 300,

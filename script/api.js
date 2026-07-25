@@ -8,16 +8,26 @@
 const axios = require("axios");
 
 const serviceBase = process.env.NEXT_PUBLIC_HOST;
+
+// 多站点：构建期物化数据也要带 X-Site-Domain（与运行时 request/index.js、config/siteDomain.ts 一致），
+// 后端按域名匹配 boldsaasify.site → 业务库。从 NEXT_PUBLIC_DOMAIN 解析出 host；未设置则不带（主站按 Host 解析，行为不变）。
+function siteDomain() {
+  const raw = (process.env.NEXT_PUBLIC_DOMAIN || "").trim();
+  if (!raw) return "";
+  try {
+    return new URL(raw).host;
+  } catch {
+    return raw.replace(/^https?:\/\//, "").replace(/\/.*$/, "");
+  }
+}
+const SITE_DOMAIN = siteDomain();
+
 const instance = axios.create({
   baseURL: serviceBase,
   timeout: 30000,
   withCredentials: false,
   proxy: false,
-  // 多站点：品牌分支用 NEXT_PUBLIC_SITE_ID 声明站点，fetch-prod 构建期也要带 X-Site-Id 让后端按站切库。
-  // 未设置时不带（主站按域名解析，行为不变）。
-  headers: process.env.NEXT_PUBLIC_SITE_ID
-    ? { "X-Site-Id": process.env.NEXT_PUBLIC_SITE_ID }
-    : {},
+  headers: SITE_DOMAIN ? { "X-Site-Domain": SITE_DOMAIN } : {},
 });
 
 /**

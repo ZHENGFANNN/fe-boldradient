@@ -27,6 +27,10 @@ export interface PayChannel {
   supportArea?: string[];
   /** COD / Bank 面向客户展示的收款账户/到付文案（多语言） */
   message?: PayMessage;
+  /** PayPal 每站点独立的前端 clientId（经 CONFIG 下发，取代构建期 env） */
+  clientId?: string;
+  /** Stripe 每站点独立的前端可发布密钥（经 CONFIG 下发，取代构建期 env） */
+  publishableKey?: string;
 }
 
 export type PayChannelKey = "paypal" | "stripe" | "bank" | "cod";

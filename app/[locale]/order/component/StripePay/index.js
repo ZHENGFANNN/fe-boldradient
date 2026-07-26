@@ -12,13 +12,12 @@ import {
 import Loading from "@/components/Loading";
 import styles from "./index.module.scss";
 
-// 可发布密钥优先级：后台 setting.pay.stripe.publishableKey（每站点独立，经 CONFIG 下发）
-// > 构建期 env NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY（回退，兼容未在后台配置的旧站点）。
+// 可发布密钥唯一来源：后台 setting.pay.stripe.publishableKey（每站点独立，经 CONFIG 下发）。
+// 未在后台配置则 key 为空、loadStripe 返回 null，前台自动不渲染 Stripe（无构建期 env 回退）。
 // loadStripe 结果按 key 缓存，避免同一 key 重复初始化。
 const stripePromiseCache = {};
 function getStripePromise(publishableKey) {
-  const key =
-    publishableKey || process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || "";
+  const key = publishableKey || "";
   if (!stripePromiseCache[key]) {
     stripePromiseCache[key] = loadStripe(key);
   }

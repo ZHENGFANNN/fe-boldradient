@@ -1,7 +1,7 @@
 .language_block {
   width: 100%;
   box-sizing: border-box;
-  margin-bottom: 20px;
+  margin-bottom: 0;
   margin-top: 20px;
 
   .section_title {
@@ -70,7 +70,7 @@
 
 @media screen and (max-width: 740px) {
   .language_block {
-    margin-bottom: 18px;
+    margin-bottom: 0;
 
     .pills {
       gap: 8px;

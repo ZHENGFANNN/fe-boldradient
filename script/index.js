@@ -2,11 +2,13 @@
 
 require("./register-ts");
 
-// 加载特定环境的 .env 文件
+// 加载本地 env 文件。
+// NEXT_PUBLIC_* 是构建期内联变量：本地放 .env.local（gitignore），
+// 线上由 Cloudflare Workers Builds 的「构建变量」在 process.env 注入，故此处两文件都不存在也不报错。
+// 优先级：.env.local > .env（dotenv 不覆盖已存在的键；CF 环境两文件皆无 → 直接用注入值）。
 const dotenv = require("dotenv");
-const env = process.env.NODE_ENV === "local" ? ".local" : "";
-const envFile = `.env${env}`;
-dotenv.config({ path: envFile });
+dotenv.config({ path: ".env.local" });
+dotenv.config({ path: ".env" });
 
 const fetchConfig = require("./fetch-config.js");
 

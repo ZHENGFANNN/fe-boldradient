@@ -9,8 +9,6 @@ import { AnalyticsNoScript, getAnalyticsIds } from "@/components/Head/Analytics"
 import TrackingRoot from "@/components/TrackingRoot";
 
 import Head from "@/components/Head";
-import GoogleAuthProvider from "@/components/Auth/GoogleAuth";
-import GoogleOneTap from "@/components/Auth/GoogleAuth/GoogleOneTap";
 import ChunkErrorReloader from "@/components/ChunkErrorReloader";
 import { AuthGateProvider } from "@/components/Auth/AuthGateContext";
 import AuthBoundary from "@/components/Auth/AuthBoundary";
@@ -83,23 +81,20 @@ export default async function RootLayout(props) {
         <ChunkErrorReloader />
         <AnalyticsNoScript />
         <TrackingRoot />
-        <GoogleAuthProvider>
-          <GoogleOneTap />
-          <AuthGateProvider>
-            <Layout
-              locale={locale}
-              LANG={LANG}
-              CONFIG={CONFIG}
-              analytics={getAnalyticsIds()}
-            >
-              <Navbar />
-              <div id="app-content">
-                <AuthBoundary LANG={LANG}>{children}</AuthBoundary>
-              </div>
-              <Footer />
-            </Layout>
-          </AuthGateProvider>
-        </GoogleAuthProvider>
+        <AuthGateProvider>
+          <Layout
+            locale={locale}
+            LANG={LANG}
+            CONFIG={CONFIG}
+            analytics={getAnalyticsIds()}
+          >
+            <Navbar />
+            <div id="app-content">
+              <AuthBoundary LANG={LANG}>{children}</AuthBoundary>
+            </div>
+            <Footer />
+          </Layout>
+        </AuthGateProvider>
       </body>
     </html>
   );

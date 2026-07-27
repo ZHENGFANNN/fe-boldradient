@@ -1,80 +1,58 @@
 "use client";
 
 import React from "react";
-import { GoogleLogin } from "@react-oauth/google";
 import { useParams } from "next/navigation";
-import exchangeGoogleCredential from "./exchange";
+import Cookies from "js-cookie";
+import Api from "@/[locale]/user/api";
 import styles from "./GoogleLoginCustomButton.module.scss";
 
-const CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
-
-// Google 官方按钮宽度上限为 400px；通过 transform: scaleX 将透明覆盖层横向拉伸到容器宽度，
-// 让视觉自定义按钮的整个区域都能承接点击（点击命中率等价于原生按钮）。
-const GOOGLE_BUTTON_MAX_WIDTH = 400;
-
-export default function GoogleLoginCustomButton({
-  label,
-  onSuccess,
-  onError,
-  redirectTo,
-}) {
+/**
+ * 「使用 Google 登录」按钮 —— 中央回调授权码流。
+ * 点击 → POST /user/google/auth-url 拿 Google 授权 URL → 整页跳转 Google。
+ * 授权完成由 Google 回调中央域名、再 302 回本站 /[locale]/auth/google/finish 收尾写 cookie。
+ *
+ * 不再使用 GSI(@react-oauth/google)，因此不受「每站 Authorized JavaScript origins 白名单 + 100 上限」限制。
+ */
+export default function GoogleLoginCustomButton({ label, onError }) {
   const { locale } = useParams();
-  const wrapRef = React.useRef(null);
-  const [scaleX, setScaleX] = React.useState(1);
-  const [redirect, setRedirect] = React.useState(null);
+  const [loading, setLoading] = React.useState(false);
 
-  React.useEffect(() => {
-    setRedirect(new URLSearchParams(location.search).get("redirect"));
-  }, []);
-
-  React.useEffect(() => {
-    const el = wrapRef.current;
-    if (!el) return;
-    const update = () => {
-      const w = el.offsetWidth || GOOGLE_BUTTON_MAX_WIDTH;
-      setScaleX(Math.max(w / GOOGLE_BUTTON_MAX_WIDTH, 1));
-    };
-    update();
-    const ro = new ResizeObserver(update);
-    ro.observe(el);
-    return () => ro.disconnect();
-  }, []);
-
-  if (!CLIENT_ID) return null;
-
-  const handleSuccess = async (credentialResponse) => {
-    const credential = credentialResponse?.credential;
-    if (!credential) {
-      onError && onError();
-      return;
-    }
+  const handleClick = async () => {
+    if (loading) return;
+    setLoading(true);
     try {
-      const { ok } = await exchangeGoogleCredential(credential, locale);
-      if (ok) {
-        onSuccess && onSuccess();
-        const target =
-          redirect && redirect.endsWith("/")
-            ? redirect.slice(0, -1)
-            : redirect;
-        // 登录成功后直接跳转，去掉原 500ms 延迟（消除跳转前的卡顿感）。
-        location.href = target || redirectTo || "/user/account";
-      } else {
-        onError && onError();
+      // 登录成功后回跳目标：优先 URL 上的 ?redirect=（如从下单页被拦来登录）。
+      const returnPath =
+        new URLSearchParams(location.search).get("redirect") || "";
+      const area = Cookies.get("area") || "us";
+      const res = await Api.googleAuthUrl({
+        returnPath,
+        locale: locale || "en",
+        area,
+      });
+      const authURL = res?.code === 0 ? res?.data?.authURL : null;
+      if (authURL) {
+        location.href = authURL; // 整页跳转到 Google 授权页
+        return;
       }
+      onError && onError();
+      setLoading(false);
     } catch {
       onError && onError();
+      setLoading(false);
     }
   };
 
   return (
-    <div className={styles.wrap} ref={wrapRef}>
-      <div className={styles.visual} aria-hidden="true">
-        <svg
-          className={styles.icon}
-          viewBox="0 0 24 24"
-          width="20"
-          height="20"
-        >
+    <div className={styles.wrap}>
+      <button
+        type="button"
+        className={styles.visual}
+        onClick={handleClick}
+        disabled={loading}
+        aria-busy={loading}
+      >
+        <svg className={styles.icon} viewBox="0 0 24 24" width="20" height="20">
           <path
             fill="#4285F4"
             d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1Z"
@@ -93,21 +71,7 @@ export default function GoogleLoginCustomButton({
           />
         </svg>
         <span className={styles.text}>{label || "Continue with Google"}</span>
-      </div>
-      <div
-        className={styles.overlay}
-        style={{ transform: `scaleX(${scaleX})` }}
-      >
-        <GoogleLogin
-          onSuccess={handleSuccess}
-          onError={() => onError && onError()}
-          width={GOOGLE_BUTTON_MAX_WIDTH}
-          locale={locale}
-          text="continue_with"
-          shape="rectangular"
-          size="large"
-        />
-      </div>
+      </button>
     </div>
   );
 }

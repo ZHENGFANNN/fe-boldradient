@@ -11,9 +11,17 @@ const request = {
   sendRegisterCode: (data) => {
     return api.post(`/user/sendRegisterCode`, data);
   },
-  // Google 登录：提交 Google ID Token(credential) + area/language，换取本站登录态
+  // Google 登录（旧 GSI ID-token 隐式流，保留兼容；新前端走中央回调授权码流）
   userGoogleLogin: (data) => {
     return api.post(`/user/googleLogin`, data);
+  },
+  // Google 中央回调授权码流第 1 步：拿 Google 授权 URL（前端整页跳转）
+  googleAuthUrl: (data) => {
+    return api.post(`/user/google/auth-url`, data);
+  },
+  // Google 中央回调授权码流第 3 步：一次性交接码换本站 JWT
+  googleExchange: (data) => {
+    return api.post(`/user/google/exchange`, data);
   },
   // 自助重置第 1 步：校验邮箱并发送带 token 的重置链接到邮箱
   verifyForgetPassword: (data) => {

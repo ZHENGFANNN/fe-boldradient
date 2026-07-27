@@ -23,11 +23,17 @@
   align-items: center;
   justify-content: center;
   gap: 12px;
+  width: 100%;
   background: transparent;
   border: 1px solid #dadce0;
   border-radius: 50px;
-  pointer-events: none;
+  cursor: pointer;
   z-index: 1;
+
+  &:disabled {
+    cursor: default;
+    opacity: 0.6;
+  }
 }
 
 .icon {
@@ -40,21 +46,4 @@
   font-weight: 500;
   color: #1f1f1f;
   letter-spacing: 0.25px;
-}
-
-// 官方按钮透明覆盖，承接点击；scaleX 由 JS 计算以铺满容器
-.overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 400px;
-  height: 100%;
-  opacity: 0.001;
-  transform-origin: top left;
-  z-index: 2;
-  // 让 Google 渲染的 iframe/容器撑满 48px 高，保证垂直方向也可点
-  > div,
-  iframe {
-    height: 100% !important;
-  }
 }

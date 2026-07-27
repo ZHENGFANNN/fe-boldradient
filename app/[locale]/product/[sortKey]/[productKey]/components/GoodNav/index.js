@@ -31,10 +31,13 @@ export default function GoodNav() {
         href: "#product_package",
       });
     }
-    navList.push({
-      title: LANG["store.product.nav.faq"],
-      href: "#product_faq",
-    });
+    // FAQ 无配置时整块不渲染（GoodFaq 返回 null），同步隐藏「FAQ」导航锚点。
+    if (Array.isArray(productInfo.faqList) && productInfo.faqList.length > 0) {
+      navList.push({
+        title: LANG["store.product.nav.faq"],
+        href: "#product_faq",
+      });
+    }
     // 评论区两套数据（真实评论 + 营销好评）都为空时，GoodReviewsContent 会置
     // reviewsVisible=false（模块整块不渲染），此处同步隐藏「评论」导航锚点。
     if (reviewsVisible !== false) {

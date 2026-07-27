@@ -720,11 +720,26 @@ export default function LiveChat({ locale, area, LANG }) {
   const loadConfig = React.useCallback(async (options = {}) => {
     const { force = false } = options;
     try {
-      const cfgRes = await fetchChatConfig({ force });
+      const areaCode = area || Cookies.get("area") || "us";
+      const cfgRes = await fetchChatConfig({
+        force,
+        locale: locale || "en",
+        area: areaCode,
+      });
       if (cfgRes?.code !== 0) return;
       setConfig(cfgRes.data);
     } catch (err) {
       console.warn("[LiveChat] load config failed", err);
+    }
+  }, [area, locale]);
+
+  // 转离线留言视图：预填已留邮箱、复位成功态（Task B 非营业时段 + 原有 proceedToAgent 离线分支共用）。
+  const goOfflineView = React.useCallback(() => {
+    setView("offline");
+    setOfflineSent(false);
+    const presetEmail = leadRef.current?.email || "";
+    if (presetEmail) {
+      setOffline((s) => (s.email ? s : { ...s, email: presetEmail }));
     }
   }, []);
 
@@ -743,6 +758,17 @@ export default function LiveChat({ locale, area, LANG }) {
         area: areaCode,
         page_url: typeof window !== "undefined" ? window.location.href : "",
       });
+      // 非营业时段（Task B）：后端回 2804 + away_message，转离线留言流程并记下本地化文案。
+      if (sessRes?.code === 2804) {
+        const away = sessRes?.data?.away_message || "";
+        setConfig((prev) => ({
+          ...(prev || {}),
+          is_work_time: false,
+          away_message: away || prev?.away_message || "",
+        }));
+        goOfflineView();
+        return null;
+      }
       if (sessRes?.code !== 0) return;
       const sess = sessRes.data;
       setSession(sess);
@@ -768,7 +794,7 @@ export default function LiveChat({ locale, area, LANG }) {
     } finally {
       setLoading(false);
     }
-  }, [area, connectWs, locale]);
+  }, [area, connectWs, goOfflineView, locale]);
 
   const handleStartNewChat = React.useCallback(async () => {
     reconnectBlockedRef.current = false;
@@ -861,7 +887,11 @@ export default function LiveChat({ locale, area, LANG }) {
     let cfg = config;
     if (!cfg) {
       try {
-        const cfgRes = await fetchChatConfig();
+        const areaCode = area || Cookies.get("area") || "us";
+        const cfgRes = await fetchChatConfig({
+          locale: locale || "en",
+          area: areaCode,
+        });
         if (cfgRes?.code !== 0) return;
         cfg = cfgRes.data;
         setConfig(cfg);
@@ -888,13 +918,8 @@ export default function LiveChat({ locale, area, LANG }) {
       ensureWsConnected(session);
       return;
     }
-    setView("offline");
-    setOfflineSent(false);
-    const presetEmail = leadRef.current?.email || "";
-    if (presetEmail && !offline.email) {
-      setOffline((s) => ({ ...s, email: presetEmail }));
-    }
-  }, [config, offline.email, session, startLiveChat, ensureWsConnected]);
+    goOfflineView();
+  }, [area, config, locale, session, startLiveChat, ensureWsConnected, goOfflineView]);
 
   // 进入人工客服前先收集访客姓名 + 邮箱；已留过则直接进入
   const handleTransferToAgent = React.useCallback(async () => {
@@ -941,7 +966,10 @@ export default function LiveChat({ locale, area, LANG }) {
       }
     });
     loadConfig();
-    startChatApiKeepalive();
+    startChatApiKeepalive({
+      locale: locale || "en",
+      area: area || Cookies.get("area") || "us",
+    });
     return () => {
       registerLiveChatOpen(null);
       stopChatApiKeepalive();
@@ -953,7 +981,7 @@ export default function LiveChat({ locale, area, LANG }) {
         clearTimeout(agentTypingTimerRef.current);
       }
     };
-  }, [disconnectWs, loadConfig]);
+  }, [area, disconnectWs, loadConfig, locale]);
 
   // 会话存在期间持续轮询新消息：面板关闭/不在 chat 视图时累计未读并亮红点；
   // 正在看 chat 时直接并入消息并推进已读位。
@@ -1799,7 +1827,9 @@ export default function LiveChat({ locale, area, LANG }) {
         ) : (
           <>
             <div className={styles.offlineScroll}>
-              <p className={styles.offlineIntro}>{copy.offlineIntro}</p>
+              <p className={styles.offlineIntro}>
+                {config?.away_message || copy.offlineIntro}
+              </p>
               <div className={styles.offlineForm}>
                 <div className={styles.formField}>
                   <label className={styles.formLabel} htmlFor="chat-offline-email">
@@ -1964,7 +1994,9 @@ export default function LiveChat({ locale, area, LANG }) {
       <div className={styles.body}>
         <div className={styles.messages}>
           {showOfflineBanner ? (
-            <div className={styles.offlineBanner}>{copy.offlineBanner}</div>
+            <div className={styles.offlineBanner}>
+              {config?.away_message || copy.offlineBanner}
+            </div>
           ) : null}
           {welcomeText ? (
             <div className={styles.welcome}>{welcomeText}</div>

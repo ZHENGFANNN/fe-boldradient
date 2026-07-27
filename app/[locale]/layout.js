@@ -78,7 +78,7 @@ export default async function RootLayout(props) {
 
   return (
     <html lang={locale}>
-      <Head logoLink={CONFIG["common.base"]?.logo} theme={CONFIG["common.base"]?.theme} />
+      <Head logoLink={CONFIG["common.base"]?.logo} favicon={CONFIG["common.base"]?.favicon} theme={CONFIG["common.base"]?.theme} />
       <body>
         <ChunkErrorReloader />
         <AnalyticsNoScript />

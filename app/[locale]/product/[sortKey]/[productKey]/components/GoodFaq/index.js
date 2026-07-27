@@ -7,7 +7,6 @@ import styles from "./index.module.scss";
 export default function GoodFaq() {
   const {
     LANG,
-    CONFIG,
     productInfo: { faqList },
   } = React.useContext(ProductContext);
   const [activity, setActivity] = React.useState();
@@ -34,34 +33,13 @@ export default function GoodFaq() {
   }, [activity]);
 
   const list = React.useMemo(() => {
-    return [
-      ...(Array.isArray(faqList) ? faqList : []),
-      {
-        type: "faq",
-        question: LANG["store.product.service_agreement.delivery_terms"],
-        answer: LANG[
-          "store.product.service_agreement.delivery_terms_detail"
-        ]?.replace("$email", CONFIG["common.base"]?.customer_service),
-      },
-      {
-        type: "faq",
-        question: LANG["store.product.service_agreement.produc_guarantee"],
-        answer: LANG[
-          "store.product.service_agreement.product_guarantee_detail"
-        ]?.replace("$email", CONFIG["common.base"]?.customer_service),
-      },
-      {
-        type: "faq",
-        question: LANG["store.product.service_agreement.view_order"],
-        answer: LANG["store.product.service_agreement.view_order_detail"],
-      },
-      {
-        type: "link",
-        question: LANG["common.footer.sales_policy"],
-        answer: "/article/legal/sales-policy",
-      },
-    ];
-  });
+    return Array.isArray(faqList) ? faqList : [];
+  }, [faqList]);
+
+  // 商户未配置任何 FAQ 时整块不渲染（无默认兜底内容）。
+  if (list.length === 0) {
+    return null;
+  }
 
   return (
     <section className={styles.faq} id="product_faq">

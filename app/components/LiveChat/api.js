@@ -13,10 +13,11 @@ let keepaliveVisibleHandler = null;
 
 /**
  * 拉取客服渠道配置（带内存缓存 + 并发去重）。
- * @param {{ force?: boolean }} options force=true 跳过缓存强制请求
+ * @param {{ force?: boolean, locale?: string, area?: string }} options
+ *   force=true 跳过缓存强制请求；locale/area 用于后端按访客语言/地区解析营业时段与离线文案（Task B）。
  */
 export function fetchChatConfig(options = {}) {
-  const { force = false } = options;
+  const { force = false, locale, area } = options;
   const now = Date.now();
 
   if (!force && cachedConfig && now - cachedAt < CONFIG_TTL_MS) {
@@ -27,7 +28,11 @@ export function fetchChatConfig(options = {}) {
     return inflightConfig;
   }
 
-  inflightConfig = Api.get("/chat/config")
+  const params = {};
+  if (locale) params.locale = locale;
+  if (area) params.area = area;
+
+  inflightConfig = Api.get("/chat/config", { params })
     .then((res) => {
       if (res?.code === 0 && res.data) {
         cachedConfig = res.data;
@@ -59,18 +64,19 @@ export function getChatConfig() {
  * 页面可见时定期 ping /chat/config，保持与 service 域名的 HTTP/2 连接活跃，
  * 避免长时间 idle 后浏览器复用 dead socket 导致 Stalled 10~20s。
  */
-export function startChatApiKeepalive() {
+export function startChatApiKeepalive(opts = {}) {
   if (typeof window === "undefined" || keepaliveTimer) return;
+  const { locale, area } = opts;
 
   const tick = () => {
     if (document.visibilityState !== "visible") return;
-    fetchChatConfig({ force: true }).catch(() => {});
+    fetchChatConfig({ force: true, locale, area }).catch(() => {});
   };
 
   keepaliveTimer = setInterval(tick, KEEPALIVE_MS);
   keepaliveVisibleHandler = () => {
     if (document.visibilityState === "visible") {
-      fetchChatConfig({ force: true }).catch(() => {});
+      fetchChatConfig({ force: true, locale, area }).catch(() => {});
     }
   };
   document.addEventListener("visibilitychange", keepaliveVisibleHandler);

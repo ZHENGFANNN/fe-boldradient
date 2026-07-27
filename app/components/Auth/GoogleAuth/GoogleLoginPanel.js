@@ -5,8 +5,6 @@ import styles from "./GoogleLoginPanel.module.scss";
 import GoogleLoginCustomButton from "./GoogleLoginCustomButton";
 import ShowTipModal from "@/components/Modal/ShowTipModal";
 
-const CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
-
 /**
  * 登录/注册页的「使用 Google 登录」面板：分隔线 + 自定义 Google 按钮 + 结果提示。
  * 两页通用，按钮宽度 100% 撑满容器，视觉与订单页 UserType 保持一致。
@@ -27,8 +25,6 @@ export default function GoogleLoginPanel({
   dividerPosition = "top",
 }) {
   const tipRef = React.useRef(null);
-
-  if (!CLIENT_ID) return null;
 
   const divider = label ? (
     <div className={styles.divider}>

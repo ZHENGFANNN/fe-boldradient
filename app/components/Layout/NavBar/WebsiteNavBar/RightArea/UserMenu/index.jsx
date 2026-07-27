@@ -201,7 +201,7 @@ export default function UserMenu({ isLogin }) {
                     className={styles.accountText}
                     title={accountLabel || undefined}
                   >
-                    {accountLabel}-
+                    {accountLabel}
                   </span>
                 </div>
               )

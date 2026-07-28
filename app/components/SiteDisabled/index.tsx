@@ -7,12 +7,12 @@ const COPY = {
   en: {
     title: "This store is currently unavailable",
     desc: "This store has expired or been suspended. Please contact BoldSaasify support for assistance.",
-    contact: "Contact: support@boldsaasify.com"
+    contact: "WeChat: bold___"
   },
   "zh-cn": {
     title: "该商户已到期",
     desc: "该商户已到期或已停用，请联系 BoldSaasify 客服处理。",
-    contact: "客服邮箱：support@boldsaasify.com"
+    contact: "微信：bold___"
   }
 };
 
@@ -22,12 +22,15 @@ export default function SiteDisabled({ locale }: { locale?: string }) {
   return (
     <div
       style={{
-        minHeight: "100vh",
+        // 固定铺满视口：绕过 body 默认 margin，height 100% 居中且不产生滚动条
+        position: "fixed",
+        inset: 0,
         display: "flex",
-        flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        padding: "24px",
+        padding: "64px 24px",
+        boxSizing: "border-box",
+        overflow: "hidden",
         textAlign: "center",
         background: "#fff",
         color: "#1a1a1a",
@@ -36,19 +39,16 @@ export default function SiteDisabled({ locale }: { locale?: string }) {
       }}
     >
       <div style={{ maxWidth: 480 }}>
-        <div style={{ fontSize: 56, lineHeight: 1, marginBottom: 24 }}>🚫</div>
+        <div style={{ fontSize: 56, lineHeight: 1, marginBottom: 24 }}>🛍️</div>
         <h1 style={{ fontSize: 24, fontWeight: 600, margin: "0 0 12px" }}>
           {t.title}
         </h1>
         <p style={{ fontSize: 15, lineHeight: 1.6, color: "#666", margin: "0 0 20px" }}>
           {t.desc}
         </p>
-        <a
-          href="mailto:support@boldsaasify.com"
-          style={{ fontSize: 14, color: "#1a1a1a", textDecoration: "underline" }}
-        >
+        <div style={{ fontSize: 14, color: "#1a1a1a", fontWeight: 500 }}>
           {t.contact}
-        </a>
+        </div>
       </div>
     </div>
   );

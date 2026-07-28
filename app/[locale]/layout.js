@@ -15,7 +15,9 @@ import AuthBoundary from "@/components/Auth/AuthBoundary";
 
 import getRemoteLanguage from "@/config/Api/getRemoteLanguage";
 import getRemoteConfig from "@/config/Api/getRemoteConfig";
+import getSiteStatus from "@/config/Api/getSiteStatus";
 import languageSettings from "@/config/languageSettings";
+import SiteDisabled from "@/components/SiteDisabled";
 
 // [locale] 段在构建期可枚举，配合 generateStaticParams 完全预渲染
 export function generateStaticParams() {
@@ -72,6 +74,20 @@ async function getData({ locale }) {
 export default async function RootLayout(props) {
   const { children, params } = props;
   const { locale } = await params;
+
+  // 商户停用/过期拦截：实时查站点状态（no-store），非 active 时整页渲染提示页，
+  // 不加载正常商城内容。fail-open：查不到状态按可用处理。
+  const siteStatus = await getSiteStatus();
+  if (!siteStatus.active) {
+    return (
+      <html lang={locale}>
+        <body>
+          <SiteDisabled locale={locale} />
+        </body>
+      </html>
+    );
+  }
+
   const { CONFIG, LANG } = await getData({ locale });
 
   return (

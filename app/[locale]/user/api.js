@@ -31,6 +31,10 @@ const request = {
   resetPassword: (data) => {
     return api.post(`/user/resetPassword`, data);
   },
+  // 营销邮件退订：凭邮件链接 token 退订，成功 data:{ email }
+  unsubscribe: (data) => {
+    return api.post(`/user/unsubscribe`, data);
+  },
 };
 
 export default request;

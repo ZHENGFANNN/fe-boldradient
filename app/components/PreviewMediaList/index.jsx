@@ -14,6 +14,15 @@ function isVideo(media) {
   return /\.(mp4|webm|ogg|mov|m4v)(\?|#|$)/.test(url);
 }
 
+// 判定是否 SVG：矢量图常只带 viewBox 而无 width/height 内在像素尺寸，
+// 在仅 max-* 约束的收缩容器里会塌成退化尺寸（默认 300×150 且丢比例）→ 需单独给定尺寸。
+function isSvg(media) {
+  const t = String(media?.type || "").toLowerCase();
+  if (t.includes("svg")) return true;
+  const url = String(media?.url || "").toLowerCase();
+  return /\.svg(\?|#|$)/.test(url);
+}
+
 // 过滤出有 url 的有效项（图/视频混合）。
 function normalize(list) {
   return Array.isArray(list) ? list.filter((m) => m && m.url) : [];
@@ -152,7 +161,12 @@ export function PreviewMediaViewer({
         ) : (
           <img
             key={active.url}
-            className={styles.stage_img}
+            className={[
+              styles.stage_img,
+              isSvg(active) ? styles.stage_img_svg : "",
+            ]
+              .filter(Boolean)
+              .join(" ")}
             src={active.url}
             alt={active.name || ""}
           />

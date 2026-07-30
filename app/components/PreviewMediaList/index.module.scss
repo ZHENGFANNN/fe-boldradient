@@ -144,6 +144,17 @@
     object-fit: contain;
   }
 
+  /* SVG 无内在像素尺寸：给一个定尺方框（矢量按 viewBox 比例填满），
+     并加白底，避免黑色图形贴在黑色遮罩上不可见。 */
+  .stage_img_svg {
+    width: min(560px, 80vw);
+    height: auto;
+    max-height: calc(100dvh - 200px);
+    box-sizing: border-box;
+    padding: 24px;
+    background: #fff;
+  }
+
   .stage_video {
     width: min(1000px, 86vw);
     max-width: 86vw;

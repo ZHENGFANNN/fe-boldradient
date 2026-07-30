@@ -9,7 +9,6 @@ import GoodNumber from "./GoodNumber";
 import GoodBtnList from "./GoodBtnList";
 import GoodContent from "./GoodContent";
 import GoodGuarantee from "./GoodGuarantee";
-import GoodCertificate from "./GoodCertificate";
 import styles from "./index.module.scss";
 
 export default function GoodMainRight() {
@@ -26,7 +25,6 @@ export default function GoodMainRight() {
       <GoodBtnList />
       <GoodContent />
       <GoodGuarantee />
-      <GoodCertificate />
     </div>
   );
 }

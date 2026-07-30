@@ -157,32 +157,9 @@
   word-break: break-word;
 }
 
-.media_grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 12px;
-
-  .media_item {
-    display: block;
-    aspect-ratio: 1;
-    border-radius: 8px;
-    overflow: hidden;
-    border: 1px solid rgba(0, 0, 0, 0.06);
-    background: rgba(0, 0, 0, 0.03);
-
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-  }
-
-  video.media_item {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    background: #000;
-  }
+// 回复/附件媒体缩略图与上方文案/标题的间距（缩略图布局由公共 PreviewMediaList 负责）。
+.reply_media {
+  margin-top: 16px;
 }
 
 // ---------- 小屏 ----------
@@ -217,8 +194,5 @@
     .info_label {
       min-width: 0;
     }
-  }
-  .media_grid {
-    grid-template-columns: repeat(3, 1fr);
   }
 }

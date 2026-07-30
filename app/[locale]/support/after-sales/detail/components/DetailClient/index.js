@@ -11,6 +11,7 @@ import Loading from "@/components/Loading";
 import ShowTipModal from "@/components/Modal/ShowTipModal";
 import Button from "@/components/Button";
 import StatusProgress from "@/components/StatusProgress";
+import PreviewMediaList from "@/components/PreviewMediaList";
 import ServiceInfoCard from "./parts/ServiceInfoCard";
 import CancelledBanner from "./parts/CancelledBanner";
 
@@ -69,40 +70,12 @@ function InfoRow({ label, value }) {
   );
 }
 
-// 媒体网格（图片/视频）。客户提交凭证与运营回复附件共用同一套渲染与样式：
-//   video → 内联 controls 播放；image → 新标签页预览；其余降级为普通 <img>。
-function MediaGrid({ media }) {
+// 媒体网格（图片/视频）。客户提交凭证与运营回复附件共用公共 PreviewMediaList：
+//   缩略图点击弹全屏预览（图片/视频统一），替换原大格子 <a> 新窗口预览。
+function MediaGrid({ media, className }) {
   if (!media || !media.length) return null;
   return (
-    <div className={styles.media_grid}>
-      {media.map((m, i) =>
-        m.type === "video" ? (
-          <video
-            key={i}
-            className={styles.media_item}
-            src={m.url}
-            controls
-          />
-        ) : /^https?:\/\//i.test((m.url || "").trim()) ? (
-          <a
-            key={i}
-            className={styles.media_item}
-            href={m.url}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <img src={m.url} alt={m.name || `media-${i}`} />
-          </a>
-        ) : (
-          <img
-            key={i}
-            className={styles.media_item}
-            src={m.url}
-            alt={m.name || `media-${i}`}
-          />
-        )
-      )}
-    </div>
+    <PreviewMediaList list={media} thumbSize={88} className={className} />
   );
 }
 
@@ -368,7 +341,7 @@ export default function DetailClient({ LANG, locale }) {
               <div className={styles.section_title}>
                 {T(LANG, "user_account.after_sale.media", "Photos / Videos")}
               </div>
-              <MediaGrid media={media} />
+              <MediaGrid media={media} className={styles.reply_media} />
             </div>
           ) : null}
 
@@ -384,7 +357,7 @@ export default function DetailClient({ LANG, locale }) {
               </div>
               <div className={styles.description}>{data.seller_reply}</div>
               {sellerReplyMedia && sellerReplyMedia.length ? (
-                <MediaGrid media={sellerReplyMedia} />
+                <MediaGrid media={sellerReplyMedia} className={styles.reply_media} />
               ) : null}
             </div>
           ) : null}

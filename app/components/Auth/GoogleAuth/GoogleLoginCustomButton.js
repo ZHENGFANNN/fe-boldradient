@@ -6,14 +6,54 @@ import Cookies from "js-cookie";
 import Api from "@/[locale]/user/api";
 import styles from "./GoogleLoginCustomButton.module.scss";
 
+// 登录/注册/Google 回调页本身不能当回跳目标，否则登录成功后又跳回登录页形成死循环。
+const AUTH_PATH_RE = /\/(user\/login|user\/register|auth\/google)/;
+
+/**
+ * 把任意 redirect 值归一化成「站内相对路径」（后端 sanitizeReturnPath 只认单个 "/" 开头、非 "//"）。
+ * 传入可能是完整 URL（如 LoginModule 传的 window.location.href）或已是相对路径；跨域一律丢弃。
+ */
+function toRelativePath(raw) {
+  if (!raw) return "";
+  try {
+    if (/^https?:\/\//i.test(raw)) {
+      const u = new URL(raw);
+      if (u.origin !== window.location.origin) return ""; // 防开放重定向
+      raw = u.pathname + u.search + u.hash;
+    }
+  } catch {
+    return "";
+  }
+  if (!raw.startsWith("/") || raw.startsWith("//")) return "";
+  if (AUTH_PATH_RE.test(raw)) return "";
+  return raw;
+}
+
+/**
+ * 解析登录成功后的回跳目标，优先级：
+ * 1) 调用方显式传入的 redirectTo（LoginModule 守卫场景，即用户被拦下的当前页）
+ * 2) URL 上的 ?redirect=（从下单页/守卫链接跳来登录页时携带）
+ * 3) document.referrer（用户直接进登录页时，回到点登录前所在的上一页）
+ */
+function resolveReturnPath(redirectTo) {
+  return (
+    toRelativePath(redirectTo) ||
+    toRelativePath(new URLSearchParams(location.search).get("redirect")) ||
+    toRelativePath(document.referrer) ||
+    ""
+  );
+}
+
 /**
  * 「使用 Google 登录」按钮 —— 中央回调授权码流。
  * 点击 → POST /user/google/auth-url 拿 Google 授权 URL → 整页跳转 Google。
  * 授权完成由 Google 回调中央域名、再 302 回本站 /[locale]/auth/google/finish 收尾写 cookie。
  *
  * 不再使用 GSI(@react-oauth/google)，因此不受「每站 Authorized JavaScript origins 白名单 + 100 上限」限制。
+ *
+ * @param {string?} redirectTo 显式回跳目标（可为完整 URL 或站内相对路径）；不传则退到 ?redirect= / referrer。
  */
-export default function GoogleLoginCustomButton({ label, onError }) {
+export default function GoogleLoginCustomButton({ label, redirectTo, onError }) {
   const { locale } = useParams();
   const [loading, setLoading] = React.useState(false);
 
@@ -21,9 +61,8 @@ export default function GoogleLoginCustomButton({ label, onError }) {
     if (loading) return;
     setLoading(true);
     try {
-      // 登录成功后回跳目标：优先 URL 上的 ?redirect=（如从下单页被拦来登录）。
-      const returnPath =
-        new URLSearchParams(location.search).get("redirect") || "";
+      // 登录成功后回跳目标：显式 prop → ?redirect= → 上一页 referrer，全部归一化为站内相对路径。
+      const returnPath = resolveReturnPath(redirectTo);
       const area = Cookies.get("area") || "us";
       const res = await Api.googleAuthUrl({
         returnPath,

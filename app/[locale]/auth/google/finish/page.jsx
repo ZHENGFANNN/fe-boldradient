@@ -12,10 +12,10 @@ import React from "react";
 import { useParams } from "next/navigation";
 import Cookies from "js-cookie";
 import Api from "@/[locale]/user/api";
+import Loading from "@/components/Loading";
 
 export default function GoogleFinishPage() {
   const { locale } = useParams();
-  const [failed, setFailed] = React.useState(false);
 
   React.useEffect(() => {
     const params = new URLSearchParams(location.search);
@@ -29,20 +29,16 @@ export default function GoogleFinishPage() {
         : "";
     const home = `/${locale || "en"}`;
     const loginPage = `/${locale || "en"}/user/login`;
+    // 失败时回登录页，带上原始回跳目标以便重试
+    const backToLogin = () => {
+      location.href = safeRedirect
+        ? `${loginPage}?redirect=${encodeURIComponent(safeRedirect)}`
+        : loginPage;
+    };
 
     if (err || !code) {
-      // 异步置失败态，避免在 effect 体内同步 setState（cascading renders）
-      const fail = setTimeout(() => setFailed(true), 0);
-      // 稍候回登录页，带上原始回跳目标以便重试
-      const t = setTimeout(() => {
-        location.href = safeRedirect
-          ? `${loginPage}?redirect=${encodeURIComponent(safeRedirect)}`
-          : loginPage;
-      }, 1500);
-      return () => {
-        clearTimeout(fail);
-        clearTimeout(t);
-      };
+      const t = setTimeout(backToLogin, 1200);
+      return () => clearTimeout(t);
     }
 
     let cancelled = false;
@@ -51,18 +47,13 @@ export default function GoogleFinishPage() {
         const res = await Api.googleExchange({ code });
         if (!cancelled && res?.code === 0 && res?.data) {
           Cookies.set("token", res.data, { expires: 7 });
-          location.href = safeRedirect || `${home}`;
+          location.href = safeRedirect || home;
           return;
         }
         throw new Error("exchange failed");
       } catch {
         if (cancelled) return;
-        setFailed(true);
-        setTimeout(() => {
-          location.href = safeRedirect
-            ? `${loginPage}?redirect=${encodeURIComponent(safeRedirect)}`
-            : loginPage;
-        }, 1500);
+        setTimeout(backToLogin, 1200);
       }
     })();
     return () => {
@@ -70,22 +61,5 @@ export default function GoogleFinishPage() {
     };
   }, [locale]);
 
-  return (
-    <div
-      style={{
-        minHeight: "50vh",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        textAlign: "center",
-        padding: "40px 16px",
-        color: "#3c4043",
-        fontSize: 15,
-      }}
-    >
-      {failed
-        ? "Sign-in could not be completed. Redirecting…"
-        : "Signing you in…"}
-    </div>
-  );
+  return <Loading height="60vh" />;
 }

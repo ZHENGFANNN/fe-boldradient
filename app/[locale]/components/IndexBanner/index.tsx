@@ -70,7 +70,7 @@ export default function Banner() {
                       {item.sub_title ? <h3>{item.sub_title}</h3> : null}
                       {item.title ? <h2>{item.title}</h2> : null}
                       {item.description ? <p>{item.description}</p> : null}
-                      <button>{LANG["store.index.buy_now"]}</button>
+                      <button>{LANG["home.buy_now"]}</button>
                     </div>
                   </div>
                 </div> */}

@@ -42,13 +42,13 @@ export default function AuthRedirectGuard({ LANG, redirectPath }) {
         </div>
 
         <h2 className={styles.title}>
-          {T(LANG, "user_account.login_guard.title", "Sign in required")}
+          {T(LANG, "user.account.login_guard.title", "Sign in required")}
         </h2>
 
         <p className={styles.desc}>
           {T(
             LANG,
-            "user_account.login_guard.desc",
+            "user.account.login_guard.desc",
             "You need to sign in to use this feature. Please sign in to continue."
           )}
         </p>

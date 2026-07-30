@@ -17,14 +17,14 @@ export async function generateMetadata({ params }) {
   const { locale } = await params;
   const { LANG, CONFIG } = await getData({
     locale,
-    languageNameSpace: ["store.order"],
+    languageNameSpace: ["order"],
     configNameSpace: ["common.base"]
   });
 
   return {
-    title: `${LANG["store.order.page_title"]} - ${CONFIG["common.base"]?.company_name}`,
-    description: LANG["store.order.page_description"],
-    keywords: LANG["store.order.page_keywords"]
+    title: `${LANG["order.page_title"]} - ${CONFIG["common.base"]?.company_name}`,
+    description: LANG["order.page_description"],
+    keywords: LANG["order.page_keywords"]
   };
 }
 
@@ -36,9 +36,9 @@ async function OrderContent({ locale }) {
   const { CONFIG, LANG } = await getData({
     locale,
     languageNameSpace: [
-      "store.order",
+      "order",
       "common.pay",
-      "user_account.shipping_address",
+      "user.account.shipping_address",
       "common.advantage"
     ],
     configNameSpace: ["common.base", "setting.pay"]

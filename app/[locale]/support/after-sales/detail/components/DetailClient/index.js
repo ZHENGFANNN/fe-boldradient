@@ -42,19 +42,19 @@ function buildProgress(data, LANG) {
   const status = data.status;
   const activeIndex = ACTIVE_INDEX_BY_STATUS[status] ?? 0;
 
-  const submitted = T(LANG, "user_account.after_sale.progress.submitted", "Submitted");
+  const submitted = T(LANG, "user.account.after_sale.progress.submitted", "Submitted");
   // 第 2 块随状态在 待处理/处理中/处理完成 之间切换
   const midLabel =
     status === "processing"
-      ? T(LANG, "user_account.after_sale.progress.processing", "Processing")
+      ? T(LANG, "user.account.after_sale.progress.processing", "Processing")
       : status === "resolved"
-      ? T(LANG, "user_account.after_sale.progress.processed", "Processed")
-      : T(LANG, "user_account.after_sale.progress.to_process", "Pending");
+      ? T(LANG, "user.account.after_sale.progress.processed", "Processed")
+      : T(LANG, "user.account.after_sale.progress.to_process", "Pending");
   // 第 3 块在 待完成/已完成 之间切换
   const endLabel =
     status === "resolved"
-      ? T(LANG, "user_account.after_sale.progress.completed", "Completed")
-      : T(LANG, "user_account.after_sale.progress.to_complete", "To be completed");
+      ? T(LANG, "user.account.after_sale.progress.completed", "Completed")
+      : T(LANG, "user.account.after_sale.progress.to_complete", "To be completed");
 
   return { steps: [submitted, midLabel, endLabel], activeIndex };
 }
@@ -141,14 +141,14 @@ export default function DetailClient({ LANG, locale }) {
       .then((res) => {
         if (res.code !== 0) throw new Error("code!==0");
         toast(
-          T(LANG, "user_account.after_sale.cancel_success", "Request cancelled."),
+          T(LANG, "user.account.after_sale.cancel_success", "Request cancelled."),
           true
         );
         refresh();
       })
       .catch(() =>
         toast(
-          T(LANG, "user_account.after_sale.cancel_fail", "Failed to cancel, please try again."),
+          T(LANG, "user.account.after_sale.cancel_fail", "Failed to cancel, please try again."),
           false
         )
       )
@@ -171,7 +171,7 @@ export default function DetailClient({ LANG, locale }) {
           <p>
             {T(
               LANG,
-              "user_account.after_sale.not_found",
+              "user.account.after_sale.not_found",
               "This request could not be found."
             )}
           </p>
@@ -179,7 +179,7 @@ export default function DetailClient({ LANG, locale }) {
             className={styles.back_link}
             href={localeHref("/support/after-sales/create", locale)}
           >
-            {T(LANG, "user_account.after_sale.create", "New Request")}
+            {T(LANG, "user.account.after_sale.create", "New Request")}
           </Link>
         </div>
       </div>
@@ -199,12 +199,12 @@ export default function DetailClient({ LANG, locale }) {
   const reportType = data.report_type;
 
   const typeLabelMap = {
-    refund: T(LANG, "user_account.after_sale.type.refund", "Refund"),
-    return_refund: T(LANG, "user_account.after_sale.type.return_refund", "Return & Refund"),
-    repair: T(LANG, "user_account.after_sale.type.repair", "Repair"),
-    exchange: T(LANG, "user_account.after_sale.type.exchange", "Exchange"),
-    return: T(LANG, "user_account.after_sale.type.return", "Return"),
-    other: T(LANG, "user_account.after_sale.type.other", "Other"),
+    refund: T(LANG, "user.account.after_sale.type.refund", "Refund"),
+    return_refund: T(LANG, "user.account.after_sale.type.return_refund", "Return & Refund"),
+    repair: T(LANG, "user.account.after_sale.type.repair", "Repair"),
+    exchange: T(LANG, "user.account.after_sale.type.exchange", "Exchange"),
+    return: T(LANG, "user.account.after_sale.type.return", "Return"),
+    other: T(LANG, "user.account.after_sale.type.other", "Other"),
   };
 
   return (
@@ -214,7 +214,7 @@ export default function DetailClient({ LANG, locale }) {
       <h1 className="header">
         {T(
           LANG,
-          "user_account.after_sale.progress_title",
+          "user.account.after_sale.progress_title",
           "After-Sales Progress"
         )}
       </h1>
@@ -231,7 +231,7 @@ export default function DetailClient({ LANG, locale }) {
             <div className={styles.rejected_banner}>
               {T(
                 LANG,
-                "user_account.after_sale.status.rejected_tip",
+                "user.account.after_sale.status.rejected_tip",
                 "Your request has been rejected."
               )}
               {data.seller_reply ? (
@@ -260,11 +260,11 @@ export default function DetailClient({ LANG, locale }) {
           {/* 产品信息 */}
           <div className={styles.info_card}>
             <div className={styles.section_title}>
-              {T(LANG, "user_account.after_sale.product_title", "Product Info")}
+              {T(LANG, "user.account.after_sale.product_title", "Product Info")}
             </div>
             <div className={styles.info_row_lg}>
               <span className={styles.info_label}>
-                {T(LANG, "user_account.after_sale.product_model", "Model")}
+                {T(LANG, "user.account.after_sale.product_model", "Model")}
               </span>
               <span className={styles.info_value}>
                 {data.product_name || "-"}
@@ -275,7 +275,7 @@ export default function DetailClient({ LANG, locale }) {
                 <span className={styles.info_label}>
                   {T(
                     LANG,
-                    "user_account.after_sale.reason",
+                    "user.account.after_sale.reason",
                     "Reason"
                   )}
                 </span>
@@ -284,7 +284,7 @@ export default function DetailClient({ LANG, locale }) {
             ) : null}
             <div className={styles.info_row_lg}>
               <span className={styles.info_label}>
-                {T(LANG, "user_account.after_sale.service_type", "Service type")}
+                {T(LANG, "user.account.after_sale.service_type", "Service type")}
               </span>
               <span className={styles.info_value}>
                 {typeLabelMap[data.type] || data.type}
@@ -295,7 +295,7 @@ export default function DetailClient({ LANG, locale }) {
                 <span className={styles.info_label}>
                   {T(
                     LANG,
-                    "user_account.my_order.order_number",
+                    "user.account.my_order.order_number",
                     "Order No."
                   )}
                 </span>
@@ -306,7 +306,7 @@ export default function DetailClient({ LANG, locale }) {
               <span className={styles.info_label}>
                 {T(
                   LANG,
-                  "user_account.after_sale.service_no",
+                  "user.account.after_sale.service_no",
                   "Request No."
                 )}
               </span>
@@ -320,16 +320,16 @@ export default function DetailClient({ LANG, locale }) {
               <div className={styles.section_title}>
                 {T(
                   LANG,
-                  "user_account.after_sale.return_shipping_title",
+                  "user.account.after_sale.return_shipping_title",
                   "Return Shipping"
                 )}
               </div>
               <InfoRow
-                label={T(LANG, "user_account.after_sale.courier", "Courier")}
+                label={T(LANG, "user.account.after_sale.courier", "Courier")}
                 value={data.express_company}
               />
               <InfoRow
-                label={T(LANG, "user_account.after_sale.tracking_no", "Tracking No.")}
+                label={T(LANG, "user.account.after_sale.tracking_no", "Tracking No.")}
                 value={data.express_no}
               />
             </div>
@@ -339,7 +339,7 @@ export default function DetailClient({ LANG, locale }) {
           {media && media.length ? (
             <div className={styles.info_card}>
               <div className={styles.section_title}>
-                {T(LANG, "user_account.after_sale.media", "Photos / Videos")}
+                {T(LANG, "user.account.after_sale.media", "Photos / Videos")}
               </div>
               <MediaGrid media={media} className={styles.reply_media} />
             </div>
@@ -351,7 +351,7 @@ export default function DetailClient({ LANG, locale }) {
               <div className={styles.section_title}>
                 {T(
                   LANG,
-                  "user_account.after_sale.seller_reply",
+                  "user.account.after_sale.seller_reply",
                   "Reply from our team"
                 )}
               </div>
@@ -371,7 +371,7 @@ export default function DetailClient({ LANG, locale }) {
                 loading={cancelling}
                 onClick={handleCancel}
               >
-                {T(LANG, "user_account.after_sale.cancel_request", "Cancel Request")}
+                {T(LANG, "user.account.after_sale.cancel_request", "Cancel Request")}
               </Button>
             </div>
           ) : null}

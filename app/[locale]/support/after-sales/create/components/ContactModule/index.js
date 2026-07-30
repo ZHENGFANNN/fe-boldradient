@@ -61,7 +61,7 @@ export default function ContactModule() {
       tip(
         T(
           LANG,
-          "user_account.after_sale.media.wait_upload",
+          "user.account.after_sale.media.wait_upload",
           "Please wait for uploads to finish."
         ),
         "info"
@@ -106,7 +106,7 @@ export default function ContactModule() {
       tip(
         T(
           LANG,
-          "user_account.after_sale.submit_fail",
+          "user.account.after_sale.submit_fail",
           "Submission failed. Please try again."
         ),
         "error"
@@ -120,7 +120,7 @@ export default function ContactModule() {
     <>
       <label className={styles.field}>
         <span className={styles.field_label}>
-          {T(LANG, "user_account.after_sale.contact.email", "Email")}
+          {T(LANG, "user.account.after_sale.contact.email", "Email")}
           <i>*</i>
         </span>
         <input
@@ -132,7 +132,7 @@ export default function ContactModule() {
       </label>
       <label className={styles.field}>
         <span className={styles.field_label}>
-          {T(LANG, "user_account.after_sale.contact.phone", "Phone")}
+          {T(LANG, "user.account.after_sale.contact.phone", "Phone")}
           <i>*</i>
         </span>
         <input
@@ -141,7 +141,7 @@ export default function ContactModule() {
           onChange={(e) => setContactPhone(e.target.value)}
           placeholder={T(
             LANG,
-            "user_account.after_sale.contact.phone_ph",
+            "user.account.after_sale.contact.phone_ph",
             "Contact phone number"
           )}
         />
@@ -156,7 +156,7 @@ export default function ContactModule() {
         <span>
           {T(
             LANG,
-            "user_account.after_sale.privacy.prefix",
+            "user.account.after_sale.privacy.prefix",
             "I have read and agree to the"
           )}{" "}
           <a
@@ -166,7 +166,7 @@ export default function ContactModule() {
           >
             {T(
               LANG,
-              "user_account.after_sale.privacy.link",
+              "user.account.after_sale.privacy.link",
               "After-Sales Privacy Policy"
             )}
           </a>
@@ -185,7 +185,7 @@ export default function ContactModule() {
             !agreePrivacy
           }
         >
-          {T(LANG, "user_account.after_sale.submit", "Submit")}
+          {T(LANG, "user.account.after_sale.submit", "Submit")}
         </button>
       </div>
     </>

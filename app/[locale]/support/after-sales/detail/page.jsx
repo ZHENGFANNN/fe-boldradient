@@ -7,7 +7,7 @@ import DetailClient from "./components/DetailClient";
 
 async function getData({ locale }) {
   const [LANG, CONFIG] = await Promise.all([
-    getRemoteLanguage({ locale, nameSpace: ["user_account"] }),
+    getRemoteLanguage({ locale, nameSpace: ["user.account"] }),
     getRemoteConfig({ locale, nameSpace: ["common.base"] }),
   ]);
   return { LANG, CONFIG };

@@ -48,7 +48,7 @@ export default function AddressListSection({ showTip, LANG }) {
         .then(() => {
           showTip({
             type: "success",
-            text: LANG["user_account.shipping_address.success_deleted"],
+            text: LANG["user.account.shipping_address.success_deleted"],
           });
           getList();
           setDeleteLoading(false);
@@ -56,7 +56,7 @@ export default function AddressListSection({ showTip, LANG }) {
         .catch(() => {
           showTip({
             type: "error",
-            text: LANG["user_account.shipping_address.fail_deleted"],
+            text: LANG["user.account.shipping_address.fail_deleted"],
           });
           setDeleteLoading(false);
         });
@@ -72,7 +72,7 @@ export default function AddressListSection({ showTip, LANG }) {
         <div className={styles.contaier}>
           <div className={styles.title_container}>
             <div>
-              <span>{LANG["user_account.shipping_address"]}</span>
+              <span>{LANG["user.account.shipping_address"]}</span>
             </div>
             <AddressFormModal
               LANG={LANG}

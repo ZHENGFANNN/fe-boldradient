@@ -57,19 +57,19 @@ export function geocodeErrorMessage(err, LANG = {}) {
   switch (err?.message) {
     case "PERMISSION_DENIED":
       return L(
-        "user_account.shipping_address.locate_denied",
+        "user.account.shipping_address.locate_denied",
         "Location permission denied. Please allow access or enter your address manually."
       );
     case "GEOLOCATION_UNSUPPORTED":
     case "POSITION_UNAVAILABLE":
     case "TIMEOUT":
       return L(
-        "user_account.shipping_address.locate_unavailable",
+        "user.account.shipping_address.locate_unavailable",
         "Couldn't get your location. Please enter your address manually."
       );
     default:
       return L(
-        "user_account.shipping_address.locate_fail",
+        "user.account.shipping_address.locate_fail",
         "Unable to detect your address. Please enter it manually."
       );
   }

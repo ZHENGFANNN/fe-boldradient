@@ -224,7 +224,7 @@ export default function UserMenu({ isLogin }) {
                 >
                   <IconOrder className={styles.itemIcon} />
                   <span className={styles.itemLabel}>
-                    {t("user_account.my_order", "Orders")}
+                    {t("user.account.my_order", "Orders")}
                   </span>
                 </li>
               </ul>

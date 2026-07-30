@@ -43,7 +43,7 @@ function ReviewRate({ LANG, reviewScore, reviewsNum }) {
         ))}
       </div>
       <div className={styles.score}>
-        {`( ${LANG?.["store.index.reviews"]?.replace("${num}", reviewsNum) ?? reviewsNum} )`}
+        {`( ${LANG?.["home.reviews"]?.replace("${num}", reviewsNum) ?? reviewsNum} )`}
       </div>
     </div>
   );
@@ -147,7 +147,7 @@ function ProductCard({ product, LANG, pricingMap, pricingReady, discountMap }) {
           </div>
         ) : !areaInfo?.product_price ? (
           <div className={styles.product_stock_container}>
-            {LANG?.["store.index.no_stock"] ?? "Out of stock"}
+            {LANG?.["home.no_stock"] ?? "Out of stock"}
           </div>
         ) : autoDiscount && savedAmount > 0 ? (
           <div className={styles.product_price_container}>
@@ -336,7 +336,7 @@ export default function CategoryList({
           {tagList.length > 0 ? (
             <div className={styles.filter_group}>
               <div className={styles.filter_label}>
-                {t("store.product_category.tags", "Tags")}
+                {t("product.category.tags", "Tags")}
               </div>
               <div className={styles.filter_options}>
                 {tagList.map((tag) => (
@@ -357,7 +357,7 @@ export default function CategoryList({
           {/* 价格范围 */}
           <div className={styles.filter_group}>
             <div className={styles.filter_label}>
-              {t("store.product_category.price", "Price")}
+              {t("product.category.price", "Price")}
             </div>
             <div className={styles.price_range}>
               <input
@@ -365,7 +365,7 @@ export default function CategoryList({
                 inputMode="numeric"
                 min="0"
                 className={styles.price_input}
-                placeholder={t("store.product_category.min", "Min")}
+                placeholder={t("product.category.min", "Min")}
                 value={minPrice}
                 onChange={(e) => setMinPrice(e.target.value)}
               />
@@ -375,7 +375,7 @@ export default function CategoryList({
                 inputMode="numeric"
                 min="0"
                 className={styles.price_input}
-                placeholder={t("store.product_category.max", "Max")}
+                placeholder={t("product.category.max", "Max")}
                 value={maxPrice}
                 onChange={(e) => setMaxPrice(e.target.value)}
               />
@@ -388,7 +388,7 @@ export default function CategoryList({
               className={styles.clear_btn}
               onClick={clearFilters}
             >
-              {t("store.product_category.clear", "Clear all")}
+              {t("product.category.clear", "Clear all")}
             </button>
           ) : null}
         </div>
@@ -414,11 +414,11 @@ export default function CategoryList({
             ✦
           </div>
           <div className={styles.empty_title}>
-            {t("store.product_category.empty_title", "No products found")}
+            {t("product.category.empty_title", "No products found")}
           </div>
           <div className={styles.empty_desc}>
             {t(
-              "store.product_category.empty_desc",
+              "product.category.empty_desc",
               "Try adjusting or clearing your filters."
             )}
           </div>
@@ -428,7 +428,7 @@ export default function CategoryList({
               className={styles.empty_clear}
               onClick={clearFilters}
             >
-              {t("store.product_category.clear", "Clear all")}
+              {t("product.category.clear", "Clear all")}
             </button>
           ) : null}
         </div>
@@ -443,11 +443,11 @@ export default function CategoryList({
               className={styles.load_more_btn}
               onClick={() => setVisible((v) => v + PAGE_SIZE)}
             >
-              {t("store.product_category.load_more", "Load more")}
+              {t("product.category.load_more", "Load more")}
             </button>
           ) : pricingReady ? (
             <div className={styles.all_loaded}>
-              {t("store.product_category.all_loaded", "All products loaded")}
+              {t("product.category.all_loaded", "All products loaded")}
             </div>
           ) : null}
         </div>

@@ -17,9 +17,9 @@ async function getData({ locale }) {
     getRemoteLanguage({
       locale,
       nameSpace: [
-        "store.blog_index.view_all",
-        "store.blog_index.all",
-        "store.blog_index.title",
+        "blog.view_all",
+        "blog.all",
+        "blog.title",
       ],
     }),
     getRemoteConfig({ locale, nameSpace: ["common.base"] }),
@@ -45,7 +45,7 @@ export async function generateMetadata({ params }) {
     });
   });
 
-  const title = `${CONFIG["common.base"]?.company_name} ${LANG["store.blog_index.title"]}`;
+  const title = `${CONFIG["common.base"]?.company_name} ${LANG["blog.title"]}`;
   const description = blogSortList.map((item) => item.name).join(",");
 
   return {
@@ -84,7 +84,7 @@ function BlogArticleCard({ blogSort, locale, LANG }) {
             href={`/blog/${blogSort.key}`}
             className={styles.btn_text}
           >
-            {LANG["store.blog_index.view_all"]}
+            {LANG["blog.view_all"]}
           </Link>
         </div>
       ) : null}

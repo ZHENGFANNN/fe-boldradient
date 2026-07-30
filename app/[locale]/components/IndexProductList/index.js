@@ -82,7 +82,7 @@ function ReviewRate({ LANG, reviewScore, reviewsNum }) {
         <StarActiveIcon />
         <StarActiveIcon />
       </div>
-      <div className={styles.score}>{`( ${LANG["store.index.reviews"]?.replace(
+      <div className={styles.score}>{`( ${LANG["home.reviews"]?.replace(
         "${num}",
         reviewsNum
       )} )`}</div>
@@ -158,7 +158,7 @@ function ProductItem({ goodList, LANG, pricingMap, pricingReady, discountMap }) 
                 </div>
               ) : !areaInfo?.product_price ? (
                 <div className={styles.product_stock_container}>
-                  {LANG["store.index.no_stock"]}
+                  {LANG["home.no_stock"]}
                 </div>
               ) : (
                 <ProductCardPrice

@@ -29,7 +29,7 @@ export default function IssueModule() {
     <>
       <div className={styles.section_label}>
         {TL(
-          "user_account.after_sale.service_type",
+          "user.account.after_sale.service_type",
           "售后类型",
           "After-sales type"
         )}
@@ -51,7 +51,7 @@ export default function IssueModule() {
       </div>
 
       <div className={`${styles.section_label} ${styles.section_label_mt}`}>
-        {T(LANG, "user_account.after_sale.description", "Describe the issue")}
+        {T(LANG, "user.account.after_sale.description", "Describe the issue")}
         <i>*</i>
       </div>
       <textarea
@@ -62,7 +62,7 @@ export default function IssueModule() {
         onChange={(e) => setDescription(e.target.value)}
         placeholder={T(
           LANG,
-          "user_account.after_sale.description_ph",
+          "user.account.after_sale.description_ph",
           "Tell us what happened so we can help faster."
         )}
       />
@@ -76,7 +76,7 @@ export default function IssueModule() {
           onClick={confirmStep2}
           disabled={!step2Done}
         >
-          {T(LANG, "user_account.after_sale.next", "Next")}
+          {T(LANG, "user.account.after_sale.next", "Next")}
         </button>
       </div>
     </>

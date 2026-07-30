@@ -16,7 +16,7 @@ const CancelledBanner = React.memo(function CancelledBanner({ reason, LANG, T })
           <b>
             {T(
               LANG,
-              "user_account.after_sale.status.cancelled",
+              "user.account.after_sale.status.cancelled",
               "Service Cancelled"
             )}
           </b>

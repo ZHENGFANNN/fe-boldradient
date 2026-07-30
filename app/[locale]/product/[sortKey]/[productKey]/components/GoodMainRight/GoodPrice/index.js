@@ -36,7 +36,7 @@ export default function GoodPrice() {
     <>
     {hasAutoDiscount && savedAmount > 0 ? (
         <div className={styles.saved}>
-          {`${LANG?.["store.product.saved"] || "Saved"} ${symbol}${formatCurrency(
+          {`${LANG?.["product.saved"] || "Saved"} ${symbol}${formatCurrency(
             savedAmount,
             unit
           )}`}

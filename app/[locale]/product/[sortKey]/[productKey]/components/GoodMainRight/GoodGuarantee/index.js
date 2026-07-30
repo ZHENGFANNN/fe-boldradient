@@ -37,12 +37,12 @@ export default function GoodGuarantee() {
             <div className={styles.icon}>
               <TruckIcon
                 aria-label={
-                  LANG["store.product.service_agreement.delivery_terms"]
+                  LANG["product.service_agreement.delivery_terms"]
                 }
               />
             </div>
             <div className={styles.text}>
-              {LANG["store.product.service_agreement.delivery_terms"]}
+              {LANG["product.service_agreement.delivery_terms"]}
             </div>
           </div>
           <div className={styles.arrow_icon}></div>
@@ -58,12 +58,12 @@ export default function GoodGuarantee() {
             <div className={styles.icon}>
               <ShieldCheckIcon
                 aria-label={
-                  LANG["store.product.service_agreement.produc_guarantee"]
+                  LANG["product.service_agreement.produc_guarantee"]
                 }
               />
             </div>
             <div className={styles.text}>
-              {LANG["store.product.service_agreement.produc_guarantee"]}
+              {LANG["product.service_agreement.produc_guarantee"]}
             </div>
           </div>
           <div className={styles.arrow_icon}></div>
@@ -78,11 +78,11 @@ export default function GoodGuarantee() {
           <div className={styles.left_content}>
             <div className={styles.icon}>
               <ClipboardListIcon
-                aria-label={LANG["store.product.service_agreement.view_order"]}
+                aria-label={LANG["product.service_agreement.view_order"]}
               />
             </div>
             <div className={styles.text}>
-              {LANG["store.product.service_agreement.view_order"]}
+              {LANG["product.service_agreement.view_order"]}
             </div>
           </div>
           <div className={styles.arrow_icon}></div>
@@ -95,26 +95,26 @@ export default function GoodGuarantee() {
           showContactModal();
         }}
       >
-        <ProductEmailIcon aria-label={LANG["store.product.question_email"]} />
-        <div>{LANG["store.product.question_email"]}</div>
+        <ProductEmailIcon aria-label={LANG["product.question_email"]} />
+        <div>{LANG["product.question_email"]}</div>
       </div>
       <DeliveryTermsModal
         LANG={LANG}
         CONFIG={CONFIG}
         ref={DeliveryTermsModalRef}
-        title={LANG["store.product.service_agreement.delivery_terms"]}
+        title={LANG["product.service_agreement.delivery_terms"]}
       />
       <ProductGuarantee
         LANG={LANG}
         CONFIG={CONFIG}
         ref={ProductGuaranteeRef}
-        title={LANG["store.product.service_agreement.produc_guarantee"]}
+        title={LANG["product.service_agreement.produc_guarantee"]}
       />
       <ViewOrder
         LANG={LANG}
         CONFIG={CONFIG}
         ref={ViewOrderRef}
-        title={LANG["store.product.service_agreement.view_order"]}
+        title={LANG["product.service_agreement.view_order"]}
       />
     </div>
   );

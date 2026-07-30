@@ -50,7 +50,7 @@ export default function DeleteAccountModal({
     } catch {
       setErr(
         t(
-          "user_account.delete_account.send_fail",
+          "user.account.delete_account.send_fail",
           "Failed to send code. Please try again."
         )
       );
@@ -64,27 +64,27 @@ export default function DeleteAccountModal({
       switch (c) {
         case 10093:
           return t(
-            "user_account.delete_account.active_order",
+            "user.account.delete_account.active_order",
             "You have an order in progress and cannot delete your account yet."
           );
         case 10094:
           return t(
-            "user_account.delete_account.active_ticket",
+            "user.account.delete_account.active_ticket",
             "You have an after-sales request in progress and cannot delete your account yet."
           );
         case 10091:
           return t(
-            "user_account.delete_account.code_invalid",
+            "user.account.delete_account.code_invalid",
             "The code has expired. Please request a new one."
           );
         case 10092:
           return t(
-            "user_account.delete_account.code_mismatch",
+            "user.account.delete_account.code_mismatch",
             "Incorrect verification code."
           );
         default:
           return t(
-            "user_account.delete_account.fail",
+            "user.account.delete_account.fail",
             "Failed to submit. Please try again."
           );
       }
@@ -97,7 +97,7 @@ export default function DeleteAccountModal({
     if (!code.trim()) {
       setErr(
         t(
-          "user_account.delete_account.code_required",
+          "user.account.delete_account.code_required",
           "Please enter the verification code."
         )
       );
@@ -114,7 +114,7 @@ export default function DeleteAccountModal({
       setErr(errorByCode(res.code));
     } catch {
       setErr(
-        t("user_account.delete_account.fail", "Failed to submit. Please try again.")
+        t("user.account.delete_account.fail", "Failed to submit. Please try again.")
       );
     } finally {
       setSubmitting(false);
@@ -124,10 +124,10 @@ export default function DeleteAccountModal({
   return (
     <div className={`${styles.modal} ${open ? styles.show : ""}`}>
       <div className={styles.modal_content}>
-        <h2>{t("user_account.delete_account.title", "Delete account")}</h2>
+        <h2>{t("user.account.delete_account.title", "Delete account")}</h2>
         <p className={styles.warn}>
           {t(
-            "user_account.delete_account.desc",
+            "user.account.delete_account.desc",
             "Your account will be deactivated immediately and permanently deleted after a 15-day cooling-off period. Signing in again within this period cancels the deletion."
           )}
         </p>
@@ -138,14 +138,14 @@ export default function DeleteAccountModal({
           className={styles.agreement}
         >
           {t(
-            "user_account.delete_account.agreement",
+            "user.account.delete_account.agreement",
             "Account Deletion Agreement"
           )}
         </Link>
 
         <div className={styles.form_item}>
           <label>
-            {t("user_account.delete_account.code_label", "Email verification code")}
+            {t("user.account.delete_account.code_label", "Email verification code")}
           </label>
           <div className={styles.code_row}>
             <input
@@ -158,7 +158,7 @@ export default function DeleteAccountModal({
               spellCheck={false}
               value={code}
               onChange={(e) => setCode(e.target.value.replace(/\D/g, ""))}
-              placeholder={t("user_account.delete_account.code_ph", "6-digit code")}
+              placeholder={t("user.account.delete_account.code_ph", "6-digit code")}
             />
             <Button
               variant="secondary"
@@ -170,7 +170,7 @@ export default function DeleteAccountModal({
             >
               {cooldown > 0
                 ? `${cooldown}s`
-                : t("user_account.delete_account.send_code", "Send code")}
+                : t("user.account.delete_account.send_code", "Send code")}
             </Button>
           </div>
           {err ? <p className={styles.err}>{err}</p> : null}
@@ -182,7 +182,7 @@ export default function DeleteAccountModal({
             className={styles.action_btn}
             onClick={close}
           >
-            {LANG["user_account.account_info.close"]}
+            {LANG["user.account.account_info.close"]}
           </Button>
           <Button
             variant="primary"
@@ -190,7 +190,7 @@ export default function DeleteAccountModal({
             loading={submitting}
             onClick={handleConfirm}
           >
-            {t("user_account.delete_account.confirm", "Delete account")}
+            {t("user.account.delete_account.confirm", "Delete account")}
           </Button>
         </div>
       </div>

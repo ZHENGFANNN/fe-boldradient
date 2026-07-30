@@ -52,7 +52,7 @@ const PRIVACY_ARTICLE_PATH = "/article/legal/after-sales-privacy";
 const localeHref = (path, locale) =>
   locale && locale !== defaultLocale ? `/${locale}${path}` : path;
 
-// 文案兜底：语言包暂未配置 user_account.after_sale.* 时用英文兜底
+// 文案兜底：语言包暂未配置 user.account.after_sale.* 时用英文兜底
 const T = (LANG, key, fallback) => LANG?.[key] || fallback;
 
 // 登录守卫已上移到全局 <AuthBoundary>（受保护路由 /support/after-sales 统一接管），
@@ -83,26 +83,26 @@ function WizardBody({ LANG, locale }) {
 
   const typeLabelMap = React.useMemo(
     () => ({
-      refund: T(LANG, "user_account.after_sale.type.refund", "Refund"),
+      refund: T(LANG, "user.account.after_sale.type.refund", "Refund"),
       return_refund: T(
         LANG,
-        "user_account.after_sale.type.return_refund",
+        "user.account.after_sale.type.return_refund",
         "Return & Refund"
       ),
-      repair: T(LANG, "user_account.after_sale.type.repair", "Repair"),
-      exchange: T(LANG, "user_account.after_sale.type.exchange", "Exchange"),
+      repair: T(LANG, "user.account.after_sale.type.repair", "Repair"),
+      exchange: T(LANG, "user.account.after_sale.type.exchange", "Exchange"),
     }),
     [LANG]
   );
 
   const orderNoLabel = T(
     LANG,
-    "user_account.my_order.order_number",
+    "user.account.my_order.order_number",
     "Order No."
   );
-  const searchPh = TL("user_account.after_sale.search_ph", "搜索…", "Search…");
+  const searchPh = TL("user.account.after_sale.search_ph", "搜索…", "Search…");
   const noMatch = TL(
-    "user_account.after_sale.no_match",
+    "user.account.after_sale.no_match",
     "无匹配结果",
     "No matches"
   );
@@ -243,28 +243,28 @@ function WizardMain() {
   const unlocked3 = activeStep >= 3;
 
   const purchaseDateLabel = TL(
-    "user_account.after_sale.purchase_time",
+    "user.account.after_sale.purchase_time",
     "购买日期",
     "Purchase date"
   );
   const purchaseChannelLabel = TL(
-    "user_account.after_sale.purchase_channel",
+    "user.account.after_sale.purchase_channel",
     "购买渠道",
     "Purchase channel"
   );
   const issueTypeLabel = TL(
-    "user_account.after_sale.service_type_label",
+    "user.account.after_sale.service_type_label",
     "服务类型",
     "Service type"
   );
   const issueDescLabel = TL(
-    "user_account.after_sale.description_label",
+    "user.account.after_sale.description_label",
     "问题描述",
     "Issue description"
   );
 
   const productNameLabel = TL(
-    "user_account.after_sale.product_name",
+    "user.account.after_sale.product_name",
     "产品名称",
     "Product name"
   );
@@ -298,14 +298,14 @@ function WizardMain() {
       />
     ) : null;
 
-  const editLabel = TL("user_account.after_sale.edit", "编辑", "Edit");
+  const editLabel = TL("user.account.after_sale.edit", "编辑", "Edit");
 
   return (
     <div className={styles.wizard}>
       <h1 className="header">
         {T(
           LANG,
-          "user_account.after_sale.create",
+          "user.account.after_sale.create",
           locale?.startsWith("zh") ? "售后服务" : "After-Sales Service"
         )}
       </h1>
@@ -314,12 +314,12 @@ function WizardMain() {
         <StepBlock
           step={1}
           title={TL(
-            "user_account.after_sale.step1_title",
+            "user.account.after_sale.step1_title",
             "产品信息",
             "Product information"
           )}
           subtitle={TL(
-            "user_account.after_sale.step1_subtitle",
+            "user.account.after_sale.step1_subtitle",
             "选择需要申请售后的订单或产品型号",
             "Select the order or product model you need help with"
           )}
@@ -335,12 +335,12 @@ function WizardMain() {
         <StepBlock
           step={2}
           title={TL(
-            "user_account.after_sale.step2_title",
+            "user.account.after_sale.step2_title",
             "问题描述",
             "Issue description"
           )}
           subtitle={TL(
-            "user_account.after_sale.step2_subtitle",
+            "user.account.after_sale.step2_subtitle",
             "请告诉我们,您的设备遇到了什么问题",
             "Tell us what happened with your device"
           )}
@@ -357,12 +357,12 @@ function WizardMain() {
         <StepBlock
           step={3}
           title={TL(
-            "user_account.after_sale.step3_title",
+            "user.account.after_sale.step3_title",
             "联系方式",
             "Contact information"
           )}
           subtitle={TL(
-            "user_account.after_sale.step3_subtitle",
+            "user.account.after_sale.step3_subtitle",
             "填写您的联系方式以便我们与您沟通",
             "Fill in your contact information so we can reach you"
           )}

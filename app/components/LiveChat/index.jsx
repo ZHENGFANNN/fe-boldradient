@@ -344,7 +344,7 @@ function ChevronIcon({ open }) {
 }
 
 export default function LiveChat({ locale, area, LANG }) {
-  // UI 文案统一走公共多语言：从共享 LANG 的 store.chat.* 重建 copy（含英文兜底）
+  // UI 文案统一走公共多语言：从共享 LANG 的 common.chat.* 重建 copy（含英文兜底）
   const copy = React.useMemo(() => buildChatCopy(LANG), [LANG]);
   // 轻量 toast：上传超限/失败等给用户可见反馈（复用全站 ShowTipModal，portal 到 body）
   const tipRef = React.useRef(null);

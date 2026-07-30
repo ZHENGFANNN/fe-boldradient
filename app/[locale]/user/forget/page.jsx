@@ -7,7 +7,7 @@ import ForgetForm from "./components/ForgetForm";
 
 async function getData({ locale }) {
   const [LANG, CONFIG] = await Promise.all([
-    getRemoteLanguage({ locale, nameSpace: ["user_forget"] }),
+    getRemoteLanguage({ locale, nameSpace: ["user.forget"] }),
     getRemoteConfig({ locale, nameSpace: ["common.base"] })
   ]);
   return { LANG, CONFIG };
@@ -19,9 +19,9 @@ export async function generateMetadata({ params }) {
     locale
   });
   return {
-    title: `${CONFIG["common.base"]?.company_name} - ${LANG["user_forget.title"]}`,
-    description: LANG["user_forget.description"],
-    keywords: LANG["user_forget.keywords"]
+    title: `${CONFIG["common.base"]?.company_name} - ${LANG["user.forget.title"]}`,
+    description: LANG["user.forget.description"],
+    keywords: LANG["user.forget.keywords"]
   };
 }
 
@@ -34,7 +34,7 @@ export default async function Forget({ params }) {
     <div className={styles.container}>
       <main className={styles.main}>
         <h1 className={styles.title}>
-          {LANG["user_forget.retrieve_password"]}
+          {LANG["user.forget.retrieve_password"]}
         </h1>
         <ForgetForm LANG={LANG} />
       </main>

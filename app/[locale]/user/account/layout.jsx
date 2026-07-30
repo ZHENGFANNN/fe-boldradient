@@ -7,7 +7,7 @@ import styles from "./page.module.scss";
 async function getData({ locale }) {
   const LANG = await getRemoteLanguage({
     locale,
-    nameSpace: ["user_account"],
+    nameSpace: ["user.account"],
   });
   return { LANG };
 }

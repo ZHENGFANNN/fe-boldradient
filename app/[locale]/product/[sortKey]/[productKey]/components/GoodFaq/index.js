@@ -44,7 +44,7 @@ export default function GoodFaq() {
   return (
     <section className={styles.faq} id="product_faq">
       <div className={styles.faq_container}>
-        <h2>{LANG["store.product.faq"]}</h2>
+        <h2>{LANG["product.faq"]}</h2>
         <div className={styles.content_list}>
           <nav className={styles.nav}>
             {/* 导航栏列表 */}

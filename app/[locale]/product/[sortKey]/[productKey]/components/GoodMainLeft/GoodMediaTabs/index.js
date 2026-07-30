@@ -34,13 +34,13 @@ export default function SelectList() {
       ) {
         list.push({
           type: "image",
-          text: LANG["store.product.image"],
+          text: LANG["product.image"],
         });
       }
       if (productInfo.video_url) {
         list.push({
           type: "video",
-          text: LANG["store.product.product_introduce"],
+          text: LANG["product.product_introduce"],
         });
       }
       if (productInfo.three_d) {

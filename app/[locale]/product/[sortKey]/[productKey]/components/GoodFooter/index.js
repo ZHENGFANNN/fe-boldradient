@@ -151,7 +151,7 @@ export default function GoodFooter() {
                 {autoDiscount &&
                 savedUnitAmount(productCurCombo.areaInfo, autoDiscount) > 0 ? (
                   <div className={styles.save_price}>
-                    {`${LANG?.["store.product.saved"] || "Saved"} ${
+                    {`${LANG?.["product.saved"] || "Saved"} ${
                       productCurCombo.areaInfo.currency_symbol
                     }${formatCurrency(
                       savedUnitAmount(productCurCombo.areaInfo, autoDiscount) *
@@ -176,12 +176,12 @@ export default function GoodFooter() {
                 }}
                 className={`${styles.footer_button}`}
               >
-                {LANG["store.product.buy"]}
+                {LANG["product.buy"]}
               </div>
             </>
           ) : (
             <div className={`${styles.footer_button} ${styles.disabled}`}>
-              {LANG["store.product.no_stock"]}
+              {LANG["product.no_stock"]}
             </div>
           )}
         </div>

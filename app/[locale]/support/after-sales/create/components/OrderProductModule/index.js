@@ -97,11 +97,11 @@ export default function OrderProductModule() {
     () => [
       {
         value: "order",
-        label: T(LANG, "user_account.after_sale.method.order", "Order"),
+        label: T(LANG, "user.account.after_sale.method.order", "Order"),
       },
       {
         value: "product",
-        label: T(LANG, "user_account.after_sale.method.product", "Product"),
+        label: T(LANG, "user.account.after_sale.method.product", "Product"),
       },
     ],
     [T, LANG]
@@ -120,7 +120,7 @@ export default function OrderProductModule() {
           <Loading height={160} />
         ) : orders.length < 1 ? (
           <div className={styles.empty}>
-            {T(LANG, "user_account.after_sale.no_orders", "No orders found.")}
+            {T(LANG, "user.account.after_sale.no_orders", "No orders found.")}
           </div>
         ) : (
           <SearchSelect
@@ -132,7 +132,7 @@ export default function OrderProductModule() {
               setSelectedRowIndex(Number(ri));
             }}
             placeholder={TL(
-              "user_account.after_sale.order_ph",
+              "user.account.after_sale.order_ph",
               "选择订单商品",
               "Select an order item"
             )}
@@ -148,7 +148,7 @@ export default function OrderProductModule() {
             <div className={styles.empty}>
               {T(
                 LANG,
-                "user_account.after_sale.no_products",
+                "user.account.after_sale.no_products",
                 "No products found."
               )}
             </div>
@@ -158,7 +158,7 @@ export default function OrderProductModule() {
               value={selectedProductKey}
               onChange={(v) => setSelectedProductKey(v)}
               placeholder={TL(
-                "user_account.after_sale.product_ph",
+                "user.account.after_sale.product_ph",
                 "选择产品型号",
                 "Select a product model"
               )}
@@ -179,7 +179,7 @@ export default function OrderProductModule() {
             onClick={confirmStep1}
             disabled={!step1Done}
           >
-            {T(LANG, "user_account.after_sale.next", "Next")}
+            {T(LANG, "user.account.after_sale.next", "Next")}
           </button>
         </div>
       )}

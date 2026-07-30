@@ -22,7 +22,7 @@ async function getData({ locale, sortKey }) {
   const [LANG, blog] = await Promise.all([
     getRemoteLanguage({
       locale,
-      nameSpace: ["store.blog_index.all", "store.blog_index.title"],
+      nameSpace: ["blog.all", "blog.title"],
     }),
     getBlogCategory({ locale, sortKey }),
   ]);

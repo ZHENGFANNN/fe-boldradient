@@ -68,14 +68,14 @@ export default function LoginModule({
           <br />
           <span className={styles.agree}>
             <span>
-              {T(LANG, "user_login.countinue_agree", "By continuing, you agree to our")}
+              {T(LANG, "user.login.countinue_agree", "By continuing, you agree to our")}
             </span>
             <Link scroll={true} href="/article/legal/privacy-policy">
-              {T(LANG, "user_login.privacy_policy", "Privacy Policy")}
+              {T(LANG, "user.login.privacy_policy", "Privacy Policy")}
             </Link>
-            <span>{T(LANG, "user_login.and", "and")}</span>
+            <span>{T(LANG, "user.login.and", "and")}</span>
             <Link scroll={true} href="/article/legal/user-agreement">
-              {T(LANG, "user_login.user_service", "User Agreement")}
+              {T(LANG, "user.login.user_service", "User Agreement")}
             </Link>
           </span>
         </p>
@@ -86,7 +86,7 @@ export default function LoginModule({
           redirectTo={selfUrl}
           label={T(
             LANG,
-            "user_account.login_guard.google_continue",
+            "user.account.login_guard.google_continue",
             "Continue with Google"
           )}
         />
@@ -95,7 +95,7 @@ export default function LoginModule({
       <div className={styles.divider}>
         <span className={styles.divider_line} />
         <span className={styles.divider_text}>
-          {T(LANG, "user_account.login_guard.or", "OR")}
+          {T(LANG, "user.account.login_guard.or", "OR")}
         </span>
         <span className={styles.divider_line} />
       </div>
@@ -110,7 +110,7 @@ export default function LoginModule({
           className={styles.entry_button}
           onClick={handleActive}
         >
-          {T(LANG, "user_account.login_guard.login", "Log in")}
+          {T(LANG, "user.account.login_guard.login", "Log in")}
         </Button>
         {showRegister ? (
           <Button
@@ -119,7 +119,7 @@ export default function LoginModule({
             className={styles.entry_button}
             onClick={handleActive}
           >
-            {T(LANG, "user_account.login_guard.register", "Register")}
+            {T(LANG, "user.account.login_guard.register", "Register")}
           </Button>
         ) : null}
       </div>

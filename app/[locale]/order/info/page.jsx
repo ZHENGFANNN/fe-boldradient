@@ -15,11 +15,11 @@ export async function generateMetadata({ params }) {
   const { locale } = await params;
   const { LANG, CONFIG } = await getData({
     locale,
-    languageNameSpace: ["store.order_info.order_info"],
+    languageNameSpace: ["order.info.order_info"],
     configNameSpace: ["common.base"]
   });
   return {
-    title: `${LANG["store.order_info.order_info"]} - ${CONFIG["common.base"]?.company_name}`
+    title: `${LANG["order.info.order_info"]} - ${CONFIG["common.base"]?.company_name}`
   };
 }
 
@@ -30,9 +30,9 @@ async function OrderInfoContent({ locale, searchParams }) {
   const { LANG, CONFIG } = await getData({
     locale,
     languageNameSpace: [
-      "store.order_info",
+      "order.info",
       "common.pay",
-      "user_account.login_guard"
+      "user.account.login_guard"
     ],
     configNameSpace: ["common.base"]
   });

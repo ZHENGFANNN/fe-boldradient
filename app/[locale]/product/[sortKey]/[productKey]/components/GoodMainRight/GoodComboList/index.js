@@ -26,7 +26,7 @@ export default function GoodComboList() {
   if (!Array.isArray(comboList) || comboList.length < 1) return null;
   return (
     <div className={styles.container}>
-      <h2>{LANG["store.product.combo"]}</h2>
+      <h2>{LANG["product.combo"]}</h2>
       <div data-role="productCombo">
         {comboList.map((item) => {
           return (
@@ -47,7 +47,7 @@ export default function GoodComboList() {
                   {/* 提示 */}
                   {!item.areaInfo?.product_price || !item.areaInfo?.stock ? (
                     <div className={styles.stock_tip}>
-                      {LANG["store.product.no_stock"]}
+                      {LANG["product.no_stock"]}
                     </div>
                   ) : null}
 

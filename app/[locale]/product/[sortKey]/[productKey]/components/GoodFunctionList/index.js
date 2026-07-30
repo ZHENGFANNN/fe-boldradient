@@ -31,7 +31,7 @@ export default function GoodFunctionList() {
   return (
     <section className={`${styles.function}`} id="productfunction">
       <div className={styles.function_container}>
-        <h2>{LANG["store.product.features"]}</h2>
+        <h2>{LANG["product.features"]}</h2>
         {/* 图文功能 */}
         {mainFunction.length > 0 ? (
           <ul className={styles.function_images}>

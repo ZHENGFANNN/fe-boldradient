@@ -240,7 +240,7 @@ export default function Main({ CONFIG, LANG, area, token }) {
           const message =
             typeof res.data === "string"
               ? res.data
-              : LANG["store.order.discount_code_invalid"] ||
+              : LANG["order.discount_code_invalid"] ||
                 "Invalid discount code";
           throw new Error(message);
         }
@@ -354,7 +354,7 @@ export default function Main({ CONFIG, LANG, area, token }) {
     if (discountCodes.includes(code)) {
       showTip({
         text:
-          LANG["store.order.discount_code_applied"] ||
+          LANG["order.discount_code_applied"] ||
           "Discount code already applied",
         type: "info",
       });
@@ -375,7 +375,7 @@ export default function Main({ CONFIG, LANG, area, token }) {
       setDiscountCodeInput("");
     } catch (err) {
       showTip({
-        text: err?.message || LANG["store.order.discount_code_invalid"],
+        text: err?.message || LANG["order.discount_code_invalid"],
         type: "error",
       });
     }
@@ -563,7 +563,7 @@ export default function Main({ CONFIG, LANG, area, token }) {
       }}
     >
       <div className={styles.container}>
-        <h1>{LANG["store.order.confirm_order"] || "Confirm Order"}</h1>
+        <h1>{LANG["order.confirm_order"] || "Confirm Order"}</h1>
         <div className={styles.content_container}>
           <div className={styles.submit_container}>
             <div className={styles.user_container}>
@@ -598,7 +598,7 @@ export default function Main({ CONFIG, LANG, area, token }) {
                       />
                     ) : (
                       <div className={styles.address_login_tip}>
-                        {LANG["store.order.address_login_tip"] ||
+                        {LANG["order.address_login_tip"] ||
                           "Please sign in to add your shipping address"}
                       </div>
                     )
@@ -639,7 +639,7 @@ export default function Main({ CONFIG, LANG, area, token }) {
             </div>
           </div>
           <div className={styles.order_container}>
-            <h2>{LANG["store.order.order_info"]}</h2>
+            <h2>{LANG["order.order_info"]}</h2>
             {subtotalPrice ? (
               <>
                 <div className={styles.order_list}>
@@ -717,14 +717,14 @@ export default function Main({ CONFIG, LANG, area, token }) {
                 </div>
                 <div className={styles.discount_code_container}>
                   <h3>
-                    {LANG["store.order.discount_code"] || "Discount code"}
+                    {LANG["order.discount_code"] || "Discount code"}
                   </h3>
                   <div className={styles.discount_code_input_row}>
                     <input
                       type="text"
                       value={discountCodeInput}
                       placeholder={
-                        LANG["store.order.discount_code_placeholder"] ||
+                        LANG["order.discount_code_placeholder"] ||
                         "Enter code"
                       }
                       onChange={(e) => setDiscountCodeInput(e.target.value)}
@@ -741,7 +741,7 @@ export default function Main({ CONFIG, LANG, area, token }) {
                       disabled={previewLoading || !discountCodeInput.trim()}
                       onClick={handleApplyDiscountCode}
                     >
-                      {LANG["store.order.discount_code_apply"] || "Apply"}
+                      {LANG["order.discount_code_apply"] || "Apply"}
                     </button>
                   </div>
                   {discountCodes.length ? (
@@ -752,7 +752,7 @@ export default function Main({ CONFIG, LANG, area, token }) {
                           <button
                             type="button"
                             aria-label={
-                              LANG["store.order.discount_code_remove"] ||
+                              LANG["order.discount_code_remove"] ||
                               "Remove"
                             }
                             onClick={() => handleRemoveDiscountCode(code)}
@@ -775,7 +775,7 @@ export default function Main({ CONFIG, LANG, area, token }) {
                   }`}
                 >
                   <div className={styles.price_item}>
-                    <h3>{LANG["store.order.good_total"]}</h3>
+                    <h3>{LANG["order.good_total"]}</h3>
                     <span>{`${priceSymbol}${formatCurrency(
                       orderPricing.total_price,
                       priceUnit
@@ -798,9 +798,9 @@ export default function Main({ CONFIG, LANG, area, token }) {
                               {rule.code ||
                                 rule.title ||
                                 (rule.method === "automatic"
-                                  ? LANG["store.order.automatic_discount"] ||
+                                  ? LANG["order.automatic_discount"] ||
                                     "Promotion"
-                                  : LANG["store.order.discount_amount"] ||
+                                  : LANG["order.discount_amount"] ||
                                     "Discount")}
                             </h3>
                             <span className={styles.discount_value}>{`-${priceSymbol}${formatCurrency(
@@ -813,7 +813,7 @@ export default function Main({ CONFIG, LANG, area, token }) {
                   ) : orderPricing.discount > 0 ? (
                     <div className={styles.price_item}>
                       <h3>
-                        {LANG["store.order.discount_amount"] || "Discount"}
+                        {LANG["order.discount_amount"] || "Discount"}
                       </h3>
                       <span className={styles.discount_value}>{`-${priceSymbol}${formatCurrency(
                         orderPricing.discount,
@@ -822,7 +822,7 @@ export default function Main({ CONFIG, LANG, area, token }) {
                     </div>
                   ) : null}
                   <div className={styles.price_item}>
-                    <h3>{LANG["store.order.express_price"]}</h3>
+                    <h3>{LANG["order.express_price"]}</h3>
                     <span>
                       {orderPricing.shipping_fee > 0 ? (
                         // 始终展示原运费；运费折扣（free_shipping code）由下方独立折扣行体现，
@@ -832,14 +832,14 @@ export default function Main({ CONFIG, LANG, area, token }) {
                           priceUnit
                         )}`
                       ) : (
-                        LANG["store.order.express_free"]
+                        LANG["order.express_free"]
                       )}
                     </span>
                   </div>
                   {orderPricing.shipping_discount > 0 ? (
                     <div className={styles.price_item}>
                       <h3>
-                        {LANG["store.order.shipping_discount"] ||
+                        {LANG["order.shipping_discount"] ||
                           "Shipping discount"}
                       </h3>
                       <span className={styles.discount_value}>{`-${priceSymbol}${formatCurrency(
@@ -849,8 +849,8 @@ export default function Main({ CONFIG, LANG, area, token }) {
                     </div>
                   ) : null}
                   <div className={styles.price_item}>
-                    <h3>{LANG["store.order.tax"]}</h3>
-                    <span>{LANG["store.order.tax_include"] || "Included"}</span>
+                    <h3>{LANG["order.tax"]}</h3>
+                    <span>{LANG["order.tax_include"] || "Included"}</span>
                   </div>
                 </div>
                 <div
@@ -858,7 +858,7 @@ export default function Main({ CONFIG, LANG, area, token }) {
                     previewLoading ? ` ${styles.price_refreshing}` : ""
                   }`}
                 >
-                  <h3>{LANG["store.order.total_price"]}</h3>
+                  <h3>{LANG["order.total_price"]}</h3>
                   <span>
                     {`${priceSymbol}${formatCurrency(
                       orderPricing.pay_price,
@@ -874,7 +874,7 @@ export default function Main({ CONFIG, LANG, area, token }) {
               className={styles.sales_content}
               dangerouslySetInnerHTML={{
                 __html:
-                  LANG["store.order.order_policy"]
+                  LANG["order.order_policy"]
                     ?.split("${1}")
                     .join(CONFIG["common.base"]?.company_name || "") || "",
               }}
@@ -904,7 +904,7 @@ export default function Main({ CONFIG, LANG, area, token }) {
                       if (res.code === 0) {
                         trackingInitiateCheckout();
                         showTip({
-                          text: LANG["store.order.create_success"],
+                          text: LANG["order.create_success"],
                           type: "success",
                         });
                         // 保存订单号
@@ -931,7 +931,7 @@ export default function Main({ CONFIG, LANG, area, token }) {
                     }
                   }}
                 >
-                  {LANG["store.order.submit_order"] || "Submit Order"}
+                  {LANG["order.submit_order"] || "Submit Order"}
                 </div>
               </>
             ) : null}

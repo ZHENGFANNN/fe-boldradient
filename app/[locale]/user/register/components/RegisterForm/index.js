@@ -43,29 +43,29 @@ export default function RegisterForm({ LANG }) {
   const errText = (res) => {
     switch (res?.code) {
       case 10002:
-        return LANG["user_register.email_registered"];
+        return LANG["user.register.email_registered"];
       case 10070:
         return (
-          LANG["user_register.code_cooldown"] ||
+          LANG["user.register.code_cooldown"] ||
           "Please wait a moment before requesting another code"
         );
       case 10071:
       case 10072:
         return (
-          LANG["user_register.code_send_fail"] ||
+          LANG["user.register.code_send_fail"] ||
           "Failed to send the verification code, please try again later"
         );
       case 10073:
         return (
-          LANG["user_register.code_invalid"] ||
+          LANG["user.register.code_invalid"] ||
           "The verification code is invalid or has expired"
         );
       case 10074:
         return (
-          LANG["user_register.code_incorrect"] || "Incorrect verification code"
+          LANG["user.register.code_incorrect"] || "Incorrect verification code"
         );
       default:
-        return res?.message || LANG["user_register.tip_service_exception"];
+        return res?.message || LANG["user.register.tip_service_exception"];
     }
   };
 
@@ -75,7 +75,7 @@ export default function RegisterForm({ LANG }) {
     const email = (getValues("email") || "").trim();
     if (!email || !isEmail.test(email)) {
       tipRef.current.show({
-        text: LANG["user_register.email_format"],
+        text: LANG["user.register.email_format"],
         type: "error",
       });
       return;
@@ -87,7 +87,7 @@ export default function RegisterForm({ LANG }) {
         setCountdown(60);
         tipRef.current.show({
           text:
-            LANG["user_register.code_sent"] ||
+            LANG["user.register.code_sent"] ||
             "Verification code sent to your email",
           type: "success",
         });
@@ -99,7 +99,7 @@ export default function RegisterForm({ LANG }) {
       }
     } catch {
       tipRef.current.show({
-        text: LANG["user_register.tip_service_exception"],
+        text: LANG["user.register.tip_service_exception"],
         type: "error",
       });
     } finally {
@@ -118,7 +118,7 @@ export default function RegisterForm({ LANG }) {
       });
       if (res.code === 0) {
         tipRef.current.show({
-          text: LANG["user_register.register_success"],
+          text: LANG["user.register.register_success"],
           type: "success",
         });
         reset();
@@ -144,7 +144,7 @@ export default function RegisterForm({ LANG }) {
       setLoading(false);
 
       tipRef.current.show({
-        text: LANG["user_register.tip_service_exception"],
+        text: LANG["user.register.tip_service_exception"],
         type: "error",
       });
     }
@@ -154,19 +154,19 @@ export default function RegisterForm({ LANG }) {
     countdown > 0
       ? `${countdown}s`
       : sending
-      ? LANG["user_register.code_sending"] || "Sending…"
-      : LANG["user_register.send_code"] || "Send code";
+      ? LANG["user.register.code_sending"] || "Sending…"
+      : LANG["user.register.send_code"] || "Send code";
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className={styles.form_item + " " + styles["mb-16"]}>
-        <h2>{LANG["user_register.email"]}</h2>
+        <h2>{LANG["user.register.email"]}</h2>
         <input
           {...register("email", {
-            required: LANG["user_register.email_empyt"],
+            required: LANG["user.register.email_empyt"],
             pattern: {
               value: isEmail,
-              message: LANG["user_register.email_format"],
+              message: LANG["user.register.email_format"],
             },
           })}
           autoComplete="off"
@@ -174,30 +174,30 @@ export default function RegisterForm({ LANG }) {
         <p>{errors.email?.message}</p>
       </div>
       <div className={styles.form_item + " " + styles["mb-16"]}>
-        <h2>{LANG["user_register.password"]}</h2>
+        <h2>{LANG["user.register.password"]}</h2>
         <input
           type="password"
           {...register("password", {
-            required: LANG["user_register.password_empyt"],
+            required: LANG["user.register.password_empyt"],
             minLength: {
               value: 8,
-              message: LANG["user_register.password_format"],
+              message: LANG["user.register.password_format"],
             },
             maxLength: {
               value: 20,
-              message: LANG["user_register.password_format"],
+              message: LANG["user.register.password_format"],
             },
           })}
         />
         <p>{errors.password?.message}</p>
       </div>
       <div className={styles.form_item}>
-        <h2>{LANG["user_register.code"] || "Verification code"}</h2>
+        <h2>{LANG["user.register.code"] || "Verification code"}</h2>
         <div className={styles.code_row}>
           <input
             {...register("code", {
               required:
-                LANG["user_register.code_empty"] ||
+                LANG["user.register.code_empty"] ||
                 "Please enter the verification code",
             })}
             autoComplete="off"
@@ -218,7 +218,7 @@ export default function RegisterForm({ LANG }) {
         <p>{errors.code?.message}</p>
       </div>
       <button disabled={loading} type="submit" className={styles.button}>
-        {LANG["user_register.submit"]}
+        {LANG["user.register.submit"]}
       </button>
       <ShowTipModal ref={tipRef} />
     </form>

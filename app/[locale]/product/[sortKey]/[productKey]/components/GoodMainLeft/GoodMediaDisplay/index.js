@@ -399,7 +399,7 @@ export default function GoodMediaDisplay() {
                     <div className={styles.loader3d}>
                       <span className={styles.loaderRing} aria-hidden="true" />
                       <span className={styles.loaderText}>
-                        {LANG["store.product.3d_loading"] || "Loading 3D model"}
+                        {LANG["product.3d_loading"] || "Loading 3D model"}
                       </span>
                       <span className={styles.loaderBar}>
                         <span

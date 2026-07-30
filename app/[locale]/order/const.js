@@ -50,7 +50,7 @@ function baseList({ LANG }) {
     {
       title:
         LANG["common.pay.pay_info.pay_list.cod"] ||
-        LANG["store.order.pay_info.cod"] ||
+        LANG["order.pay_info.cod"] ||
         "Cash on Delivery",
       description: LANG["common.pay.pay_info.pay_list.cod_detail"] || "",
       key: "cod",
@@ -59,7 +59,7 @@ function baseList({ LANG }) {
     {
       title:
         LANG["common.pay.pay_info.pay_list.bank"] ||
-        LANG["store.order.pay_info.transfer"] ||
+        LANG["order.pay_info.transfer"] ||
         "Bank Transfer",
       description: LANG["common.pay.pay_info.pay_list.bank_detail"] || "",
       key: "bank",

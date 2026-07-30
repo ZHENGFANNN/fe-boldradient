@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import ResultState from "@/components/ResultState";
 import { defaultLocale } from "@/config/languageSettings";
 
-// 文案兜底：语言包暂未配置 user_account.after_sale.* 时用英文兜底
+// 文案兜底：语言包暂未配置 user.account.after_sale.* 时用英文兜底
 const T = (LANG, key, fallback) => LANG?.[key] || fallback;
 
 // 默认语言不带前缀，其它语言带 /{locale}（与 middleware buildLocalizedPath 约定一致）
@@ -23,7 +23,7 @@ export default function SubmitSuccess({ LANG, locale, serviceNo }) {
   if (serviceNo) {
     actions.push({
       key: "view",
-      label: T(LANG, "user_account.after_sale.view_ticket", "View ticket"),
+      label: T(LANG, "user.account.after_sale.view_ticket", "View ticket"),
       variant: "primary",
       onClick: () =>
         router.push(
@@ -33,7 +33,7 @@ export default function SubmitSuccess({ LANG, locale, serviceNo }) {
   }
   actions.push({
     key: "back",
-    label: T(LANG, "user_account.after_sale.back_to_list", "Back to list"),
+    label: T(LANG, "user.account.after_sale.back_to_list", "Back to list"),
     variant: "ghost",
     onClick: () =>
       router.push(localeHref("/support/after-sales/progress", locale)),
@@ -44,12 +44,12 @@ export default function SubmitSuccess({ LANG, locale, serviceNo }) {
       status="success"
       title={T(
         LANG,
-        "user_account.after_sale.submit_success_title",
+        "user.account.after_sale.submit_success_title",
         "Submitted successfully"
       )}
       description={T(
         LANG,
-        "user_account.after_sale.submit_success_desc",
+        "user.account.after_sale.submit_success_desc",
         "Our customer service team will handle your request as soon as possible."
       )}
       actions={actions}

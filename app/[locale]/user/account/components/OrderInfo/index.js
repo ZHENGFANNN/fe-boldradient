@@ -26,15 +26,15 @@ export default function OrderInfo({ LANG, locale }) {
   const orderStatus = React.useMemo(() => {
     return {
       pending_payment:
-        LANG["user_account.my_order.await_pay"] || "Pending payment",
-      paid: LANG["user_account.my_order.await_deliver"] || "To be delivered",
-      shipped: LANG["user_account.my_order.delivered"] || "Shipped",
-      delivered: LANG["user_account.my_order.received"] || "Delivered",
-      completed: LANG["user_account.my_order.finished"] || "Completed",
-      cancelled: LANG["user_account.my_order.cancelled"] || "Cancelled",
-      refunding: LANG["user_account.my_order.refunding"] || "Refunding",
-      refunded: LANG["user_account.my_order.refunded"] || "Refunded",
-      closed: LANG["user_account.my_order.closed"] || "Closed",
+        LANG["user.account.my_order.await_pay"] || "Pending payment",
+      paid: LANG["user.account.my_order.await_deliver"] || "To be delivered",
+      shipped: LANG["user.account.my_order.delivered"] || "Shipped",
+      delivered: LANG["user.account.my_order.received"] || "Delivered",
+      completed: LANG["user.account.my_order.finished"] || "Completed",
+      cancelled: LANG["user.account.my_order.cancelled"] || "Cancelled",
+      refunding: LANG["user.account.my_order.refunding"] || "Refunding",
+      refunded: LANG["user.account.my_order.refunded"] || "Refunded",
+      closed: LANG["user.account.my_order.closed"] || "Closed",
     };
   }, [LANG]);
 
@@ -99,14 +99,14 @@ export default function OrderInfo({ LANG, locale }) {
   return (
     <div className={styles.container}>
       <div className={styles.title_container}>
-        <div>{LANG["user_account.my_order"]}</div>
+        <div>{LANG["user.account.my_order"]}</div>
       </div>
 
       {list.length < 1 ? (
         <Empyt
           LANG={LANG}
           buttonProps={{
-            text: LANG["user_account.my_order.go_to_buy"],
+            text: LANG["user.account.my_order.go_to_buy"],
             href: "/",
           }}
         />
@@ -177,9 +177,9 @@ export default function OrderInfo({ LANG, locale }) {
                   </span>
                   <span className={styles.view_detail}>
                     {orderItem.order_status === "pending_payment"
-                      ? LANG["user_account.my_order.insta_pay"]
-                      : LANG["user_account.my_order.view_detail"] ||
-                        LANG["store.order_info.order_info"] ||
+                      ? LANG["user.account.my_order.insta_pay"]
+                      : LANG["user.account.my_order.view_detail"] ||
+                        LANG["order.info.order_info"] ||
                         "View details"}
                     <svg
                       width="14"

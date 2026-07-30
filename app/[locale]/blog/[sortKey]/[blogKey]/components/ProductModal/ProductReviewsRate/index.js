@@ -42,7 +42,7 @@ export default function GoodReviewsRate({ reviewNum, reviewScore, LANG }) {
         <StarActiveIcon />
       </div>
       <div className={styles.reviews_text}>{`( ${LANG[
-        "store.product.reviews"
+        "product.reviews"
       ]?.replace("${num}", number)} )`}</div>
     </div>
   );

@@ -57,7 +57,7 @@ export default function ReviewCard({
     }
   }, [createdTime, locale, area]);
 
-  const userName = email || LANG["store.product.anonymous"] || "Anonymous";
+  const userName = email || LANG["product.anonymous"] || "Anonymous";
   const mediaList = Array.isArray(media)
     ? media.filter((m) => m && m.url)
     : [];
@@ -81,7 +81,7 @@ export default function ReviewCard({
         {sellerReply ? (
           <div className={styles.reply}>
             <span className={styles.reply_label}>
-              {LANG["store.product.seller_reply"] || "Seller reply"}
+              {LANG["product.seller_reply"] || "Seller reply"}
             </span>
             <span className={styles.reply_text}>{sellerReply}</span>
           </div>

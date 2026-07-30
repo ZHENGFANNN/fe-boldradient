@@ -143,9 +143,9 @@ export default function GoodReviewsContent() {
         setReviewOrders(data.orders);
       } else {
         const reasonKey = {
-          already_reviewed: "store.product.review_already",
-          not_completed: "store.product.review_not_completed",
-          not_purchased: "store.product.review_not_purchased",
+          already_reviewed: "product.review_already",
+          not_completed: "product.review_not_completed",
+          not_purchased: "product.review_not_purchased",
         }[data.reason || "not_purchased"];
         const fallback = {
           already_reviewed: "You've already reviewed this item.",
@@ -208,12 +208,12 @@ export default function GoodReviewsContent() {
 
   const starOptions = React.useMemo(
     () => [
-      { label: LANG["store.product.all"] || "All", value: "all" },
-      { label: LANG["store.product.stars"]?.replace("${num}", 5), value: "5" },
-      { label: LANG["store.product.stars"]?.replace("${num}", 4), value: "4" },
-      { label: LANG["store.product.stars"]?.replace("${num}", 3), value: "3" },
-      { label: LANG["store.product.stars"]?.replace("${num}", 2), value: "2" },
-      { label: LANG["store.product.stars"]?.replace("${num}", 1), value: "1" },
+      { label: LANG["product.all"] || "All", value: "all" },
+      { label: LANG["product.stars"]?.replace("${num}", 5), value: "5" },
+      { label: LANG["product.stars"]?.replace("${num}", 4), value: "4" },
+      { label: LANG["product.stars"]?.replace("${num}", 3), value: "3" },
+      { label: LANG["product.stars"]?.replace("${num}", 2), value: "2" },
+      { label: LANG["product.stars"]?.replace("${num}", 1), value: "1" },
     ],
     [LANG]
   );
@@ -319,7 +319,7 @@ export default function GoodReviewsContent() {
                   className={styles.summary_stars}
                 />
                 <div className={styles.reviews_text}>
-                  {LANG["store.product.reviews"]?.replace(
+                  {LANG["product.reviews"]?.replace(
                     "${num}",
                     summary.total
                   )}
@@ -341,7 +341,7 @@ export default function GoodReviewsContent() {
                       >
                         <StarActiveIcon />
                         <span className={styles.star_label}>
-                          {LANG["store.product.stars"]?.replace("${num}", star)}
+                          {LANG["product.stars"]?.replace("${num}", star)}
                         </span>
                         <div className={styles.line_container}>
                           <div className={styles.un_active_line} />
@@ -362,7 +362,7 @@ export default function GoodReviewsContent() {
             <div className={styles.review_bottom}>
               <div className={styles.reviews_header}>
                 <div className={styles.reviews_header_num}>
-                  {LANG["store.product.reviews"]?.replace(
+                  {LANG["product.reviews"]?.replace(
                     "${num}",
                     filteredCards.length
                   )}
@@ -370,7 +370,7 @@ export default function GoodReviewsContent() {
                 <div className={styles.reviews_header_actions}>
                   <div className={styles.reviews_header_select}>
                     <span className={styles.select_tip}>
-                      {LANG["store.product.filter"] || "Filter by:"}
+                      {LANG["product.filter"] || "Filter by:"}
                     </span>
                     <DropSelect
                       zIndex={9}
@@ -390,7 +390,7 @@ export default function GoodReviewsContent() {
                     disabled={resolving}
                     onClick={handleWriteClick}
                   >
-                    {LANG["store.product.write_review"] || "Write a Review"}
+                    {LANG["product.write_review"] || "Write a Review"}
                   </button>
                 </div>
               </div>

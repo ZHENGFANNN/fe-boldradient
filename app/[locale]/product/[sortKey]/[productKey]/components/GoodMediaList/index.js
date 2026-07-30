@@ -45,7 +45,7 @@ export default function GoodMediaList() {
             <MediaImage
               key={index}
               imageInfo={item}
-              productName={`${name}_${LANG["store.product.features"]}`}
+              productName={`${name}_${LANG["product.features"]}`}
             />
           );
         } else if (item.type === "html") {

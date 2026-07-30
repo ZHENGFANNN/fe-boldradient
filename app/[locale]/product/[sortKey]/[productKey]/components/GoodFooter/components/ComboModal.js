@@ -16,7 +16,7 @@ function ComboModal(_, ref) {
   React.useImperativeHandle(ref, () => {
     return {
       show: () => {
-        modalRef.current.show({ title: LANG["store.product.combo"] });
+        modalRef.current.show({ title: LANG["product.combo"] });
       },
     };
   });

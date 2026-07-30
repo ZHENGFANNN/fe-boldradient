@@ -61,7 +61,7 @@ export default function SingleFieldEditModal({
               spellCheck={false}
               {...register("field", {
                 required: required
-                  ? requiredMessage || LANG["user_account.account_info.nickname_require"]
+                  ? requiredMessage || LANG["user.account.account_info.nickname_require"]
                   : false,
                 pattern,
               })}
@@ -77,10 +77,10 @@ export default function SingleFieldEditModal({
                 onClose?.();
               }}
             >
-              {LANG["user_account.account_info.close"]}
+              {LANG["user.account.account_info.close"]}
             </Button>
             <Button type="submit" variant="primary" className={styles.action_btn}>
-              {LANG["user_account.account_info.confirm"]}
+              {LANG["user.account.account_info.confirm"]}
             </Button>
           </div>
         </form>

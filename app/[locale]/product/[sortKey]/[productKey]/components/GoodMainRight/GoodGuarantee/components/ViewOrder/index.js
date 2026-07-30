@@ -16,7 +16,7 @@ function ViewOrder({ title, LANG }, ref) {
   return (
     <Modal ref={ModalRef}>
       <div className={styles.container}>
-        {LANG["store.product.service_agreement.view_order_detail"]}
+        {LANG["product.service_agreement.view_order_detail"]}
       </div>
     </Modal>
   );

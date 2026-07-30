@@ -83,7 +83,7 @@ export default function AddressFormModal({
   const handleParseError = () => {
     tipRef.current?.show({
       text:
-        LANG["user_account.shipping_address.parse_fail"] ||
+        LANG["user.account.shipping_address.parse_fail"] ||
         "Couldn't parse the address. Please enter it manually.",
       type: "error",
     });
@@ -138,7 +138,7 @@ export default function AddressFormModal({
     if (areaMap?.area_code === "us" && !values.state) {
       tipRef.current?.show({
         text:
-          LANG["user_account.shipping_address.state_required"] ||
+          LANG["user.account.shipping_address.state_required"] ||
           "Please select a state",
         type: "error",
       });
@@ -160,9 +160,9 @@ export default function AddressFormModal({
         onFinish?.();
         tipRef.current.show({
           text: isEdit
-            ? LANG["user_account.shipping_address.updated_success"] ||
-              LANG["user_account.shipping_address.created_success"]
-            : LANG["user_account.shipping_address.created_success"],
+            ? LANG["user.account.shipping_address.updated_success"] ||
+              LANG["user.account.shipping_address.created_success"]
+            : LANG["user.account.shipping_address.created_success"],
           type: "success",
         });
         closeModal();
@@ -171,7 +171,7 @@ export default function AddressFormModal({
       }
     } catch (err) {
       tipRef.current.show({
-        text: LANG["user_account.shipping_address.craeted_fail"],
+        text: LANG["user.account.shipping_address.craeted_fail"],
         type: "error",
       });
     } finally {
@@ -180,9 +180,9 @@ export default function AddressFormModal({
   };
 
   const modalTitle = isEdit
-    ? LANG["user_account.shipping_address.edit_address"] ||
-      LANG["user_account.shipping_address.create_address"]
-    : LANG["user_account.shipping_address.create_address"];
+    ? LANG["user.account.shipping_address.edit_address"] ||
+      LANG["user.account.shipping_address.create_address"]
+    : LANG["user.account.shipping_address.create_address"];
 
   return (
     <div className={styles.container}>
@@ -193,7 +193,7 @@ export default function AddressFormModal({
             size="small"
             onClick={() => setInternalShow(true)}
           >
-            {LANG["user_account.shipping_address.create_address"]}
+            {LANG["user.account.shipping_address.create_address"]}
           </Button>
         </div>
       ) : null}
@@ -226,7 +226,7 @@ export default function AddressFormModal({
                 inputProps={{
                   ...register("area", {
                     required:
-                      LANG["user_account.shipping_address.area_required"],
+                      LANG["user.account.shipping_address.area_required"],
                   }),
                 }}
               />
@@ -234,14 +234,14 @@ export default function AddressFormModal({
             {areaMap?.area_code === "us" ? (
               <div className={styles.form_item}>
                 <FormSelect
-                  label={LANG["user_account.shipping_address.state"] || "State"}
+                  label={LANG["user.account.shipping_address.state"] || "State"}
                   options={US_STATE_OPTIONS}
                   error={errors.state?.message}
                   defaultValue={stateDefault}
                   inputProps={{
                     ...register("state", {
                       required:
-                        LANG["user_account.shipping_address.state_required"] ||
+                        LANG["user.account.shipping_address.state_required"] ||
                         "Please select a state",
                     }),
                   }}
@@ -252,26 +252,26 @@ export default function AddressFormModal({
             <div className={styles.form_group_1_1}>
               <div className={styles.form_item}>
                 <Input
-                  label={LANG["user_account.shipping_address.first_name"]}
+                  label={LANG["user.account.shipping_address.first_name"]}
                   error={errors.first_name?.message}
                   inputProps={{
                     maxLength: 15,
                     ...register("first_name", {
                       required:
-                        LANG["user_account.shipping_address.first_name_require"],
+                        LANG["user.account.shipping_address.first_name_require"],
                     }),
                   }}
                 />
               </div>
               <div className={styles.form_item}>
                 <Input
-                  label={LANG["user_account.shipping_address.last_name"]}
+                  label={LANG["user.account.shipping_address.last_name"]}
                   error={errors.last_name?.message}
                   inputProps={{
                     maxLength: 15,
                     ...register("last_name", {
                       required:
-                        LANG["user_account.shipping_address.last_name_require"],
+                        LANG["user.account.shipping_address.last_name_require"],
                     }),
                   }}
                 />
@@ -282,16 +282,16 @@ export default function AddressFormModal({
                 <div className={`${styles.form_item} ${styles.form_item_1}`}>
                   <Input
                     error={errors.short_phone?.message}
-                    label={LANG["user_account.shipping_address.area_code"]}
+                    label={LANG["user.account.shipping_address.area_code"]}
                     inputProps={{
                       maxLength: 5,
                       ...register("short_phone", {
                         required:
-                          LANG["user_account.shipping_address.code_require"],
+                          LANG["user.account.shipping_address.code_require"],
                         pattern: {
                           value: ISPHONEOBERVER,
                           message:
-                            LANG["user_account.shipping_address.incorrect_ode"] ||
+                            LANG["user.account.shipping_address.incorrect_ode"] ||
                             LANG["common.pay.pay_info.incorrect_code"],
                         },
                       }),
@@ -302,19 +302,19 @@ export default function AddressFormModal({
               <div className={`${styles.form_item} ${styles.form_item_2}`}>
                 <Input
                   error={errors.phone?.message}
-                  label={LANG["user_account.shipping_address.phone"]}
+                  label={LANG["user.account.shipping_address.phone"]}
                   inputProps={{
                     maxLength: 11,
                     ...register("phone", {
                       required:
-                        LANG["user_account.shipping_address.phone_require"],
+                        LANG["user.account.shipping_address.phone_require"],
                       pattern: {
                         value:
                           areaMap?.area_code === "cn"
                             ? ISPHONE
                             : ISPHONEOBERVER,
                         message:
-                          LANG["user_account.shipping_address.incorrect_phone"],
+                          LANG["user.account.shipping_address.incorrect_phone"],
                       },
                     }),
                   }}
@@ -324,12 +324,12 @@ export default function AddressFormModal({
             <div className={styles.form_item}>
               <Input
                 error={errors.zip_code?.message}
-                label={LANG["user_account.shipping_address.zip_code"]}
+                label={LANG["user.account.shipping_address.zip_code"]}
                 inputProps={{
                   maxLength: 20,
                   ...register("zip_code", {
                     required:
-                      LANG["user_account.shipping_address.zip_code_required"],
+                      LANG["user.account.shipping_address.zip_code_required"],
                   }),
                 }}
               />
@@ -338,7 +338,7 @@ export default function AddressFormModal({
               {apiAutocomplete && apiDetail ? (
                 <AddressAutocomplete
                   error={errors.address1?.message}
-                  label={LANG["user_account.shipping_address.address"]}
+                  label={LANG["user.account.shipping_address.address"]}
                   apiAutocomplete={apiAutocomplete}
                   apiDetail={apiDetail}
                   language={locale}
@@ -352,19 +352,19 @@ export default function AddressFormModal({
                     maxLength: 500,
                     ...register("address1", {
                       required:
-                        LANG["user_account.shipping_address.address_require"],
+                        LANG["user.account.shipping_address.address_require"],
                     }),
                   }}
                 />
               ) : (
                 <Input
                   error={errors.address1?.message}
-                  label={LANG["user_account.shipping_address.address"]}
+                  label={LANG["user.account.shipping_address.address"]}
                   inputProps={{
                     maxLength: 500,
                     ...register("address1", {
                       required:
-                        LANG["user_account.shipping_address.address_require"],
+                        LANG["user.account.shipping_address.address_require"],
                     }),
                   }}
                 />
@@ -375,7 +375,7 @@ export default function AddressFormModal({
                 error={errors.address2?.message}
                 required={false}
                 label={
-                  LANG["user_account.shipping_address.detail_address"] ||
+                  LANG["user.account.shipping_address.detail_address"] ||
                   LANG["common.pay.pay_info.detail_address"]
                 }
                 inputProps={{
@@ -391,7 +391,7 @@ export default function AddressFormModal({
                 className={styles.action_btn}
                 onClick={closeModal}
               >
-                {LANG["user_account.shipping_address.close"]}
+                {LANG["user.account.shipping_address.close"]}
               </Button>
               <Button
                 type="submit"
@@ -399,7 +399,7 @@ export default function AddressFormModal({
                 className={styles.action_btn}
                 loading={loading}
               >
-                {LANG["user_account.shipping_address.confirm"]}
+                {LANG["user.account.shipping_address.confirm"]}
               </Button>
             </div>
           </form>

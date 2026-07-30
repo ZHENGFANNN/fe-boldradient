@@ -5,7 +5,7 @@ import styles from "../../page.module.scss";
 import AfterSaleInfo from "@/[locale]/user/account/components/AfterSaleInfo";
 import SegmentTabs from "@/components/SegmentTabs";
 
-// 文案兜底：语言包暂未配置 user_account.after_sale.* 时用英文兜底；
+// 文案兜底：语言包暂未配置 user.account.after_sale.* 时用英文兜底；
 // 语言维度兜底走 zh/en 分流。
 const T = (LANG, key, fallback) => LANG?.[key] || fallback;
 const TL = (LANG, key, zh, en, locale) =>
@@ -29,7 +29,7 @@ export default function ProgressClient({ LANG, locale }) {
         value: tab.key,
         label: TL(
           LANG,
-          `user_account.after_sale.filter.${tab.key}`,
+          `user.account.after_sale.filter.${tab.key}`,
           tab.zh,
           tab.en,
           locale
@@ -44,7 +44,7 @@ export default function ProgressClient({ LANG, locale }) {
         <h1 className="header">
           {T(
             LANG,
-            "user_account.after_sale.progress_page_title",
+            "user.account.after_sale.progress_page_title",
             locale?.startsWith("zh")
               ? "跟踪售后服务"
               : "Track After-Sales Service"

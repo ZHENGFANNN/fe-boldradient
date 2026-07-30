@@ -61,18 +61,18 @@ export function formatRejectedCodeMessage(rejected, LANG = {}) {
   const code = rejected?.code || "";
   const reason = Number(rejected?.reason);
   const keyByReason = {
-    [DISCOUNT_REJECT_REASON.INVALID]: "store.order.discount_reject_invalid",
-    [DISCOUNT_REJECT_REASON.EXPIRED]: "store.order.discount_reject_expired",
+    [DISCOUNT_REJECT_REASON.INVALID]: "order.discount_reject_invalid",
+    [DISCOUNT_REJECT_REASON.EXPIRED]: "order.discount_reject_expired",
     [DISCOUNT_REJECT_REASON.NOT_APPLICABLE]:
-      "store.order.discount_reject_not_applicable",
+      "order.discount_reject_not_applicable",
     [DISCOUNT_REJECT_REASON.NOT_COMBINABLE]:
-      "store.order.discount_reject_not_combinable",
+      "order.discount_reject_not_combinable",
     [DISCOUNT_REJECT_REASON.UNSUPPORTED]:
-      "store.order.discount_reject_unsupported",
+      "order.discount_reject_unsupported",
     [DISCOUNT_REJECT_REASON.USAGE_LIMIT]:
-      "store.order.discount_reject_usage_limit",
+      "order.discount_reject_usage_limit",
     [DISCOUNT_REJECT_REASON.PER_USER_LIMIT]:
-      "store.order.discount_reject_per_user_limit",
+      "order.discount_reject_per_user_limit",
   };
   const fallbackByReason = {
     [DISCOUNT_REJECT_REASON.INVALID]: '"${code}" is not a valid code',

@@ -29,14 +29,14 @@ export async function generateStaticParams() {
 }
 
 // 多语言/页面配置改走独立按命名空间接口（后端整形+TTL 缓存，前端开箱即用）：
-//   - LANG    ← /config/getLanguageByNamespace（store.index / common.nav / store.product_category）
+//   - LANG    ← /config/getLanguageByNamespace（home / common.nav / product.category）
 //   - CONFIG  ← /config/getPageConfigByNamespace（common.base）
 // 分类商品走 getCategoryProducts（自带 product:list tag），不读 cookie，保持本路由可静态化（ISR）。
 async function getData({ locale, sortKey }) {
   const [LANG, CONFIG, category, categories] = await Promise.all([
     getRemoteLanguage({
       locale,
-      nameSpace: ["store.index", "common.nav", "store.product_category"]
+      nameSpace: ["home", "common.nav", "product.category"]
     }),
     getRemoteConfig({ locale, nameSpace: ["common.base"] }),
     getCategoryProducts({ locale, sortKey }),

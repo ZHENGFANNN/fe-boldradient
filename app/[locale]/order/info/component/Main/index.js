@@ -154,7 +154,7 @@ export default function Main({ secret, locale, area, LANG, CONFIG }) {
       const email = emailInput.trim();
       if (!email) {
         setEmailErr(
-          LANG["store.order_info.email_gate_required"] ||
+          LANG["order.info.email_gate_required"] ||
             "Please enter your email"
         );
         return;
@@ -174,7 +174,7 @@ export default function Main({ secret, locale, area, LANG, CONFIG }) {
         return;
       }
       setEmailErr(
-        LANG["store.order_info.email_gate_error"] ||
+        LANG["order.info.email_gate_error"] ||
           "This email does not match the order. Please try again."
       );
     },
@@ -183,31 +183,31 @@ export default function Main({ secret, locale, area, LANG, CONFIG }) {
 
   const payMap = React.useMemo(() => {
     return {
-      wechat: LANG["store.order_info.wechat"],
-      zhifubao: LANG["store.order_info.zhifubao"],
-      bank: LANG["store.order_info.transfer"],
-      creditCard: LANG["store.order_info.credit_card"],
-      payPal: LANG["store.order_info.paypal"],
+      wechat: LANG["order.info.wechat"],
+      zhifubao: LANG["order.info.zhifubao"],
+      bank: LANG["order.info.transfer"],
+      creditCard: LANG["order.info.credit_card"],
+      payPal: LANG["order.info.paypal"],
       // 与 checkout PayList / My Orders 一致：Stripe 不显示为 Credit Card
       stripe:
         LANG["common.pay.pay_info.pay_list.stripe_detail"]?.split(" ")[0] ||
         "Stripe",
-      cod: LANG["store.order_info.pay_after_arrival"],
+      cod: LANG["order.info.pay_after_arrival"],
     };
   }, [LANG]);
 
   const orderStatus = React.useMemo(() => {
     return {
       pending_payment:
-        LANG["store.order_info.await_pay"] || "Pending payment",
-      paid: LANG["store.order_info.await_deliver"] || "To be delivered",
-      shipped: LANG["store.order_info.delivered"] || "Shipped",
-      delivered: LANG["store.order_info.received"] || "Delivered",
-      completed: LANG["store.order_info.finished"] || "Completed",
-      cancelled: LANG["store.order_info.cancelled"] || "Cancelled",
-      refunding: LANG["store.order_info.refunding"] || "Refunding",
-      refunded: LANG["store.order_info.refunded"] || "Refunded",
-      closed: LANG["store.order_info.closed"] || "Closed",
+        LANG["order.info.await_pay"] || "Pending payment",
+      paid: LANG["order.info.await_deliver"] || "To be delivered",
+      shipped: LANG["order.info.delivered"] || "Shipped",
+      delivered: LANG["order.info.received"] || "Delivered",
+      completed: LANG["order.info.finished"] || "Completed",
+      cancelled: LANG["order.info.cancelled"] || "Cancelled",
+      refunding: LANG["order.info.refunding"] || "Refunding",
+      refunded: LANG["order.info.refunded"] || "Refunded",
+      closed: LANG["order.info.closed"] || "Closed",
     };
   }, [LANG]);
 
@@ -275,7 +275,7 @@ export default function Main({ secret, locale, area, LANG, CONFIG }) {
         if (res.code === 2105) {
           showTip({
             text:
-              LANG["store.order_info.already_paid"] ||
+              LANG["order.info.already_paid"] ||
               "This order has already been paid",
             type: "success",
           });
@@ -285,7 +285,7 @@ export default function Main({ secret, locale, area, LANG, CONFIG }) {
         throw new Error("repay failed");
       }
     } catch {
-      showTip({ text: LANG["store.order_info.pay_error"], type: "error" });
+      showTip({ text: LANG["order.info.pay_error"], type: "error" });
     } finally {
       setRepayLoading(false);
     }
@@ -299,14 +299,14 @@ export default function Main({ secret, locale, area, LANG, CONFIG }) {
       const res = await Api.cancelOrder({ secret });
       if (res.code === 0) {
         showTip({
-          text: LANG["store.order_info.cancel_success"] || "Order cancelled",
+          text: LANG["order.info.cancel_success"] || "Order cancelled",
           type: "success",
         });
         setTimeout(() => window.location.reload(), 1000);
       } else if (res.code === 2105) {
         showTip({
           text:
-            LANG["store.order_info.already_paid"] ||
+            LANG["order.info.already_paid"] ||
             "This order has already been paid",
           type: "success",
         });
@@ -316,7 +316,7 @@ export default function Main({ secret, locale, area, LANG, CONFIG }) {
       }
     } catch {
       showTip({
-        text: LANG["store.order_info.cancel_fail"] || "Failed to cancel order",
+        text: LANG["order.info.cancel_fail"] || "Failed to cancel order",
         type: "error",
       });
     } finally {
@@ -428,14 +428,14 @@ export default function Main({ secret, locale, area, LANG, CONFIG }) {
             <circle cx="12" cy="15" r="1.4" fill="currentColor" />
           </svg>
           <h2>
-            {LANG["store.order_info.forbidden_title"] || "Access denied"}
+            {LANG["order.info.forbidden_title"] || "Access denied"}
           </h2>
           <p className={styles.gate_desc}>
-            {LANG["store.order_info.forbidden_desc"] ||
+            {LANG["order.info.forbidden_desc"] ||
               "This order isn't associated with your account. Please sign in with the account used to place it."}
           </p>
           <button type="button" onClick={() => router.push("/")}>
-            {LANG["store.order_info.back_home"] || "Back to home"}
+            {LANG["order.info.back_home"] || "Back to home"}
           </button>
         </div>
       ) : gate === "email" ? (
@@ -471,10 +471,10 @@ export default function Main({ secret, locale, area, LANG, CONFIG }) {
             />
           </svg>
           <h2>
-            {LANG["store.order_info.email_gate_title"] || "Verify your email"}
+            {LANG["order.info.email_gate_title"] || "Verify your email"}
           </h2>
           <p className={styles.gate_desc}>
-            {LANG["store.order_info.email_gate_desc"] ||
+            {LANG["order.info.email_gate_desc"] ||
               "For your security, please enter the email you used to place this order to view its details."}
           </p>
           <form onSubmit={handleEmailSubmit}>
@@ -483,7 +483,7 @@ export default function Main({ secret, locale, area, LANG, CONFIG }) {
               value={emailInput}
               onChange={(e) => setEmailInput(e.target.value)}
               placeholder={
-                LANG["store.order_info.email_gate_placeholder"] ||
+                LANG["order.info.email_gate_placeholder"] ||
                 "Enter your order email"
               }
               autoComplete="email"
@@ -494,7 +494,7 @@ export default function Main({ secret, locale, area, LANG, CONFIG }) {
             <button type="submit" disabled={emailSubmitting}>
               {emailSubmitting
                 ? "..."
-                : LANG["store.order_info.email_gate_submit"] || "View order"}
+                : LANG["order.info.email_gate_submit"] || "View order"}
             </button>
           </form>
         </div>
@@ -505,11 +505,11 @@ export default function Main({ secret, locale, area, LANG, CONFIG }) {
       ) : (
         <>
           <div className={styles.order_container}>
-            <h3>{LANG["store.order_info.order_info"]}</h3>
+            <h3>{LANG["order.info.order_info"]}</h3>
             <div
               className={styles.order_description}
               dangerouslySetInnerHTML={{
-                __html: LANG["store.order_info.contact_us"]
+                __html: LANG["order.info.contact_us"]
                   ?.split("${1}")
                   .join(`/support/contact`),
               }}
@@ -520,12 +520,12 @@ export default function Main({ secret, locale, area, LANG, CONFIG }) {
                 onClick={() => {
                   showTip({
                     type: "success",
-                    text: LANG["store.order_info.copy_success"],
+                    text: LANG["order.info.copy_success"],
                   });
                   copyText(window.location.href);
                 }}
               >
-                {LANG["store.order_info.copy_order"]}
+                {LANG["order.info.copy_order"]}
               </div>
             </div>
             {payNoticeMessage ? (
@@ -537,16 +537,16 @@ export default function Main({ secret, locale, area, LANG, CONFIG }) {
               </div>
             ) : null}
             <ul className={styles.order_list}>
-              <h2>{LANG["store.order_info.order_info"]}</h2>
+              <h2>{LANG["order.info.order_info"]}</h2>
               <li>
                 <h3 className={styles.flex_2}>
-                  {LANG["store.order_info.order_number"]}
+                  {LANG["order.info.order_number"]}
                 </h3>
                 <p className={styles.flex_3}>{order.order_number}</p>
               </li>
               <li>
                 <h3 className={styles.flex_2}>
-                  {LANG["store.order_info.order_time"]}
+                  {LANG["order.info.order_time"]}
                 </h3>
                 <p className={styles.flex_3}>
                   {fmtDateTime(order.order_time)}
@@ -555,7 +555,7 @@ export default function Main({ secret, locale, area, LANG, CONFIG }) {
               {order.pay_time ? (
                 <li>
                   <h3 className={styles.flex_2}>
-                    {LANG["store.order_info.pay_time"]}
+                    {LANG["order.info.pay_time"]}
                   </h3>
                   <p className={styles.flex_3}>
                     {fmtDateTime(order.pay_time)}
@@ -566,7 +566,7 @@ export default function Main({ secret, locale, area, LANG, CONFIG }) {
               {order.deliver_time ? (
                 <li>
                   <h3 className={styles.flex_2}>
-                    {LANG["store.order_info.deliver_time"]}
+                    {LANG["order.info.deliver_time"]}
                   </h3>
                   <p className={styles.flex_3}>
                     {fmtDateTime(order.deliver_time)}
@@ -577,7 +577,7 @@ export default function Main({ secret, locale, area, LANG, CONFIG }) {
               {order.finish_time ? (
                 <li>
                   <h3 className={styles.flex_2}>
-                    {LANG["store.order_info.finish_time"]}
+                    {LANG["order.info.finish_time"]}
                   </h3>
                   <p className={styles.flex_3}>
                     {fmtDateTime(order.finish_time)}
@@ -587,7 +587,7 @@ export default function Main({ secret, locale, area, LANG, CONFIG }) {
 
               <li>
                 <h3 className={styles.flex_2}>
-                  {LANG["store.order_info.order_status"]}
+                  {LANG["order.info.order_status"]}
                 </h3>
                 <p className={styles.flex_3}>
                   <span className={orderStatusColor[order.order_status] || ""}>
@@ -597,13 +597,13 @@ export default function Main({ secret, locale, area, LANG, CONFIG }) {
               </li>
               <li>
                 <h3 className={styles.flex_2}>
-                  {LANG["store.order_info.pay_way"]}
+                  {LANG["order.info.pay_way"]}
                 </h3>
                 <p className={styles.flex_3}>{payMap[order.pay_key]}</p>
               </li>
               <li>
                 <h3 className={styles.flex_2}>
-                  {LANG["store.order_info.order_total"]}
+                  {LANG["order.info.order_total"]}
                 </h3>
                 <p className={styles.flex_3}>{`${
                   order.order_list[0].priceSymbol
@@ -637,11 +637,11 @@ export default function Main({ secret, locale, area, LANG, CONFIG }) {
                 const discountLabel = (d) =>
                   d.code ||
                   d.title ||
-                  LANG["store.order_info.discount_price"] ||
+                  LANG["order.info.discount_price"] ||
                   "Discount";
                 const shippingLabel =
-                  LANG["store.order_info.express_price"] ||
-                  LANG["store.order.express_price"] ||
+                  LANG["order.info.express_price"] ||
+                  LANG["order.express_price"] ||
                   "Shipping";
 
                 // 有逐项明细：每个折扣（含运费折扣）单独成行，运费折扣紧跟运费展示。
@@ -669,7 +669,7 @@ export default function Main({ secret, locale, area, LANG, CONFIG }) {
                       {shipDiscounts.map((d, i) => (
                         <li key={`ship-${i}`}>
                           <h3 className={styles.flex_2}>
-                            {LANG["store.order_info.shipping_discount"] ||
+                            {LANG["order.info.shipping_discount"] ||
                               "Shipping discount"}
                           </h3>
                           <p className={styles.flex_3}>
@@ -682,7 +682,7 @@ export default function Main({ secret, locale, area, LANG, CONFIG }) {
                       {order.pay_price ? (
                         <li>
                           <h3 className={styles.flex_2}>
-                            {LANG["store.order_info.pay_price"]}
+                            {LANG["order.info.pay_price"]}
                           </h3>
                           <p className={styles.flex_3}>
                             {money(order.pay_price)}
@@ -700,7 +700,7 @@ export default function Main({ secret, locale, area, LANG, CONFIG }) {
                       <>
                         <li>
                           <h3 className={styles.flex_2}>
-                            {LANG["store.order_info.discount_price"]}
+                            {LANG["order.info.discount_price"]}
                           </h3>
                           <p className={styles.flex_3}>
                             <span className={styles.red}>{`- ${money(
@@ -710,7 +710,7 @@ export default function Main({ secret, locale, area, LANG, CONFIG }) {
                         </li>
                         <li>
                           <h3 className={styles.flex_2}>
-                            {LANG["store.order_info.real_price"]}
+                            {LANG["order.info.real_price"]}
                           </h3>
                           <p className={styles.flex_3}>
                             {money(
@@ -731,7 +731,7 @@ export default function Main({ secret, locale, area, LANG, CONFIG }) {
                     {order.pay_price ? (
                       <li>
                         <h3 className={styles.flex_2}>
-                          {LANG["store.order_info.pay_price"]}
+                          {LANG["order.info.pay_price"]}
                         </h3>
                         <p className={styles.flex_3}>
                           {money(order.pay_price)}
@@ -745,7 +745,7 @@ export default function Main({ secret, locale, area, LANG, CONFIG }) {
               {order.express_link ? (
                 <li>
                   <h3 className={styles.flex_2}>
-                    {LANG["store.order_info.express_link"]}
+                    {LANG["order.info.express_link"]}
                   </h3>
                   <a
                     target="_blank"
@@ -758,13 +758,13 @@ export default function Main({ secret, locale, area, LANG, CONFIG }) {
               {order.user_remark ? (
                 <li>
                   <h3 className={styles.flex_2}>
-                    {LANG["store.order_info.order_remark"]}
+                    {LANG["order.info.order_remark"]}
                   </h3>
                   <p className={styles.flex_3}>{`${order.user_remark}`}</p>
                 </li>
               ) : null}
 
-              <h2>{LANG["store.order_info.good_info"]}</h2>
+              <h2>{LANG["order.info.good_info"]}</h2>
               <div className={styles.good_list}>
                 {order.order_list.map((goodItem, goodIndex) => {
                   return (
@@ -844,7 +844,7 @@ export default function Main({ secret, locale, area, LANG, CONFIG }) {
 
               {order.first_name && order.address1 ? (
                 <div className={styles.user_info}>
-                  <h2>{LANG["store.order_info.user_info"]}</h2>
+                  <h2>{LANG["order.info.user_info"]}</h2>
                   <li>
                     <p>{`${order.first_name} ${order.last_name}`}</p>
                   </li>
@@ -875,14 +875,14 @@ export default function Main({ secret, locale, area, LANG, CONFIG }) {
                     onError={(error) => {
                       console.log(error);
                       showTip({
-                        text: LANG["store.order_info.pay_error"],
+                        text: LANG["order.info.pay_error"],
                         type: "error",
                       });
                     }}
                     onCancel={(data) => {
                       if (data.orderID) {
                         showTip({
-                          text: LANG["store.order_info.pay_cancel"],
+                          text: LANG["order.info.pay_cancel"],
                           type: "error",
                         });
                       }
@@ -909,7 +909,7 @@ export default function Main({ secret, locale, area, LANG, CONFIG }) {
                               type: "payPal",
                             });
                             showTip({
-                              text: LANG["store.order_info.pay_success"],
+                              text: LANG["order.info.pay_success"],
                               type: "success",
                             });
                             // 移除订单信息
@@ -923,7 +923,7 @@ export default function Main({ secret, locale, area, LANG, CONFIG }) {
                         })
                         .catch(() => {
                           showTip({
-                            text: LANG["store.order_info.pay_fail"],
+                            text: LANG["order.info.pay_fail"],
                             type: "error",
                           });
                         });
@@ -935,7 +935,7 @@ export default function Main({ secret, locale, area, LANG, CONFIG }) {
                     <div className={styles.repay_btn} onClick={handleRepay}>
                       {repayLoading
                         ? "..."
-                        : LANG["store.order_info.continue_pay"] ||
+                        : LANG["order.info.continue_pay"] ||
                           "Continue Payment"}
                     </div>
                   ) : (
@@ -956,7 +956,7 @@ export default function Main({ secret, locale, area, LANG, CONFIG }) {
                       )}`}
                       onError={() => {
                         showTip({
-                          text: LANG["store.order_info.pay_error"],
+                          text: LANG["order.info.pay_error"],
                           type: "error",
                         });
                       }}
@@ -970,7 +970,7 @@ export default function Main({ secret, locale, area, LANG, CONFIG }) {
                           type: "stripe",
                         });
                         showTip({
-                          text: LANG["store.order_info.pay_success"],
+                          text: LANG["order.info.pay_success"],
                           type: "success",
                         });
                         localStorage.removeItem("order");
@@ -984,10 +984,10 @@ export default function Main({ secret, locale, area, LANG, CONFIG }) {
                 <div className={styles.cancel_wrap}>
                   <ConfirmModal
                     title={
-                      LANG["store.order_info.cancel_order"] || "Cancel Order"
+                      LANG["order.info.cancel_order"] || "Cancel Order"
                     }
                     content={
-                      LANG["store.order_info.cancel_order_confirm"] ||
+                      LANG["order.info.cancel_order_confirm"] ||
                       "Are you sure you want to cancel this order? This cannot be undone."
                     }
                     onOk={handleCancelOrder}
@@ -998,7 +998,7 @@ export default function Main({ secret, locale, area, LANG, CONFIG }) {
                         loading={cancelLoading}
                         className={styles.cancel_btn}
                       >
-                        {LANG["store.order_info.cancel_order"] ||
+                        {LANG["order.info.cancel_order"] ||
                           "Cancel Order"}
                       </Button>
                     }
@@ -1025,7 +1025,7 @@ export default function Main({ secret, locale, area, LANG, CONFIG }) {
                     )
                   }
                 >
-                  {LANG["store.order_info.after_service_progress"] ||
+                  {LANG["order.info.after_service_progress"] ||
                     "After-Sales Progress"}
                 </Button>
               </div>
@@ -1046,7 +1046,7 @@ export default function Main({ secret, locale, area, LANG, CONFIG }) {
                     )
                   }
                 >
-                  {LANG["store.order_info.apply_after_service"] ||
+                  {LANG["order.info.apply_after_service"] ||
                     "Apply for After-Sales"}
                 </Button>
               </div>
@@ -1057,7 +1057,7 @@ export default function Main({ secret, locale, area, LANG, CONFIG }) {
             reviewableProducts.length > 0 ? (
               <div className={styles.review_section}>
                 <h4 className={styles.review_title}>
-                  {LANG["store.order_info.review_title"] ||
+                  {LANG["order.info.review_title"] ||
                     "Reviews"}
                 </h4>
                 <div className={styles.review_list}>
@@ -1084,7 +1084,7 @@ export default function Main({ secret, locale, area, LANG, CONFIG }) {
                           className={styles.reviewed_btn}
                           disabled
                         >
-                          {LANG["store.order_info.reviewed"] || "Reviewed"}
+                          {LANG["order.info.reviewed"] || "Reviewed"}
                         </button>
                       ) : (
                         <button
@@ -1101,7 +1101,7 @@ export default function Main({ secret, locale, area, LANG, CONFIG }) {
                             })
                           }
                         >
-                          {LANG["store.order_info.write_review"] ||
+                          {LANG["order.info.write_review"] ||
                             "Write a review"}
                         </button>
                       )}

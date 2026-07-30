@@ -46,7 +46,7 @@ export default function PasteAddressBox({
     <div className={styles.wrap}>
       <FormTextarea
         label={
-          LANG["user_account.shipping_address.paste_placeholder"] ||
+          LANG["user.account.shipping_address.paste_placeholder"] ||
           "Paste a full address, AI fills the form"
         }
         required={false}
@@ -63,9 +63,9 @@ export default function PasteAddressBox({
         onClick={handleParse}
       >
         {loading
-          ? LANG["user_account.shipping_address.parsing"] || "Parsing…"
+          ? LANG["user.account.shipping_address.parsing"] || "Parsing…"
           : `✨ ${
-              LANG["user_account.shipping_address.smart_fill"] || "Smart fill"
+              LANG["user.account.shipping_address.smart_fill"] || "Smart fill"
             }`}
       </button>
     </div>

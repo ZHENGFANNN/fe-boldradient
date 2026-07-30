@@ -6,7 +6,7 @@ import OrderPageClient from "./OrderPageClient";
 
 async function getData({ locale }) {
   const [LANG, CONFIG] = await Promise.all([
-    getRemoteLanguage({ locale, nameSpace: ["user_account"] }),
+    getRemoteLanguage({ locale, nameSpace: ["user.account"] }),
     getRemoteConfig({ locale, nameSpace: ["common.base"] }),
   ]);
   return { LANG, CONFIG };
@@ -16,9 +16,9 @@ export async function generateMetadata({ params }) {
   const { locale } = await params;
   const { LANG, CONFIG } = await getData({ locale });
   return {
-    title: `${CONFIG["common.base"]?.company_name} - ${LANG["user_account.my_order"]}`,
-    description: LANG["user_account.page_description"],
-    keywords: LANG["user_account.page_keywords"],
+    title: `${CONFIG["common.base"]?.company_name} - ${LANG["user.account.my_order"]}`,
+    description: LANG["user.account.page_description"],
+    keywords: LANG["user.account.page_keywords"],
   };
 }
 

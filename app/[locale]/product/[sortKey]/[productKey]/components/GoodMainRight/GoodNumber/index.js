@@ -8,7 +8,7 @@ export default function GoodNumber() {
 
   return (
     <div className={styles.product_num}>
-      <h3>{LANG["store.product.amount"]}</h3>
+      <h3>{LANG["product.amount"]}</h3>
       <div className={styles.product_num_operation}>
         <div
           className={styles.product_num_symbol}

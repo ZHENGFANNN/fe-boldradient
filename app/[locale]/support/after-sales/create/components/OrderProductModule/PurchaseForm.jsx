@@ -36,7 +36,7 @@ export default function PurchaseForm() {
         <span className={styles.field_label}>
           {T(
             LANG,
-            "user_account.after_sale.purchase_time",
+            "user.account.after_sale.purchase_time",
             "Purchase date"
           )}
           <i>*</i>
@@ -48,7 +48,7 @@ export default function PurchaseForm() {
           lang={LANG}
           placeholder={T(
             LANG,
-            "user_account.after_sale.purchase_time_ph",
+            "user.account.after_sale.purchase_time_ph",
             "Select date"
           )}
         />
@@ -57,7 +57,7 @@ export default function PurchaseForm() {
         <span className={styles.field_label}>
           {T(
             LANG,
-            "user_account.after_sale.purchase_channel",
+            "user.account.after_sale.purchase_channel",
             "Purchase channel"
           )}
           <i>*</i>
@@ -68,7 +68,7 @@ export default function PurchaseForm() {
           onChange={(e) => setPurchaseChannel(e.target.value)}
           placeholder={T(
             LANG,
-            "user_account.after_sale.purchase_channel_ph",
+            "user.account.after_sale.purchase_channel_ph",
             "e.g. Official website, Amazon"
           )}
         />
@@ -77,7 +77,7 @@ export default function PurchaseForm() {
         <span className={styles.field_label}>
           {T(
             LANG,
-            "user_account.after_sale.purchase_order_no",
+            "user.account.after_sale.purchase_order_no",
             "Purchase order number"
           )}
         </span>
@@ -87,7 +87,7 @@ export default function PurchaseForm() {
           onChange={(e) => setPurchaseOrderNo(e.target.value)}
           placeholder={T(
             LANG,
-            "user_account.after_sale.optional",
+            "user.account.after_sale.optional",
             "Optional"
           )}
         />

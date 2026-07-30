@@ -73,7 +73,7 @@ export default function MobProductList({
   }, [lazyLoading]);
   return (
     <section className={styles.associate_product}>
-      <div className={styles.title}>{LANG["store.product.maybe_you_like"]}</div>
+      <div className={styles.title}>{LANG["product.maybe_you_like"]}</div>
       <div className={`splide ${styles["splide-mobile"]}`}>
         <div className="splide__track">
           <ul className="splide__list">
@@ -107,7 +107,7 @@ export default function MobProductList({
                       {/* 产品价格：命中自动折扣则展示折后价 + 划线原价；无价则判缺货 */}
                       {!item.areaInfo?.product_price ? (
                         <div className={styles.product_stock_container}>
-                          {LANG["store.product.no_stock"]}
+                          {LANG["product.no_stock"]}
                         </div>
                       ) : (
                         <ProductCardPrice

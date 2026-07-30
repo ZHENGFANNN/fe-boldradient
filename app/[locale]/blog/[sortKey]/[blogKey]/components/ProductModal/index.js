@@ -69,7 +69,7 @@ export default function ProductModal({
         Date.now() - firstRenderTime > 6000
       ) {
         modalRef.current.show({
-          title: LANG["store.blog_index.related_products"],
+          title: LANG["blog.related_products"],
         });
         localStorage.setItem(storageKey, "true");
         window.removeEventListener("scroll", scrollEvent);
@@ -78,7 +78,7 @@ export default function ProductModal({
     });
     timer = setTimeout(() => {
       modalRef.current.show({
-        title: LANG["store.blog_index.related_products"],
+        title: LANG["blog.related_products"],
       });
       localStorage.setItem(storageKey, "true");
       window.removeEventListener("scroll", scrollEvent);
@@ -105,12 +105,12 @@ export default function ProductModal({
         className={styles.associate_product_tip}
         onClick={() => {
           modalRef.current.show({
-            title: LANG["store.blog_index.related_products"],
+            title: LANG["blog.related_products"],
           });
           setShowTip(false);
         }}
       >
-        {LANG["store.blog_index.related_products"]}
+        {LANG["blog.related_products"]}
       </div>
     </>
   );

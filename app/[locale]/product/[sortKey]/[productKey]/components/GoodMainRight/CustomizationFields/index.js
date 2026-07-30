@@ -95,11 +95,11 @@ export default function CustomizationFields() {
                 LANG={LANG}
                 pickerText={
                   field.placeholder ||
-                  LANG?.["store.product.customize_upload"] ||
+                  LANG?.["product.customize_upload"] ||
                   "Upload file"
                 }
                 uploadingText={
-                  LANG?.["store.product.customize_uploading"] || "Uploading..."
+                  LANG?.["product.customize_uploading"] || "Uploading..."
                 }
                 error={fileNote}
               />
@@ -107,7 +107,7 @@ export default function CustomizationFields() {
 
             {hasError ? (
               <div className={styles.error_text}>
-                {LANG?.["store.product.customize_required"] ||
+                {LANG?.["product.customize_required"] ||
                   "This field is required"}
               </div>
             ) : null}

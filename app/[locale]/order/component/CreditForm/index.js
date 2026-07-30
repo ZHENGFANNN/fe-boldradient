@@ -37,52 +37,52 @@ function CreditForm(_, ref) {
       className={styles.from_container}
     >
       <Input
-        label={LANG["store.order.credit_info.credit_number"]}
+        label={LANG["order.credit_info.credit_number"]}
         error={errors.card_number?.message}
         inputProps={{
           maxLength: 40,
           ...register("card_number", {
-            required: LANG["store.order.credit_info.creadit_number_required"],
+            required: LANG["order.credit_info.creadit_number_required"],
           }),
         }}
       />
       <Input
-        label={LANG["store.order.credit_info.month"]}
+        label={LANG["order.credit_info.month"]}
         error={errors.card_month?.message}
         inputProps={{
           maxLength: 2,
           ...register("card_month", {
-            required: LANG["store.order.credit_info.month_required"],
+            required: LANG["order.credit_info.month_required"],
           }),
         }}
       />
       <Input
         error={errors.card_year?.message}
-        label={LANG["store.order.credit_info.year"]}
+        label={LANG["order.credit_info.year"]}
         inputProps={{
           ...register("card_year", {
-            required: LANG["store.order.credit_info.year_required"],
+            required: LANG["order.credit_info.year_required"],
           }),
           maxLength: 5,
         }}
       />
       <Input
         error={errors.card_cvv?.message}
-        label={LANG["store.order.credit_info.cvv"]}
+        label={LANG["order.credit_info.cvv"]}
         inputProps={{
           ...register("card_cvv", {
             maxLength: 6,
-            required: LANG["store.order.credit_info.cvv_required"],
+            required: LANG["order.credit_info.cvv_required"],
           }),
         }}
       />
       <Input
         error={errors.card_name?.message}
-        label={LANG["store.order.credit_info.name"]}
+        label={LANG["order.credit_info.name"]}
         inputProps={{
           maxLength: 50,
           ...register("card_name", {
-            required: LANG["store.order.credit_info.name_required"],
+            required: LANG["order.credit_info.name_required"],
           }),
         }}
       />

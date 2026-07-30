@@ -153,12 +153,12 @@ export default function ProfileCard({ LANG, locale }) {
         setUserInfo((prev) => ({ ...prev, [field]: value }));
         setEditing(null);
         showTip({
-          text: LANG["user_account.account_info.success_modified"],
+          text: LANG["user.account.account_info.success_modified"],
           type: "success",
         });
       } catch {
         showTip({
-          text: LANG["user_account.account_info.fail_edit"],
+          text: LANG["user.account.account_info.fail_edit"],
           type: "error",
         });
       } finally {
@@ -179,7 +179,7 @@ export default function ProfileCard({ LANG, locale }) {
     setShowDelete(false);
     showTip({
       text: t(
-        "user_account.delete_account.success",
+        "user.account.delete_account.success",
         "Your account is scheduled for deletion. Signing in again within the cooling-off period will cancel it."
       ),
       type: "success",
@@ -197,7 +197,7 @@ export default function ProfileCard({ LANG, locale }) {
     if (!targetEmail) {
       showTip({
         text: t(
-          "user_account.account_info.email_missing",
+          "user.account.account_info.email_missing",
           "No email is bound to this account."
         ),
         type: "error",
@@ -210,7 +210,7 @@ export default function ProfileCard({ LANG, locale }) {
       if (res.code !== 0) throw new Error("code !== 0");
       showTip({
         text: t(
-          "user_forget.reset_link_sent",
+          "user.forget.reset_link_sent",
           "If this email is registered, a password reset link has been sent. Please check your inbox."
         ),
         type: "success",
@@ -219,7 +219,7 @@ export default function ProfileCard({ LANG, locale }) {
     } catch {
       showTip({
         text: t(
-          "user_forget.tip_service_exception",
+          "user.forget.tip_service_exception",
           "Something went wrong. Please try again later."
         ),
         type: "error",
@@ -255,7 +255,7 @@ export default function ProfileCard({ LANG, locale }) {
           className={styles.name_row}
           onClick={() => setEditing("nickname")}
         >
-          <span className={styles.name}>{name || t("user_account.account_info.nickname", "Nickname")}</span>
+          <span className={styles.name}>{name || t("user.account.account_info.nickname", "Nickname")}</span>
           <EditPen />
         </button>
       </div>
@@ -263,14 +263,14 @@ export default function ProfileCard({ LANG, locale }) {
       <section className={styles.group}>
         <div className={styles.item_static}>
           <span className={styles.item_label}>
-            {t("user_account.account_info.email", "Email")}
+            {t("user.account.account_info.email", "Email")}
           </span>
           <span className={styles.item_action}>
             {email ? (
               <span className={styles.item_value}>{emailDisplay}</span>
             ) : (
               <span className={styles.item_muted}>
-                {t("user_account.account_info.not_set", "Not set")}
+                {t("user.account.account_info.not_set", "Not set")}
               </span>
             )}
           </span>
@@ -282,7 +282,7 @@ export default function ProfileCard({ LANG, locale }) {
           onClick={() => setEditing("phone")}
         >
           <span className={styles.item_label}>
-            {t("user_account.account_info.phone", "Phone")}
+            {t("user.account.account_info.phone", "Phone")}
           </span>
           <span className={styles.item_action}>
             {phone ? (
@@ -301,7 +301,7 @@ export default function ProfileCard({ LANG, locale }) {
           disabled={resetting || cooldown > 0}
         >
           <span className={styles.item_label}>
-            {t("user_account.account_info.password", "Password")}
+            {t("user.account.account_info.password", "Password")}
           </span>
           <span className={styles.item_action}>
             {cooldown > 0
@@ -319,7 +319,7 @@ export default function ProfileCard({ LANG, locale }) {
           className={`${styles.item} ${styles.shortcut}`}
         >
           <span className={styles.item_label}>
-            {t("user_account.my_order", "My Orders")}
+            {t("user.account.my_order", "My Orders")}
           </span>
           <span className={styles.item_action}>
             <Chevron />
@@ -332,7 +332,7 @@ export default function ProfileCard({ LANG, locale }) {
           className={`${styles.item} ${styles.shortcut}`}
         >
           <span className={styles.item_label}>
-            {t("user_account.shipping_address", "My Address")}
+            {t("user.account.shipping_address", "My Address")}
           </span>
           <span className={styles.item_action}>
             <Chevron />
@@ -345,7 +345,7 @@ export default function ProfileCard({ LANG, locale }) {
           onClick={() => setShowDelete(true)}
         >
           <span className={styles.item_label}>
-            {t("user_account.delete_account.entry", "Delete account")}
+            {t("user.account.delete_account.entry", "Delete account")}
           </span>
           <span className={styles.item_action}>
             <Chevron />
@@ -360,16 +360,16 @@ export default function ProfileCard({ LANG, locale }) {
           className={styles.sign_out}
           onClick={handleSignOut}
         >
-          {LANG["user_account.account_info.login_out"]}
+          {LANG["user.account.account_info.login_out"]}
         </Button>
       </div>
 
       <SingleFieldEditModal
         open={editing === "nickname"}
-        label={LANG["user_account.account_info.nickname"]}
+        label={LANG["user.account.account_info.nickname"]}
         defaultValue={userInfo.nickname || ""}
         maxLength={15}
-        requiredMessage={LANG["user_account.account_info.nickname_require"]}
+        requiredMessage={LANG["user.account.account_info.nickname_require"]}
         LANG={LANG}
         loading={saving}
         onClose={() => setEditing(null)}
@@ -378,10 +378,10 @@ export default function ProfileCard({ LANG, locale }) {
 
       <SingleFieldEditModal
         open={editing === "phone"}
-        label={LANG["user_account.account_info.phone"]}
+        label={LANG["user.account.account_info.phone"]}
         defaultValue={userInfo.phone || ""}
         maxLength={20}
-        requiredMessage={LANG["user_account.account_info.phone_required"]}
+        requiredMessage={LANG["user.account.account_info.phone_required"]}
         LANG={LANG}
         loading={saving}
         onClose={() => setEditing(null)}

@@ -7,7 +7,7 @@ import ContactForm from "./components/ContactForm";
 
 async function getData({ locale }) {
   const [LANG, CONFIG] = await Promise.all([
-    getRemoteLanguage({ locale, nameSpace: ["www.company_contact"] }),
+    getRemoteLanguage({ locale, nameSpace: ["support.contact"] }),
     getRemoteConfig({ locale, nameSpace: ["common.base"] }),
   ]);
   return { LANG, CONFIG };
@@ -19,9 +19,9 @@ export async function generateMetadata({ params }) {
     locale,
   });
   return {
-    title: `${CONFIG["common.base"]?.company_name} - ${LANG["www.company_contact.title"]}`,
-    description: LANG["www.company_contact.description"],
-    keywords: LANG["www.company_contact.keywords"],
+    title: `${CONFIG["common.base"]?.company_name} - ${LANG["support.contact.title"]}`,
+    description: LANG["support.contact.description"],
+    keywords: LANG["support.contact.keywords"],
     alternates: buildAlternates("/support/contact", locale),
   };
 }

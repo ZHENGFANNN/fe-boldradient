@@ -95,17 +95,17 @@ export function pickAutoDiscount(product, discountMap) {
 /**
  * 折扣标签文案：percent → "X% OFF"，fixed → "-金额"（带币种，无价时退回裸数值）。
  * NaN 防御：value 缺省时归一化为 0，避免渲染出 $NaN。
- * 防御 LANG 里 store.index.off 被错配成 "${PARENT}% OFF" 之类未求值模板串：
+ * 防御 LANG 里 home.off 被错配成 "${PARENT}% OFF" 之类未求值模板串：
  * 只保留字母文本，剥掉 `${...}` 占位符与孤立 `%`（本函数已自行拼 "X%"）。
  * @param {object} discount - { value_type, value }
  * @param {object} areaInfo - 含 currency_symbol / currency_unit（fixed 用于格式化）
- * @param {object} LANG     - 文案表（取 store.index.off）
+ * @param {object} LANG     - 文案表（取 home.off）
  * @returns {string}
  */
 export function formatDiscountLabel(discount, areaInfo, LANG) {
   const value = Number(discount?.value) || 0;
   if (discount?.value_type === "percent") {
-    const raw = LANG?.["store.index.off"] || "OFF";
+    const raw = LANG?.["home.off"] || "OFF";
     const offText = raw.replace(/\$\{[^}]*\}/g, "").replace(/%/g, "").trim() || "OFF";
     return `${value}% ${offText}`;
   }

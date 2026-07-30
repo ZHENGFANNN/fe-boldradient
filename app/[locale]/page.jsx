@@ -21,11 +21,11 @@ async function getData({ locale }) {
     getRemoteLanguage({
       locale,
       nameSpace: [
-        "store.index",
+        "home",
         "common.advantage",
-        "store.index.title",
-        "store.index.description",
-        "store.index.keywords"
+        "home.title",
+        "home.description",
+        "home.keywords"
       ]
     }),
     getRemoteConfig({ locale, nameSpace: ["home.banner", "common.base"] }),
@@ -39,9 +39,9 @@ export async function generateMetadata({ params }) {
   const { locale } = await params;
   const { LANG, CONFIG } = await getData({ locale });
   return {
-    title: `${CONFIG["common.base"]?.company_name} - ${LANG["store.index.title"]}`,
-    description: LANG["store.index.description"],
-    keywords: LANG["store.index.keywords"],
+    title: `${CONFIG["common.base"]?.company_name} - ${LANG["home.title"]}`,
+    description: LANG["home.description"],
+    keywords: LANG["home.keywords"],
     alternates: buildAlternates("/", locale)
   };
 }

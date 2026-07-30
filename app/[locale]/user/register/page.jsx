@@ -10,7 +10,7 @@ import GoogleLoginPanel from "@/components/Auth/GoogleAuth/GoogleLoginPanel";
 
 async function getData({ locale }) {
   const [LANG, CONFIG] = await Promise.all([
-    getRemoteLanguage({ locale, nameSpace: ["user_register"] }),
+    getRemoteLanguage({ locale, nameSpace: ["user.register"] }),
     getRemoteConfig({ locale, nameSpace: ["common.base"] }),
   ]);
   return { LANG, CONFIG };
@@ -22,9 +22,9 @@ export async function generateMetadata({ params }) {
     locale,
   });
   return {
-    title: `${CONFIG["common.base"]?.company_name} - ${LANG["user_register.title"]}`,
-    description: LANG["user_register.description"],
-    keywords: LANG["user_register.keywords"],
+    title: `${CONFIG["common.base"]?.company_name} - ${LANG["user.register.title"]}`,
+    description: LANG["user.register.description"],
+    keywords: LANG["user.register.keywords"],
   };
 }
 
@@ -37,31 +37,31 @@ export default async function Register({ params }) {
     <div className={styles.container}>
       <main className={styles.main}>
         <h1 className={styles.title}>
-          {LANG["user_register.regsiter_title"]}
+          {LANG["user.register.regsiter_title"]}
         </h1>
         <GoogleLoginPanel
           className={styles.google_top}
           label="OR"
           dividerPosition="bottom"
-          buttonLabel={LANG["user_register.google_continue"] || "Continue with Google"}
-          successText={LANG["user_register.register_success"]}
-          errorText={LANG["user_register.tip_service_exception"]}
+          buttonLabel={LANG["user.register.google_continue"] || "Continue with Google"}
+          successText={LANG["user.register.register_success"]}
+          errorText={LANG["user.register.tip_service_exception"]}
         />
         <RegisterForm LANG={LANG} />
         <p className={styles.register}>
-          <span>{LANG["user_register.already_account"]}</span>
+          <span>{LANG["user.register.already_account"]}</span>
           <Link scroll={true} href="/user/login">
-            {LANG["user_register.login_now"]}
+            {LANG["user.register.login_now"]}
           </Link>
         </p>
         <div className={styles.agreen}>
-          <span>{LANG["user_register.contiuning_agree"]}</span>
+          <span>{LANG["user.register.contiuning_agree"]}</span>
           <Link scroll={true} href="/article/legal/privacy-policy">
-            {LANG["user_register.privacy_policy"]}
+            {LANG["user.register.privacy_policy"]}
           </Link>
-          <span>{LANG["user_register.and"]}</span>
+          <span>{LANG["user.register.and"]}</span>
           <Link scroll={true} href="/article/legal/user-agreement">
-            {LANG["user_register.user_service"]}
+            {LANG["user.register.user_service"]}
           </Link>
         </div>
       </main>

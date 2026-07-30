@@ -1,13 +1,13 @@
 /**
  * 在线客服 UI 文案：不再内置私有 en/zh 词典，统一走公共多语言体系。
  * 文案存后端 config_languages_list 的 `chat.*` 节点，前端在根 layout 以
- * nameSpace "store.chat" 加载进共享 LANG，本文件只负责把扁平 LANG key
+ * nameSpace "common.chat" 加载进共享 LANG，本文件只负责把扁平 LANG key
  * 重建成组件既有的 copy 形状（含 ratingLabels 数组、orderStatus 对象），
  * 并对每个字段保留英文兜底，避免库未灌时裸奔。
  *
- * key 约定：LANG["store.chat.<field>"]，数组/对象拍平为
- *   ratingLabels → store.chat.ratingLabels_0..4
- *   orderStatus  → store.chat.orderStatus_status0..5
+ * key 约定：LANG["common.chat.<field>"]，数组/对象拍平为
+ *   ratingLabels → common.chat.ratingLabels_0..4
+ *   orderStatus  → common.chat.orderStatus_status0..5
  */
 
 // 英文兜底（库缺失时使用）；与后端 chat.* 的 en 文案保持一致。
@@ -89,7 +89,7 @@ const SIMPLE_KEYS = Object.keys(FALLBACK).filter(
 export function buildChatCopy(LANG) {
   const L = LANG || {};
   const pick = (field, fb) => {
-    const v = L[`store.chat.${field}`];
+    const v = L[`common.chat.${field}`];
     return v == null || v === "" ? fb : v;
   };
 

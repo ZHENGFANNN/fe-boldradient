@@ -8,7 +8,7 @@ import getRemoteConfig from "@/config/Api/getRemoteConfig";
 import ResetForm from "./components/ResetForm";
 async function getData({ locale }) {
   const [LANG, CONFIG] = await Promise.all([
-    getRemoteLanguage({ locale, nameSpace: ["user_forget"] }),
+    getRemoteLanguage({ locale, nameSpace: ["user.forget"] }),
     getRemoteConfig({ locale, nameSpace: ["common.base"] }),
   ]);
   return { LANG, CONFIG };
@@ -19,9 +19,9 @@ export async function generateMetadata({ params }) {
   const { LANG, CONFIG } = await getData({ locale });
   return {
     title: `${CONFIG["common.base"]?.company_name} - ${
-      LANG["user_forget.retrieve_password"] || "Reset password"
+      LANG["user.forget.retrieve_password"] || "Reset password"
     }`,
-    description: LANG["user_forget.description"],
+    description: LANG["user.forget.description"],
   };
 }
 
@@ -32,7 +32,7 @@ export default async function ResetPassword({ params }) {
     <div className={styles.container}>
       <main className={styles.main}>
         <h1 className={styles.title}>
-          {LANG["user_forget.retrieve_password"] || "Reset password"}
+          {LANG["user.forget.retrieve_password"] || "Reset password"}
         </h1>
         <ResetForm LANG={LANG} />
       </main>

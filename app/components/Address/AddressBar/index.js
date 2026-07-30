@@ -89,8 +89,8 @@ export default function AddressBar({
               {onDelete ? (
                 <ConfirmModal
                   LANG={LANG}
-                  title={LANG["user_account.shipping_address.tip"]}
-                  content={LANG["user_account.shipping_address.delete_tip"]}
+                  title={LANG["user.account.shipping_address.tip"]}
+                  content={LANG["user.account.shipping_address.delete_tip"]}
                   renderNode={
                     <div className={styles.icon_container}>
                       <DeleteIcon width={24} height={24} />

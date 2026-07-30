@@ -54,7 +54,7 @@ export default function GoodDiscountCode() {
       // 接口B：成功 code=0，失败 code=-1（Failed 带业务码）。
       if (res?.code !== 0 || !res?.data) {
         const text =
-          LANG["store.product.discount_code_invalid"] ||
+          LANG["product.discount_code_invalid"] ||
           "Invalid discount code";
         setMessage({ type: "error", text });
         showTip({ text, type: "error" });
@@ -65,7 +65,7 @@ export default function GoodDiscountCode() {
 
       if (!valid) {
         const text =
-          LANG["store.product.discount_code_invalid"] ||
+          LANG["product.discount_code_invalid"] ||
           "Invalid discount code";
         setMessage({ type: "error", text });
         showTip({ text, type: "error" });
@@ -74,7 +74,7 @@ export default function GoodDiscountCode() {
 
       if (!applicable) {
         const text =
-          LANG["store.product.discount_code_not_applicable"] ||
+          LANG["product.discount_code_not_applicable"] ||
           "This code does not apply to this product";
         setMessage({ type: "error", text });
         showTip({ text, type: "error" });
@@ -96,7 +96,7 @@ export default function GoodDiscountCode() {
         unit
       )}`;
       const text = (
-        LANG["store.product.discount_code_applied"] ||
+        LANG["product.discount_code_applied"] ||
         "Saved — code will apply at checkout (save ${amount} on this product)"
       ).replace("${amount}", amountText);
       setMessage({ type: "success", text });
@@ -104,7 +104,7 @@ export default function GoodDiscountCode() {
       setCode("");
     } catch (err) {
       const text =
-        LANG["store.product.discount_code_invalid"] || "Invalid discount code";
+        LANG["product.discount_code_invalid"] || "Invalid discount code";
       setMessage({ type: "error", text });
       showTip({ text, type: "error" });
     } finally {
@@ -115,7 +115,7 @@ export default function GoodDiscountCode() {
   return (
     <div className={styles.discount_code} data-role="good-discount-code">
       <div className={styles.discount_code_title}>
-        {LANG["store.product.discount_code_title"] || "Have a promo code?"}
+        {LANG["product.discount_code_title"] || "Have a promo code?"}
       </div>
       <div className={styles.discount_code_row}>
         <input
@@ -123,7 +123,7 @@ export default function GoodDiscountCode() {
           className={styles.discount_code_input}
           value={code}
           placeholder={
-            LANG["store.product.discount_code_placeholder"] || "Enter code"
+            LANG["product.discount_code_placeholder"] || "Enter code"
           }
           onChange={(e) => {
             setCode(e.target.value);
@@ -142,7 +142,7 @@ export default function GoodDiscountCode() {
           disabled={loading || !code.trim()}
           onClick={handleApply}
         >
-          {LANG["store.product.discount_code_apply"] || "Apply"}
+          {LANG["product.discount_code_apply"] || "Apply"}
         </button>
       </div>
       {message ? (

@@ -10,7 +10,7 @@ import GoogleLoginPanel from "@/components/Auth/GoogleAuth/GoogleLoginPanel";
 
 async function getData({ locale }) {
   const [LANG, CONFIG] = await Promise.all([
-    getRemoteLanguage({ locale, nameSpace: ["user_login"] }),
+    getRemoteLanguage({ locale, nameSpace: ["user.login"] }),
     getRemoteConfig({ locale, nameSpace: ["common.base"] }),
   ]);
   return { LANG, CONFIG };
@@ -22,9 +22,9 @@ export async function generateMetadata({ params }) {
     locale,
   });
   return {
-    title: `${CONFIG["common.base"]?.company_name} - ${LANG["user_login.title"]}`,
-    description: LANG["user_login.description"],
-    keywords: LANG["user_login.keywords"],
+    title: `${CONFIG["common.base"]?.company_name} - ${LANG["user.login.title"]}`,
+    description: LANG["user.login.description"],
+    keywords: LANG["user.login.keywords"],
   };
 }
 
@@ -36,24 +36,24 @@ export default async function Login({ params }) {
   return (
     <div className={styles.container}>
       <main className={styles.main}>
-        <h1 className={styles.title}>{LANG["user_login.login_title"]}</h1>
+        <h1 className={styles.title}>{LANG["user.login.login_title"]}</h1>
         <GoogleLoginPanel
           className={styles.google_top}
           label="OR"
           dividerPosition="bottom"
-          buttonLabel={LANG["user_login.google_continue"] || "Continue with Google"}
-          successText={LANG["user_login.login_success"]}
-          errorText={LANG["user_login.server_error"]}
+          buttonLabel={LANG["user.login.google_continue"] || "Continue with Google"}
+          successText={LANG["user.login.login_success"]}
+          errorText={LANG["user.login.server_error"]}
         />
         <LoginForm LANG={LANG} CONFIG={CONFIG} />
         <div className={styles.agreen}>
-          <span>{LANG["user_login.countinue_agree"]}</span>
+          <span>{LANG["user.login.countinue_agree"]}</span>
           <Link scroll={true} href="/article/legal/privacy-policy">
-            {LANG["user_login.privacy_policy"]}
+            {LANG["user.login.privacy_policy"]}
           </Link>
-          <span>{LANG["user_login.and"]}</span>
+          <span>{LANG["user.login.and"]}</span>
           <Link scroll={true} href="/article/legal/user-agreement">
-            {LANG["user_login.user_service"]}
+            {LANG["user.login.user_service"]}
           </Link>
         </div>
       </main>

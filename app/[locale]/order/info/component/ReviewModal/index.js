@@ -105,7 +105,7 @@ export default function ReviewModal({
     tipRef.current?.show({ text, type });
   }, []);
 
-  const title = LANG["store.order_info.write_review"] || "Write a review";
+  const title = LANG["order.info.write_review"] || "Write a review";
 
   // open 切换：打开时重置表单并弹出；关闭时收起（保留 active* 供出场动画）。
   React.useEffect(() => {
@@ -146,10 +146,10 @@ export default function ReviewModal({
     (files) => {
       const remaining = MAX_FILES - mediaList.length;
       const maxFilesMsg =
-        LANG["store.order_info.review_max_files"] ||
+        LANG["order.info.review_max_files"] ||
         `You can upload up to ${MAX_FILES} files.`;
       const tooLargeMsg =
-        LANG["store.order_info.review_too_large"] ||
+        LANG["order.info.review_too_large"] ||
         "File exceeds the 5MB limit.";
       if (remaining <= 0) {
         tip(maxFilesMsg, "error");
@@ -215,7 +215,7 @@ export default function ReviewModal({
             );
             tip(
               `${item.name}: ${
-                LANG["store.order_info.review_upload_fail"] ||
+                LANG["order.info.review_upload_fail"] ||
                 "Upload failed. Please try again."
               }`,
               "error"
@@ -258,7 +258,7 @@ export default function ReviewModal({
     if (!productKey || !submitOrderNumber) return;
     if (rating < 1) {
       tip(
-        LANG["store.order_info.review_need_rating"] ||
+        LANG["order.info.review_need_rating"] ||
           "Please select a rating.",
         "error"
       );
@@ -267,7 +267,7 @@ export default function ReviewModal({
     // 正文选填（对齐业界「仅星级必填」）：留空也可提交，一键打星即可。
     if (mediaList.some((m) => m.uploading)) {
       tip(
-        LANG["store.order_info.review_uploading"] ||
+        LANG["order.info.review_uploading"] ||
           "Please wait for uploads to finish.",
         "error"
       );
@@ -297,7 +297,7 @@ export default function ReviewModal({
       });
       if (res.code === 0) {
         tip(
-          LANG["store.order_info.review_success"] ||
+          LANG["order.info.review_success"] ||
             "Thanks for your review!",
           "success"
         );
@@ -307,7 +307,7 @@ export default function ReviewModal({
       }
     } catch {
       tip(
-        LANG["store.order_info.review_fail"] ||
+        LANG["order.info.review_fail"] ||
           "Failed to submit review. Please try again.",
         "error"
       );
@@ -353,7 +353,7 @@ export default function ReviewModal({
             {Array.isArray(activeOrders) && activeOrders.length > 1 ? (
               <div className={styles.field}>
                 <div className={styles.label}>
-                  {LANG["store.order_info.review_select_order"] ||
+                  {LANG["order.info.review_select_order"] ||
                     "Which order?"}
                 </div>
                 <select
@@ -373,7 +373,7 @@ export default function ReviewModal({
 
             <div className={styles.field}>
               <div className={styles.label}>
-                {LANG["store.order_info.review_rating"] || "Rating"}
+                {LANG["order.info.review_rating"] || "Rating"}
               </div>
               <StarRating
                 value={rating}
@@ -384,9 +384,9 @@ export default function ReviewModal({
 
             <div className={styles.field}>
               <div className={styles.label}>
-                {LANG["store.order_info.review_content"] || "Your review"}
+                {LANG["order.info.review_content"] || "Your review"}
                 <span className={styles.optional}>
-                  {LANG["store.order_info.review_optional"] || "(optional)"}
+                  {LANG["order.info.review_optional"] || "(optional)"}
                 </span>
               </div>
               <textarea
@@ -395,7 +395,7 @@ export default function ReviewModal({
                 disabled={submitting}
                 maxLength={2000}
                 placeholder={
-                  LANG["store.order_info.review_content_ph"] ||
+                  LANG["order.info.review_content_ph"] ||
                   "Share your thoughts about this product…"
                 }
                 onChange={(e) => setContent(e.target.value)}
@@ -404,7 +404,7 @@ export default function ReviewModal({
 
             <div className={styles.field}>
               <div className={styles.label}>
-                {LANG["store.order_info.review_media"] || "Photos / Videos"}
+                {LANG["order.info.review_media"] || "Photos / Videos"}
               </div>
               <MediaUploader
                 files={mediaList}
@@ -414,12 +414,12 @@ export default function ReviewModal({
                 onRemove={(i, item) => removeMedia(item?.localId)}
                 LANG={LANG}
                 pickerText={
-                  LANG["store.order_info.review_media_add"] ||
+                  LANG["order.info.review_media_add"] ||
                   "Add photos / videos"
                 }
               />
               <p className={styles.media_hint}>
-                {LANG["store.order_info.review_media_note"] ||
+                {LANG["order.info.review_media_note"] ||
                   `Up to ${MAX_FILES} files, max 5MB each`}
               </p>
             </div>
@@ -432,7 +432,7 @@ export default function ReviewModal({
                 onChange={(e) => setAnonymous(e.target.checked)}
               />
               <span>
-                {LANG["store.order_info.review_anonymous"] ||
+                {LANG["order.info.review_anonymous"] ||
                   "Post anonymously"}
               </span>
             </label>
@@ -454,7 +454,7 @@ export default function ReviewModal({
               >
                 {submitting
                   ? "..."
-                  : LANG["store.order_info.review_submit"] || "Submit"}
+                  : LANG["order.info.review_submit"] || "Submit"}
               </button>
             </div>
           </div>

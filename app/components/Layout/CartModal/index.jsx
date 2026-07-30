@@ -273,7 +273,7 @@ const CartMain = function ({ handleClose }) {
           const msg =
             typeof res.data === "string"
               ? res.data
-              : LANG["store.order.discount_code_invalid"] ||
+              : LANG["order.discount_code_invalid"] ||
                 "Invalid discount code";
           throw new Error(msg);
         }
@@ -339,7 +339,7 @@ const CartMain = function ({ handleClose }) {
     setRejectionNotice(null);
     if (discountCodes.includes(code)) {
       setPreviewError(
-        LANG["store.order.discount_code_applied"] ||
+        LANG["order.discount_code_applied"] ||
           "Discount code already applied"
       );
       return;
@@ -691,7 +691,7 @@ const CartMain = function ({ handleClose }) {
                   className={styles.promo_code_input}
                   value={discountCodeInput}
                   placeholder={
-                    LANG["store.order.discount_code_placeholder"] ||
+                    LANG["order.discount_code_placeholder"] ||
                     "Promo code"
                   }
                   onChange={(e) => setDiscountCodeInput(e.target.value)}
@@ -708,7 +708,7 @@ const CartMain = function ({ handleClose }) {
                   disabled={previewLoading || !discountCodeInput.trim()}
                   onClick={handleApplyDiscountCode}
                 >
-                  {LANG["store.order.discount_code_apply"] || "Apply"}
+                  {LANG["order.discount_code_apply"] || "Apply"}
                 </button>
               </div>
               {discountCodes.length ? (
@@ -719,7 +719,7 @@ const CartMain = function ({ handleClose }) {
                       <button
                         type="button"
                         aria-label={
-                          LANG["store.order.discount_code_remove"] || "Remove"
+                          LANG["order.discount_code_remove"] || "Remove"
                         }
                         onClick={() => handleRemoveDiscountCode(code)}
                       >
@@ -774,9 +774,9 @@ const CartMain = function ({ handleClose }) {
                         {rule.code ||
                           rule.title ||
                           (rule.method === "automatic"
-                            ? LANG["store.order.automatic_discount"] ||
+                            ? LANG["order.automatic_discount"] ||
                               "Promotion"
-                            : LANG["store.order.discount_amount"] ||
+                            : LANG["order.discount_amount"] ||
                               "Discount")}
                       </div>
                       <div
@@ -791,7 +791,7 @@ const CartMain = function ({ handleClose }) {
             ) : previewData?.discount > 0 ? (
               <div className={styles.discount_row}>
                 <div>
-                  {LANG["store.order.discount_amount"] || "Discount"}
+                  {LANG["order.discount_amount"] || "Discount"}
                 </div>
                 <div
                   className={styles.discount_value}

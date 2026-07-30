@@ -18,7 +18,7 @@ function ProductGuarantee({ title, LANG, CONFIG }, ref) {
       <div className={styles.container}>
         {
           LANG[
-            "store.product.service_agreement.product_guarantee_detail"?.replace(
+            "product.service_agreement.product_guarantee_detail"?.replace(
               "$email",
               CONFIG["common.base"]?.customer_service
             )

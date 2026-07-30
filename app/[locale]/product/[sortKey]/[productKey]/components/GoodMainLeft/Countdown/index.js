@@ -95,7 +95,7 @@ export default function Countdown() {
   // 折扣标签文案：percent → "X% OFF"，fixed → 减额（带币种）。
   const discountLabel =
     autoDiscount.value_type === "percent"
-      ? `${discountValue}% ${LANG["store.product.off"] || "OFF"}`
+      ? `${discountValue}% ${LANG["product.off"] || "OFF"}`
       : areaInfo
       ? `-${areaInfo.currency_symbol}${formatCurrency(
           discountValue,
@@ -127,7 +127,7 @@ export default function Countdown() {
       </div>
       <div className={styles.countdown}>
         <div className={styles.countdown_description}>
-          {LANG["store.product.limit_time_discount"] || "限时促销"}
+          {LANG["product.limit_time_discount"] || "限时促销"}
         </div>
         {hasCountdown ? (
           <div className={styles.countdown_time}>

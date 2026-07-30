@@ -12,7 +12,7 @@ export default function GoodAccessoriesList() {
   return (
     <section className={`${styles.accessories}`} id="product_specs">
       <div className={styles.accessories_container}>
-        <h2>{LANG["store.product.specifiche"]}</h2>
+        <h2>{LANG["product.specifiche"]}</h2>
         <div className={styles.accessories_item}>
           <ul>
             {associationsList

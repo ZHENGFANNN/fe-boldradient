@@ -88,7 +88,7 @@ export default function ProductList({ products, discountMap, LANG }) {
                       {/* 产品价格：命中自动折扣则折后价 + 划线原价（与详情页关联产品同口径），无价则判缺货 */}
                       {!item.areaInfo?.product_price ? (
                         <div className={styles.product_stock_container}>
-                          {LANG["store.product.no_stock"]}
+                          {LANG["product.no_stock"]}
                         </div>
                       ) : (
                         <ProductCardPrice

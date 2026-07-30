@@ -32,7 +32,7 @@ export default function AfterSaleMediaUploader() {
         tip(
           T(
             LANG,
-            "user_account.after_sale.media.max_files",
+            "user.account.after_sale.media.max_files",
             `You can upload up to ${MAX_FILES} files.`
           ),
           "error"
@@ -45,7 +45,7 @@ export default function AfterSaleMediaUploader() {
           tip(
             T(
               LANG,
-              "user_account.after_sale.media.max_files",
+              "user.account.after_sale.media.max_files",
               `You can upload up to ${MAX_FILES} files.`
             ),
             "error"
@@ -56,7 +56,7 @@ export default function AfterSaleMediaUploader() {
           tip(
             `${file.name}: ${T(
               LANG,
-              "user_account.after_sale.media.too_large",
+              "user.account.after_sale.media.too_large",
               "File exceeds the 5MB limit."
             )}`,
             "error"
@@ -115,7 +115,7 @@ export default function AfterSaleMediaUploader() {
             tip(
               `${item.name}: ${T(
                 LANG,
-                "user_account.after_sale.media.upload_fail",
+                "user.account.after_sale.media.upload_fail",
                 "Upload failed. Please try again."
               )}`,
               "error"
@@ -137,7 +137,7 @@ export default function AfterSaleMediaUploader() {
   return (
     <>
       <div className={`${styles.section_label} ${styles.section_label_mt}`}>
-        {T(LANG, "user_account.after_sale.media", "Photos / Videos")}
+        {T(LANG, "user.account.after_sale.media", "Photos / Videos")}
       </div>
 
       <MediaUploader
@@ -149,7 +149,7 @@ export default function AfterSaleMediaUploader() {
         LANG={LANG}
         pickerText={T(
           LANG,
-          "user_account.after_sale.media.add",
+          "user.account.after_sale.media.add",
           "Add photos / videos"
         )}
       />
@@ -158,7 +158,7 @@ export default function AfterSaleMediaUploader() {
       <p className={styles.media_hint}>
         {T(
           LANG,
-          "user_account.after_sale.media.note",
+          "user.account.after_sale.media.note",
           `Up to ${MAX_FILES} files, max 5MB each`
         )}
       </p>

@@ -12,7 +12,7 @@ export default function GoodNav() {
     let navList = [];
     if (Array.isArray(productInfo.mediaList) && productInfo.mediaList.length > 0) {
       navList.push({
-        title: LANG["store.product.nav.overview"],
+        title: LANG["product.nav.overview"],
         href: "#product_overview",
       });
     }
@@ -21,20 +21,20 @@ export default function GoodNav() {
       productInfo.associationsList.length > 0
     ) {
       navList.push({
-        title: LANG["store.product.nav.specs"],
+        title: LANG["product.nav.specs"],
         href: "#product_specs",
       });
     }
     if (Array.isArray(productInfo.packageList) && productInfo.packageList.length > 0) {
       navList.push({
-        title: LANG["store.product.nav.package"],
+        title: LANG["product.nav.package"],
         href: "#product_package",
       });
     }
     // FAQ 无配置时整块不渲染（GoodFaq 返回 null），同步隐藏「FAQ」导航锚点。
     if (Array.isArray(productInfo.faqList) && productInfo.faqList.length > 0) {
       navList.push({
-        title: LANG["store.product.nav.faq"],
+        title: LANG["product.nav.faq"],
         href: "#product_faq",
       });
     }
@@ -42,7 +42,7 @@ export default function GoodNav() {
     // reviewsVisible=false（模块整块不渲染），此处同步隐藏「评论」导航锚点。
     if (reviewsVisible !== false) {
       navList.push({
-        title: LANG["store.product.nav.reviews"],
+        title: LANG["product.nav.reviews"],
         href: "#product_reviews",
       });
     }

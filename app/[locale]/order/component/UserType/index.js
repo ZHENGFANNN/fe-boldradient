@@ -79,7 +79,7 @@ function UserInfo({ LANG, token }, ref) {
             userType === "tourists" ? styles.active : ""
           }`}
         >
-          {LANG["store.order.user_type.tourists_order"] || "Guest Checkout"}
+          {LANG["order.user_type.tourists_order"] || "Guest Checkout"}
         </div>
         <div
           onClick={() => {
@@ -89,7 +89,7 @@ function UserInfo({ LANG, token }, ref) {
             userType === "user" ? styles.active : ""
           }`}
         >
-          {LANG["store.order.user_type.user_order"] || "Sign In"}
+          {LANG["order.user_type.user_order"] || "Sign In"}
         </div>
       </div>
       {userType === "tourists" ? (
@@ -102,7 +102,7 @@ function UserInfo({ LANG, token }, ref) {
                 focus={touristsEmail}
                 inputProps={{
                   ...register("tourists_email", {
-                    required: LANG["store.order.user_type.email_empyt"],
+                    required: LANG["order.user_type.email_empyt"],
                     pattern: {
                       value: isEmail,
                       message: LANG["common.pay.pay_info.email_error"],
@@ -139,7 +139,7 @@ function UserInfo({ LANG, token }, ref) {
                           disabled: userInfo?.email,
                           maxLength: 15,
                           ...register("user_email", {
-                            required: LANG["store.order.user_type.email_empyt"],
+                            required: LANG["order.user_type.email_empyt"],
                             pattern: {
                               value: isEmail,
                               message:
@@ -154,7 +154,7 @@ function UserInfo({ LANG, token }, ref) {
               ) : (
                 <div className={styles.content}>
                   <div className={styles.tip}>
-                    {LANG["store.order.user_type.no_login"]}
+                    {LANG["order.user_type.no_login"]}
                   </div>
                   <LoginModule LANG={LANG} redirectPath={selfUrl} />
                 </div>

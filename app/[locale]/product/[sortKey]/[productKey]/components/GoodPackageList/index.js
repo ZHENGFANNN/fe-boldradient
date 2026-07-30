@@ -36,7 +36,7 @@ export default function Package() {
   return (
     <section className={`${styles.package}`} id="product_package">
       <div className={styles.package_container}>
-        <h2>{LANG["store.product.packaging_list"]}</h2>
+        <h2>{LANG["product.packaging_list"]}</h2>
 
         {textList.length > 0 ? (
           <div className={styles.content_list}>
@@ -71,7 +71,7 @@ export default function Package() {
                 >
                   <Image
                     src={fillOssImage(item.image)}
-                    alt={`${name}_${LANG["store.product.packaging_list"]}`}
+                    alt={`${name}_${LANG["product.packaging_list"]}`}
                   />
                 </div>
               );

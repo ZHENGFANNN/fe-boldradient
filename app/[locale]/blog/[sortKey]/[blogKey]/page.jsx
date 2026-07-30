@@ -32,12 +32,12 @@ const getData = async function ({ locale, blogKey, sortKey }) {
     getRemoteLanguage({
       locale,
       nameSpace: [
-        "store.blog_index.all",
-        "store.blog_index.title",
-        "store.blog_index.related_products",
-        "store.product.off",
-        "store.product.no_stock",
-        "store.product.reviews",
+        "blog.all",
+        "blog.title",
+        "blog.related_products",
+        "product.off",
+        "product.no_stock",
+        "product.reviews",
       ],
     }),
     getRemoteConfig({ locale, nameSpace: ["common.base"] }),

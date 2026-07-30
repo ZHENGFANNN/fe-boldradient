@@ -16,7 +16,7 @@ const FILTER_STATUS = {
   history: ["resolved", "rejected", "cancelled"],
 };
 
-// 文案兜底：后端语言包暂未配置 user_account.after_sale.* 时用英文兜底
+// 文案兜底：后端语言包暂未配置 user.account.after_sale.* 时用英文兜底
 const T = (LANG, key, fallback) => LANG?.[key] || fallback;
 
 export default function AfterSaleInfo({ LANG, filter = "all" }) {
@@ -26,28 +26,28 @@ export default function AfterSaleInfo({ LANG, filter = "all" }) {
 
   const typeMap = React.useMemo(
     () => ({
-      return: T(LANG, "user_account.after_sale.type.return", "Return"),
-      refund: T(LANG, "user_account.after_sale.type.refund", "Refund"),
-      exchange: T(LANG, "user_account.after_sale.type.exchange", "Exchange"),
-      repair: T(LANG, "user_account.after_sale.type.repair", "Repair"),
-      other: T(LANG, "user_account.after_sale.type.other", "Other"),
+      return: T(LANG, "user.account.after_sale.type.return", "Return"),
+      refund: T(LANG, "user.account.after_sale.type.refund", "Refund"),
+      exchange: T(LANG, "user.account.after_sale.type.exchange", "Exchange"),
+      repair: T(LANG, "user.account.after_sale.type.repair", "Repair"),
+      other: T(LANG, "user.account.after_sale.type.other", "Other"),
     }),
     [LANG]
   );
 
   const statusMap = React.useMemo(
     () => ({
-      pending: T(LANG, "user_account.after_sale.status.pending", "Submitted"),
+      pending: T(LANG, "user.account.after_sale.status.pending", "Submitted"),
       processing: T(
         LANG,
-        "user_account.after_sale.status.processing",
+        "user.account.after_sale.status.processing",
         "Processing"
       ),
-      resolved: T(LANG, "user_account.after_sale.status.resolved", "Completed"),
-      rejected: T(LANG, "user_account.after_sale.status.rejected", "Rejected"),
+      resolved: T(LANG, "user.account.after_sale.status.resolved", "Completed"),
+      rejected: T(LANG, "user.account.after_sale.status.rejected", "Rejected"),
       cancelled: T(
         LANG,
-        "user_account.after_sale.status.cancelled",
+        "user.account.after_sale.status.cancelled",
         "Cancelled"
       ),
     }),
@@ -86,7 +86,7 @@ export default function AfterSaleInfo({ LANG, filter = "all" }) {
         >
           <div className={styles.record_head}>
             <span className={styles.record_title}>
-              {T(LANG, "user_account.after_sale.order", "Order")}:{" "}
+              {T(LANG, "user.account.after_sale.order", "Order")}:{" "}
               {item.service_no}
             </span>
             <span

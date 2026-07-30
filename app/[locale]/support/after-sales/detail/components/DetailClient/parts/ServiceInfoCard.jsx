@@ -25,14 +25,14 @@ const ServiceInfoCard = React.memo(function ServiceInfoCard({
       setCopied(true);
       setTimeout(() => setCopied(false), 1500);
       toast?.(
-        T(LANG, "user_account.after_sale.copy_success", "Copied to clipboard"),
+        T(LANG, "user.account.after_sale.copy_success", "Copied to clipboard"),
         true
       );
     } else {
       toast?.(
         T(
           LANG,
-          "user_account.after_sale.copy_failed",
+          "user.account.after_sale.copy_failed",
           "Copy failed, please try again"
         ),
         false
@@ -49,13 +49,13 @@ const ServiceInfoCard = React.memo(function ServiceInfoCard({
   return (
     <div className={styles.info_card}>
       <div className={styles.section_title}>
-        {T(LANG, "user_account.after_sale.info_title", "Service Info")}
+        {T(LANG, "user.account.after_sale.info_title", "Service Info")}
       </div>
 
       {/* 服务单号 + 复制 */}
       <div className={styles.info_row_lg}>
         <span className={styles.info_label}>
-          {T(LANG, "user_account.after_sale.service_no", "Service No.")}
+          {T(LANG, "user.account.after_sale.service_no", "Service No.")}
         </span>
         <span className={styles.info_value_mono}>{data.service_no}</span>
         <button
@@ -64,14 +64,14 @@ const ServiceInfoCard = React.memo(function ServiceInfoCard({
           onClick={copyServiceNo}
         >
           {copied
-            ? T(LANG, "user_account.after_sale.copied", "Copied")
-            : T(LANG, "user_account.after_sale.copy", "Copy")}
+            ? T(LANG, "user.account.after_sale.copied", "Copied")
+            : T(LANG, "user.account.after_sale.copy", "Copy")}
         </button>
       </div>
 
       <div className={styles.info_row_lg}>
         <span className={styles.info_label}>
-          {T(LANG, "user_account.after_sale.created_date", "Created")}
+          {T(LANG, "user.account.after_sale.created_date", "Created")}
         </span>
         <span className={styles.info_value}>{createdDate}</span>
       </div>
@@ -80,7 +80,7 @@ const ServiceInfoCard = React.memo(function ServiceInfoCard({
       {data.contact_email !== undefined ? (
         <div className={styles.info_row_lg}>
           <span className={styles.info_label}>
-            {T(LANG, "user_account.after_sale.contact.email", "Email")}
+            {T(LANG, "user.account.after_sale.contact.email", "Email")}
           </span>
           <span className={styles.info_value}>
             {data.contact_email || "-"}
@@ -92,7 +92,7 @@ const ServiceInfoCard = React.memo(function ServiceInfoCard({
       {data.contact_phone !== undefined ? (
         <div className={styles.info_row_lg}>
           <span className={styles.info_label}>
-            {T(LANG, "user_account.after_sale.contact.phone", "Phone")}
+            {T(LANG, "user.account.after_sale.contact.phone", "Phone")}
           </span>
           <span className={styles.info_value}>
             {data.contact_phone || "-"}

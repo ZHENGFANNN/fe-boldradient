@@ -406,14 +406,14 @@ export default function GoodBtnList() {
   return (
     <div className={styles.container} data-role="buy-btn-list">
       {!buyable ? (
-        <div className={styles.btn_stock}>{LANG["store.product.no_stock"]}</div>
+        <div className={styles.btn_stock}>{LANG["product.no_stock"]}</div>
       ) : (
         <>
           <div
             onClick={openBuyNow}
             className={styles.btn_buy_now}
           >
-            {LANG["store.product.buy_now"] || "Buy Now"}
+            {LANG["product.buy_now"] || "Buy Now"}
           </div>
           <div
             onClick={() => {
@@ -484,7 +484,7 @@ export default function GoodBtnList() {
             }}
             className={styles.btn_add_to_cart}
           >
-            {LANG["store.product.add_cart"]}
+            {LANG["product.add_cart"]}
           </div>
           {paypalEnabled ? (
             <PayPalScriptProvider

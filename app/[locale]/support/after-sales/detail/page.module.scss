@@ -52,20 +52,6 @@
   }
 }
 
-.rejected_banner {
-  background: rgba(241, 54, 73, 0.08);
-  color: #f13649;
-  border-radius: 16px;
-  padding: 20px 24px;
-  font-size: 14px;
-  text-align: center;
-
-  .rejected_reason {
-    margin-top: 8px;
-    font-size: 13px;
-    color: rgba(0, 0, 0, 0.5);
-  }
-}
 
 // ---------- 取消申请按钮:红色描边(危险动作)使其醒目;此处居中定位 ----------
 .cancel_action {

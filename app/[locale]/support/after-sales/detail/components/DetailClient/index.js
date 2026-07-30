@@ -228,16 +228,23 @@ export default function DetailClient({ LANG, locale }) {
             T={T}
             />
           ) : isRejected ? (
-            <div className={styles.rejected_banner}>
-              {T(
+            <CancelledBanner
+              title={T(
                 LANG,
-                "user.account.after_sale.status.rejected_tip",
-                "Your request has been rejected."
+                "user.account.after_sale.status.rejected",
+                "Service Rejected"
               )}
-              {data.seller_reply ? (
-                <div className={styles.rejected_reason}>{data.seller_reply}</div>
-              ) : null}
-            </div>
+              reason={
+                data.seller_reply ||
+                T(
+                  LANG,
+                  "user.account.after_sale.status.rejected_tip",
+                  "Your request has been rejected."
+                )
+              }
+              LANG={LANG}
+              T={T}
+            />
           ) : (
             (() => {
               const { steps, activeIndex } = buildProgress(data, LANG);

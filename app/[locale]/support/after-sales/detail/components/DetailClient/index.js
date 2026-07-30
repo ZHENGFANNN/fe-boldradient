@@ -366,8 +366,9 @@ export default function DetailClient({ LANG, locale }) {
           {canCancel ? (
             <div className={styles.cancel_action}>
               <Button
-                variant="secondary"
+                variant="ghost"
                 block
+                className={styles.cancel_btn}
                 loading={cancelling}
                 onClick={handleCancel}
               >

@@ -67,11 +67,33 @@
   }
 }
 
-// ---------- 取消申请按钮：视觉走公共 <Button variant="ghost">，此处仅居中定位 ----------
+// ---------- 取消申请按钮:红色描边(危险动作)使其醒目;此处居中定位 ----------
 .cancel_action {
   display: flex;
   justify-content: center;
   padding: 8px 0 4px;
+  max-width: 320px;
+  margin: 0 auto;
+
+  // 覆盖公共 Button variant="ghost":改用红色描边+红字,点击态填充红底白字,凸显“取消”危险语义
+  .cancel_btn {
+    color: #d92d20;
+    border-color: #d92d20;
+
+    @media (hover: hover) {
+      &:hover:not(:disabled) {
+        background: #fef3f2;
+        border-color: #b42318;
+        color: #b42318;
+      }
+    }
+
+    &:active:not(:disabled) {
+      background: #d92d20;
+      border-color: #d92d20;
+      color: #fff;
+    }
+  }
 }
 
 // ---------- 信息卡（服务信息/产品信息/回寄物流通用；对齐创建向导 StepBlock） ----------
@@ -194,5 +216,10 @@
     .info_label {
       min-width: 0;
     }
+  }
+  // 小屏:取消按钮占满容器宽度
+  .cancel_action {
+    max-width: none;
+    padding: 8px 16px 4px;
   }
 }

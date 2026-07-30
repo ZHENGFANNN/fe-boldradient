@@ -69,6 +69,43 @@ function InfoRow({ label, value }) {
   );
 }
 
+// 媒体网格（图片/视频）。客户提交凭证与运营回复附件共用同一套渲染与样式：
+//   video → 内联 controls 播放；image → 新标签页预览；其余降级为普通 <img>。
+function MediaGrid({ media }) {
+  if (!media || !media.length) return null;
+  return (
+    <div className={styles.media_grid}>
+      {media.map((m, i) =>
+        m.type === "video" ? (
+          <video
+            key={i}
+            className={styles.media_item}
+            src={m.url}
+            controls
+          />
+        ) : /^https?:\/\//i.test((m.url || "").trim()) ? (
+          <a
+            key={i}
+            className={styles.media_item}
+            href={m.url}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img src={m.url} alt={m.name || `media-${i}`} />
+          </a>
+        ) : (
+          <img
+            key={i}
+            className={styles.media_item}
+            src={m.url}
+            alt={m.name || `media-${i}`}
+          />
+        )
+      )}
+    </div>
+  );
+}
+
 export default function DetailClient({ LANG, locale }) {
   const router = useRouter();
   const [serviceNo, setServiceNo] = React.useState(null);
@@ -183,6 +220,9 @@ export default function DetailClient({ LANG, locale }) {
   const canCancel = CANCELABLE_STATUS.has(status);
 
   const media = Array.isArray(data.media) ? data.media : getJsonData(data.media);
+  const sellerReplyMedia = Array.isArray(data.seller_reply_media)
+    ? data.seller_reply_media
+    : getJsonData(data.seller_reply_media);
   const reportType = data.report_type;
 
   const typeLabelMap = {
@@ -328,35 +368,7 @@ export default function DetailClient({ LANG, locale }) {
               <div className={styles.section_title}>
                 {T(LANG, "user_account.after_sale.media", "Photos / Videos")}
               </div>
-              <div className={styles.media_grid}>
-                {media.map((m, i) =>
-                  m.type === "video" ? (
-                    <video
-                      key={i}
-                      className={styles.media_item}
-                      src={m.url}
-                      controls
-                    />
-                  ) : /^https?:\/\//i.test((m.url || "").trim()) ? (
-                    <a
-                      key={i}
-                      className={styles.media_item}
-                      href={m.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <img src={m.url} alt={m.name || `media-${i}`} />
-                    </a>
-                  ) : (
-                    <img
-                      key={i}
-                      className={styles.media_item}
-                      src={m.url}
-                      alt={m.name || `media-${i}`}
-                    />
-                  )
-                )}
-              </div>
+              <MediaGrid media={media} />
             </div>
           ) : null}
 
@@ -371,6 +383,9 @@ export default function DetailClient({ LANG, locale }) {
                 )}
               </div>
               <div className={styles.description}>{data.seller_reply}</div>
+              {sellerReplyMedia && sellerReplyMedia.length ? (
+                <MediaGrid media={sellerReplyMedia} />
+              ) : null}
             </div>
           ) : null}
 

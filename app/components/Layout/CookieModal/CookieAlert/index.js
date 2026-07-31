@@ -4,6 +4,7 @@ import GlobalContext from "@/[locale]/context";
 import { COOKIE_ALERT_REGION_LIST } from "@/components/Layout/CookieModal/const";
 import { setCookieConsent } from "@/hooks/useCookieConsent";
 import { track } from "@/utils/analytics";
+import Button from "@/components/Button";
 
 function CookieSetting({ showCookieSetting }, ref) {
   const { LANG, area, areaReady } = React.useContext(GlobalContext);
@@ -104,8 +105,10 @@ function CookieSetting({ showCookieSetting }, ref) {
           />
         </div>
         <div className={styles.btn_container}>
-          <div
-            className={[styles.required_btn, styles.btn].join(" ")}
+          <Button
+            variant="secondary"
+            size="small"
+            className={styles.btn}
             data-event="cookie-alert-btn-required-only"
             onClick={() => {
               setShow(false);
@@ -113,9 +116,11 @@ function CookieSetting({ showCookieSetting }, ref) {
             }}
           >
             {LANG["common.cookie.cookie_alert.required_only"]}
-          </div>
-          <div
-            className={[styles.accept_btn, styles.btn].join(" ")}
+          </Button>
+          <Button
+            variant="primary"
+            size="small"
+            className={styles.btn}
             data-event="cookie-alert-btn-accept-all"
             onClick={() => {
               setShow(false);
@@ -123,7 +128,7 @@ function CookieSetting({ showCookieSetting }, ref) {
             }}
           >
             {LANG["common.cookie.cookie_alert.accept_all"]}
-          </div>
+          </Button>
         </div>
       </div>
     </div>

@@ -224,19 +224,9 @@
         width: 100%;
         justify-content: flex-end;
         margin-top: 16px;
+        // .btn 传给通用 Button 组件；视觉走 variant，此处仅控制布局
         .btn {
             flex: none;
-            cursor: pointer;
-            padding: 0 24px;
-            height: 48px;
-            line-height: 48px;
-            border-radius: 100px;
-            background: #000;
-            color: #fff;
-            font-size: 16px;
-            font-weight: 700;
-            letter-spacing: 1px;
-            text-transform: uppercase;
         }
       }
     }

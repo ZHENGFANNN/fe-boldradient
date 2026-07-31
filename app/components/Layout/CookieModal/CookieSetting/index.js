@@ -6,6 +6,7 @@ import Cookie from "js-cookie";
 import styles from "./index.module.scss";
 import { useRouter } from "next/navigation";
 import FormSwitch from "@/components/Form/FormSwitch";
+import Button from "@/components/Button";
 import { setCookieConsent, computeConsent } from "@/hooks/useCookieConsent";
 
 function CookieItem({
@@ -202,7 +203,8 @@ function Modal({ onFinish }, ref) {
             />
           </div>
           <div className={styles.btn_container}>
-            <div
+            <Button
+              variant="primary"
               className={styles.btn}
               onClick={() => {
                 // 写偏好并广播，脚本 gate 即时按新开关加载/停留。
@@ -212,7 +214,7 @@ function Modal({ onFinish }, ref) {
               }}
             >
               {LANG["common.cookie.cookie_setting.save_my_settings"]}
-            </div>
+            </Button>
           </div>
         </div>
       </div>

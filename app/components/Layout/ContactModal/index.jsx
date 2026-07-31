@@ -18,6 +18,8 @@ function Modal(_, ref) {
   const { locale, LANG, area } = React.useContext(GlobalContext);
   const [changeBodyScroll, setChangeBodyScroll] = React.useState(true);
   const [loading, setLoading] = React.useState(false);
+  // 提交来源：默认「联系我们页」，产品页入口打开时传 "product" 以便后台区分来源。
+  const sourceRef = React.useRef("contact");
 
   const {
     register,
@@ -36,7 +38,7 @@ function Modal(_, ref) {
           path: location.pathname,
           language: locale,
           area,
-          type: "contact",
+          type: sourceRef.current,
           ...values,
         });
         if (data.code === 0) {
@@ -65,7 +67,8 @@ function Modal(_, ref) {
   );
 
   React.useImperativeHandle(ref, () => ({
-    show: () => {
+    show: (type) => {
+      sourceRef.current = type === "product" ? "product" : "contact";
       setIsMounted(true);
       setTimeout(() => setShow(true), 0);
     },

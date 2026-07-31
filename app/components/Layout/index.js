@@ -68,9 +68,9 @@ export default function Layout({ locale, LANG, CONFIG, analytics, children }) {
         showAreaModal: () => {
           areaRef.current.show();
         },
-        // Show Contact Modal
-        showContactModal: () => {
-          contactRef.current.show();
+        // Show Contact Modal（type 可传 "product" 以便后台区分来源，默认 "contact"）
+        showContactModal: (type) => {
+          contactRef.current.show(type);
         },
         // Open live chat widget
         showLiveChat: (forceOpen = true) => {

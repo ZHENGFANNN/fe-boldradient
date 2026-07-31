@@ -92,7 +92,7 @@ export default function GoodGuarantee() {
         className={styles.email_question_container}
         data-event="ProductGuarantee-Email"
         onClick={() => {
-          showContactModal();
+          showContactModal("product");
         }}
       >
         <ProductEmailIcon aria-label={LANG["product.question_email"]} />

@@ -10,7 +10,6 @@ import Api from "@/components/Layout/api";
 import FormInput from "@/components/Form/FormInput";
 import FormTextarea from "@/components/Form/FormTextArea";
 import FormItem from "@/components/Form/FormItem";
-import ContactSuccess from "@/[locale]/support/contact/components/ContactSuccess";
 
 function Modal(_, ref) {
   const tipRef = React.useRef(null);
@@ -19,7 +18,6 @@ function Modal(_, ref) {
   const { locale, LANG, area } = React.useContext(GlobalContext);
   const [changeBodyScroll, setChangeBodyScroll] = React.useState(true);
   const [loading, setLoading] = React.useState(false);
-  const [submitted, setSubmitted] = React.useState(false);
 
   const {
     register,
@@ -42,8 +40,14 @@ function Modal(_, ref) {
           ...values,
         });
         if (data.code === 0) {
-          // 成功不再关弹窗弹 toast，弹窗内切换到「提交成功」展示态。
-          setSubmitted(true);
+          // 成功后直接关闭弹窗 + 顶部成功 toast，不再在弹窗内切换到大块「Thank you」展示态。
+          setShow(false);
+          tipRef.current.show({
+            type: "success",
+            text:
+              LANG["common.contact.success_desc"] ||
+              "We've received your message and will get back to you as soon as possible.",
+          });
         } else {
           throw new Error("code!==0");
         }
@@ -77,7 +81,6 @@ function Modal(_, ref) {
     } else {
       reset();
       clearErrors();
-      setSubmitted(false);
       if (changeBodyScroll) {
         document.body.style.overflow = "scroll";
       } else {
@@ -111,17 +114,7 @@ function Modal(_, ref) {
               </div>
             </div>
             <div className={styles.content}>
-              {submitted ? (
-                <ContactSuccess
-                  LANG={LANG}
-                  onReset={() => {
-                    setSubmitted(false);
-                    reset();
-                    clearErrors();
-                  }}
-                />
-              ) : (
-                <form onSubmit={handleSubmit(onSubmit)}>
+              <form onSubmit={handleSubmit(onSubmit)}>
                 <FormItem>
                   <FormInput
                     label={LANG["common.contact.first_name"]}
@@ -190,7 +183,6 @@ function Modal(_, ref) {
                   </button>
                 </div>
                 </form>
-              )}
             </div>
           </div>
         </div>

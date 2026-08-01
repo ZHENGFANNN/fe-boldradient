@@ -36,6 +36,25 @@ const PRESET_SOCIAL_ICONS = {
   youtube: SocialYoutubeIcon,
 };
 
+// alt/type 常见别名 → 预设图标 key，用于历史数据无 type、仅有 alt 时的兜底解析。
+const SOCIAL_ALIAS = {
+  instagram: "ins",
+  ig: "ins",
+  fb: "facebook",
+  x: "twitter",
+  wechat: "weixin",
+  wx: "weixin",
+  yt: "youtube",
+  weibo: "sina",
+};
+
+// 优先按 type 命中预设单色图标；type 缺失/为 other 时回退按 alt 归一化匹配。
+function resolvePresetIcon(item) {
+  const raw = (item.type && item.type !== "other" ? item.type : item.alt) || "";
+  const key = raw.toString().trim().toLowerCase();
+  return PRESET_SOCIAL_ICONS[key] || PRESET_SOCIAL_ICONS[SOCIAL_ALIAS[key]] || null;
+}
+
 export default function ContactModule() {
   const { CONFIG, LANG, locale, area } = React.useContext(GlobalContext);
 
@@ -84,11 +103,8 @@ export default function ContactModule() {
         <div className={styles.content_company}>
           <div className={[styles.content_logo, styles.content_item].join(" ")}>
             {CONFIG["common.social"]?.map((item, index) => {
-              // 预设类型走本地内联图标；other/历史数据回退上传图片。
-              const PresetIcon =
-                item.type && item.type !== "other"
-                  ? PRESET_SOCIAL_ICONS[item.type]
-                  : null;
+              // 预设类型走本地内联单色图标；无法归一化才回退上传图片。
+              const PresetIcon = resolvePresetIcon(item);
               return (
                 <div key={index}>
                   {item.href ? (

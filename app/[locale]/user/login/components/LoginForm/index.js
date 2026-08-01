@@ -12,6 +12,7 @@ import { isEmail } from "../../../../../utils/pattern";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import ShowTipModal from "../../../../../components/Modal/ShowTipModal";
+import DeletionPendingModal from "../DeletionPendingModal";
 import Button from "@/components/Button";
 
 export default function LoginForm({ LANG }) {
@@ -21,6 +22,10 @@ export default function LoginForm({ LANG }) {
   // 静态预渲染的 CSR bailout（需 Suspense 包裹）约束，使本页可整页静态化。
   const [redirect, setRedirect] = React.useState(null);
   const [loading, setLoading] = React.useState(false);
+  // 注销冷静期弹窗：登录返回 10097 时展示，记住本次登录邮箱 + 冷静期信息，
+  // 供弹窗内「重新输入密码」调 cancelDeletion 取消注销并继续登录。
+  const [pending, setPending] = React.useState(null); // { email, effective_at, grace_days } | null
+  const [cancelLoading, setCancelLoading] = React.useState(false);
 
   const {
     register,
@@ -29,10 +34,12 @@ export default function LoginForm({ LANG }) {
     formState: { errors },
   } = useForm();
   const [searchStr, setSearchStr] = React.useState("");
+  /* eslint-disable react-hooks/set-state-in-effect */
   React.useEffect(() => {
     setSearchStr(location.search);
     setRedirect(new URLSearchParams(location.search).get("redirect"));
   }, []);
+  /* eslint-enable react-hooks/set-state-in-effect */
 
   React.useEffect(() => {
     const token = Cookies.get("token");
@@ -40,6 +47,17 @@ export default function LoginForm({ LANG }) {
       router.push("/user/account");
     }
   }, []);
+
+  // gotoAfterLogin 登录/取消注销成功后的统一跳转：优先回跳 redirect（去尾斜杠），否则去账户页。
+  const gotoAfterLogin = React.useCallback(() => {
+    if (redirect) {
+      // TODO： 恶心操作 - url末尾自带 /
+      const path = redirect.endsWith("/") ? redirect.slice(0, -1) : redirect;
+      location.href = path;
+    } else {
+      location.href = "/user/account";
+    }
+  }, [redirect]);
 
   const onSubmit = React.useCallback(
     async (formData) => {
@@ -57,16 +75,15 @@ export default function LoginForm({ LANG }) {
             type: "success",
           });
           reset();
-          // 登录成功后直接跳转，去掉原 500ms 延迟（消除跳转前的卡顿感）。
-          if (redirect) {
-            // TODO： 恶心操作 - url末尾自带 /
-            const path = redirect.endsWith("/")
-              ? redirect.slice(0, -1)
-              : redirect;
-            location.href = path;
-          } else {
-            location.href = "/user/account";
-          }
+          gotoAfterLogin();
+        } else if (data.code === 10097) {
+          // 账号处于注销冷静期：不直接登录，弹窗让用户重新输入密码确认取消注销后继续。
+          setLoading(false);
+          setPending({
+            email: formData.email,
+            effective_at: data.data?.effective_at,
+            grace_days: data.data?.grace_days,
+          });
         } else if (data.code === -1) {
           setLoading(false);
           tipRef.current.show({
@@ -91,7 +108,43 @@ export default function LoginForm({ LANG }) {
         });
       }
     },
-    [redirect]
+    [redirect, gotoAfterLogin]
+  );
+
+  // handleCancelDeletion 弹窗内确认取消注销：重新输入密码 → cancelDeletion → 存 token 继续登录。
+  const handleCancelDeletion = React.useCallback(
+    async (password) => {
+      if (!pending) return;
+      setCancelLoading(true);
+      try {
+        const data = await Api.cancelDeletion({
+          email: pending.email,
+          password,
+        });
+        if (data.code === 0) {
+          if (data.data) Cookies.set("token", data.data, { expires: 7 });
+          setPending(null);
+          tipRef.current.show({
+            text: LANG["user.login.login_success"],
+            type: "success",
+          });
+          gotoAfterLogin();
+        } else {
+          setCancelLoading(false);
+          tipRef.current.show({
+            text: LANG["user.login.invalid_user"],
+            type: "error",
+          });
+        }
+      } catch (err) {
+        setCancelLoading(false);
+        tipRef.current.show({
+          text: LANG["user.login.server_error"],
+          type: "error",
+        });
+      }
+    },
+    [pending, gotoAfterLogin]
   );
 
   return (
@@ -144,6 +197,16 @@ export default function LoginForm({ LANG }) {
         </Button>
         <ShowTipModal ref={tipRef} />
       </form>
+      <DeletionPendingModal
+        visible={!!pending}
+        LANG={LANG}
+        effectiveAt={pending?.effective_at}
+        graceDays={pending?.grace_days}
+        needPassword
+        loading={cancelLoading}
+        onConfirm={handleCancelDeletion}
+        onClose={() => setPending(null)}
+      />
       <p className={styles.register}>
         <span>{LANG["user.login.new_user"]}</span>
         <Link scroll={true} href={`/user/register${searchStr}`}>

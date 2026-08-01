@@ -31,6 +31,11 @@ const request = {
   resetPassword: (data) => {
     return api.post(`/user/resetPassword`, data);
   },
+  // 取消账号注销并登录：登录检测到冷静期内(code 10097)时，弹窗内重新输入密码确认取消
+  // （邮箱路径传 {email,password}；Google 路径传 {cancel_token}），成功 data 为 JWT。
+  cancelDeletion: (data) => {
+    return api.post(`/user/cancelDeletion`, data);
+  },
   // 营销邮件退订：凭邮件链接 token 退订，成功 data:{ email }
   unsubscribe: (data) => {
     return api.post(`/user/unsubscribe`, data);

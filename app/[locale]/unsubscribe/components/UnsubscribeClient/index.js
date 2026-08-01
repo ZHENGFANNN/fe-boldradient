@@ -24,7 +24,8 @@ const STATUS = {
   ERROR: "error", // 退订失败
 };
 
-export default function UnsubscribeClient() {
+export default function UnsubscribeClient({ LANG }) {
+  const t = React.useCallback((k, f) => (LANG && LANG[k]) || f, [LANG]);
   const [status, setStatus] = React.useState(STATUS.LOADING);
   const [token, setToken] = React.useState(null);
   const [email, setEmail] = React.useState("");
@@ -54,9 +55,11 @@ export default function UnsubscribeClient() {
       setStatus(STATUS.SUCCESS);
     } catch (err) {
       setErrorMsg(
-        err?.message ||
-          err?.response?.data?.message ||
-          "This unsubscribe link is invalid or has expired."
+        err?.response?.data?.message ||
+          t(
+            "common.unsubscribe.error_generic",
+            "This unsubscribe link is invalid or has expired."
+          )
       );
       setStatus(STATUS.ERROR);
     }
@@ -70,24 +73,29 @@ export default function UnsubscribeClient() {
           email={email}
           errorMsg={errorMsg}
           onConfirm={onConfirm}
+          t={t}
         />
       </main>
     </div>
   );
 }
 
-function UnsubscribeBody({ status, email, errorMsg, onConfirm }) {
+function UnsubscribeBody({ status, email, errorMsg, onConfirm, t }) {
   if (status === STATUS.LOADING) {
-    return <p className={styles.hint}>Loading…</p>;
+    return <p className={styles.hint}>{t("common.unsubscribe.loading", "Loading…")}</p>;
   }
 
   if (status === STATUS.NO_TOKEN) {
     return (
       <>
-        <h1 className={styles.title}>Invalid unsubscribe link</h1>
+        <h1 className={styles.title}>
+          {t("common.unsubscribe.invalid_title", "Invalid unsubscribe link")}
+        </h1>
         <p className={styles.desc}>
-          This link is missing required information. Please open the unsubscribe
-          link directly from the email you received.
+          {t(
+            "common.unsubscribe.invalid_desc",
+            "This link is missing required information. Please open the unsubscribe link directly from the email you received."
+          )}
         </p>
       </>
     );
@@ -96,9 +104,15 @@ function UnsubscribeBody({ status, email, errorMsg, onConfirm }) {
   if (status === STATUS.SUCCESS) {
     return (
       <>
-        <h1 className={styles.title}>You&apos;ve been unsubscribed</h1>
+        <h1 className={styles.title}>
+          {t("common.unsubscribe.success_title", "You've been unsubscribed")}
+        </h1>
         <p className={styles.desc}>
-          {email ? `${email} ` : ""}will no longer receive marketing emails.
+          {email ? `${email} ` : ""}
+          {t(
+            "common.unsubscribe.success_desc_suffix",
+            "will no longer receive marketing emails."
+          )}
         </p>
       </>
     );
@@ -107,7 +121,9 @@ function UnsubscribeBody({ status, email, errorMsg, onConfirm }) {
   if (status === STATUS.ERROR) {
     return (
       <>
-        <h1 className={styles.title}>Unsubscribe failed</h1>
+        <h1 className={styles.title}>
+          {t("common.unsubscribe.failed_title", "Unsubscribe failed")}
+        </h1>
         <p className={styles.desc}>{errorMsg}</p>
       </>
     );
@@ -117,10 +133,14 @@ function UnsubscribeBody({ status, email, errorMsg, onConfirm }) {
   const submitting = status === STATUS.SUBMITTING;
   return (
     <>
-      <h1 className={styles.title}>Unsubscribe from marketing emails?</h1>
+      <h1 className={styles.title}>
+        {t("common.unsubscribe.confirm_title", "Unsubscribe from marketing emails?")}
+      </h1>
       <p className={styles.desc}>
-        You will stop receiving promotional and marketing emails. This
-        won&apos;t affect important account or order notifications.
+        {t(
+          "common.unsubscribe.confirm_desc",
+          "You will stop receiving promotional and marketing emails. This won't affect important account or order notifications."
+        )}
       </p>
       <button
         type="button"
@@ -128,7 +148,9 @@ function UnsubscribeBody({ status, email, errorMsg, onConfirm }) {
         disabled={submitting}
         onClick={onConfirm}
       >
-        {submitting ? "Unsubscribing…" : "Confirm unsubscribe"}
+        {submitting
+          ? t("common.unsubscribe.submitting", "Unsubscribing…")
+          : t("common.unsubscribe.confirm_btn", "Confirm unsubscribe")}
       </button>
     </>
   );

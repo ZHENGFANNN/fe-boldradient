@@ -174,14 +174,47 @@ export const FAQ_ITEMS = {
         "支持 Stripe 信用卡/借记卡，部分地区还支持 PayPal。所有支付均通过行业标准加密保护。",
     },
   ],
+  ja: [
+    {
+      id: "shipping",
+      question: "配送にはどのくらいかかりますか？",
+      answer:
+        "米国内の注文は通常、製作完了後 3〜5 営業日以内に発送されます。海外配送の所要日数は配送先により異なり、目安はチェックアウト時にご確認いただけます。",
+    },
+    {
+      id: "returns",
+      question: "返品ポリシーを教えてください。",
+      answer:
+        "未使用で元の状態の商品は、お届けから 30 日以内に返品いただけます。カスタム品や刻印入りの商品は条件が異なる場合がありますので、ご不明な点はご注文前にお問い合わせください。",
+    },
+    {
+      id: "lab-grown",
+      question: "ダイヤモンドはラボグロウンですか？",
+      answer:
+        "はい。BoldRadiant はラボグロウンダイヤモンドを専門としています。倫理的に調達され、証明書付きで、同等の天然石よりもお求めやすい価格で提供しています。",
+    },
+    {
+      id: "sizing",
+      question: "指輪のサイズはどうやって調べますか？",
+      answer:
+        "商品ページのサイズガイドをご利用いただくか、お近くの宝飾店で計測してください。利き手の薬指を測ることをおすすめします。",
+    },
+    {
+      id: "payment",
+      question: "どのお支払い方法が利用できますか？",
+      answer:
+        "Stripe を通じて主要なクレジットカード・デビットカードをご利用いただけるほか、一部地域では PayPal もご利用いただけます。すべての取引は業界標準の暗号化で保護されています。",
+    },
+  ],
 };
 
 export function getFaqLocale(locale) {
   const code = String(locale || "en").toLowerCase();
   if (code.startsWith("zh")) return "zh";
+  if (code.startsWith("ja")) return "ja";
   return "en";
 }
 
 export function getFaqItems(locale) {
-  return FAQ_ITEMS[getFaqLocale(locale)];
+  return FAQ_ITEMS[getFaqLocale(locale)] || FAQ_ITEMS.en;
 }

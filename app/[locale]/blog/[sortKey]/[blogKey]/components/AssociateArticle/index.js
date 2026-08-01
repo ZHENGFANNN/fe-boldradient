@@ -26,7 +26,8 @@ function ArticleCard({ item, locale }) {
   );
 }
 
-export default function AssociateArticle({ articleList, locale }) {
+export default function AssociateArticle({ articleList, locale, LANG }) {
+  const t = (k, f) => (LANG && LANG[k]) || f;
   const [showArrow, setShowArrow] = React.useState(false);
   const [active, setActive] = React.useState(0);
 
@@ -72,7 +73,9 @@ export default function AssociateArticle({ articleList, locale }) {
 
   return (
     <div className={styles.container}>
-      <div className={styles.title}>You May Also Like</div>
+      <div className={styles.title}>
+        {t("blog.you_may_also_like", "You May Also Like")}
+      </div>
       <div className={styles.scroll_container}>
         <div className={styles.list_container}>
           <div className={styles.list}>

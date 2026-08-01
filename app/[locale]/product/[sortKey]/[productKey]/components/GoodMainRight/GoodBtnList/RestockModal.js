@@ -16,7 +16,7 @@ import styles from "./RestockModal.module.scss";
 // 到货通知弹窗（缺货收集）：无标题,含商品名 + 描述 + 邮箱输入 + 隐私协议勾选 + 提交。
 // 复用外层共享 Modal 组件(不传 title 即无 header)。上报 email + path + area + locale + combo_key。
 // 目前只收集不发到货邮件;同邮箱同页同套餐后端静默去重。父组件持 ref 调 ref.current.show()。
-function RestockModal({ LANG, locale, area, comboKey }, ref) {
+function RestockModal({ LANG, locale, area, comboKey, sortKey, goodKey }, ref) {
   const modalRef = React.useRef(null);
   const tipRef = React.useRef(null);
   const [loading, setLoading] = React.useState(false);
@@ -51,7 +51,9 @@ function RestockModal({ LANG, locale, area, comboKey }, ref) {
           path: location.pathname,
           language: locale,
           area,
-          combo_key: comboKey || ""
+          combo_key: comboKey || "",
+          sort_key: sortKey || "",
+          good_key: goodKey || ""
         });
         if (data.code === 0) {
           close();
@@ -76,7 +78,7 @@ function RestockModal({ LANG, locale, area, comboKey }, ref) {
         setLoading(false);
       }
     },
-    [loading, locale, area, comboKey, LANG, close]
+    [loading, locale, area, comboKey, sortKey, goodKey, LANG, close]
   );
 
   return (

@@ -8,7 +8,7 @@ import styles from "./RestockForm.module.scss";
 
 // 缺货区块（PDP 不可购买时）：直接展示黑色「Notify me」按钮触发到货通知弹窗（去掉 Out of Stock 标）。
 // 弹窗内收集邮箱并上报 path/area/locale/combo_key，见 RestockModal。
-export default function RestockForm({ LANG, locale, area, comboKey, productName }) {
+export default function RestockForm({ LANG, locale, area, comboKey, productName, sortKey, goodKey }) {
   const modalRef = React.useRef(null);
 
   return (
@@ -26,6 +26,8 @@ export default function RestockForm({ LANG, locale, area, comboKey, productName 
         area={area}
         comboKey={comboKey}
         productName={productName}
+        sortKey={sortKey}
+        goodKey={goodKey}
       />
     </div>
   );

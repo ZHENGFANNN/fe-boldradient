@@ -413,6 +413,8 @@ export default function GoodBtnList() {
           area={area}
           comboKey={productCurCombo?.key || ""}
           productName={productInfo?.name || ""}
+          sortKey={productInfo?.sort_key || ""}
+          goodKey={productInfo?.key || ""}
         />
       ) : (
         <>

@@ -11,10 +11,13 @@ import { debounce } from "@/utils";
 import { discountedUnitPrice, savedUnitAmount } from "@/utils/productPricing";
 import { recordRecentlyViewed } from "@/components/LiveChat/recentlyViewed";
 import { ProductComboIcon } from "@/components/Icon";
+import readClientArea from "@/utils/readClientArea";
+import RestockModal from "../GoodMainRight/GoodBtnList/RestockModal";
 
 export default function GoodFooter() {
   const {
     LANG,
+    locale,
     productInfo,
     productNum,
     productCurCombo,
@@ -26,6 +29,7 @@ export default function GoodFooter() {
     autoDiscount,
   } = React.useContext(ProductContext);
   const comboModalRef = React.useRef(null);
+  const restockModalRef = React.useRef(null);
 
   // 已选变体摘要（V2）：由选中的轴值派生 "轴名: 值名" 串，展示在底部购买栏。
   const optionString = React.useMemo(() => {
@@ -180,13 +184,24 @@ export default function GoodFooter() {
               </div>
             </>
           ) : (
-            <div className={`${styles.footer_button} ${styles.disabled}`}>
-              {LANG["product.no_stock"]}
+            <div
+              onClick={() => restockModalRef.current?.show()}
+              className={`${styles.footer_button}`}
+            >
+              {LANG["product.restock.notify_me"] || "Notify me"}
             </div>
           )}
         </div>
       </div>
       <ComboModal ref={comboModalRef} />
+      <RestockModal
+        ref={restockModalRef}
+        LANG={LANG}
+        locale={locale}
+        area={readClientArea()}
+        comboKey={productCurCombo?.key || ""}
+        productName={productInfo?.name || ""}
+      />
     </section>
   );
 }

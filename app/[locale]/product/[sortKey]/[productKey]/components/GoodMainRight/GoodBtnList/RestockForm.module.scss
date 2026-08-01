@@ -1,20 +1,6 @@
 .restock {
     margin-bottom: 17px;
 
-    .stock_label {
-        box-sizing: border-box;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 55px;
-        border: 1px solid rgb(175, 177, 180);
-        color: rgb(175, 177, 180);
-        border-radius: var(--radius-pill, 50px);
-        cursor: not-allowed;
-        user-select: none;
-        margin-bottom: 14px;
-    }
-
     .notify_btn {
         box-sizing: border-box;
         display: flex;
@@ -34,14 +20,11 @@
 }
 
 @media screen and (max-width: 1250px) {
-    .restock .stock_label,
     .restock .notify_btn { height: 45px; }
 }
 @media screen and (max-width: 820px) {
-    .restock .stock_label,
     .restock .notify_btn { height: 55px; }
 }
 @media screen and (max-width: 561px) {
-    .restock .stock_label,
     .restock .notify_btn { height: 45px; }
 }

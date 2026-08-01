@@ -1,17 +1,41 @@
 import React from "react";
 import styles from "./index.module.scss";
+import { useRouter } from "next/navigation";
 import GlobalContext from "@/[locale]/context";
 import { COOKIE_ALERT_REGION_LIST } from "@/components/Layout/CookieModal/const";
 import { setCookieConsent } from "@/hooks/useCookieConsent";
+import { defaultLocale } from "@/config/languageSettings";
 import { track } from "@/utils/analytics";
 import Button from "@/components/Button";
 
 function CookieSetting({ showCookieSetting }, ref) {
-  const { LANG, area, areaReady } = React.useContext(GlobalContext);
+  const router = useRouter();
+  const { LANG, locale, area, areaReady } = React.useContext(GlobalContext);
   const contentRef = React.useRef();
   const [show, setShow] = React.useState(false);
   const [firstRender, setFirstRender] = React.useState(true);
   const cookieModalRef = React.useRef();
+  // Cookie 政策文章路由（sort=legal）；默认语言 en 无前缀，其它语言带 /{locale}。
+  const cookiePolicyPath =
+    locale && locale !== defaultLocale
+      ? `/${locale}/article/legal/cookie-policy`
+      : "/article/legal/cookie-policy";
+
+  const handleClick = React.useCallback(
+    (e) => {
+      const key = e.target.getAttribute("data-key");
+      if (key === "cookie-preferences") {
+        showCookieSetting();
+      } else if (key === "cookie-policy") {
+        // 关闭横幅并软跳转到 Cookie 政策文章页，避免整页硬刷。
+        e.preventDefault();
+        setShow(false);
+        router.push(cookiePolicyPath);
+      }
+      // 上报走 data-event 冒泡，见 dangerouslySetInnerHTML 内的属性
+    },
+    [showCookieSetting, router, cookiePolicyPath]
+  );
 
   React.useEffect(() => {
     if (!firstRender && contentRef.current) {
@@ -28,15 +52,7 @@ function CookieSetting({ showCookieSetting }, ref) {
         observer.disconnect();
       };
     }
-  }, [firstRender, contentRef]);
-
-  const handleClick = (e) => {
-    const key = e.target.getAttribute("data-key");
-    if (key === "cookie-preferences") {
-      showCookieSetting();
-    }
-    // 上报走 data-event 冒泡，见 dangerouslySetInnerHTML 内的属性
-  };
+  }, [firstRender, contentRef, handleClick]);
 
   // 写偏好并广播（setCookieConsent 内部 localStorage + dispatch），使脚本 gate 即时响应。
   const setCookiePermissions = React.useCallback((list) => {
@@ -99,7 +115,7 @@ function CookieSetting({ showCookieSetting }, ref) {
                 )
                 ?.replace(
                   "$2",
-                  `<a data-key='cookie-policy' data-event='cookie-alert-setting-policy'>${LANG["common.cookie.cookie_policy"]}</a>`
+                  `<a href='${cookiePolicyPath}' data-key='cookie-policy' data-event='cookie-alert-setting-policy'>${LANG["common.cookie.cookie_policy"]}</a>`
                 ),
             }}
           />

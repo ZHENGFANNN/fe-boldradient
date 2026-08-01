@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import FormSwitch from "@/components/Form/FormSwitch";
 import Button from "@/components/Button";
 import { setCookieConsent, computeConsent } from "@/hooks/useCookieConsent";
+import { defaultLocale } from "@/config/languageSettings";
 
 function CookieItem({
   title,
@@ -59,9 +60,15 @@ function CookieItem({
 }
 
 function Modal({ onFinish }, ref) {
+  const router = useRouter();
   const [isMounted, setIsMounted] = React.useState(false);
   const [show, setShow] = React.useState(false);
   const { locale, LANG, area } = React.useContext(GlobalContext);
+  // Cookie 政策文章路由（sort=legal）；默认语言 en 无前缀，其它语言带 /{locale}。
+  const cookiePolicyPath =
+    locale && locale !== defaultLocale
+      ? `/${locale}/article/legal/cookie-policy`
+      : "/article/legal/cookie-policy";
   const [changeBodyScroll, setChangeBodyScroll] = React.useState(true);
   // 初始留空，由下方 effect 按「已存偏好 / 地区默认」填充，避免 GDPR 地区首次打开就默认全勾。
   const [checkList, setCheckList] = React.useState([]);
@@ -138,10 +145,19 @@ function Modal({ onFinish }, ref) {
             <div
               className={styles.tip}
               ref={contentRef}
+              onClick={(e) => {
+                // 注入的 <a> 由 dangerouslySetInnerHTML 生成，用事件委托拦截：
+                // 关闭弹窗并软跳转到 Cookie 政策文章页，避免整页硬刷。
+                const anchor = e.target.closest?.("a[data-key='cookie-policy']");
+                if (!anchor) return;
+                e.preventDefault();
+                setShow(false);
+                router.push(cookiePolicyPath);
+              }}
               dangerouslySetInnerHTML={{
                 __html: LANG["common.cookie.cookie_setting.desc"]?.replace(
                   "$1",
-                  `<a data-key='cookie-policy' data-event='cookie-setting-desc-policy'>${LANG["common.cookie.cookie_policy"]}</a>`
+                  `<a href='${cookiePolicyPath}' data-key='cookie-policy' data-event='cookie-setting-desc-policy'>${LANG["common.cookie.cookie_policy"]}</a>`
                 ),
               }}
             />

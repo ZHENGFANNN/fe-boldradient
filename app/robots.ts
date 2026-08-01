@@ -1,5 +1,3 @@
-/** @format */
-
 // ============================================================
 // Next.js 原生 robots（替代静态 public/robots.txt）。
 // 域名统一取 NEXT_PUBLIC_DOMAIN —— 与 app/sitemap.ts、app/config/seo.ts

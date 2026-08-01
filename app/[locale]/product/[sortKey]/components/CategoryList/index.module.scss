@@ -3,7 +3,7 @@
   width: 100%;
   box-sizing: border-box;
   margin: auto;
-  padding: 120px 24px 120px;
+  padding: 48px 24px 120px;
 }
 
 /* 面包屑 */
@@ -477,8 +477,6 @@
 
 @media screen and (max-width: 1079px) {
   .container {
-    padding: 80px 16px 80px;
-    width: 100%;
   }
   .collection_header .collection_title {
     font-size: 30px;
@@ -498,7 +496,7 @@
 
 @media screen and (max-width: 767px) {
   .container {
-    padding: 72px 16px 64px;
+    padding: 32px 16px 64px;
   }
   .filter_bar {
     flex-direction: column;

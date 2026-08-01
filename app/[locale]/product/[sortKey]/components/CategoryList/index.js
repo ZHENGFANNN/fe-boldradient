@@ -49,18 +49,6 @@ function ReviewRate({ LANG, reviewScore, reviewsNum }) {
   );
 }
 
-// 取商品当前地区的展示价（用于价格区间筛选）；pricing 未就绪 / 无价时返回 null。
-function getDisplayPrice(product, pricingMap) {
-  const item = pricingMap?.[`${product.sort_key}:${product.key}`];
-  const areaInfo = pickAreaInfo(item);
-  if (!areaInfo) return null;
-  const raw = areaInfo.product_price;
-  if (raw == null) return null;
-  // product_price 是「分」级整数，currency_unit 为换算基数(如 100)。
-  const unit = areaInfo.currency_unit || 100;
-  return raw / unit;
-}
-
 const PAGE_SIZE = 10;
 
 // 两位补零
@@ -243,40 +231,28 @@ export default function CategoryList({
     };
   }, [areaReady, area, locale, allKeys]);
 
-  // 筛选状态：selectedTags = Set(已选商品标签)；价格区间字符串（受控输入）。
+  // 筛选状态：selectedTags = Set(已选商品标签)。
   const [selectedTags, setSelectedTags] = React.useState(() => new Set());
-  const [minPrice, setMinPrice] = React.useState("");
-  const [maxPrice, setMaxPrice] = React.useState("");
   const [visible, setVisible] = React.useState(PAGE_SIZE);
 
   const tagList = React.useMemo(() => buildTagList(goodList), [goodList]);
-  const hasAnyFilter =
-    selectedTags.size > 0 || minPrice !== "" || maxPrice !== "";
+  const hasAnyFilter = selectedTags.size > 0;
 
-  // 筛选：商品标签按 OR 匹配（选中任一标签即命中）；价格按当前地区展示价落在 [min,max]。
-  // pricing 未就绪时不启用筛选（保留首屏列表，避免没价时把所有商品过滤光）。
+  // 筛选：商品标签按 OR 匹配（选中任一标签即命中）。
+  // pricing 未就绪时不启用筛选（保留首屏列表）。
   const filtered = React.useMemo(() => {
     if (!pricingReady) return goodList;
-    const min = minPrice === "" ? -Infinity : Number(minPrice);
-    const max = maxPrice === "" ? Infinity : Number(maxPrice);
+    if (selectedTags.size === 0) return goodList;
     return goodList.filter((p) => {
-      if (selectedTags.size > 0) {
-        const tags = p.tags || [];
-        if (!tags.some((tg) => selectedTags.has(tg))) return false;
-      }
-      if (min !== -Infinity || max !== Infinity) {
-        const price = getDisplayPrice(p, pricingMap);
-        if (price == null) return false; // 设了价格区间但该商品无价 → 不展示
-        if (price < min || price > max) return false;
-      }
-      return true;
+      const tags = p.tags || [];
+      return tags.some((tg) => selectedTags.has(tg));
     });
-  }, [pricingReady, goodList, selectedTags, minPrice, maxPrice, pricingMap]);
+  }, [pricingReady, goodList, selectedTags]);
 
   // 任一筛选条件变化时，分页重置回第一页。
   React.useEffect(() => {
     setVisible(PAGE_SIZE);
-  }, [selectedTags, minPrice, maxPrice]);
+  }, [selectedTags]);
 
   const shown = filtered.slice(0, visible);
   const hasMore = visible < filtered.length;
@@ -292,8 +268,6 @@ export default function CategoryList({
 
   const clearFilters = () => {
     setSelectedTags(new Set());
-    setMinPrice("");
-    setMaxPrice("");
   };
 
   return (
@@ -353,34 +327,6 @@ export default function CategoryList({
               </div>
             </div>
           ) : null}
-
-          {/* 价格范围 */}
-          <div className={styles.filter_group}>
-            <div className={styles.filter_label}>
-              {t("product.category.price", "Price")}
-            </div>
-            <div className={styles.price_range}>
-              <input
-                type="number"
-                inputMode="numeric"
-                min="0"
-                className={styles.price_input}
-                placeholder={t("product.category.min", "Min")}
-                value={minPrice}
-                onChange={(e) => setMinPrice(e.target.value)}
-              />
-              <span className={styles.price_dash}>-</span>
-              <input
-                type="number"
-                inputMode="numeric"
-                min="0"
-                className={styles.price_input}
-                placeholder={t("product.category.max", "Max")}
-                value={maxPrice}
-                onChange={(e) => setMaxPrice(e.target.value)}
-              />
-            </div>
-          </div>
 
           {hasAnyFilter ? (
             <button

@@ -4,7 +4,6 @@ import GlobalContext from "@/[locale]/context";
 import Link from "next/link";
 import Cookie from "js-cookie";
 import styles from "./index.module.scss";
-import { useRouter } from "next/navigation";
 import FormSwitch from "@/components/Form/FormSwitch";
 import Button from "@/components/Button";
 import { setCookieConsent, computeConsent } from "@/hooks/useCookieConsent";
@@ -60,7 +59,6 @@ function CookieItem({
 }
 
 function Modal({ onFinish }, ref) {
-  const router = useRouter();
   const [isMounted, setIsMounted] = React.useState(false);
   const [show, setShow] = React.useState(false);
   const { locale, LANG, area } = React.useContext(GlobalContext);
@@ -147,17 +145,16 @@ function Modal({ onFinish }, ref) {
               ref={contentRef}
               onClick={(e) => {
                 // 注入的 <a> 由 dangerouslySetInnerHTML 生成，用事件委托拦截：
-                // 关闭弹窗并软跳转到 Cookie 政策文章页，避免整页硬刷。
+                // 在新标签页打开 Cookie 政策文章页，不关闭当前弹窗。
                 const anchor = e.target.closest?.("a[data-key='cookie-policy']");
                 if (!anchor) return;
                 e.preventDefault();
-                setShow(false);
-                router.push(cookiePolicyPath);
+                window.open(cookiePolicyPath, "_blank", "noopener,noreferrer");
               }}
               dangerouslySetInnerHTML={{
                 __html: LANG["common.cookie.cookie_setting.desc"]?.replace(
                   "$1",
-                  `<a href='${cookiePolicyPath}' data-key='cookie-policy' data-event='cookie-setting-desc-policy'>${LANG["common.cookie.cookie_policy"]}</a>`
+                  `<a href='${cookiePolicyPath}' target='_blank' rel='noopener noreferrer' data-key='cookie-policy' data-event='cookie-setting-desc-policy'>${LANG["common.cookie.cookie_policy"]}</a>`
                 ),
               }}
             />

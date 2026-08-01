@@ -30,6 +30,11 @@ const request = {
   getReviewableOrder: (params) => {
     return api.get("/pay/getReviewableOrder", { params });
   },
+  // 到货通知登记（公开，无需登录）：商品缺货时收集邮箱。
+  // 入参 { email, path, language, area, combo_key }（combo_key 无套餐时传空串）。目前只收集不发邮件。
+  restockNotify: (data) => {
+    return api.post("/user/restockNotify", data);
+  },
 };
 
 export default request;

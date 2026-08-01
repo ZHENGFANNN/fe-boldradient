@@ -221,12 +221,10 @@
       }
       .btn_container {
         display: flex;
-        width: 100%;
         justify-content: flex-end;
         margin-top: 16px;
         // .btn 传给通用 Button 组件；视觉走 variant，此处仅控制布局
         .btn {
-            flex: none;
         }
       }
     }
@@ -285,13 +283,12 @@
           border-radius: 20px 20px 0 0;
           max-height: calc(90dvh - 80px);
           opacity: 0;
-          .content {
-            .btn_container {
-              .btn {
-                width: 100%;
-                text-align: center;
-                box-sizing: border-box;
-              }
+          .btn_container {
+            width: 100%;
+            .btn {
+              width: 100%;
+              text-align: center;
+              box-sizing: border-box;
             }
           }
         }

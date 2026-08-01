@@ -22,6 +22,7 @@ import BtnListSkeleton from "./BtnListSkeleton";
 
 import { roundToDecimalPlaces } from "@/utils";
 import { readClientArea } from "@/utils/readClientArea";
+import RestockForm from "./RestockForm";
 
 function parsePreviewAmount(value) {
   if (typeof value === "number") return value;
@@ -406,7 +407,12 @@ export default function GoodBtnList() {
   return (
     <div className={styles.container} data-role="buy-btn-list">
       {!buyable ? (
-        <div className={styles.btn_stock}>{LANG["product.no_stock"]}</div>
+        <RestockForm
+          LANG={LANG}
+          locale={locale}
+          area={area}
+          comboKey={productCurCombo?.key || ""}
+        />
       ) : (
         <>
           <div

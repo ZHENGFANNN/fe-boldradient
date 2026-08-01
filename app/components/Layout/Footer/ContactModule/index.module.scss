@@ -20,7 +20,8 @@
       text-decoration: none !important;
 
       &.content_logo {
-        img {
+        img,
+        .social_icon {
           margin-right: 8px;
           cursor: pointer;
           transition: all 400ms;
@@ -181,7 +182,8 @@
       .content_logo {
         margin-bottom: 8px;
 
-        img {
+        img,
+        .social_icon {
           opacity: 1;
         }
       }

@@ -4,9 +4,37 @@ import React from "react";
 import GlobalContext from "@/[locale]/context";
 
 import { isEmail } from "@/utils/pattern";
+import {
+  SocialBilibiliIcon,
+  SocialFacebookIcon,
+  SocialInsIcon,
+  SocialLinkedinIcon,
+  SocialSinaIcon,
+  SocialTiktokIcon,
+  SocialTwitterIcon,
+  SocialWeixinIcon,
+  SocialWhatsappIcon,
+  SocialYoutubeIcon,
+} from "@/components/Icon";
 import Api from "../../api";
 
 import styles from "./index.module.scss";
+
+// 预设社媒 type → 本地内联图标组件。
+// 后台选中预设类型时只存 type，不再上传 Logo，前台按此映射渲染本地化图标；
+// type 为 "other"（或历史数据无 type）时回退到上传的 item.src 图片。
+const PRESET_SOCIAL_ICONS = {
+  bilibili: SocialBilibiliIcon,
+  facebook: SocialFacebookIcon,
+  ins: SocialInsIcon,
+  linkedin: SocialLinkedinIcon,
+  sina: SocialSinaIcon,
+  tiktok: SocialTiktokIcon,
+  twitter: SocialTwitterIcon,
+  weixin: SocialWeixinIcon,
+  whatsapp: SocialWhatsappIcon,
+  youtube: SocialYoutubeIcon,
+};
 
 export default function ContactModule() {
   const { CONFIG, LANG, locale, area } = React.useContext(GlobalContext);
@@ -56,6 +84,11 @@ export default function ContactModule() {
         <div className={styles.content_company}>
           <div className={[styles.content_logo, styles.content_item].join(" ")}>
             {CONFIG["common.social"]?.map((item, index) => {
+              // 预设类型走本地内联图标；other/历史数据回退上传图片。
+              const PresetIcon =
+                item.type && item.type !== "other"
+                  ? PRESET_SOCIAL_ICONS[item.type]
+                  : null;
               return (
                 <div key={index}>
                   {item.href ? (
@@ -67,7 +100,16 @@ export default function ContactModule() {
                       data-event="FooterSocialMedia"
                       data-ev-alt={item.alt}
                     >
-                      {item.src ? (
+                      {PresetIcon ? (
+                        <PresetIcon
+                          className={styles.social_icon}
+                          width={24}
+                          height={24}
+                          role="img"
+                          aria-hidden={false}
+                          aria-label={item.alt}
+                        />
+                      ) : item.src ? (
                         <img
                           alt={item.alt}
                           width={24}

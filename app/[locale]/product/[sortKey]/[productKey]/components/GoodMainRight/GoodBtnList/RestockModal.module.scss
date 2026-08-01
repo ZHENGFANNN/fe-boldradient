@@ -1,8 +1,14 @@
+// PC 端弹窗宽度上限 420px（覆写共享 Modal 默认 600px）；移动端仍占满。
+.narrow {
+    width: 420px !important;
+    min-width: 0 !important;
+}
+
 // 内容渲染在共享 Modal 卡片内（遮罩/卡片/动画由外层 Modal 提供）。
 // 外层无 title 时仍保留 padding-top:72px（给绝对 header 预留），这里用负 margin 抵消。
 .restock_modal {
     position: relative;
-    margin-top: -48px;
+    margin-top: -52px;
     text-align: left;
 
     .close {
@@ -16,18 +22,19 @@
         padding: 8px;
     }
 
-    .product_name {
-        font-size: 15px;
+    .title {
+        font-size: 20px;
         font-weight: 600;
+        letter-spacing: -0.01em;
         color: #1d1d1f;
-        margin: 0 0 6px;
+        margin: 0 0 8px;
         padding-right: 24px;
     }
 
     .desc {
-        margin: 0 0 20px;
+        margin: 0 0 12px;
         font-size: 14px;
-        line-height: 1.6;
+        line-height: 1.5;
         color: #6e6e73;
     }
 
@@ -37,7 +44,7 @@
         display: flex;
         align-items: flex-start;
         gap: 8px;
-        margin: 14px 0 20px;
+        margin: 4px 0 16px;
         font-size: 12px;
         line-height: 1.5;
         color: #86868b;
@@ -57,4 +64,11 @@
     }
 
     .submit_btn { border-radius: 980px; }
+}
+
+@media screen and (max-width: 768px) {
+    .narrow {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
 }

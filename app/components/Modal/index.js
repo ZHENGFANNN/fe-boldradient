@@ -4,7 +4,10 @@ import React from "react";
 import ReactDOM from "react-dom";
 import styles from "./index.module.scss";
 
-function Modal({ children, onClose = () => {}, closable = true }, ref) {
+function Modal(
+  { children, onClose = () => {}, closable = true, wrapperClassName = "" },
+  ref
+) {
   const [show, setShow] = React.useState(false);
   const [title, setTitle] = React.useState(false);
 
@@ -52,7 +55,7 @@ function Modal({ children, onClose = () => {}, closable = true }, ref) {
             }}
           >
             <div className={styles.modal_container}>
-              <div className={styles.modal_wrapper}>
+              <div className={`${styles.modal_wrapper} ${wrapperClassName}`}>
                 <div
                   className={styles.modal_content}
                   onClick={(e) => {

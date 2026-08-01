@@ -10,6 +10,7 @@ import BaseLayout from "./components/BaseLayout";
 import Link from "next/link";
 import Banner from "./components/Banner";
 import { buildAlternates } from "@/config/seo";
+import { mergeMeta } from "@/config/mergeMeta";
 
 // language / config / blog 列表 / banner 各走独立远程接口（不再经 getConfigData 聚合）。
 async function getData({ locale }) {
@@ -48,23 +49,26 @@ export async function generateMetadata({ params }) {
   const title = `${CONFIG["common.base"]?.company_name} ${LANG["blog.title"]}`;
   const description = blogSortList.map((item) => item.name).join(",");
 
-  return {
-    title,
-    description,
-    keywords: description,
-    alternates: buildAlternates("/blog", locale),
-    twitter: {
-      card: "summary_large_image",
+  return mergeMeta(
+    {
       title,
       description,
-      images: twitterImageList,
+      keywords: description,
+      alternates: buildAlternates("/blog", locale),
+      twitter: {
+        card: "summary_large_image",
+        title,
+        description,
+        images: twitterImageList,
+      },
+      openGraph: {
+        title,
+        description,
+        images: openGraphImageList,
+      },
     },
-    openGraph: {
-      title,
-      description,
-      images: openGraphImageList,
-    },
-  };
+    "/blog"
+  );
 }
 
 function BlogArticleCard({ blogSort, locale, LANG }) {

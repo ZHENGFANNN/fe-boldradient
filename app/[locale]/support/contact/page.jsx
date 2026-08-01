@@ -3,6 +3,7 @@ import styles from "./page.module.scss";
 import getRemoteLanguage from "@/config/Api/getRemoteLanguage";
 import getRemoteConfig from "@/config/Api/getRemoteConfig";
 import { buildAlternates } from "@/config/seo";
+import { mergeMeta } from "@/config/mergeMeta";
 import ContactForm from "./components/ContactForm";
 
 async function getData({ locale }) {
@@ -18,12 +19,15 @@ export async function generateMetadata({ params }) {
   const { LANG, CONFIG } = await getData({
     locale,
   });
-  return {
-    title: `${CONFIG["common.base"]?.company_name} - ${LANG["support.contact.title"]}`,
-    description: LANG["support.contact.description"],
-    keywords: LANG["support.contact.keywords"],
-    alternates: buildAlternates("/support/contact", locale),
-  };
+  return mergeMeta(
+    {
+      title: `${CONFIG["common.base"]?.company_name} - ${LANG["support.contact.title"]}`,
+      description: LANG["support.contact.description"],
+      keywords: LANG["support.contact.keywords"],
+      alternates: buildAlternates("/support/contact", locale),
+    },
+    "/support/contact"
+  );
 }
 
 export default async function Contact() {

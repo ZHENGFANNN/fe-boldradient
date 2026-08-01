@@ -12,6 +12,7 @@ import getProductPaths from "@/config/Api/getProductPaths";
 import CategoryList from "./components/CategoryList";
 import CategoryListLdJson from "./components/CategoryListLdJson";
 import { buildAlternates } from "@/config/seo";
+import { mergeMeta } from "@/config/mergeMeta";
 
 // 构建期枚举所有 (locale, sortKey)，预生成分类页；
 // 数据源同商品详情页的 getProductPaths（已内部容错，失败返回 []），去重到分类粒度。
@@ -49,8 +50,9 @@ export async function generateMetadata({ params }) {
   const { locale, sortKey } = await params;
   const { CONFIG, category } = await getData({ locale, sortKey });
   const company = CONFIG?.["common.base"]?.company_name;
+  const pathname = `/product/${sortKey}`;
   if (!category) {
-    return { title: company };
+    return mergeMeta({ title: company }, pathname);
   }
   const title = `${category.category.name}${company ? ` - ${company}` : ""}`;
   const description =
@@ -58,22 +60,25 @@ export async function generateMetadata({ params }) {
     `Shop our ${category.category.name} collection at ${
       company || "our store"
     }.`;
-  return {
-    title,
-    description,
-    keywords: category.category.name,
-    alternates: buildAlternates(`/product/${sortKey}`, locale),
-    openGraph: {
+  return mergeMeta(
+    {
       title,
       description,
-      images: category.category.image_src
-        ? [{ url: category.category.image_src }]
-        : category.goodList
-            .slice(0, 4)
-            .map((p) => ({ url: p.image }))
-            .filter((i) => i.url)
-    }
-  };
+      keywords: category.category.name,
+      alternates: buildAlternates(pathname, locale),
+      openGraph: {
+        title,
+        description,
+        images: category.category.image_src
+          ? [{ url: category.category.image_src }]
+          : category.goodList
+              .slice(0, 4)
+              .map((p) => ({ url: p.image }))
+              .filter((i) => i.url)
+      }
+    },
+    pathname
+  );
 }
 
 export default async function ProductCategory({ params }) {

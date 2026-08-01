@@ -9,6 +9,7 @@ import IndexContext from "./components/IndexContext";
 import IndexSale from "./components/IndexSale";
 
 import { buildAlternates } from "@/config/seo";
+import { mergeMeta } from "@/config/mergeMeta";
 
 // 多语言/页面配置/产品列表各走独立远程接口（后端整形 + TTL，前端开箱即用）：
 //   - LANG    ← /config/getLanguageByNamespace
@@ -38,12 +39,15 @@ async function getData({ locale }) {
 export async function generateMetadata({ params }) {
   const { locale } = await params;
   const { LANG, CONFIG } = await getData({ locale });
-  return {
-    title: `${CONFIG["common.base"]?.company_name} - ${LANG["home.title"]}`,
-    description: LANG["home.description"],
-    keywords: LANG["home.keywords"],
-    alternates: buildAlternates("/", locale)
-  };
+  return mergeMeta(
+    {
+      title: `${CONFIG["common.base"]?.company_name} - ${LANG["home.title"]}`,
+      description: LANG["home.description"],
+      keywords: LANG["home.keywords"],
+      alternates: buildAlternates("/", locale)
+    },
+    "/"
+  );
 }
 
 export default async function Home({ params }) {

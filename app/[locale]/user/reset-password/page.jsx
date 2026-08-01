@@ -5,6 +5,7 @@ import React from "react";
 
 import getRemoteLanguage from "@/config/Api/getRemoteLanguage";
 import getRemoteConfig from "@/config/Api/getRemoteConfig";
+import { mergeMeta } from "@/config/mergeMeta";
 import ResetForm from "./components/ResetForm";
 async function getData({ locale }) {
   const [LANG, CONFIG] = await Promise.all([
@@ -17,12 +18,15 @@ async function getData({ locale }) {
 export async function generateMetadata({ params }) {
   const { locale } = await params;
   const { LANG, CONFIG } = await getData({ locale });
-  return {
-    title: `${CONFIG["common.base"]?.company_name} - ${
-      LANG["user.forget.retrieve_password"] || "Reset password"
-    }`,
-    description: LANG["user.forget.description"],
-  };
+  return mergeMeta(
+    {
+      title: `${CONFIG["common.base"]?.company_name} - ${
+        LANG["user.forget.retrieve_password"] || "Reset password"
+      }`,
+      description: LANG["user.forget.description"],
+    },
+    "/user/reset-password"
+  );
 }
 
 export default async function ResetPassword({ params }) {

@@ -5,6 +5,7 @@ import styles from "./page.module.scss";
 import getArticleDetail from "@/config/Api/getArticleDetail";
 import getArticlePaths from "@/config/Api/getArticlePaths";
 import { buildAlternates } from "@/config/seo";
+import { mergeMeta } from "@/config/mergeMeta";
 import { formateTime } from "../../../blog/utils";
 import "@/styles/richtext.scss";
 
@@ -25,12 +26,15 @@ export async function generateMetadata({ params }) {
   if (!article) {
     return { title: "" };
   }
-  return {
-    title: article.page_title || article.title,
-    description: article.page_description,
-    keywords: article.page_keywords,
-    alternates: buildAlternates(`/article/${sortKey}/${articleKey}`, locale),
-  };
+  return mergeMeta(
+    {
+      title: article.page_title || article.title,
+      description: article.page_description,
+      keywords: article.page_keywords,
+      alternates: buildAlternates(`/article/${sortKey}/${articleKey}`, locale),
+    },
+    `/article/${sortKey}/${articleKey}`
+  );
 }
 
 export default async function ArticlePage({ params }) {

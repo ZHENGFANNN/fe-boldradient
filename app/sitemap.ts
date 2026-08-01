@@ -9,12 +9,21 @@
 //   - 商品/博客详情 + 分类：复用 getProductPaths / getBlogPaths（与
 //     generateStaticParams 同源），按各 path 自身的 locale 生成，
 //     与实际预渲染页面一致（不再像旧脚本那样跨所有 locale 笛卡尔展开）。
+//   - 运营配置追加：seoOverrides.getSitemapExtras() 追加 adds、剔除 excludes
+//     （构建期从 fetch-data/seo/index.json 读，接口挂了走空骨架）。
 // ============================================================
 
 import { locales } from "@/config/languageSettings";
 import getProductPaths from "@/config/Api/getProductPaths";
 import getBlogPaths from "@/config/Api/getBlogPaths";
 import getArticlePaths from "@/config/Api/getArticlePaths";
+import {
+  getSitemapExtras,
+  normalizePathname,
+} from "@/config/seoOverrides";
+import type { MetadataRoute } from "next";
+
+type SitemapEntry = MetadataRoute.Sitemap[number];
 
 const DOMAIN = process.env.NEXT_PUBLIC_DOMAIN || "";
 
@@ -36,10 +45,31 @@ function toUrl(locale, path) {
   return `${DOMAIN}${full || "/"}`;
 }
 
-export default async function sitemap() {
+// 从 URL 反算出无 locale 前缀的 pathname，用于 excludes 精确匹配。
+// - 支持绝对 URL（http(s)://...）和相对路径（/xxx）
+// - 剥掉 DOMAIN 前缀与 /{locale} 前缀，归一化后返回（`/blog` / `/blog/` / `/BLOG` 均等价）
+function toBasePathname(url) {
+  if (!url) return "/";
+  let p = String(url);
+  if (DOMAIN && p.startsWith(DOMAIN)) p = p.slice(DOMAIN.length);
+  // 保留只有 pathname 部分（丢 query/hash，理论上 sitemap 内条目无这两者）
+  p = p.split("?")[0].split("#")[0];
+  if (!p.startsWith("/")) p = `/${p}`;
+  // 剥 /{locale}（仅剥已知启用的 locale，避免误伤如 /order 之类首段）
+  for (const loc of locales) {
+    if (loc === "en") continue;
+    if (p === `/${loc}` || p.startsWith(`/${loc}/`)) {
+      p = p.slice(loc.length + 1) || "/";
+      break;
+    }
+  }
+  return normalizePathname(p);
+}
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const lastModified = new Date();
-  const seen = new Set();
-  const entries = [];
+  const seen = new Set<string>();
+  const entries: SitemapEntry[] = [];
 
   const push = (url) => {
     if (!url || seen.has(url)) return;
@@ -76,5 +106,32 @@ export default async function sitemap() {
     push(toUrl(locale, `/article/${sortKey}/${articleKey}`));
   });
 
-  return entries;
+  // 运营配置：先剔除 excludes 精确匹配，再追加 adds
+  const { adds, excludes } = getSitemapExtras();
+
+  let finalEntries = entries;
+  if (excludes.size > 0) {
+    finalEntries = entries.filter(
+      (e) => !excludes.has(toBasePathname(e.url))
+    );
+  }
+
+  // adds：`/` 开头视为站内相对路径（拼 DOMAIN），其它按绝对 URL 原样落
+  const addedSeen = new Set(finalEntries.map((e) => e.url));
+  adds.forEach((item) => {
+    if (!item?.url) return;
+    const raw = String(item.url).trim();
+    if (!raw) return;
+    const url = raw.startsWith("/") ? `${DOMAIN}${raw}` : raw;
+    if (addedSeen.has(url)) return;
+    addedSeen.add(url);
+    const entry: SitemapEntry = { url, lastModified };
+    if (item.change_freq)
+      entry.changeFrequency =
+        item.change_freq as SitemapEntry["changeFrequency"];
+    if (typeof item.priority === "number") entry.priority = item.priority;
+    finalEntries.push(entry);
+  });
+
+  return finalEntries;
 }

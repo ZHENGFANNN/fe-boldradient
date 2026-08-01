@@ -16,6 +16,7 @@ import BaseLayout from "../../components/BaseLayout";
 
 import ProductModal from "./components/ProductModal";
 import { buildAlternates } from "@/config/seo";
+import { mergeMeta } from "@/config/mergeMeta";
 import "@/styles/richtext.scss";
 
 // 构建期枚举所有 (locale, sortKey, blogKey) 预生成文章页（与产品页 getProductPaths 同模式）；
@@ -35,6 +36,8 @@ const getData = async function ({ locale, blogKey, sortKey }) {
         "blog.all",
         "blog.title",
         "blog.related_products",
+        "blog.you_may_also_like",
+        "common.nav.home",
         "product.off",
         "product.no_stock",
         "product.reviews",
@@ -67,29 +70,32 @@ export async function generateMetadata({ params }) {
   const description = blogArticle.page_description;
   const keywords = blogArticle.page_keywords;
 
-  return {
-    title,
-    description,
-    keywords,
-    alternates: buildAlternates(`/blog/${sortKey}/${blogKey}`, locale),
-    twitter: {
-      card: "summary_large_image",
+  return mergeMeta(
+    {
       title,
       description,
-      images: [blogArticle.image],
+      keywords,
+      alternates: buildAlternates(`/blog/${sortKey}/${blogKey}`, locale),
+      twitter: {
+        card: "summary_large_image",
+        title,
+        description,
+        images: [blogArticle.image],
+      },
+      openGraph: {
+        title,
+        description,
+        images: [
+          {
+            url: blogArticle.image,
+            width: 746,
+            height: 420,
+          },
+        ],
+      },
     },
-    openGraph: {
-      title,
-      description,
-      images: [
-        {
-          url: blogArticle.image,
-          width: 746,
-          height: 420,
-        },
-      ],
-    },
-  };
+    `/blog/${sortKey}/${blogKey}`
+  );
 }
 
 export default async function Article({ params }) {
@@ -112,7 +118,7 @@ export default async function Article({ params }) {
             <Banner article={blogArticle} />
             <div className={styles.content_container}>
               <h1 className={styles.title}>{blogArticle.title}</h1>
-              <ArticleInfo article={blogArticle} locale={locale} />
+              <ArticleInfo article={blogArticle} locale={locale} LANG={LANG} />
               <div
                 id="blog-article-content-html"
                 className="wangeditor-rich-text-css"
@@ -126,7 +132,10 @@ export default async function Article({ params }) {
       </div>
       {/* 关联文章 */}
       {blogArticle.associateArticle?.length > 0 ? (
-        <AssociateArticle articleList={blogArticle.associateArticle} />
+        <AssociateArticle
+          articleList={blogArticle.associateArticle}
+          LANG={LANG}
+        />
       ) : null}
       {/* 关联产品 */}
       {blogArticle.associateProduct?.length > 0 ? (

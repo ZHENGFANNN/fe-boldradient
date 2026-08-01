@@ -9,6 +9,7 @@ import styles from "./page.module.scss";
 import ArticleCard from "../components/ArticleCard";
 import BaseLayout from "../components/BaseLayout";
 import { buildAlternates } from "@/config/seo";
+import { mergeMeta } from "@/config/mergeMeta";
 
 // 构建期枚举所有 (locale, sortKey) 预生成分类页（与文章页 getBlogPaths 同模式）；
 // 接口失败返回空数组（getBlogCategoryPaths 内部已容错），未列出的 sortKey 仍按需生成
@@ -50,23 +51,26 @@ export async function generateMetadata({ params }) {
     });
   });
   const description = descriptionList.join(",");
-  return {
-    title,
-    description,
-    keywords: description,
-    alternates: buildAlternates(`/blog/${sortKey}`, locale),
-    twitter: {
-      card: "summary_large_image",
+  return mergeMeta(
+    {
       title,
       description,
-      images: twitterImageList,
+      keywords: description,
+      alternates: buildAlternates(`/blog/${sortKey}`, locale),
+      twitter: {
+        card: "summary_large_image",
+        title,
+        description,
+        images: twitterImageList,
+      },
+      openGraph: {
+        title,
+        description,
+        images: openGraphImageList,
+      },
     },
-    openGraph: {
-      title,
-      description,
-      images: openGraphImageList,
-    },
-  };
+    `/blog/${sortKey}`
+  );
 }
 
 function BlogArticleCard({ category, blogList, locale }) {

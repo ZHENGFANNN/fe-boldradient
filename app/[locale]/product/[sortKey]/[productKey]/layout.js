@@ -7,6 +7,7 @@ import { getProductOptions } from "@/config/Api/getProductOptions";
 import getRemoteLanguage from "@/config/Api/getRemoteLanguage";
 import getRemoteConfig from "@/config/Api/getRemoteConfig";
 import { buildAlternates } from "@/config/seo";
+import { mergeMeta } from "@/config/mergeMeta";
 
 // 价格完全交客户端：layout 只产出无价的 productInfo 种子，
 // 地区价格由 BaseLayout 挂载后对所有地区（含 us）拉取并合并。
@@ -30,33 +31,40 @@ export async function generateMetadata({ params }) {
     getProductPage({ locale, sortKey, productKey }),
     getRemoteConfig({ locale, nameSpace: CONFIG_NAMESPACE })
   ]);
+  const pathname = `/product/${sortKey}/${productKey}`;
   if (!productInfo?.key) {
-    return {
-      title: CONFIG?.["common.base"]?.company_name
-    };
+    return mergeMeta(
+      {
+        title: CONFIG?.["common.base"]?.company_name
+      },
+      pathname
+    );
   }
-  return {
-    title: `${productInfo.page_title} - ${CONFIG["common.base"]?.company_name}`,
-    description: productInfo.page_description,
-    keywords: productInfo.page_keywords,
-    metadataBase: new URL(
-      productInfo.image_list?.[0]?.src ||
-        process.env.NEXT_PUBLIC_DOMAIN ||
-        "https://boldradiant.com"
-    ),
-    alternates: buildAlternates(`/product/${sortKey}/${productKey}`, locale),
-    openGraph: {
+  return mergeMeta(
+    {
       title: `${productInfo.page_title} - ${CONFIG["common.base"]?.company_name}`,
       description: productInfo.page_description,
-      images: (productInfo.image_list || []).map((item) => {
-        return {
-          url: item.src,
-          width: 300,
-          height: 300
-        };
-      })
-    }
-  };
+      keywords: productInfo.page_keywords,
+      metadataBase: new URL(
+        productInfo.image_list?.[0]?.src ||
+          process.env.NEXT_PUBLIC_DOMAIN ||
+          "https://boldradiant.com"
+      ),
+      alternates: buildAlternates(pathname, locale),
+      openGraph: {
+        title: `${productInfo.page_title} - ${CONFIG["common.base"]?.company_name}`,
+        description: productInfo.page_description,
+        images: (productInfo.image_list || []).map((item) => {
+          return {
+            url: item.src,
+            width: 300,
+            height: 300
+          };
+        })
+      }
+    },
+    pathname
+  );
 }
 
 export default async function Layout({ children, params }) {

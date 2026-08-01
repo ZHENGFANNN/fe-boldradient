@@ -3,6 +3,7 @@ import React from "react";
 
 import getRemoteLanguage from "@/config/Api/getRemoteLanguage";
 import getRemoteConfig from "@/config/Api/getRemoteConfig";
+import { mergeMeta } from "@/config/mergeMeta";
 import ForgetForm from "./components/ForgetForm";
 
 async function getData({ locale }) {
@@ -18,11 +19,14 @@ export async function generateMetadata({ params }) {
   const { LANG, CONFIG } = await getData({
     locale
   });
-  return {
-    title: `${CONFIG["common.base"]?.company_name} - ${LANG["user.forget.title"]}`,
-    description: LANG["user.forget.description"],
-    keywords: LANG["user.forget.keywords"]
-  };
+  return mergeMeta(
+    {
+      title: `${CONFIG["common.base"]?.company_name} - ${LANG["user.forget.title"]}`,
+      description: LANG["user.forget.description"],
+      keywords: LANG["user.forget.keywords"]
+    },
+    "/user/forget"
+  );
 }
 
 export default async function Forget({ params }) {

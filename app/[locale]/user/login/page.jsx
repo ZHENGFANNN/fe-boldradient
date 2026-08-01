@@ -5,6 +5,7 @@ import React from "react";
 import styles from "./page.module.scss";
 import getRemoteLanguage from "@/config/Api/getRemoteLanguage";
 import getRemoteConfig from "@/config/Api/getRemoteConfig";
+import { mergeMeta } from "@/config/mergeMeta";
 import LoginForm from "./components/LoginForm";
 import GoogleLoginPanel from "@/components/Auth/GoogleAuth/GoogleLoginPanel";
 
@@ -21,11 +22,14 @@ export async function generateMetadata({ params }) {
   const { LANG, CONFIG } = await getData({
     locale,
   });
-  return {
-    title: `${CONFIG["common.base"]?.company_name} - ${LANG["user.login.title"]}`,
-    description: LANG["user.login.description"],
-    keywords: LANG["user.login.keywords"],
-  };
+  return mergeMeta(
+    {
+      title: `${CONFIG["common.base"]?.company_name} - ${LANG["user.login.title"]}`,
+      description: LANG["user.login.description"],
+      keywords: LANG["user.login.keywords"],
+    },
+    "/user/login"
+  );
 }
 
 export default async function Login({ params }) {

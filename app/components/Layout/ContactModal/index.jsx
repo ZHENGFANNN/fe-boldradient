@@ -10,6 +10,7 @@ import Api from "@/components/Layout/api";
 import FormInput from "@/components/Form/FormInput";
 import FormTextarea from "@/components/Form/FormTextArea";
 import FormItem from "@/components/Form/FormItem";
+import Button from "@/components/Button";
 
 function Modal(_, ref) {
   const tipRef = React.useRef(null);
@@ -173,17 +174,23 @@ function Modal(_, ref) {
                   }}
                 />
                 <div className={styles.btn_container}>
-                  <div
+                  <Button
+                    variant="secondary"
                     className={styles.btn_cancel}
                     onClick={() => {
                       setShow(false);
                     }}
                   >
                     {LANG["common.contact.cancel"]}
-                  </div>
-                  <button type="submit" className={styles.btn_confirm}>
+                  </Button>
+                  <Button
+                    type="submit"
+                    variant="primary"
+                    loading={loading}
+                    className={styles.btn_confirm}
+                  >
                     {LANG["common.contact.submit"]}
-                  </button>
+                  </Button>
                 </div>
                 </form>
             </div>

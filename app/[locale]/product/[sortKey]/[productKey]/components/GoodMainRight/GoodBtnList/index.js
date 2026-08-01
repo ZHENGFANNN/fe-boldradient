@@ -412,6 +412,7 @@ export default function GoodBtnList() {
           locale={locale}
           area={area}
           comboKey={productCurCombo?.key || ""}
+          productName={productInfo?.name || ""}
         />
       ) : (
         <>

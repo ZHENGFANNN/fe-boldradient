@@ -12,51 +12,36 @@
         border-radius: var(--radius-pill, 50px);
         cursor: not-allowed;
         user-select: none;
-        margin-bottom: 16px;
+        margin-bottom: 14px;
     }
 
-    .desc {
-        font-size: 13px;
-        line-height: 1.4;
-        color: rgba(0, 0, 0, 0.55);
-        margin-bottom: 12px;
-    }
-
-    .form {
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-    }
-
-    .submit_btn {
-        margin-top: 4px;
-    }
-
-    .success {
+    .notify_btn {
         box-sizing: border-box;
-        padding: 14px 16px;
-        border: 1px solid var(--color-cta, #1a1a1a);
-        border-radius: 8px;
-        font-size: 14px;
-        line-height: 1.5;
-        color: var(--color-cta, #1a1a1a);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 55px;
+        border-radius: var(--radius-pill, 50px);
+        background: var(--color-cta, #1a1a1a);
+        color: var(--color-cta-fg, #fff);
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        cursor: pointer;
+        user-select: none;
+        transition: background 0.2s;
+        &:hover { background: var(--color-cta-active, #000); }
     }
 }
 
 @media screen and (max-width: 1250px) {
-    .restock .stock_label {
-        height: 45px;
-    }
+    .restock .stock_label,
+    .restock .notify_btn { height: 45px; }
 }
-
 @media screen and (max-width: 820px) {
-    .restock .stock_label {
-        height: 55px;
-    }
+    .restock .stock_label,
+    .restock .notify_btn { height: 55px; }
 }
-
 @media screen and (max-width: 561px) {
-    .restock .stock_label {
-        height: 45px;
-    }
+    .restock .stock_label,
+    .restock .notify_btn { height: 45px; }
 }

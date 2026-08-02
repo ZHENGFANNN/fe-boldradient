@@ -11,6 +11,9 @@
 //     与实际预渲染页面一致（不再像旧脚本那样跨所有 locale 笛卡尔展开）。
 //   - 运营配置追加：seoOverrides.getSitemapExtras() 追加 adds、剔除 excludes
 //     （构建期从 fetch-data/seo/index.json 读，接口挂了走空骨架）。
+//     ⚠️ adds/excludes 统一「路径」语义：站内路径（/ 开头）按站点启用的
+//     所有 locale 自动展开前缀（en 无前缀，其余 /{locale}），一条路径覆盖
+//     全部语言变体；站外绝对 URL（http 开头）仅 add 支持、原样单条落。
 // ============================================================
 
 import { locales } from "@/config/languageSettings";
@@ -151,13 +154,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     );
   }
 
-  // adds：`/` 开头视为站内相对路径（拼 DOMAIN），其它按绝对 URL 原样落
+  // adds：统一按「路径」语义。
+  //   - `/` 开头（站内路径）：先归一化剥掉用户可能误粘的域名/locale 前缀，
+  //     再按站点启用的所有 locale 自动展开（en 无前缀，其余 /{locale}）+ 拼 DOMAIN，
+  //     与 exclude 的路径语义对称 —— 一条路径覆盖全部语言变体。
+  //   - `http(s)` 开头（站外绝对 URL）：无本站 locale 概念，原样单条落。
   const addedSeen = new Set(finalEntries.map((e) => e.url));
-  adds.forEach((item) => {
-    if (!item?.url) return;
-    const raw = String(item.url).trim();
-    if (!raw) return;
-    const url = raw.startsWith("/") ? `${DOMAIN}${raw}` : raw;
+  const pushAdd = (
+    url: string,
+    item: { change_freq?: string; priority?: number }
+  ) => {
     if (addedSeen.has(url)) return;
     addedSeen.add(url);
     const entry: SitemapEntry = { url, lastModified };
@@ -166,6 +172,20 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         item.change_freq as SitemapEntry["changeFrequency"];
     if (typeof item.priority === "number") entry.priority = item.priority;
     finalEntries.push(entry);
+  };
+  adds.forEach((item) => {
+    if (!item?.url) return;
+    const raw = String(item.url).trim();
+    if (!raw) return;
+    if (raw.startsWith("/")) {
+      // 站内路径 → 归一化 + 跨 locale 展开
+      const base = toBasePathname(raw); // 剥域名/locale/尾斜杠、小写
+      const path = base === "/" ? "" : base;
+      for (const locale of locales) pushAdd(toUrl(locale, path), item);
+    } else {
+      // 站外绝对 URL → 原样单条
+      pushAdd(raw, item);
+    }
   });
 
   return finalEntries;

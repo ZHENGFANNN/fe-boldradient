@@ -14,10 +14,14 @@ import { getRobotsExtras } from "@/config/seoOverrides";
 
 const DOMAIN = String(process.env.NEXT_PUBLIC_DOMAIN || "").replace(/\/$/, "");
 
+// 覆盖 en（无 locale 前缀）与其它 locale（/{locale}/... 前缀）两种形态。
+// 用户相关全部私有/无索引价值：登录/注册/重置密码/忘记/账户中心等 → 整个 /user/ 树 disallow。
 const BUILT_IN_DISALLOW = [
-  "/*/user/account",
-  "/*/user/forget",
+  "/user/",
+  "/*/user/",
+  "/cart",
   "/*/cart",
+  "/order",
   "/*/order",
   "/config/*",
 ];

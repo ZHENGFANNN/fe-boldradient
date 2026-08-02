@@ -28,14 +28,17 @@ type SitemapEntry = MetadataRoute.Sitemap[number];
 const DOMAIN = process.env.NEXT_PUBLIC_DOMAIN || "";
 
 // 可索引的静态路由（不含 [locale] 前缀，en 不加前缀）。
-// 排除：/user/account /user/forget /order /order/info /[...notFound]（私有/无意义）。
-const STATIC_PATHS = [
-  "", // 首页
-  "/support/contact",
-  "/blog",
-  "/user/login",
-  "/user/register",
-  "/user/reset-password"
+// 排除：/user/*（登录/注册/重置/账户/忘记等私有认证页，改由 robots disallow）、
+//       /order /order/info /cart /[...notFound]（私有/无意义）。
+// changeFrequency / priority 按 sitemap 协议常规取值（priority 为站内相对权重）。
+const STATIC_PATHS: {
+  path: string;
+  changeFrequency: SitemapEntry["changeFrequency"];
+  priority: number;
+}[] = [
+  { path: "", changeFrequency: "daily", priority: 1.0 }, // 首页
+  { path: "/blog", changeFrequency: "weekly", priority: 0.6 },
+  { path: "/support/contact", changeFrequency: "monthly", priority: 0.3 }
 ];
 
 // 拼绝对 URL：en 无前缀，其余 /{locale}；path 为空时回退到域名根。
@@ -71,16 +74,25 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const seen = new Set<string>();
   const entries: SitemapEntry[] = [];
 
-  const push = (url) => {
+  const push = (
+    url,
+    opts?: {
+      changeFrequency?: SitemapEntry["changeFrequency"];
+      priority?: number;
+    }
+  ) => {
     if (!url || seen.has(url)) return;
     seen.add(url);
-    entries.push({ url, lastModified });
+    const entry: SitemapEntry = { url, lastModified };
+    if (opts?.changeFrequency) entry.changeFrequency = opts.changeFrequency;
+    if (typeof opts?.priority === "number") entry.priority = opts.priority;
+    entries.push(entry);
   };
 
-  // 静态路由 × 所有 locale
+  // 静态路由 × 所有 locale（各自带常规 changeFrequency / priority）
   for (const locale of locales) {
-    for (const path of STATIC_PATHS) {
-      push(toUrl(locale, path));
+    for (const { path, changeFrequency, priority } of STATIC_PATHS) {
+      push(toUrl(locale, path), { changeFrequency, priority });
     }
   }
 
@@ -91,19 +103,36 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     getArticlePaths()
   ]);
 
+  // 分类页（列表）权重高于单个详情：分类 0.8 / 商品详情 0.6
   productPaths.forEach(({ locale, sortKey, productKey }) => {
-    push(toUrl(locale, `/product/${sortKey}`));
-    push(toUrl(locale, `/product/${sortKey}/${productKey}`));
+    push(toUrl(locale, `/product/${sortKey}`), {
+      changeFrequency: "weekly",
+      priority: 0.8
+    });
+    push(toUrl(locale, `/product/${sortKey}/${productKey}`), {
+      changeFrequency: "weekly",
+      priority: 0.6
+    });
   });
 
+  // 博客分类 0.5 / 博文详情 0.5（更新较慢）
   blogPaths.forEach(({ locale, sortKey, blogKey }) => {
-    push(toUrl(locale, `/blog/${sortKey}`));
-    push(toUrl(locale, `/blog/${sortKey}/${blogKey}`));
+    push(toUrl(locale, `/blog/${sortKey}`), {
+      changeFrequency: "weekly",
+      priority: 0.5
+    });
+    push(toUrl(locale, `/blog/${sortKey}/${blogKey}`), {
+      changeFrequency: "monthly",
+      priority: 0.5
+    });
   });
 
-  // 文章配置（政策/协议等，取代已下线的 /protocol 静态页）
+  // 文章配置（政策/协议等，取代已下线的 /protocol 静态页）——低频低权重
   articlePaths.forEach(({ locale, sortKey, articleKey }) => {
-    push(toUrl(locale, `/article/${sortKey}/${articleKey}`));
+    push(toUrl(locale, `/article/${sortKey}/${articleKey}`), {
+      changeFrequency: "yearly",
+      priority: 0.3
+    });
   });
 
   // 运营配置：先剔除 excludes 精确匹配，再追加 adds
@@ -111,8 +140,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   let finalEntries = entries;
   if (excludes.size > 0) {
+    // excludes 后台存的是完整 URL（含域名，如 https://.../support/contact），
+    // 而条目侧比对用的是无 locale 前缀的 pathname；两边都过 toBasePathname
+    // 归一到同一形态（剥域名 + 剥 /{locale} + 小写去尾斜杠）再比，否则永不命中。
+    const excludeBases = new Set(
+      Array.from(excludes).map((x) => toBasePathname(x))
+    );
     finalEntries = entries.filter(
-      (e) => !excludes.has(toBasePathname(e.url))
+      (e) => !excludeBases.has(toBasePathname(e.url))
     );
   }
 

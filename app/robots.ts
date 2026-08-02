@@ -19,8 +19,6 @@ const DOMAIN = String(process.env.NEXT_PUBLIC_DOMAIN || "").replace(/\/$/, "");
 const BUILT_IN_DISALLOW = [
   "/user/",
   "/*/user/",
-  "/cart",
-  "/*/cart",
   "/order",
   "/*/order",
   "/config/*",

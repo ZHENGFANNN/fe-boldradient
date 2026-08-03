@@ -60,11 +60,9 @@ const T = (LANG, key, fallback) => LANG?.[key] || fallback;
 export default function CreateWizard({ LANG, locale }) {
   // 登录态下才挂 jotai <Provider>：atom 只在真正需要时创建。
   return (
-    <div className={pageStyles.container}>
       <Provider>
         <WizardBody LANG={LANG} locale={locale} />
       </Provider>
-    </div>
   );
 }
 
@@ -301,6 +299,7 @@ function WizardMain() {
   const editLabel = TL("user.account.after_sale.edit", "编辑", "Edit");
 
   return (
+    <div className={pageStyles.container}>
     <div className={styles.wizard}>
       <h1 className="header">
         {T(
@@ -373,6 +372,7 @@ function WizardMain() {
           <ContactModule />
         </StepBlock>
       </div>
+    </div>
     </div>
   );
 }

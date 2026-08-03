@@ -396,12 +396,12 @@ export default function Main({ secret, locale, area, LANG, CONFIG }) {
     [fetchReviewStatus]
   );
 
+  // 用户订单未登录：强制登录守卫（登录成功后回跳本页，带 token 自动通过归属校验）
+  if (gate === "login") return <AuthRedirectGuard LANG={LANG} />
+
   return (
     <div className={styles.container}>
-      {gate === "login" ? (
-        // 用户订单未登录：强制登录守卫（登录成功后回跳本页，带 token 自动通过归属校验）
-        <AuthRedirectGuard LANG={LANG} />
-      ) : gate === "forbidden" ? (
+      {gate === "forbidden" ? (
         // 已登录但非订单归属者：无权限提示
         <div className={styles.email_gate}>
           <svg

@@ -39,7 +39,6 @@
       font-size: 13px;
       color: #6b6c70;
       letter-spacing: 0.5px;
-      text-transform: uppercase;
       transition: color 300ms;
       padding: 8px 16px;
       min-height: 32px;
@@ -96,7 +95,6 @@
       font-size: 12px;
       font-weight: 600;
       letter-spacing: 1px;
-      text-transform: uppercase;
       white-space: nowrap;
     }
     // 邮箱登录/注册按钮组（次要入口，一行两颗）
@@ -108,7 +106,6 @@
     .entry_button {
       flex: 1;
       min-width: 0;
-      text-transform: uppercase;
       letter-spacing: 0.5px;
       transition: background-color 200ms, border-color 200ms, transform 200ms;
       &:hover {

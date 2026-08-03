@@ -36,6 +36,7 @@ async function OrderInfoContent({ locale, searchParams }) {
     ],
     configNameSpace: ["common.base"]
   });
+  
   return (
     <Main
       LANG={LANG}

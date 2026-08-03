@@ -234,14 +234,11 @@ export default function DetailClient({ LANG, locale }) {
                 "user.account.after_sale.status.rejected",
                 "Service Rejected"
               )}
-              reason={
-                data.seller_reply ||
-                T(
-                  LANG,
-                  "user.account.after_sale.status.rejected_tip",
-                  "Your request has been rejected."
-                )
-              }
+              reason={T(
+                LANG,
+                "user.account.after_sale.status.rejected_tip",
+                "Your request has been rejected."
+              )}
               LANG={LANG}
               T={T}
             />
@@ -352,8 +349,8 @@ export default function DetailClient({ LANG, locale }) {
             </div>
           ) : null}
 
-          {/* 商家回复 */}
-          {data.seller_reply && !isRejected ? (
+          {/* 商家回复：独立回复模块，任意状态（含已拒绝）只要有回复即展示 */}
+          {data.seller_reply ? (
             <div className={styles.info_card}>
               <div className={styles.section_title}>
                 {T(

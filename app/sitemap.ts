@@ -20,6 +20,7 @@ import { locales } from "@/config/languageSettings";
 import getProductPaths from "@/config/Api/getProductPaths";
 import getBlogPaths from "@/config/Api/getBlogPaths";
 import getArticlePaths from "@/config/Api/getArticlePaths";
+import { getAllTagPaths } from "@/config/Api/getTagProducts";
 import {
   getSitemapExtras,
   normalizePathname,
@@ -100,10 +101,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }
 
   // 商品 / 博客（详情 + 所属分类），按 path 自身 locale 生成
-  const [productPaths, blogPaths, articlePaths] = await Promise.all([
+  const [productPaths, blogPaths, articlePaths, tagPaths] = await Promise.all([
     getProductPaths(),
     getBlogPaths(),
-    getArticlePaths()
+    getArticlePaths(),
+    getAllTagPaths()
   ]);
 
   // 分类页（列表）权重高于单个详情：分类 0.8 / 商品详情 0.6
@@ -115,6 +117,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     push(toUrl(locale, `/product/${sortKey}/${productKey}`), {
       changeFrequency: "weekly",
       priority: 0.6
+    });
+  });
+
+  // 商品标签聚合页 /tag/{key}（介于分类 0.8 与详情 0.6，标签聚合页价值中等）
+  tagPaths.forEach(({ locale, tagKey }) => {
+    push(toUrl(locale, `/tag/${tagKey}`), {
+      changeFrequency: "weekly",
+      priority: 0.7
     });
   });
 

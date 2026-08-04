@@ -108,7 +108,7 @@ export default function GoodFooter() {
       <div className={styles.footer_content}>
         <div className={styles.footer_left}>
           <div className={styles.combo_option_container}>
-            {productCurCombo?.title || optionString ? (
+            {optionString ? (
               <>
                 <div
                   data-event="ProductFooterCombo"
@@ -121,7 +121,6 @@ export default function GoodFooter() {
                   <ProductComboIcon />
                   <div className={styles.name_container}>
                     <h3>{productInfo.name}</h3>
-                    <div>{productCurCombo.title}</div>
                     {optionString ? (
                       <div className={styles.option_name}>{optionString}</div>
                     ) : null}

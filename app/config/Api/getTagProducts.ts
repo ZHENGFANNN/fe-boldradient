@@ -16,6 +16,7 @@ interface TagProductsResult {
   tag: {
     key: string;
     name: string;
+    description?: string;
   };
   goodList: SimpleProduct[];
 }
@@ -50,12 +51,19 @@ function toSimpleProduct(item: any): SimpleProduct {
   };
 }
 
-// 取商品 tagList 里匹配 tagKey 的项（返回该 tag 的 {key,name}），不匹配返回 null。
-function matchTag(item: any, tagKey: string): { key: string; name: string } | null {
+// 取商品 tagList 里匹配 tagKey 的项（返回该 tag 的 {key,name,description}），不匹配返回 null。
+function matchTag(
+  item: any,
+  tagKey: string
+): { key: string; name: string; description: string } | null {
   const list = Array.isArray(item?.tagList) ? item.tagList : [];
   for (const t of list) {
     if (t?.key === tagKey) {
-      return { key: t.key, name: t.name || t.key };
+      return {
+        key: t.key,
+        name: t.name || t.key,
+        description: t.description || "",
+      };
     }
   }
   return null;

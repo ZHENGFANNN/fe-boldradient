@@ -212,9 +212,12 @@ export default function TagList({ tag, goodList, locale, LANG }) {
         <span className={styles.current}>{tag.name}</span>
       </nav>
 
-      {/* 标签标题（复用分类页标题样式） */}
+      {/* 标签标题 + 描述（复用分类页标题/描述样式） */}
       <header className={styles.collection_header}>
         <h1 className={styles.collection_title}>{tag.name}</h1>
+        {tag.description ? (
+          <p className={styles.collection_desc}>{tag.description}</p>
+        ) : null}
       </header>
 
       {/* 商品网格 / 空状态 */}

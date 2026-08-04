@@ -306,16 +306,11 @@ export default function DetailClient({ LANG, locale }) {
                 <span className={styles.info_value}>{data.order_number}</span>
               </div>
             ) : null}
-            <div className={styles.info_row_lg}>
-              <span className={styles.info_label}>
-                {T(
-                  LANG,
-                  "user.account.after_sale.service_no",
-                  "Request No."
-                )}
-              </span>
-              <span className={styles.info_value}>{data.service_no}</span>
-            </div>
+            {/* 用户申请时上传的图片/视频，放 Product Info 内容下方（与上方内容 gap 16px）。
+                Request No. 已去除（与 Service Info 的 Service No. 重复）。 */}
+            {media && media.length ? (
+              <MediaGrid media={media} className={styles.reply_media} />
+            ) : null}
           </div>
 
           {/* 客户回寄快递（可选录入，非终态可填；仅展示已填信息，简化后不再是流程节点） */}
@@ -339,8 +334,7 @@ export default function DetailClient({ LANG, locale }) {
             </div>
           ) : null}
 
-          {/* 商家回复：独立回复模块，任意状态（含已拒绝）只要有回复即展示。
-              用户上传的图片/视频（media）与客服回复附件（sellerReplyMedia）一并放回复文案下方。 */}
+          {/* 商家回复：独立回复模块，任意状态（含已拒绝）只要有回复即展示 */}
           {data.seller_reply ? (
             <div className={styles.info_card}>
               <div className={styles.section_title}>
@@ -351,9 +345,6 @@ export default function DetailClient({ LANG, locale }) {
                 )}
               </div>
               <div className={styles.description}>{data.seller_reply}</div>
-              {media && media.length ? (
-                <MediaGrid media={media} className={styles.reply_media} />
-              ) : null}
               {sellerReplyMedia && sellerReplyMedia.length ? (
                 <MediaGrid media={sellerReplyMedia} className={styles.reply_media} />
               ) : null}

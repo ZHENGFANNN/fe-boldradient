@@ -216,7 +216,11 @@ export default function TagList({ tag, goodList, locale, LANG }) {
       <header className={styles.collection_header}>
         <h1 className={styles.collection_title}>{tag.name}</h1>
         {tag.description ? (
-          <p className={styles.collection_desc}>{tag.description}</p>
+          // white-space: pre-line 保留后台配置的换行（\n），与后台文本域所见一致；
+          // 不改共用的 collection_desc 样式（分类页也用它），仅本处 inline 追加换行保留。
+          <p className={styles.collection_desc} style={{ whiteSpace: "pre-line" }}>
+            {tag.description}
+          </p>
         ) : null}
       </header>
 

@@ -339,17 +339,8 @@ export default function DetailClient({ LANG, locale }) {
             </div>
           ) : null}
 
-          {/* 媒体附件 */}
-          {media && media.length ? (
-            <div className={styles.info_card}>
-              <div className={styles.section_title}>
-                {T(LANG, "user.account.after_sale.media", "Photos / Videos")}
-              </div>
-              <MediaGrid media={media} className={styles.reply_media} />
-            </div>
-          ) : null}
-
-          {/* 商家回复：独立回复模块，任意状态（含已拒绝）只要有回复即展示 */}
+          {/* 商家回复：独立回复模块，任意状态（含已拒绝）只要有回复即展示。
+              用户上传的图片/视频（media）与客服回复附件（sellerReplyMedia）一并放回复文案下方。 */}
           {data.seller_reply ? (
             <div className={styles.info_card}>
               <div className={styles.section_title}>
@@ -360,6 +351,9 @@ export default function DetailClient({ LANG, locale }) {
                 )}
               </div>
               <div className={styles.description}>{data.seller_reply}</div>
+              {media && media.length ? (
+                <MediaGrid media={media} className={styles.reply_media} />
+              ) : null}
               {sellerReplyMedia && sellerReplyMedia.length ? (
                 <MediaGrid media={sellerReplyMedia} className={styles.reply_media} />
               ) : null}

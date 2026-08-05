@@ -548,71 +548,52 @@
                     margin-bottom: 6px;
                 }
             }
-            // 优惠卡片：把折扣行聚合成一张券样式卡，UI 更精致
+            // 优惠卡片：珠宝品牌向的极简样式（白底 + 极细边框 + 实线分隔，无缺角/无橙色渐变）
             .savings_card {
                 margin: 4px 0 16px;
                 padding: 16px 18px;
-                border: 1px solid #f0dccb;
-                border-radius: 14px;
-                background: linear-gradient(135deg, #fdf8f2 0%, #fbeede 100%);
-                box-shadow: 0 2px 8px rgba(180, 130, 90, 0.1);
+                border: 1px solid #ececec;
+                border-radius: 10px;
+                background: #ffffff;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
                 .savings_card_head {
                     display: flex;
                     align-items: center;
-                    gap: 9px;
+                    gap: 8px;
                     .savings_card_icon {
                         display: inline-flex;
                         align-items: center;
                         justify-content: center;
-                        width: 26px;
-                        height: 26px;
-                        border-radius: 50%;
-                        background: rgba(185, 129, 79, 0.12);
-                        color: #b9814f;
+                        width: 18px;
+                        height: 18px;
+                        color: #b08d57;
                         svg {
-                            width: 16px;
-                            height: 16px;
+                            width: 18px;
+                            height: 18px;
                         }
                     }
                     .savings_card_title {
                         font-size: 13px;
-                        font-weight: 700;
-                        color: #8a5a2b;
-                        letter-spacing: 0.3px;
+                        font-weight: 600;
+                        color: #1b1b1b;
+                        letter-spacing: 0.2px;
                     }
                     .savings_card_total {
                         margin-left: auto;
-                        font-size: 16px;
-                        font-weight: 800;
+                        font-size: 15px;
+                        font-weight: 700;
                         color: #c0392b;
                     }
                 }
                 .savings_card_divider {
-                    position: relative;
                     height: 1px;
-                    margin: 14px -18px;
-                    border-top: 1px dashed #e6c9b0;
-                    &::before,
-                    &::after {
-                        content: "";
-                        position: absolute;
-                        top: -7px;
-                        width: 14px;
-                        height: 14px;
-                        border-radius: 50%;
-                        background: #ffffff;
-                    }
-                    &::before {
-                        left: -7px;
-                    }
-                    &::after {
-                        right: -7px;
-                    }
+                    margin: 12px 0;
+                    background: #f0f0f0;
                 }
                 .savings_card_rows {
                     display: flex;
                     flex-direction: column;
-                    gap: 10px;
+                    gap: 9px;
                 }
                 .savings_card_row {
                     display: flex;
@@ -621,23 +602,23 @@
                     gap: 12px;
                     font-size: 13px;
                     .savings_card_label {
-                        color: #6b533c;
+                        color: #6b6b6b;
                         .savings_card_code {
                             display: inline-block;
                             padding: 2px 8px;
-                            border: 1px dashed #cfa06a;
-                            border-radius: 6px;
-                            background: rgba(255, 255, 255, 0.6);
+                            border: 1px solid #e2d3bb;
+                            border-radius: 4px;
+                            background: #faf6ef;
                             font-size: 12px;
-                            font-weight: 700;
-                            letter-spacing: 0.8px;
-                            color: #a06a35;
+                            font-weight: 600;
+                            letter-spacing: 0.6px;
+                            color: #9a7638;
                             text-transform: uppercase;
                         }
                     }
                     .savings_card_value {
                         flex-shrink: 0;
-                        font-weight: 700;
+                        font-weight: 600;
                         color: #c0392b;
                     }
                 }

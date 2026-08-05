@@ -781,46 +781,90 @@ export default function Main({ CONFIG, LANG, area, token }) {
                       priceUnit
                     )}`}</span>
                   </div>
-                  {previewData?.applied_rules?.filter(
-                    (r) => !String(r.type || "").includes("shipping")
-                  ).length ? (
-                    <div className={styles.applied_rules_list}>
-                      {previewData.applied_rules
-                        .filter(
-                          (r) => !String(r.type || "").includes("shipping")
+                  {(() => {
+                    const rules = (previewData?.applied_rules || []).filter(
+                      (r) => !String(r.type || "").includes("shipping")
+                    );
+                    const hasRules = rules.length > 0;
+                    if (!hasRules && !(orderPricing.discount > 0)) return null;
+                    const totalSaved = hasRules
+                      ? rules.reduce(
+                          (s, r) => s + parsePreviewAmount(r.amount),
+                          0
                         )
-                        .map((rule) => (
-                          <div
-                            key={`${rule.rule_id}-${rule.code || rule.method}`}
-                            className={styles.price_item}
-                          >
-                            <h3>
-                              {rule.code ||
-                                rule.title ||
-                                (rule.method === "automatic"
-                                  ? LANG["order.automatic_discount"] ||
-                                    "Promotion"
-                                  : LANG["order.discount_amount"] ||
-                                    "Discount")}
-                            </h3>
-                            <span className={styles.discount_value}>{`-${priceSymbol}${formatCurrency(
-                              parsePreviewAmount(rule.amount),
-                              priceUnit
-                            )}`}</span>
-                          </div>
-                        ))}
-                    </div>
-                  ) : orderPricing.discount > 0 ? (
-                    <div className={styles.price_item}>
-                      <h3>
-                        {LANG["order.discount_amount"] || "Discount"}
-                      </h3>
-                      <span className={styles.discount_value}>{`-${priceSymbol}${formatCurrency(
-                        orderPricing.discount,
-                        priceUnit
-                      )}`}</span>
-                    </div>
-                  ) : null}
+                      : orderPricing.discount;
+                    return (
+                      <div className={styles.savings_card}>
+                        <div className={styles.savings_card_head}>
+                          <span className={styles.savings_card_icon}>
+                            <svg viewBox="0 0 24 24" fill="none">
+                              <path
+                                d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0l-7.2-7.2A2 2 0 0 1 2.8 12V4.8A2 2 0 0 1 4.8 2.8H12a2 2 0 0 1 1.4.6l7.2 7.2a2 2 0 0 1 0 2.8Z"
+                                stroke="currentColor"
+                                strokeWidth="1.6"
+                                strokeLinejoin="round"
+                              />
+                              <circle cx="8.2" cy="8.2" r="1.4" fill="currentColor" />
+                            </svg>
+                          </span>
+                          <span className={styles.savings_card_title}>
+                            {LANG["order.promotions_applied"] ||
+                              "Promotions applied"}
+                          </span>
+                          <span className={styles.savings_card_total}>{`-${priceSymbol}${formatCurrency(
+                            totalSaved,
+                            priceUnit
+                          )}`}</span>
+                        </div>
+                        <div className={styles.savings_card_divider} />
+                        <div className={styles.savings_card_rows}>
+                          {hasRules
+                            ? rules.map((rule) => (
+                                <div
+                                  key={`${rule.rule_id}-${rule.code || rule.method}`}
+                                  className={styles.savings_card_row}
+                                >
+                                  <span className={styles.savings_card_label}>
+                                    {rule.code ? (
+                                      <span className={styles.savings_card_code}>
+                                        {rule.code}
+                                      </span>
+                                    ) : (
+                                      <span>
+                                        {rule.title ||
+                                          (rule.method === "automatic"
+                                            ? LANG["order.automatic_discount"] ||
+                                              "Promotion"
+                                            : LANG["order.discount_amount"] ||
+                                              "Discount")}
+                                      </span>
+                                    )}
+                                  </span>
+                                  <span
+                                    className={styles.savings_card_value}
+                                  >{`-${priceSymbol}${formatCurrency(
+                                    parsePreviewAmount(rule.amount),
+                                    priceUnit
+                                  )}`}</span>
+                                </div>
+                              ))
+                            : (
+                              <div className={styles.savings_card_row}>
+                                <span className={styles.savings_card_label}>
+                                  {LANG["order.discount_amount"] || "Discount"}
+                                </span>
+                                <span
+                                  className={styles.savings_card_value}
+                                >{`-${priceSymbol}${formatCurrency(
+                                  orderPricing.discount,
+                                  priceUnit
+                                )}`}</span>
+                              </div>
+                            )}
+                        </div>
+                      </div>
+                    );
+                  })()}
                   <div className={styles.price_item}>
                     <h3>{LANG["order.express_price"]}</h3>
                     <span>

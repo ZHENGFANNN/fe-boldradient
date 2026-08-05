@@ -11,6 +11,7 @@ import Button from "@/components/Button";
 import Modal from "@/components/Modal";
 import ShowTipModal from "@/components/Modal/ShowTipModal";
 import Api from "../../../api";
+import { track } from "@/utils/analytics";
 import styles from "./RestockModal.module.scss";
 
 // 到货通知弹窗（缺货收集）：无标题,含商品名 + 描述 + 邮箱输入 + 隐私协议勾选 + 提交。
@@ -56,6 +57,11 @@ function RestockModal({ LANG, locale, area, comboKey, sortKey, goodKey }, ref) {
           good_key: goodKey || ""
         });
         if (data.code === 0) {
+          track("RestockNotify", {
+            comboKey: comboKey || "",
+            sortKey: sortKey || "",
+            goodKey: goodKey || "",
+          });
           close();
           tipRef.current.show({
             type: "success",

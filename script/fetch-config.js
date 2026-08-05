@@ -8,7 +8,7 @@ const api = require("./api");
 /**
  * 从两个公开接口拉取配置，按后端 code 原样写入：
  *   fetch-data/pageConfig/<locale>.json  ← /config/getPageSettings
- *   fetch-data/globalConfig/index.json   ← /config/getGlobalSettings
+ *   fetch-data/globalConfig/index.json   ← /config/get{Market,Language,Pay}Settings（拆分后按命名空间拉取重组）
  *
  * locale 取自 globalConfig.setting.language 的 iso_code（小写）
  */
@@ -47,15 +47,6 @@ const buildPageConfig = (pageList, locale) => {
   return target;
 };
 
-const buildGlobalConfig = (globalList) => {
-  const target = {};
-  globalList.forEach((item) => {
-    if (isEmptyCell(item.content) || !item.code) return;
-    target[item.code] = parseCell(item.content);
-  });
-  return target;
-};
-
 const writeJson = (filePath, data) => {
   fs.mkdirSync(path.dirname(filePath), { recursive: true });
   fs.writeFileSync(filePath, JSON.stringify(data, null, 0));
@@ -72,14 +63,24 @@ const fetchConfig = async (times = 1, cookie = "") => {
   console.log(`${chalk.yellow("【开始获取配置信息】")}`);
 
   try {
-    const [pageRes, globalRes] = await Promise.all([
+    // 全局配置按命名空间拆分拉取（安全：markets/language 端点不再顺带下发 pay，
+    // pay 端点服务端脱敏，剔除密钥/webhook/mode）。旧 /config/getGlobalSettings 已下线。
+    // 各端点返回 { code:0, data: <该 code 已解析的 JSON> }，此处重组回与旧
+    // globalConfig/index.json 完全一致的 { "setting.markets", "setting.language", "setting.pay" }
+    // 快照，故 app/config/*.ts 三个加载器与运行时 CONFIG 零改动。
+    const [pageRes, marketRes, languageRes, payRes] = await Promise.all([
       api.get("/config/getPageSettings", { headers: { cookie } }),
-      api.get("/config/getGlobalSettings", { headers: { cookie } }),
+      api.get("/config/getMarketSettings", { headers: { cookie } }),
+      api.get("/config/getLanguageSettings", { headers: { cookie } }),
+      api.get("/config/getPaySettings", { headers: { cookie } }),
     ]);
 
     const pageList = pageRes?.data?.list || [];
-    const globalList = globalRes?.data?.list || [];
-    const globalConfig = buildGlobalConfig(globalList);
+    const globalConfig = {
+      "setting.markets": marketRes?.data ?? [],
+      "setting.language": languageRes?.data ?? [],
+      "setting.pay": payRes?.data ?? {},
+    };
 
     writeJson("./fetch-data/globalConfig/index.json", globalConfig);
 

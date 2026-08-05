@@ -11,6 +11,7 @@ import FormItem from "@/components/Form/FormItem";
 import ShowTipModal from "@/components/Modal/ShowTipModal";
 import ContactSuccess from "../ContactSuccess";
 import Button from "@/components/Button";
+import { track } from "@/utils/analytics";
 import styles from "./index.module.scss";
 
 // Contact 页内联表单（类 Shopify）。字段与后端契约对齐全局 ContactModal：
@@ -53,6 +54,7 @@ export default function ContactForm() {
             area
           }).catch((err) => console.log("[contactForm subscribe]: ", err));
 
+          track("Lead", { from: "contact_page" });
           // 成功不再弹不明显的 toast，切换到「提交成功」展示态。
           setSubmitted(true);
         } else {

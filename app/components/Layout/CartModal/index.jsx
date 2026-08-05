@@ -639,6 +639,11 @@ const CartMain = function ({ handleClose }) {
                                   width={24}
                                   height={24}
                                   onClick={() => {
+                                    track("RemoveFromCart", {
+                                      currency: item.priceCurrency,
+                                      value: item.productPrice,
+                                      contents: [item],
+                                    });
                                     const newCart = cartList.filter((item2) => {
                                       return !isSameRow(item, item2);
                                     });

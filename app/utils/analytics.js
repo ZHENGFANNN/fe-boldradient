@@ -6,10 +6,14 @@
  *   - FB Pixel: 同上，初始化 window.fbq
  *   - dataLayer: 由 GA4 初始化脚本创建 window.dataLayer；即使未来重接 GTM 亦可直接消费
  *
- * 事件名策略：
- *   - Purchase / AddToCart / InitiateCheckout 等已对齐 FB Pixel 标准事件名，直接用
+ * 事件名策略（两家名字不同，分发时各自映射）：
+ *   - 内部统一用 FB Pixel PascalCase 标准名书写（Purchase/AddToCart/InitiateCheckout…）
  *   - ViewProduct → ViewContent 别名映射（FB 标准事件，享受 Meta 转化优化）
- *   - 其他自定义事件（IndexBannerItem/ProductGuarantee-Email 等）在 FB 侧走 fbq('trackCustom', ...)
+ *   - FB 侧：命中标准白名单走 fbq('track', ...)，否则 fbq('trackCustom', ...)
+ *   - GA4 侧：PascalCase 标准名再映射成 GA4 推荐 snake_case 名（purchase/add_to_cart/
+ *     begin_checkout/view_item/page_view…），否则事件会被 GA4 当自定义事件、进不了内置电商报表；
+ *     同时把 FB 形状的 contents(orderList) 整形成 GA4 的 items[] 电商参数
+ *   - 其他自定义事件（IndexBannerItem/ProductGuarantee-Email 等）两家均按原名透传
  *
  * XSS/健壮性：
  *   - 客户端存在性 guard（SSR 环境静默跳过）
@@ -38,11 +42,71 @@ const FB_STANDARD_EVENTS = new Set([
   "SubmitApplication",
   "Subscribe",
 ]);
-
 // 事件名归一映射：把内部约定名对齐到 FB Pixel 标准事件（GA4 也接受同名）。
 const EVENT_ALIAS = {
   ViewProduct: "ViewContent",
 };
+
+// GA4 事件名映射：FB PascalCase 标准名 → GA4 推荐 snake_case 事件名。
+// GA4 事件名大小写敏感，直接发 PascalCase 会被当自定义事件、进不了内置电商报表。
+// 参考 https://developers.google.com/analytics/devguides/collection/ga4/reference/events
+const GA4_EVENT_NAME = {
+  PageView: "page_view",
+  ViewContent: "view_item",
+  Search: "search",
+  AddToCart: "add_to_cart",
+  RemoveFromCart: "remove_from_cart",
+  InitiateCheckout: "begin_checkout",
+  AddPaymentInfo: "add_payment_info",
+  Purchase: "purchase",
+  // 获客 / 留资类：FB PascalCase → GA4 推荐名
+  CompleteRegistration: "sign_up",
+  Login: "login",
+  Lead: "generate_lead",
+  Subscribe: "subscribe",
+  RestockNotify: "restock_notify",
+};
+
+/** contents(orderList 行) → GA4 items[]。字段名尽量对齐 GA4 电商 schema，缺失静默跳过。 */
+function toGa4Items(contents) {
+  if (!Array.isArray(contents)) return null;
+  const items = [];
+  for (const row of contents) {
+    if (!row || typeof row !== "object") continue;
+    const item = {};
+    const itemId = row.productKey || row.comboKey || row.id;
+    if (itemId != null) item.item_id = String(itemId);
+    if (row.name != null) item.item_name = String(row.name);
+    if (row.comboName != null) item.item_variant = String(row.comboName);
+    const price = Number(row.productPrice);
+    if (Number.isFinite(price)) item.price = price;
+    const qty = Number(row.productNum);
+    item.quantity = Number.isFinite(qty) && qty > 0 ? qty : 1;
+    if (Object.keys(item).length) items.push(item);
+  }
+  return items.length ? items : null;
+}
+
+/**
+ * FB 形状参数 → GA4 电商参数。
+ * value/currency 直接沿用（GA4 电商同名），contents → items[]，丢弃 FB 专有的 contents/type。
+ */
+function toGa4Payload(ga4Name, params) {
+  const { contents, ...rest } = params;
+  const out = { ...rest };
+  const items = toGa4Items(contents);
+  // 仅电商类事件需要 items；其余事件（如自定义）不强加 items 字段。
+  const ECOMMERCE = new Set([
+    "view_item",
+    "add_to_cart",
+    "remove_from_cart",
+    "begin_checkout",
+    "add_payment_info",
+    "purchase",
+  ]);
+  if (items && ECOMMERCE.has(ga4Name)) out.items = items;
+  return out;
+}
 
 /** 清理 undefined 字段，避免 gtag/fbq 收到无效 payload */
 function pruneParams(params) {
@@ -65,10 +129,14 @@ export function track(eventName, params) {
   const name = EVENT_ALIAS[eventName] || eventName;
   const payload = pruneParams(params);
 
-  // 1) GA4
+  // 1) GA4（事件名 + 参数都映射成 GA4 推荐形状；未命中标准名则按原名透传自定义事件）
   if (typeof window.gtag === "function") {
     try {
-      window.gtag("event", name, payload);
+      const ga4Name = GA4_EVENT_NAME[name] || name;
+      const ga4Payload = GA4_EVENT_NAME[name]
+        ? toGa4Payload(ga4Name, payload)
+        : payload;
+      window.gtag("event", ga4Name, ga4Payload);
     } catch (e) {
       // 静默
     }

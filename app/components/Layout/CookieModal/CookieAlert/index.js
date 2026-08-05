@@ -5,7 +5,6 @@ import GlobalContext from "@/[locale]/context";
 import { COOKIE_ALERT_REGION_LIST } from "@/components/Layout/CookieModal/const";
 import { setCookieConsent } from "@/hooks/useCookieConsent";
 import { defaultLocale } from "@/config/languageSettings";
-import { track } from "@/utils/analytics";
 import Button from "@/components/Button";
 
 function CookieSetting({ showCookieSetting }, ref) {
@@ -85,7 +84,6 @@ function CookieSetting({ showCookieSetting }, ref) {
       COOKIE_ALERT_REGION_LIST.includes(effectiveArea)
     ) {
       const timer = setTimeout(() => {
-        track("cookie-alert-view");
         setFirstRender(false);
         setTimeout(() => {
           setShow(true);
@@ -125,7 +123,6 @@ function CookieSetting({ showCookieSetting }, ref) {
             variant="secondary"
             size="small"
             className={styles.btn}
-            data-event="cookie-alert-btn-required-only"
             onClick={() => {
               setShow(false);
               setCookiePermissions([]);
@@ -137,7 +134,6 @@ function CookieSetting({ showCookieSetting }, ref) {
             variant="primary"
             size="small"
             className={styles.btn}
-            data-event="cookie-alert-btn-accept-all"
             onClick={() => {
               setShow(false);
               setCookiePermissions(["functional", "analytical", "marketing"]);

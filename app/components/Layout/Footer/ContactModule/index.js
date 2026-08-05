@@ -17,6 +17,7 @@ import {
   SocialYoutubeIcon,
 } from "@/components/Icon";
 import Api from "../../api";
+import { track } from "@/utils/analytics";
 
 import styles from "./index.module.scss";
 
@@ -75,7 +76,10 @@ export default function ContactModule() {
           area,
         });
         if (data.code !== 0) throw new Error("code!==0");
-        else setEmailStatue("success");
+        else {
+          track("Subscribe", { from: "footer" });
+          setEmailStatue("success");
+        }
       } catch (err) {
         console.log("[contactForm]: ", err);
         setEmailStatue("fail");

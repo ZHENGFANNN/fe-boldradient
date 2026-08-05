@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 
 import GlobalContext from "@/[locale]/context";
-import { track } from "@/utils/analytics";
 import Api from "@/components/Layout/api";
 import { UserIcon } from "@/components/Icon";
 import { defaultLocale } from "@/config/languageSettings";
@@ -154,7 +153,6 @@ export default function UserMenu({ isLogin }) {
   }, [open, isLogin, locale, router]);
 
   const go = (path) => {
-    track("NavIcon-User");
     setOpen(false);
     const href =
       locale && locale !== defaultLocale ? `/${locale}${path}` : path;
@@ -162,7 +160,6 @@ export default function UserMenu({ isLogin }) {
   };
 
   const handleSignOut = () => {
-    track("NavIcon-User");
     setOpen(false);
     Api.loginOut();
     Cookies.remove("token");

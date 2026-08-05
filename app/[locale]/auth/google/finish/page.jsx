@@ -15,6 +15,7 @@ import Api from "@/[locale]/user/api";
 import GlobalContext from "@/[locale]/context";
 import Loading from "@/components/Loading";
 import DeletionPendingModal from "@/[locale]/user/login/components/DeletionPendingModal";
+import { track } from "@/utils/analytics";
 
 export default function GoogleFinishPage() {
   const { locale } = useParams();
@@ -65,6 +66,7 @@ export default function GoogleFinishPage() {
         const res = await Api.googleExchange({ code });
         if (!cancelled && res?.code === 0 && res?.data) {
           Cookies.set("token", res.data, { expires: 7 });
+          track("Login", { method: "google" });
           location.href = safeRedirect || home;
           return;
         }

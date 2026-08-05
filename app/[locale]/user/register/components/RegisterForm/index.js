@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form";
 import { isEmail } from "../../../../../utils/pattern";
 import { useRouter, useParams } from "next/navigation";
 import ShowTipModal from "../../../../../components/Modal/ShowTipModal";
+import { track } from "@/utils/analytics";
 
 export default function RegisterForm({ LANG }) {
   const [loading, setLoading] = React.useState(false);
@@ -121,6 +122,7 @@ export default function RegisterForm({ LANG }) {
           text: LANG["user.register.register_success"],
           type: "success",
         });
+        track("CompleteRegistration", { method: "email" });
         reset();
         setCountdown(0);
         // 注册成功后直接跳转，去掉原 500ms 延迟（消除跳转前的卡顿感）。

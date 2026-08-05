@@ -14,6 +14,7 @@ import Link from "next/link";
 import ShowTipModal from "../../../../../components/Modal/ShowTipModal";
 import DeletionPendingModal from "../DeletionPendingModal";
 import Button from "@/components/Button";
+import { track } from "@/utils/analytics";
 
 export default function LoginForm({ LANG }) {
   const tipRef = React.useRef(null);
@@ -74,6 +75,7 @@ export default function LoginForm({ LANG }) {
             text: LANG["user.login.login_success"],
             type: "success",
           });
+          track("Login", { method: "password" });
           reset();
           gotoAfterLogin();
         } else if (data.code === 10097) {

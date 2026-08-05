@@ -99,12 +99,19 @@
   color: #afb1b4;
 
   transform-origin: left top;
-  transform: scale(0.8) translateY(-6px);
-  transition: transform 0.3s ease, color 0.2s ease;
+  // 浮动态锚定到顶部内边距区，与选中值(顶部对齐)拉开固定间距，勿居中避免重叠
+  top: 6px;
+  bottom: auto;
+  align-items: flex-start;
+  transform: scale(0.8);
+  transition: transform 0.3s ease, color 0.2s ease, top 0.3s ease;
   pointer-events: none;
 
   &.label_empty {
-    transform: scale(1) translateY(0);
+    top: 0;
+    bottom: 0;
+    align-items: center;
+    transform: scale(1);
   }
   &.label_error {
     color: #f13649;

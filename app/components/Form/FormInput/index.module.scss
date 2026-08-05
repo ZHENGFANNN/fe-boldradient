@@ -56,8 +56,13 @@
       color: #afb1b4;
 
       transform-origin: left top;
+      // 浮动态：锚定到输入框顶部内边距区（而非居中再上浮），与顶部对齐的值文字
+      // 拉开固定间距，不随输入框高度变化而挤压重叠。空占位态仍保持垂直居中。
       &:not(.input_empyt) {
-        transform: scale(0.8) translateY(-6px);
+        top: 6px;
+        bottom: auto;
+        align-items: flex-start;
+        transform: scale(0.8);
       }
       &.text_error {
         color: #f13649;
@@ -79,7 +84,10 @@
       pointer-events: none;
     }
     input:focus + .input_label {
-      transform: scale(0.8) translateY(-6px);
+      top: 6px;
+      bottom: auto;
+      align-items: flex-start;
+      transform: scale(0.8);
     }
   }
 

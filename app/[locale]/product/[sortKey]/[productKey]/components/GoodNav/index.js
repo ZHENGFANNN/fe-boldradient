@@ -3,6 +3,7 @@ import React from "react";
 import styles from "./index.module.scss";
 import ProductContext from "../../ProductContext";
 import { debounce } from "../../../../../../utils";
+import { track } from "../../../../../../utils/analytics";
 
 export default function GoodNav() {
   const { lazyLoading, productInfo, LANG, reviewsVisible } =
@@ -51,6 +52,7 @@ export default function GoodNav() {
     if (!lazyLoading) {
       $(`.${styles.nav_item}`).on("click", function () {
         const href = $(this).attr("data-href");
+        track("ProductNav", { href });
         const top = $(href).offset().top;
         window.scrollTo({
           top: top - 68,

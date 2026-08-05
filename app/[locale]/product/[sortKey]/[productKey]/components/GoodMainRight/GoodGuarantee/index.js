@@ -28,6 +28,7 @@ export default function GoodGuarantee() {
       <div className={styles.list}>
         <div
           className={styles.item}
+          data-event="ProductGuarantee-DeliveryTerms"
           onClick={() => {
             DeliveryTermsModalRef.current.show();
           }}
@@ -47,6 +48,7 @@ export default function GoodGuarantee() {
           <div className={styles.arrow_icon}></div>
         </div>
         <div
+          data-event="ProductGuarantee-ProductGuarantee"
           onClick={() => {
             ProductGuaranteeRef.current.show();
           }}
@@ -67,6 +69,7 @@ export default function GoodGuarantee() {
           <div className={styles.arrow_icon}></div>
         </div>
         <div
+          data-event="ProductGuarantee-ViewOrder"
           onClick={() => {
             ViewOrderRef.current.show();
           }}

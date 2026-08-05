@@ -6,6 +6,7 @@ import "@splidejs/splide/css";
 import Splide from "@splidejs/splide";
 import ProductContext from "../../../ProductContext";
 import ImageWithSkeleton from "@/components/ImageWithSkeleton";
+import { track } from "@/utils/analytics";
 
 /** sRGB 分量(0~1) → 线性空间；glTF baseColorFactor 定义在线性空间，
  *  而颜色选择器给的 hex 是 sRGB，需做 gamma 转换才能所见即所得。 */
@@ -184,6 +185,7 @@ export default function GoodMediaDisplay() {
       });
       // 点击轮播图(委托绑到容器,避免 refresh 后 li 换了对象丢事件)
       $domListContainer.on("click", "ul li", function () {
+        track("ProductMediaCoverItem");
         splide.go($(this).index());
       });
       // 选项跳转

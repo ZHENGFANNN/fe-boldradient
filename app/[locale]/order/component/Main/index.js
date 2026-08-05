@@ -782,17 +782,19 @@ export default function Main({ CONFIG, LANG, area, token }) {
                     )}`}</span>
                   </div>
                   {(() => {
-                    const rules = (previewData?.applied_rules || []).filter(
-                      (r) => !String(r.type || "").includes("shipping")
-                    );
+                    // 结算页有收货地址：把商品折扣 + 运费折扣（free_shipping）一并聚合进优惠卡片。
+                    const rules = previewData?.applied_rules || [];
                     const hasRules = rules.length > 0;
-                    if (!hasRules && !(orderPricing.discount > 0)) return null;
+                    const productDiscount = orderPricing.discount || 0;
+                    const shippingDiscount = orderPricing.shipping_discount || 0;
+                    const fallbackSaved = productDiscount + shippingDiscount;
+                    if (!hasRules && !(fallbackSaved > 0)) return null;
                     const totalSaved = hasRules
                       ? rules.reduce(
                           (s, r) => s + parsePreviewAmount(r.amount),
                           0
                         )
-                      : orderPricing.discount;
+                      : fallbackSaved;
                     return (
                       <div className={styles.savings_card}>
                         <div className={styles.savings_card_head}>
@@ -819,7 +821,11 @@ export default function Main({ CONFIG, LANG, area, token }) {
                         <div className={styles.savings_card_divider} />
                         <div className={styles.savings_card_rows}>
                           {hasRules
-                            ? rules.map((rule) => (
+                            ? rules.map((rule) => {
+                                const isShipping = String(
+                                  rule.type || ""
+                                ).includes("shipping");
+                                return (
                                 <div
                                   key={`${rule.rule_id}-${rule.code || rule.method}`}
                                   className={styles.savings_card_row}
@@ -832,7 +838,10 @@ export default function Main({ CONFIG, LANG, area, token }) {
                                     ) : (
                                       <span>
                                         {rule.title ||
-                                          (rule.method === "automatic"
+                                          (isShipping
+                                            ? LANG["order.shipping_discount"] ||
+                                              "Shipping discount"
+                                            : rule.method === "automatic"
                                             ? LANG["order.automatic_discount"] ||
                                               "Promotion"
                                             : LANG["order.discount_amount"] ||
@@ -847,19 +856,39 @@ export default function Main({ CONFIG, LANG, area, token }) {
                                     priceUnit
                                   )}`}</span>
                                 </div>
-                              ))
+                                );
+                              })
                             : (
-                              <div className={styles.savings_card_row}>
-                                <span className={styles.savings_card_label}>
-                                  {LANG["order.discount_amount"] || "Discount"}
-                                </span>
-                                <span
-                                  className={styles.savings_card_value}
-                                >{`-${priceSymbol}${formatCurrency(
-                                  orderPricing.discount,
-                                  priceUnit
-                                )}`}</span>
-                              </div>
+                              <>
+                                {productDiscount > 0 ? (
+                                  <div className={styles.savings_card_row}>
+                                    <span className={styles.savings_card_label}>
+                                      {LANG["order.discount_amount"] ||
+                                        "Discount"}
+                                    </span>
+                                    <span
+                                      className={styles.savings_card_value}
+                                    >{`-${priceSymbol}${formatCurrency(
+                                      productDiscount,
+                                      priceUnit
+                                    )}`}</span>
+                                  </div>
+                                ) : null}
+                                {shippingDiscount > 0 ? (
+                                  <div className={styles.savings_card_row}>
+                                    <span className={styles.savings_card_label}>
+                                      {LANG["order.shipping_discount"] ||
+                                        "Shipping discount"}
+                                    </span>
+                                    <span
+                                      className={styles.savings_card_value}
+                                    >{`-${priceSymbol}${formatCurrency(
+                                      shippingDiscount,
+                                      priceUnit
+                                    )}`}</span>
+                                  </div>
+                                ) : null}
+                              </>
                             )}
                         </div>
                       </div>
@@ -869,8 +898,8 @@ export default function Main({ CONFIG, LANG, area, token }) {
                     <h3>{LANG["order.express_price"]}</h3>
                     <span>
                       {orderPricing.shipping_fee > 0 ? (
-                        // 始终展示原运费；运费折扣（free_shipping code）由下方独立折扣行体现，
-                        // 不在此处直接抹成「免费」，避免藏掉原价 + 与折扣行重复表达。
+                        // 始终展示原运费；运费折扣（free_shipping）已聚合进上方优惠卡片，
+                        // 此处不抹成「免费」，避免藏掉原价 + 与卡片重复表达。
                         `${priceSymbol}${formatCurrency(
                           orderPricing.shipping_fee,
                           priceUnit
@@ -880,18 +909,6 @@ export default function Main({ CONFIG, LANG, area, token }) {
                       )}
                     </span>
                   </div>
-                  {orderPricing.shipping_discount > 0 ? (
-                    <div className={styles.price_item}>
-                      <h3>
-                        {LANG["order.shipping_discount"] ||
-                          "Shipping discount"}
-                      </h3>
-                      <span className={styles.discount_value}>{`-${priceSymbol}${formatCurrency(
-                        orderPricing.shipping_discount,
-                        priceUnit
-                      )}`}</span>
-                    </div>
-                  ) : null}
                   <div className={styles.price_item}>
                     <h3>{LANG["order.tax"]}</h3>
                     <span>{LANG["order.tax_include"] || "Included"}</span>

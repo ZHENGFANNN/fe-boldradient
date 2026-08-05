@@ -737,28 +737,6 @@ const CartMain = function ({ handleClose }) {
               ) : null}
             </div>
 
-            <div className={styles.total_price}>
-              <div className={styles.total_price_title}>
-                {LANG["common.cart.subtotal"]}
-              </div>
-              <div className={styles.total_price_num}>
-                {previewData?.discount > 0 ? (
-                  <>
-                    <span className={styles.subtotal_discounted}>
-                      {`${cartList[0]?.priceSymbol}${formatCurrency(
-                        previewData.pay_price,
-                        cartList[0]?.currency_unit
-                      )}`}
-                    </span>
-                    <span className={styles.subtotal_original}>
-                      {`${cartList[0]?.priceSymbol}${totalPrice}`}
-                    </span>
-                  </>
-                ) : (
-                  `${cartList[0]?.priceSymbol}${totalPrice}`
-                )}
-              </div>
-            </div>
             {(() => {
               const rules = (previewData?.applied_rules || []).filter(
                 (r) => r.type !== "free_shipping"
@@ -842,6 +820,29 @@ const CartMain = function ({ handleClose }) {
                 </div>
               );
             })()}
+
+            <div className={styles.total_price}>
+              <div className={styles.total_price_title}>
+                {LANG["common.cart.subtotal"]}
+              </div>
+              <div className={styles.total_price_num}>
+                {previewData?.discount > 0 ? (
+                  <>
+                    <span className={styles.subtotal_discounted}>
+                      {`${cartList[0]?.priceSymbol}${formatCurrency(
+                        previewData.pay_price,
+                        cartList[0]?.currency_unit
+                      )}`}
+                    </span>
+                    <span className={styles.subtotal_original}>
+                      {`${cartList[0]?.priceSymbol}${totalPrice}`}
+                    </span>
+                  </>
+                ) : (
+                  `${cartList[0]?.priceSymbol}${totalPrice}`
+                )}
+              </div>
+            </div>
             <div className={styles.checkout_tip}>
               {LANG["common.cart.checkout_tip"]}
             </div>

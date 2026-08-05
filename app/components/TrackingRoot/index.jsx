@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect } from "react";
-import { track } from "@/utils/analytics";
+import { useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
+import { track, trackPageView } from "@/utils/analytics";
 
 /**
  * 全局声明式埋点监听器。挂在 layout body 内即可全站生效。
@@ -21,6 +22,18 @@ import { track } from "@/utils/analytics";
  *   4. 触发 track(eventName, params)，由 utils/analytics.js 分发到 GA4/FB Pixel/dataLayer
  */
 export default function TrackingRoot() {
+  // SPA 换页补发 page_view：GA4 只在首屏 gtag('config') 发一次，客户端路由切换不自动补发。
+  // 首屏 pathname 已由 gtag config 计入，故跳过首次，仅在 pathname 变化时补发，避免落地页双计。
+  const pathname = usePathname();
+  const firstPathRef = useRef(true);
+  useEffect(() => {
+    if (firstPathRef.current) {
+      firstPathRef.current = false;
+      return;
+    }
+    trackPageView({ page_path: pathname });
+  }, [pathname]);
+
   useEffect(() => {
     const handler = (e) => {
       const el = e.target?.closest?.("[data-event]");

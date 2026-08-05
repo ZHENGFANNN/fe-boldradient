@@ -53,6 +53,8 @@ const EVENT_ALIAS = {
 const GA4_EVENT_NAME = {
   PageView: "page_view",
   ViewContent: "view_item",
+  ViewItemList: "view_item_list",
+  SelectItem: "select_item",
   Search: "search",
   AddToCart: "add_to_cart",
   RemoveFromCart: "remove_from_cart",
@@ -74,10 +76,12 @@ function toGa4Items(contents) {
   for (const row of contents) {
     if (!row || typeof row !== "object") continue;
     const item = {};
-    const itemId = row.productKey || row.comboKey || row.id;
+    // 兼容两种商品形状：购物车/订单行(productKey/comboKey) 与 列表页商品(key/sort_key)
+    const itemId = row.productKey || row.comboKey || row.key || row.id;
     if (itemId != null) item.item_id = String(itemId);
     if (row.name != null) item.item_name = String(row.name);
     if (row.comboName != null) item.item_variant = String(row.comboName);
+    if (row.sort_key != null) item.item_category = String(row.sort_key);
     const price = Number(row.productPrice);
     if (Number.isFinite(price)) item.price = price;
     const qty = Number(row.productNum);
@@ -98,6 +102,8 @@ function toGa4Payload(ga4Name, params) {
   // 仅电商类事件需要 items；其余事件（如自定义）不强加 items 字段。
   const ECOMMERCE = new Set([
     "view_item",
+    "view_item_list",
+    "select_item",
     "add_to_cart",
     "remove_from_cart",
     "begin_checkout",

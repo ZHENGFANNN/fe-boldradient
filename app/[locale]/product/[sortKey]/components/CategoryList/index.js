@@ -15,6 +15,7 @@ import {
 import useArea from "@/hooks/useArea";
 import Skeleton from "@/components/Skeleton";
 import getProductsOffer from "@/service/product/get-offer";
+import { track } from "@/utils/analytics";
 import { StarIcon, StarActiveIcon } from "@/components/Icon";
 import styles from "./index.module.scss";
 
@@ -83,7 +84,7 @@ function CardCountdown({ endsAt }) {
   );
 }
 
-function ProductCard({ product, LANG, pricingMap, pricingReady, discountMap }) {
+function ProductCard({ product, LANG, pricingMap, pricingReady, discountMap, listName }) {
   const areaInfo = pricingReady
     ? pickAreaInfo(pricingMap?.[`${product.sort_key}:${product.key}`])
     : null;
@@ -98,6 +99,12 @@ function ProductCard({ product, LANG, pricingMap, pricingReady, discountMap }) {
       scroll={true}
       href={`/product/${product.sort_key}/${product.key}`}
       className={styles.goods_item}
+      onClick={() =>
+        track("SelectItem", {
+          item_list_name: listName || product.sort_key || "",
+          contents: [product],
+        })
+      }
     >
       <div className={styles.image_container} data-scenes={!!product.image_scenes}>
         <img
@@ -257,6 +264,20 @@ export default function CategoryList({
   const shown = filtered.slice(0, visible);
   const hasMore = visible < filtered.length;
 
+  // view_item_list：列表数据就绪后按当前分类上报一次（分类切换/筛选变化重报）。
+  const listName = category?.name || sortKey || "";
+  const viewListSentRef = React.useRef("");
+  React.useEffect(() => {
+    if (!goodList || goodList.length === 0) return;
+    const sig = `${sortKey || ""}|${selectedTags.size}`;
+    if (viewListSentRef.current === sig) return;
+    viewListSentRef.current = sig;
+    track("ViewItemList", {
+      item_list_name: listName,
+      contents: filtered.slice(0, PAGE_SIZE),
+    });
+  }, [goodList, sortKey, selectedTags, filtered, listName]);
+
   const toggleTag = (tag) => {
     setSelectedTags((prev) => {
       const next = new Set(prev);
@@ -351,6 +372,7 @@ export default function CategoryList({
               pricingMap={pricingMap}
               pricingReady={pricingReady}
               discountMap={discountMap}
+              listName={listName}
             />
           ))}
         </section>

@@ -781,27 +781,8 @@ export default function Main({ CONFIG, LANG, area, token }) {
                       priceUnit
                     )}`}</span>
                   </div>
-                  <div className={styles.price_item}>
-                    <h3>{LANG["order.express_price"]}</h3>
-                    <span>
-                      {orderPricing.shipping_fee > 0 ? (
-                        // 始终展示原运费；运费折扣（free_shipping）已聚合进下方优惠卡片，
-                        // 此处不抹成「免费」，避免藏掉原价 + 与卡片重复表达。
-                        `${priceSymbol}${formatCurrency(
-                          orderPricing.shipping_fee,
-                          priceUnit
-                        )}`
-                      ) : (
-                        LANG["order.express_free"]
-                      )}
-                    </span>
-                  </div>
-                  <div className={styles.price_item}>
-                    <h3>{LANG["order.tax"]}</h3>
-                    <span>{LANG["order.tax_include"] || "Included"}</span>
-                  </div>
                   {(() => {
-                    // 优惠卡片置于 Estimated Sales Tax 之下、Total 之上（业界标准明细顺序）。
+                    // 优惠卡片置于 Subtotal 之下。
                     // 结算页有收货地址：把商品折扣 + 运费折扣（free_shipping）一并聚合。
                     const rules = previewData?.applied_rules || [];
                     const hasRules = rules.length > 0;
@@ -914,6 +895,25 @@ export default function Main({ CONFIG, LANG, area, token }) {
                       </div>
                     );
                   })()}
+                  <div className={styles.price_item}>
+                    <h3>{LANG["order.express_price"]}</h3>
+                    <span>
+                      {orderPricing.shipping_fee > 0 ? (
+                        // 始终展示原运费；运费折扣（free_shipping）已聚合进下方优惠卡片，
+                        // 此处不抹成「免费」，避免藏掉原价 + 与卡片重复表达。
+                        `${priceSymbol}${formatCurrency(
+                          orderPricing.shipping_fee,
+                          priceUnit
+                        )}`
+                      ) : (
+                        LANG["order.express_free"]
+                      )}
+                    </span>
+                  </div>
+                  <div className={styles.price_item}>
+                    <h3>{LANG["order.tax"]}</h3>
+                    <span>{LANG["order.tax_include"] || "Included"}</span>
+                  </div>
                 </div>
                 <div
                   className={`${styles.price_total}${

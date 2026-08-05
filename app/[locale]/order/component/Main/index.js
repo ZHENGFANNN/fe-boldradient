@@ -774,15 +774,8 @@ export default function Main({ CONFIG, LANG, area, token }) {
                     previewLoading ? ` ${styles.price_refreshing}` : ""
                   }`}
                 >
-                  <div className={styles.price_item}>
-                    <h3>{LANG["order.good_total"]}</h3>
-                    <span>{`${priceSymbol}${formatCurrency(
-                      orderPricing.total_price,
-                      priceUnit
-                    )}`}</span>
-                  </div>
                   {(() => {
-                    // 优惠卡片置于 Subtotal 之下。
+                    // 优惠卡片置于 Subtotal 之上（明细列表最顶部）。
                     // 结算页有收货地址：把商品折扣 + 运费折扣（free_shipping）一并聚合。
                     const rules = previewData?.applied_rules || [];
                     const hasRules = rules.length > 0;
@@ -895,6 +888,13 @@ export default function Main({ CONFIG, LANG, area, token }) {
                       </div>
                     );
                   })()}
+                  <div className={styles.price_item}>
+                    <h3>{LANG["order.good_total"]}</h3>
+                    <span>{`${priceSymbol}${formatCurrency(
+                      orderPricing.total_price,
+                      priceUnit
+                    )}`}</span>
+                  </div>
                   <div className={styles.price_item}>
                     <h3>{LANG["order.express_price"]}</h3>
                     <span>

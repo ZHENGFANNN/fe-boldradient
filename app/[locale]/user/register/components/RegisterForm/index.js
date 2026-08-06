@@ -9,12 +9,17 @@ import { isEmail } from "../../../../../utils/pattern";
 import { useRouter, useParams } from "next/navigation";
 import ShowTipModal from "../../../../../components/Modal/ShowTipModal";
 import { track } from "@/utils/analytics";
+import Turnstile, { turnstileHeaders } from "@/components/Turnstile";
 
 export default function RegisterForm({ LANG }) {
   const [loading, setLoading] = React.useState(false);
   // 发码在途 / 冷却倒计时（秒）：与后端 60s 发送冷却对齐，倒计时期间禁用发码按钮。
   const [sending, setSending] = React.useState(false);
   const [countdown, setCountdown] = React.useState(0);
+  // Cloudflare 人机验证。挂在「发送验证码」这一步——那是唯一会真发邮件（花钱、可被拿来轰炸任意
+  // 地址）的端点；register 本身必须带对邮箱验证码才过，等于已证明收件箱所有权，再挑战一次
+  // 只会让用户在同一表单里被拦两遍。
+  const turnstileRef = React.useRef(null);
   const router = useRouter();
   const { locale } = useParams();
   // redirect 来自 URL query，挂载后从 window 读取，避免 useSearchParams 触发
@@ -83,7 +88,15 @@ export default function RegisterForm({ LANG }) {
     }
     try {
       setSending(true);
-      const res = await Api.sendRegisterCode({ email, language: locale });
+      // 人机验证：业务 code = register。未启用时 getToken() 返回 ""，turnstileHeaders 退化为空对象，
+      // 请求照常发出、后端也不校验，前后端降级口径一致。
+      const tsToken = await turnstileRef.current?.getToken();
+      const res = await Api.sendRegisterCode(
+        { email, language: locale },
+        turnstileHeaders(tsToken)
+      );
+      // 🔴 token 一次性：无论成败都要重置，否则用户重试时会带着已消耗的 token 撞 timeout-or-duplicate。
+      turnstileRef.current?.reset();
       if (res.code === 0) {
         setCountdown(60);
         tipRef.current.show({
@@ -219,6 +232,8 @@ export default function RegisterForm({ LANG }) {
         </div>
         <p>{errors.code?.message}</p>
       </div>
+      {/* 人机验证：后端未配置 secret 时本组件不渲染任何内容、不占位 */}
+      <Turnstile ref={turnstileRef} action="register" />
       <button disabled={loading} type="submit" className={styles.button}>
         {LANG["user.register.submit"]}
       </button>

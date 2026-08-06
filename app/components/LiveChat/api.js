@@ -97,8 +97,10 @@ export function getChatFaq(locale) {
   return Api.get("/chat/faq", { params: { locale } });
 }
 
-export function createChatSession(body) {
-  return Api.post("/chat/session", body);
+// config 用于透传 Turnstile token 请求头（turnstileHeaders(token)）。
+// 后端 /chat/session 与 /chat/offline-session 都挂了 TurnstileGuard("livechat")。
+export function createChatSession(body, config) {
+  return Api.post("/chat/session", body, config);
 }
 
 export function getChatMessages(params) {
@@ -122,8 +124,9 @@ export function uploadChatFile(file) {
   return Api.post("/chat/upload", form);
 }
 
-export function sendOfflineMessage(body) {
-  return Api.post("/chat/offline-message", body);
+// 离线留言表单是客服入口之一（直接带 email/phone/content），同样需要 Turnstile token。
+export function sendOfflineMessage(body, config) {
+  return Api.post("/chat/offline-message", body, config);
 }
 
 export function refreshWsToken(body) {

@@ -22,6 +22,7 @@ import {
   uploadChatFile,
 } from "./api";
 import { buildChatCopy, getFaqItems } from "./faq";
+import Turnstile, { turnstileHeaders } from "@/components/Turnstile";
 import openLiveChat, { registerLiveChatOpen } from "./openLiveChat";
 import OrderPicker, { getOrderStatusText } from "./orderPicker";
 import ProductPicker from "./productPicker";
@@ -429,6 +430,9 @@ export default function LiveChat({ locale, area, LANG }) {
   );
   const [leadError, setLeadError] = React.useState({ name: "", email: "" });
   const leadRef = React.useRef(null);
+  // Cloudflare 人机验证：进入人工客服 / 离线留言共用（业务 code = livechat）。
+  // 这两个端点公开无鉴权、会建会话并落库，此前只有 IP 限流兜底，脚本换 IP 即可绕过。
+  const turnstileRef = React.useRef(null);
   const wsRef = React.useRef(null);
   const pingTimerRef = React.useRef(null);
   const lastIdRef = React.useRef(0);
@@ -750,14 +754,22 @@ export default function LiveChat({ locale, area, LANG }) {
       visitorKeyRef.current = visitorKey;
       const areaCode = area || Cookies.get("area") || "us";
       const currentLead = leadRef.current;
-      const sessRes = await createChatSession({
-        visitor_key: visitorKey,
-        visitor_name: currentLead?.name || undefined,
-        visitor_email: currentLead?.email || undefined,
-        locale: locale || "en",
-        area: areaCode,
-        page_url: typeof window !== "undefined" ? window.location.href : "",
-      });
+      // 人机验证：业务 code = livechat（与离线留言共用同一 code——同一个 lead 表单，
+      // 提交前无法预知走在线还是离线分支，token 的 action 必须两端通用）。
+      const tsToken = await turnstileRef.current?.getToken();
+      const sessRes = await createChatSession(
+        {
+          visitor_key: visitorKey,
+          visitor_name: currentLead?.name || undefined,
+          visitor_email: currentLead?.email || undefined,
+          locale: locale || "en",
+          area: areaCode,
+          page_url: typeof window !== "undefined" ? window.location.href : "",
+        },
+        turnstileHeaders(tsToken)
+      );
+      // 🔴 token 一次性，用掉即重置（离线分支下面还要再取一个新的）
+      turnstileRef.current?.reset();
       // 非营业时段（Task B）：后端回 2804 + away_message，转离线留言流程并记下本地化文案。
       if (sessRes?.code === 2804) {
         const away = sessRes?.data?.away_message || "";
@@ -1488,16 +1500,22 @@ export default function LiveChat({ locale, area, LANG }) {
     if (offlineSubmitting) return;
     setOfflineSubmitting(true);
     try {
-      const res = await sendOfflineMessage({
-        visitor_key: getVisitorKey(),
-        visitor_name: leadRef.current?.name || undefined,
-        email,
-        phone: offline.phone.trim(),
-        content,
-        locale: locale || "en",
-        area: area || Cookies.get("area") || "us",
-        page_url: typeof window !== "undefined" ? window.location.href : "",
-      });
+      // 人机验证：与在线入口同一业务 code（livechat），token 用后即弃。
+      const tsToken = await turnstileRef.current?.getToken();
+      const res = await sendOfflineMessage(
+        {
+          visitor_key: getVisitorKey(),
+          visitor_name: leadRef.current?.name || undefined,
+          email,
+          phone: offline.phone.trim(),
+          content,
+          locale: locale || "en",
+          area: area || Cookies.get("area") || "us",
+          page_url: typeof window !== "undefined" ? window.location.href : "",
+        },
+        turnstileHeaders(tsToken)
+      );
+      turnstileRef.current?.reset();
       if (res?.code === 0) {
         setOffline((s) => ({ ...s, content: "" }));
         setOfflineSent(true);
@@ -1794,6 +1812,8 @@ export default function LiveChat({ locale, area, LANG }) {
               ) : null}
             </div>
           </div>
+          {/* 人机验证：业务 code = livechat。后端未配 secret 时不渲染、不占位。 */}
+          <Turnstile ref={turnstileRef} action="livechat" />
         </div>
         <button
           type="button"
@@ -1875,6 +1895,8 @@ export default function LiveChat({ locale, area, LANG }) {
                   />
                 </div>
               </div>
+              {/* 人机验证：与在线入口同一业务 code。两个视图不会同时渲染，共用一个 ref 安全。 */}
+              <Turnstile ref={turnstileRef} action="livechat" />
             </div>
             <button
               type="button"

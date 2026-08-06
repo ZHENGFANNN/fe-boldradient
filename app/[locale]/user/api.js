@@ -7,9 +7,10 @@ const request = {
   userRegister: (data) => {
     return api.post(`/user/register`, data);
   },
-  // 注册前置：给邮箱发送验证码（用户填码后再 userRegister）
-  sendRegisterCode: (data) => {
-    return api.post(`/user/sendRegisterCode`, data);
+  // 注册前置：给邮箱发送验证码（用户填码后再 userRegister）。
+  // config 用于透传 Turnstile token 请求头（turnstileHeaders(token)），后端 TurnstileGuard("register") 校验。
+  sendRegisterCode: (data, config) => {
+    return api.post(`/user/sendRegisterCode`, data, config);
   },
   // Google 登录（旧 GSI ID-token 隐式流，保留兼容；新前端走中央回调授权码流）
   userGoogleLogin: (data) => {

@@ -22,6 +22,16 @@ export default function ForgetForm({ LANG }) {
   const turnstileRef = React.useRef(null);
 
   const onSubmit = async function (data) {
+    // 🔴 先确认已通过人机验证，没通过直接提示、不发请求（否则 getToken 会干等到 30s 超时）
+    if (turnstileRef.current?.isEnabled() && !turnstileRef.current?.hasToken()) {
+      tipRef.current.show({
+        text:
+          LANG["common.turnstile.required"] ||
+          "Please complete the verification first",
+        type: "info",
+      });
+      return;
+    }
     try {
       // 自助：仅提交邮箱，后端校验后发送重置链接
       const tsToken = await turnstileRef.current?.getToken();

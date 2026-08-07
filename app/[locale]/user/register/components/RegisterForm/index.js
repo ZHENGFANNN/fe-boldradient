@@ -86,6 +86,18 @@ export default function RegisterForm({ LANG }) {
       });
       return;
     }
+    // 🔴 发码前先确认已通过人机验证，没通过就直接提示、不发请求。
+    // 不这么做的话：getToken() 会阻塞等到 30s 超时，用户点了按钮毫无反应（体感像卡死），
+    // 最后还是被后端以 10102 拒掉——白等一轮又得不到有效提示。
+    if (turnstileRef.current?.isEnabled() && !turnstileRef.current?.hasToken()) {
+      tipRef.current.show({
+        text:
+          LANG["common.turnstile.required"] ||
+          "Please complete the verification first",
+        type: "info",
+      });
+      return;
+    }
     try {
       setSending(true);
       // 人机验证：业务 code = register。未启用时 getToken() 返回 ""，turnstileHeaders 退化为空对象，

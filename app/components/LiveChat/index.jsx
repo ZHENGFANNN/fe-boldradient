@@ -953,13 +953,30 @@ export default function LiveChat({ locale, area, LANG }) {
     setLeadError(nextError);
     if (nextError.name || nextError.email) return;
 
+    // 🔴 先确认已通过人机验证，没通过就把提示挂在邮箱字段下（本组件无 toast，沿用既有 leadError 通道），
+    // 否则 proceedToAgent 里的 getToken() 会干等到 30s 超时，用户点了「继续」毫无反应。
+    if (turnstileRef.current?.isEnabled() && !turnstileRef.current?.hasToken()) {
+      setLeadError((s) => ({
+        ...s,
+        email: copy.turnstileRequired || "Please complete the verification first",
+      }));
+      return;
+    }
+
     const nextLead = { name, email };
     setLead(nextLead);
     leadRef.current = nextLead;
     saveLead(nextLead);
     setOffline((s) => ({ ...s, email }));
     await proceedToAgent();
-  }, [copy.invalidEmail, copy.invalidName, leadForm.email, leadForm.name, proceedToAgent]);
+  }, [
+    copy.invalidEmail,
+    copy.invalidName,
+    copy.turnstileRequired,
+    leadForm.email,
+    leadForm.name,
+    proceedToAgent,
+  ]);
 
   const handleTransferRef = React.useRef(handleTransferToAgent);
   handleTransferRef.current = handleTransferToAgent;

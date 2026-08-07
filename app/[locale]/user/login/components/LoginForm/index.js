@@ -65,6 +65,16 @@ export default function LoginForm({ LANG }) {
 
   const onSubmit = React.useCallback(
     async (formData) => {
+      // 🔴 先确认已通过人机验证，没通过直接提示、不发请求（否则 getToken 会干等到 30s 超时）
+      if (turnstileRef.current?.isEnabled() && !turnstileRef.current?.hasToken()) {
+        tipRef.current.show({
+          text:
+            LANG["common.turnstile.required"] ||
+            "Please complete the verification first",
+          type: "info",
+        });
+        return;
+      }
       setLoading(true);
       try {
         // 人机验证：业务 code = login（登录是撞库首要目标）

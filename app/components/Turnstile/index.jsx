@@ -114,6 +114,19 @@ function Turnstile({ action, theme = "light", size = "flexible", language, class
   const [enabled, setEnabled] = React.useState(false);
 
   React.useImperativeHandle(ref, () => ({
+    /** 本站是否启用了人机验证（后端没配 secret 时为 false，业务不应因此卡住用户）。 */
+    isEnabled() {
+      return enabled;
+    },
+    /**
+     * 当前是否**已经**持有可用 token（不等待）。
+     *
+     * 给调用方做「提交前先判断有没有验证」用：直接 await getToken() 会阻塞到 30s 超时，
+     * 用户点了按钮却毫无反应，体感是页面卡死；先用本方法判断、没验证就立刻给提示，才是对的交互。
+     */
+    hasToken() {
+      return Boolean(tokenRef.current);
+    },
     /**
      * 取 token。未启用直接返回 ""（业务照常提交，后端也不会校验）。
      * 已有 token 立即返回；否则轮询等待用户完成验证，超时返回 "" 由后端兜底。

@@ -25,6 +25,8 @@ const FALLBACK = {
   continueBtn: "Continue",
   invalidName: "Please enter your name.",
   invalidEmail: "Please enter a valid email address.",
+  // 人机验证未完成时的提示（本组件无 toast，挂在邮箱字段下）
+  turnstileRequired: "Please complete the verification first.",
   offlineIntro:
     "Our team is currently offline. Leave your contact details and we will reply by email as soon as possible.",
   offlineBanner:

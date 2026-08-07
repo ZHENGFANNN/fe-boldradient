@@ -36,6 +36,16 @@ function Modal(_, ref) {
   const onSubmit = React.useCallback(
     async (values) => {
       if (loading) return;
+      // 🔴 先确认已通过人机验证，没通过直接提示、不发请求
+      if (turnstileRef.current?.isEnabled() && !turnstileRef.current?.hasToken()) {
+        tipRef.current.show({
+          type: "info",
+          text:
+            LANG["common.turnstile.required"] ||
+            "Please complete the verification first",
+        });
+        return;
+      }
       setLoading(true);
       try {
         const tsToken = await turnstileRef.current?.getToken();

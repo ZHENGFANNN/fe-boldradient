@@ -141,6 +141,17 @@ function Turnstile({ action, theme = "light", size = "flexible", language, class
       }
       return "";
     },
+    /**
+     * 消费掉当前 token，但**不重置控件**——控件保持"已验证"的完成态。
+     *
+     * 与 reset() 的区别，也是它存在的理由：reset() 会让 managed 控件立刻重新跑一次挑战、
+     * 几秒内又拿到新 token，用户于是能反复触发那些"一次验证只该换一次副作用"的操作
+     * （典型是发邮箱验证码——验证形同虚设）。consume() 只清本地 token：
+     * hasToken() 立即变 false，控件视觉上停在已完成状态，想再来一次必须显式重新验证。
+     */
+    consume() {
+      tokenRef.current = "";
+    },
     /** 🔴 提交后必须调用：Turnstile token 一次性，重复用会被判 timeout-or-duplicate。 */
     reset() {
       tokenRef.current = "";

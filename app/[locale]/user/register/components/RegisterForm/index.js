@@ -36,6 +36,17 @@ export default function RegisterForm({ LANG }) {
     return () => clearTimeout(t);
   }, [countdown]);
 
+  // 冷却结束才重新武装人机验证控件：一次验证只兑换一次发码。
+  // 冷却期内控件停在已验证完成态、hasToken() 为 false，点发码只会得到「请先完成验证」的提示；
+  // 冷却结束后重置，用户想再发一次码时才重新拿得到 token。
+  const prevCountdownRef = React.useRef(0);
+  React.useEffect(() => {
+    if (prevCountdownRef.current > 0 && countdown === 0) {
+      turnstileRef.current?.reset();
+    }
+    prevCountdownRef.current = countdown;
+  }, [countdown]);
+
   const {
     register,
     handleSubmit,
@@ -107,9 +118,12 @@ export default function RegisterForm({ LANG }) {
         { email, language: locale },
         turnstileHeaders(tsToken)
       );
-      // 🔴 token 一次性：无论成败都要重置，否则用户重试时会带着已消耗的 token 撞 timeout-or-duplicate。
-      turnstileRef.current?.reset();
       if (res.code === 0) {
+        // 🔴 成功才 consume()：token 清掉但控件停在"已验证"完成态，不重跑挑战。
+        // 若这里用 reset()，managed 控件几秒后又拿到新 token，用户就能反复发验证码——
+        // 验证形同虚设。控件的重新武装交给「倒计时归零」那个 effect，
+        // 使「能再发一次码」与「能再拿一个 token」严格同步。
+        turnstileRef.current?.consume();
         setCountdown(60);
         tipRef.current.show({
           text:
@@ -118,12 +132,16 @@ export default function RegisterForm({ LANG }) {
           type: "success",
         });
       } else {
+        // 🔴 失败必须 reset()：没有倒计时，控件不会被那个 effect 重新武装；
+        // 只 consume 的话用户改完邮箱想重试，会永远卡在「请先完成验证」。
+        turnstileRef.current?.reset();
         tipRef.current.show({
           text: errText(res),
           type: res.code === 10002 ? "info" : "error",
         });
       }
     } catch {
+      turnstileRef.current?.reset(); // 同上：异常路径也要放用户重试
       tipRef.current.show({
         text: LANG["user.register.tip_service_exception"],
         type: "error",

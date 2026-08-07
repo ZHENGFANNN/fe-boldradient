@@ -4,8 +4,9 @@ const request = {
   loginOut: () => {
     return api.get(`/user/loginOut`);
   },
-  contactForm: (data) => {
-    return api.post(`/user/contactForm`, data);
+  // config 用于透传 Turnstile token 请求头，后端 TurnstileGuard("contact") 校验
+  contactForm: (data, config) => {
+    return api.post(`/user/contactForm`, data, config);
   },
 };
 

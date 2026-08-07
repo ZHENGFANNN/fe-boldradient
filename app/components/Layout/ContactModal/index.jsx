@@ -9,6 +9,7 @@ import { useForm } from "react-hook-form";
 import Api from "@/components/Layout/api";
 import FormInput from "@/components/Form/FormInput";
 import FormTextarea from "@/components/Form/FormTextArea";
+import Turnstile, { turnstileHeaders } from "@/components/Turnstile";
 import FormItem from "@/components/Form/FormItem";
 import Button from "@/components/Button";
 
@@ -19,6 +20,8 @@ function Modal(_, ref) {
   const { locale, LANG, area } = React.useContext(GlobalContext);
   const [changeBodyScroll, setChangeBodyScroll] = React.useState(true);
   const [loading, setLoading] = React.useState(false);
+  // 人机验证（业务 code = contact），与联系页表单同 code、同后端守卫。
+  const turnstileRef = React.useRef(null);
   // 提交来源：默认「联系我们页」，产品页入口打开时传 "product" 以便后台区分来源。
   const sourceRef = React.useRef("contact");
 
@@ -35,13 +38,18 @@ function Modal(_, ref) {
       if (loading) return;
       setLoading(true);
       try {
-        const data = await Api.contactForm({
-          path: location.pathname,
-          language: locale,
-          area,
-          type: sourceRef.current,
-          ...values,
-        });
+        const tsToken = await turnstileRef.current?.getToken();
+        const data = await Api.contactForm(
+          {
+            path: location.pathname,
+            language: locale,
+            area,
+            type: sourceRef.current,
+            ...values,
+          },
+          turnstileHeaders(tsToken)
+        );
+        turnstileRef.current?.reset(); // token 一次性
         if (data.code === 0) {
           // 成功后直接关闭弹窗 + 顶部成功 toast，不再在弹窗内切换到大块「Thank you」展示态。
           setShow(false);
@@ -173,6 +181,7 @@ function Modal(_, ref) {
                     }),
                   }}
                 />
+                <Turnstile ref={turnstileRef} action="contact" />
                 <div className={styles.btn_container}>
                   <Button
                     variant="secondary"

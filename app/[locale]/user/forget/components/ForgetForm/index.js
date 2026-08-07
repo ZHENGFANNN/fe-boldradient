@@ -8,6 +8,7 @@ import Api from "../../../api";
 
 import React from "react";
 import ShowTipModal from "../../../../../components/Modal/ShowTipModal";
+import Turnstile, { turnstileHeaders } from "@/components/Turnstile";
 
 export default function ForgetForm({ LANG }) {
   const {
@@ -17,11 +18,18 @@ export default function ForgetForm({ LANG }) {
     formState: { errors },
   } = useForm();
   const tipRef = React.useRef(null);
+  // 人机验证（业务 code = forgot）。该接口会真发重置邮件，可被拿来给任意地址轰炸。
+  const turnstileRef = React.useRef(null);
 
   const onSubmit = async function (data) {
     try {
       // 自助：仅提交邮箱，后端校验后发送重置链接
-      const res = await Api.verifyForgetPassword({ email: data.email });
+      const tsToken = await turnstileRef.current?.getToken();
+      const res = await Api.verifyForgetPassword(
+        { email: data.email },
+        turnstileHeaders(tsToken)
+      );
+      turnstileRef.current?.reset(); // token 一次性
       if (res.code !== 0) throw new Error("code !== 0");
       tipRef.current.show({
         text:
@@ -59,6 +67,7 @@ export default function ForgetForm({ LANG }) {
         {LANG["user.forget.reset_tip"] ||
           "Enter your account email and we'll send you a link to reset your password."}
       </div>
+      <Turnstile ref={turnstileRef} action="forgot" />
       <button type="submit" className={styles.button}>
         {LANG["user.forget.send_reset_link"] || "Send reset link"}
       </button>

@@ -15,6 +15,7 @@ import ShowTipModal from "../../../../../components/Modal/ShowTipModal";
 import DeletionPendingModal from "../DeletionPendingModal";
 import Button from "@/components/Button";
 import { track } from "@/utils/analytics";
+import Turnstile, { turnstileHeaders } from "@/components/Turnstile";
 
 export default function LoginForm({ LANG }) {
   const tipRef = React.useRef(null);
@@ -27,6 +28,8 @@ export default function LoginForm({ LANG }) {
   // 供弹窗内「重新输入密码」调 cancelDeletion 取消注销并继续登录。
   const [pending, setPending] = React.useState(null); // { email, effective_at, grace_days } | null
   const [cancelLoading, setCancelLoading] = React.useState(false);
+  // 人机验证（业务 code = login）。登录是撞库/暴力破解的首要目标。
+  const turnstileRef = React.useRef(null);
 
   const {
     register,
@@ -64,7 +67,11 @@ export default function LoginForm({ LANG }) {
     async (formData) => {
       setLoading(true);
       try {
-        const data = await Api.userLogin(formData);
+        // 人机验证：业务 code = login（登录是撞库首要目标）
+        const tsToken = await turnstileRef.current?.getToken();
+        const data = await Api.userLogin(formData, turnstileHeaders(tsToken));
+        // 🔴 token 一次性，无论成败都重置，否则密码输错重试会带着已消耗的 token
+        turnstileRef.current?.reset();
         if (data.code === 0) {
           // 后端把 JWT 放在 body.data，前端需自行落库到 token cookie，
           // 后续请求由 axios 拦截器注入 Authorization: Bearer 头（否则登录态丢失）。
@@ -188,6 +195,7 @@ export default function LoginForm({ LANG }) {
             {LANG["user.login.forget_password"]}
           </Link>
         </span>
+        <Turnstile ref={turnstileRef} action="login" />
         <Button
           type="submit"
           variant="primary"

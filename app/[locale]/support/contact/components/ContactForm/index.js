@@ -9,6 +9,7 @@ import FormInput from "@/components/Form/FormInput";
 import FormTextarea from "@/components/Form/FormTextArea";
 import FormItem from "@/components/Form/FormItem";
 import ShowTipModal from "@/components/Modal/ShowTipModal";
+import Turnstile, { turnstileHeaders } from "@/components/Turnstile";
 import ContactSuccess from "../ContactSuccess";
 import Button from "@/components/Button";
 import { track } from "@/utils/analytics";
@@ -21,6 +22,8 @@ export default function ContactForm() {
   const tipRef = React.useRef(null);
   const { locale, LANG, area } = React.useContext(GlobalContext);
   const [loading, setLoading] = React.useState(false);
+  // 人机验证（业务 code = contact）。联系/订阅是最典型的表单灌水目标。
+  const turnstileRef = React.useRef(null);
   const [submitted, setSubmitted] = React.useState(false);
 
   const {
@@ -36,23 +39,37 @@ export default function ContactForm() {
       if (loading) return;
       setLoading(true);
       try {
-        const data = await Api.contactForm({
-          path: location.pathname,
-          language: locale,
-          area,
-          type: "contact",
-          ...values
-        });
+        // 人机验证：业务 code = contact
+        const tsToken = await turnstileRef.current?.getToken();
+        const data = await Api.contactForm(
+          {
+            path: location.pathname,
+            language: locale,
+            area,
+            type: "contact",
+            ...values
+          },
+          turnstileHeaders(tsToken)
+        );
+        // 🔴 token 一次性；下面那次 best-effort 订阅打的是同一个受保护端点，
+        // 必须重置后另取一个，否则会被判 timeout-or-duplicate、邮箱静默收集不到。
+        turnstileRef.current?.reset();
         if (data.code === 0) {
           // best-effort：把邮箱补收进邮箱收集(订阅)模块。走同一端点、靠 body.type
           // 区分；失败不影响联系表单成功 UX，故 fire-and-forget + catch 吞掉。
-          Api.contactForm({
-            type: "subscribe",
-            email: values.email,
-            path: location.pathname,
-            language: locale,
-            area
-          }).catch((err) => console.log("[contactForm subscribe]: ", err));
+          (async () => {
+            const subToken = await turnstileRef.current?.getToken();
+            return Api.contactForm(
+              {
+                type: "subscribe",
+                email: values.email,
+                path: location.pathname,
+                language: locale,
+                area
+              },
+              turnstileHeaders(subToken)
+            ).finally(() => turnstileRef.current?.reset());
+          })().catch((err) => console.log("[contactForm subscribe]: ", err));
 
           track("Lead", { from: "contact_page" });
           // 成功不再弹不明显的 toast，切换到「提交成功」展示态。
@@ -151,6 +168,7 @@ export default function ContactForm() {
               })
             }}
           />
+          <Turnstile ref={turnstileRef} action="contact" />
           <Button
             type="submit"
             variant="primary"

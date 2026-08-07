@@ -1,8 +1,9 @@
 import api from "../../request";
 
 const request = {
-  userLogin: (data) => {
-    return api.post(`/user/login`, data);
+  // config 用于透传 Turnstile token 请求头，后端 TurnstileGuard("login") 校验
+  userLogin: (data, config) => {
+    return api.post(`/user/login`, data, config);
   },
   userRegister: (data) => {
     return api.post(`/user/register`, data);
@@ -25,8 +26,9 @@ const request = {
     return api.post(`/user/google/exchange`, data);
   },
   // 自助重置第 1 步：校验邮箱并发送带 token 的重置链接到邮箱
-  verifyForgetPassword: (data) => {
-    return api.post(`/user/verifyforgetPassword`, data);
+  // config 用于透传 Turnstile token 请求头，后端 TurnstileGuard("forgot") 校验
+  verifyForgetPassword: (data, config) => {
+    return api.post(`/user/verifyforgetPassword`, data, config);
   },
   // 自助重置第 2 步：凭邮件 token 设置新密码
   resetPassword: (data) => {

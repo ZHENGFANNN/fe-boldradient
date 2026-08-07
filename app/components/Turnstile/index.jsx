@@ -80,7 +80,13 @@ function loadScript() {
 const TOKEN_WAIT_MS = 30000;
 const TOKEN_POLL_MS = 200;
 
-function Turnstile({ action, theme = "auto", className }, ref) {
+/**
+ * theme 默认 light（白底）：默认值 "auto" 会跟随系统深色模式渲染成黑底控件，
+ * 与商城表单的白色卡片背景割裂。需要跟随系统时显式传 theme="auto"。
+ * size 默认 flexible：Turnstile 的 flexible 尺寸会撑满父容器宽度（下限 300px），
+ * 是官方唯一支持"100% 宽"的做法——单靠 CSS 拉伸 iframe 会变形。
+ */
+function Turnstile({ action, theme = "light", size = "flexible", className }, ref) {
   const containerRef = React.useRef(null);
   const widgetIdRef = React.useRef(null);
   const tokenRef = React.useRef("");
@@ -129,6 +135,7 @@ function Turnstile({ action, theme = "auto", className }, ref) {
           sitekey: cfg.site_key,
           action, // 业务 code：后端按它校验 token 是否用在对的场景
           theme,
+          size,
           callback: (token) => {
             tokenRef.current = token || "";
           },
@@ -156,10 +163,17 @@ function Turnstile({ action, theme = "auto", className }, ref) {
       }
       widgetIdRef.current = null;
     };
-  }, [action, theme]);
+  }, [action, theme, size]);
 
-  // 未启用时不占位，避免表单里留一块空白
-  return <div ref={containerRef} className={className} style={enabled ? undefined : { display: "none" }} />;
+  // 未启用时不占位，避免表单里留一块空白。
+  // 启用时容器撑满宽度，配合 size=flexible 让控件与表单输入框同宽。
+  return (
+    <div
+      ref={containerRef}
+      className={className}
+      style={enabled ? { width: "100%", margin: "12px 0" } : { display: "none" }}
+    />
+  );
 }
 
 export default React.forwardRef(Turnstile);

@@ -23,6 +23,7 @@
  */
 
 import React from "react";
+import { useParams } from "next/navigation";
 import Api from "@/request";
 
 const SCRIPT_ID = "cf-turnstile-script";
@@ -81,12 +82,32 @@ const TOKEN_WAIT_MS = 30000;
 const TOKEN_POLL_MS = 200;
 
 /**
+ * 把站点 locale 转成 Turnstile 的 language 参数。
+ *
+ * 🔴 不能用默认的 "auto"：auto 跟随的是**浏览器语言**，不是站点语言——
+ * 中文环境的用户打开英文站，控件会显示中文，与页面其余部分割裂（2026-08-07 用户实际反馈）。
+ * 站点是多语言的，控件必须跟着 [locale] 路由段走。
+ *
+ * Turnstile 接受 ISO 639-1 两字母码，可带地区后缀（en / zh-cn / zh-tw / ja / pt-br …），
+ * 与本项目 locale 的取值格式（小写、可带地区）天然一致，直接透传即可。
+ * 取不到 locale 时回退 en 而不是 auto——宁可固定英文，也不要又变回跟随浏览器。
+ */
+function localeToTurnstileLang(locale) {
+  const v = String(locale || "").trim().toLowerCase();
+  return v || "en";
+}
+
+/**
  * theme 默认 light（白底）：默认值 "auto" 会跟随系统深色模式渲染成黑底控件，
  * 与商城表单的白色卡片背景割裂。需要跟随系统时显式传 theme="auto"。
  * size 默认 flexible：Turnstile 的 flexible 尺寸会撑满父容器宽度（下限 300px），
  * 是官方唯一支持"100% 宽"的做法——单靠 CSS 拉伸 iframe 会变形。
  */
-function Turnstile({ action, theme = "light", size = "flexible", className }, ref) {
+function Turnstile({ action, theme = "light", size = "flexible", language, className }, ref) {
+  // 站点语言取自 [locale] 路由段（本组件的使用方都在 locale 布局内）；
+  // 调用方也可用 language 显式覆盖。
+  const params = useParams();
+  const lang = language || localeToTurnstileLang(params?.locale);
   const containerRef = React.useRef(null);
   const widgetIdRef = React.useRef(null);
   const tokenRef = React.useRef("");
@@ -136,6 +157,7 @@ function Turnstile({ action, theme = "light", size = "flexible", className }, re
           action, // 业务 code：后端按它校验 token 是否用在对的场景
           theme,
           size,
+          language: lang, // 跟随站点 locale，不跟随浏览器
           callback: (token) => {
             tokenRef.current = token || "";
           },
@@ -163,7 +185,8 @@ function Turnstile({ action, theme = "light", size = "flexible", className }, re
       }
       widgetIdRef.current = null;
     };
-  }, [action, theme, size]);
+    // lang 变化要重建 widget：Turnstile 的 language 只在 render 时生效，切语言后不重建会保持旧语言
+  }, [action, theme, size, lang]);
 
   // 未启用时不占位，避免表单里留一块空白。
   // 启用时容器撑满宽度，配合 size=flexible 让控件与表单输入框同宽。

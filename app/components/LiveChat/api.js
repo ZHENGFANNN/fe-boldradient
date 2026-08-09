@@ -14,7 +14,7 @@ let keepaliveVisibleHandler = null;
 /**
  * 拉取客服渠道配置（带内存缓存 + 并发去重）。
  * @param {{ force?: boolean, locale?: string, area?: string }} options
- *   force=true 跳过缓存强制请求；locale/area 用于后端按访客语言/地区解析营业时段与离线文案（Task B）。
+ *   force=true 跳过缓存强制请求；locale/area 透传给后端（营业时间模块已下线，仅用于语言/地区上下文）。
  */
 export function fetchChatConfig(options = {}) {
   const { force = false, locale, area } = options;
@@ -93,12 +93,14 @@ export function stopChatApiKeepalive() {
   }
 }
 
-export function getChatFaq(locale) {
-  return Api.get("/chat/faq", { params: { locale } });
+// 进入人工客服前发邮箱验证码。🔴 Turnstile 守卫挂在本端点（发码才是会真发邮件、
+// 值得被脚本刷的一步）；/chat/session 改为凭验证码放行——带对码已证明收件箱所有权，
+// 再挑战一次等于同一表单拦两遍。
+export function sendChatCode(body, config) {
+  return Api.post("/chat/send-code", body, config);
 }
 
-// config 用于透传 Turnstile token 请求头（turnstileHeaders(token)）。
-// 后端 /chat/session 与 /chat/offline-session 都挂了 TurnstileGuard("livechat")。
+// body 需带 code（邮箱验证码）；已登录用户与重连既有会话由后端豁免。
 export function createChatSession(body, config) {
   return Api.post("/chat/session", body, config);
 }

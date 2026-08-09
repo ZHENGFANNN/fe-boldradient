@@ -17,7 +17,7 @@ const FALLBACK = {
   panelStatusOffline: "Agents offline",
   intro: "Browse common questions below, or talk to our team.",
   transferBtn: "Talk to an agent",
-  backToFaq: "Back to FAQ",
+  backToStart: "Back",
   leadIntro:
     "Please share your name and email so our team can assist you better.",
   name: "Name",
@@ -25,6 +25,14 @@ const FALLBACK = {
   continueBtn: "Continue",
   invalidName: "Please enter your name.",
   invalidEmail: "Please enter a valid email address.",
+  // 进入人工客服的邮箱验证码
+  codeLabel: "Verification code",
+  codePlaceholder: "6-digit code",
+  sendCode: "Send code",
+  codeSending: "Sending…",
+  codeRequired: "Please enter the verification code.",
+  codeInvalid: "Invalid or expired code, please resend.",
+  codeSendFailed: "Failed to send code, please try again.",
   // 人机验证未完成时的提示（本组件无 toast，挂在邮箱字段下）
   turnstileRequired: "Please complete the verification first.",
   offlineIntro:
@@ -111,104 +119,6 @@ export function buildChatCopy(LANG) {
 }
 
 
-export const FAQ_ITEMS = {
-  en: [
-    {
-      id: "shipping",
-      question: "How long does shipping take?",
-      answer:
-        "Most US orders ship within 3–5 business days after production. International delivery times vary by destination; you will see an estimated timeline at checkout.",
-    },
-    {
-      id: "returns",
-      question: "What is your return policy?",
-      answer:
-        "Unworn items in original condition may be returned within 30 days of delivery. Custom or engraved pieces may have different terms — contact us before ordering if you need details.",
-    },
-    {
-      id: "lab-grown",
-      question: "Are your diamonds lab-grown?",
-      answer:
-        "Yes. BoldRadiant specializes in lab-grown diamonds — ethically sourced, fully certified, and typically offered at better value than comparable mined stones.",
-    },
-    {
-      id: "sizing",
-      question: "How do I find my ring size?",
-      answer:
-        "Use our sizing guide on the product page, or visit a local jeweler for a professional measurement. We recommend sizing your dominant hand's ring finger.",
-    },
-    {
-      id: "payment",
-      question: "Which payment methods do you accept?",
-      answer:
-        "We accept major credit and debit cards via Stripe, as well as PayPal where available. All transactions are secured with industry-standard encryption.",
-    },
-  ],
-  zh: [
-    {
-      id: "shipping",
-      question: "发货需要多久？",
-      answer:
-        "美国订单通常在制作完成后 3–5 个工作日内发出；国际订单时效因目的地而异，结算页会显示预计送达时间。",
-    },
-    {
-      id: "returns",
-      question: "退换货政策是什么？",
-      answer:
-        "未佩戴且保持原状的商品可在签收后 30 天内申请退货。定制或刻字商品可能有特殊条款，下单前欢迎先联系我们确认。",
-    },
-    {
-      id: "lab-grown",
-      question: "你们的钻石是培育钻石吗？",
-      answer:
-        "是的。BoldRadiant 专注实验室培育钻石，来源可追溯、附带证书，相较同级别天然钻石通常更具性价比。",
-    },
-    {
-      id: "sizing",
-      question: "如何确定戒指尺码？",
-      answer:
-        "可参考商品页的尺码指南，或到当地珠宝店实测。建议测量惯用手对应的无名指围度。",
-    },
-    {
-      id: "payment",
-      question: "支持哪些支付方式？",
-      answer:
-        "支持 Stripe 信用卡/借记卡，部分地区还支持 PayPal。所有支付均通过行业标准加密保护。",
-    },
-  ],
-  ja: [
-    {
-      id: "shipping",
-      question: "配送にはどのくらいかかりますか？",
-      answer:
-        "米国内の注文は通常、製作完了後 3〜5 営業日以内に発送されます。海外配送の所要日数は配送先により異なり、目安はチェックアウト時にご確認いただけます。",
-    },
-    {
-      id: "returns",
-      question: "返品ポリシーを教えてください。",
-      answer:
-        "未使用で元の状態の商品は、お届けから 30 日以内に返品いただけます。カスタム品や刻印入りの商品は条件が異なる場合がありますので、ご不明な点はご注文前にお問い合わせください。",
-    },
-    {
-      id: "lab-grown",
-      question: "ダイヤモンドはラボグロウンですか？",
-      answer:
-        "はい。BoldRadiant はラボグロウンダイヤモンドを専門としています。倫理的に調達され、証明書付きで、同等の天然石よりもお求めやすい価格で提供しています。",
-    },
-    {
-      id: "sizing",
-      question: "指輪のサイズはどうやって調べますか？",
-      answer:
-        "商品ページのサイズガイドをご利用いただくか、お近くの宝飾店で計測してください。利き手の薬指を測ることをおすすめします。",
-    },
-    {
-      id: "payment",
-      question: "どのお支払い方法が利用できますか？",
-      answer:
-        "Stripe を通じて主要なクレジットカード・デビットカードをご利用いただけるほか、一部地域では PayPal もご利用いただけます。すべての取引は業界標準の暗号化で保護されています。",
-    },
-  ],
-};
 
 export function getFaqLocale(locale) {
   const code = String(locale || "en").toLowerCase();
@@ -217,6 +127,3 @@ export function getFaqLocale(locale) {
   return "en";
 }
 
-export function getFaqItems(locale) {
-  return FAQ_ITEMS[getFaqLocale(locale)] || FAQ_ITEMS.en;
-}

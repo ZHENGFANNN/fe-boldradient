@@ -11,17 +11,17 @@ import {
   evaluateChat,
   fetchChatConfig,
   getChatEvaluation,
-  getChatFaq,
   getChatMessages,
   peekChatConfig,
   refreshWsToken,
   sendChatMessage,
+  sendChatCode,
   sendOfflineMessage,
   startChatApiKeepalive,
   stopChatApiKeepalive,
   uploadChatFile,
 } from "./api";
-import { buildChatCopy, getFaqItems } from "./faq";
+import { buildChatCopy } from "./faq";
 import Turnstile, { turnstileHeaders } from "@/components/Turnstile";
 import openLiveChat, { registerLiveChatOpen } from "./openLiveChat";
 import OrderPicker, { getOrderStatusText } from "./orderPicker";
@@ -325,24 +325,6 @@ function CheckIcon() {
   );
 }
 
-function ChevronIcon({ open }) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      aria-hidden="true"
-      className={open ? styles.faqChevronOpen : styles.faqChevron}
-    >
-      <path
-        d="M8 10l4 4 4-4"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
 
 export default function LiveChat({ locale, area, LANG }) {
   // UI 文案统一走公共多语言：从共享 LANG 的 common.chat.* 重建 copy（含英文兜底）
@@ -352,40 +334,10 @@ export default function LiveChat({ locale, area, LANG }) {
   const tip = React.useCallback((text, type = "info") => {
     tipRef.current?.show({ text, type });
   }, []);
-  // FAQ 优先用后端配置，拉取失败/为空时回退写死兜底，前台永不空白
-  const fallbackFaq = React.useMemo(() => getFaqItems(locale), [locale]);
-  const [faqItems, setFaqItems] = React.useState(fallbackFaq);
-
-  React.useEffect(() => {
-    let cancelled = false;
-    getChatFaq(locale)
-      .then((res) => {
-        if (cancelled) return;
-        const list = res?.data;
-        if (Array.isArray(list) && list.length > 0) {
-          setFaqItems(
-            list.map((it) => ({
-              id: it.key,
-              question: it.question,
-              answer: it.answer,
-            }))
-          );
-        } else {
-          setFaqItems(fallbackFaq);
-        }
-      })
-      .catch(() => {
-        // 接口失败保持兜底，不打断
-      });
-    return () => {
-      cancelled = true;
-    };
-  }, [locale, fallbackFaq]);
-
   const [open, setOpen] = React.useState(false);
   const [panelClosing, setPanelClosing] = React.useState(false);
-  const [view, setView] = React.useState("faq");
-  const [expandedFaqId, setExpandedFaqId] = React.useState(null);
+  // 常见问题模块已下线，进面板直接进「留资 + 邮箱验证」表单
+  const [view, setView] = React.useState("lead");
   const [loading, setLoading] = React.useState(false);
   const [config, setConfig] = React.useState(null);
   const [session, setSession] = React.useState(null);
@@ -426,10 +378,22 @@ export default function LiveChat({ locale, area, LANG }) {
   // 进入人工客服前收集的访客身份（姓名 + 邮箱）
   const [lead, setLead] = React.useState(() => loadLead());
   const [leadForm, setLeadForm] = React.useState(
-    () => loadLead() || { name: "", email: "" }
+    () => ({ ...(loadLead() || { name: "", email: "" }), code: "" })
   );
-  const [leadError, setLeadError] = React.useState({ name: "", email: "" });
+  const [leadError, setLeadError] = React.useState({ name: "", email: "", code: "" });
+  // 邮箱验证码：进人工客服前必须收码并填写（后端 /chat/session 校验）。
+  // 已登录用户与重连既有会话由后端豁免，但表单一律展示——前端无法可靠预判豁免与否，
+  // 与其猜错把人挡在外面，不如让豁免路径多一个可留空的输入框。
+  const [codeSending, setCodeSending] = React.useState(false);
+  const [codeCountdown, setCodeCountdown] = React.useState(0);
   const leadRef = React.useRef(null);
+
+  // 发码冷却倒计时（与后端 60s 冷却对齐）
+  React.useEffect(() => {
+    if (codeCountdown <= 0) return undefined;
+    const t = setTimeout(() => setCodeCountdown((n) => n - 1), 1000);
+    return () => clearTimeout(t);
+  }, [codeCountdown]);
   // Cloudflare 人机验证：进入人工客服 / 离线留言共用（业务 code = livechat）。
   // 这两个端点公开无鉴权、会建会话并落库，此前只有 IP 限流兜底，脚本换 IP 即可绕过。
   const turnstileRef = React.useRef(null);
@@ -440,7 +404,7 @@ export default function LiveChat({ locale, area, LANG }) {
   const messagesEndRef = React.useRef(null);
   const isComposingRef = React.useRef(false);
   const openRef = React.useRef(false);
-  const viewRef = React.useRef("faq");
+  const viewRef = React.useRef("lead");
   const sessionRef = React.useRef(null);
   const reconnectBlockedRef = React.useRef(false);
   const reconnectTimerRef = React.useRef(null);
@@ -476,8 +440,9 @@ export default function LiveChat({ locale, area, LANG }) {
     setIsLoggedIn(!!Cookies.get("token"));
   }, [open]);
 
-  const isWorkTime = config?.is_work_time !== false;
-  const showOfflineBanner = !isWorkTime;
+  // 营业时间模块已下线：前台不再有「非营业时段」概念，恒为在线。
+  const isWorkTime = true;
+  const showOfflineBanner = false;
   const welcomeText =
     !showOfflineBanner && (session?.welcome_text || config?.welcome_text || "");
   const closed = session?.status === "closed";
@@ -747,38 +712,30 @@ export default function LiveChat({ locale, area, LANG }) {
     }
   }, []);
 
-  const startLiveChat = React.useCallback(async () => {
+  const startLiveChat = React.useCallback(async (code) => {
     setLoading(true);
     try {
       const visitorKey = getVisitorKey();
       visitorKeyRef.current = visitorKey;
       const areaCode = area || Cookies.get("area") || "us";
       const currentLead = leadRef.current;
-      // 人机验证：业务 code = livechat（与离线留言共用同一 code——同一个 lead 表单，
-      // 提交前无法预知走在线还是离线分支，token 的 action 必须两端通用）。
-      const tsToken = await turnstileRef.current?.getToken();
-      const sessRes = await createChatSession(
-        {
-          visitor_key: visitorKey,
-          visitor_name: currentLead?.name || undefined,
-          visitor_email: currentLead?.email || undefined,
-          locale: locale || "en",
-          area: areaCode,
-          page_url: typeof window !== "undefined" ? window.location.href : "",
-        },
-        turnstileHeaders(tsToken)
-      );
-      // 🔴 token 一次性，用掉即重置（离线分支下面还要再取一个新的）
-      turnstileRef.current?.reset();
-      // 非营业时段（Task B）：后端回 2804 + away_message，转离线留言流程并记下本地化文案。
-      if (sessRes?.code === 2804) {
-        const away = sessRes?.data?.away_message || "";
-        setConfig((prev) => ({
-          ...(prev || {}),
-          is_work_time: false,
-          away_message: away || prev?.away_message || "",
+      // 人机验证已在「发送验证码」那步消耗；本请求靠邮箱验证码放行（后端同口径）。
+      const sessRes = await createChatSession({
+        visitor_key: visitorKey,
+        visitor_name: currentLead?.name || undefined,
+        visitor_email: currentLead?.email || undefined,
+        code: code || undefined,
+        locale: locale || "en",
+        area: areaCode,
+        page_url: typeof window !== "undefined" ? window.location.href : "",
+      });
+      // 2810 未带码 / 2811 码错或过期：把提示挂回验证码字段，别让用户对着空白面板猜。
+      if (sessRes?.code === 2810 || sessRes?.code === 2811) {
+        setLeadError((st) => ({
+          ...st,
+          code: copy.codeInvalid || "Invalid or expired code, please resend",
         }));
-        goOfflineView();
+        setView("lead");
         return null;
       }
       if (sessRes?.code !== 0) return;
@@ -806,7 +763,7 @@ export default function LiveChat({ locale, area, LANG }) {
     } finally {
       setLoading(false);
     }
-  }, [area, connectWs, goOfflineView, locale]);
+  }, [area, connectWs, copy.codeInvalid, locale]);
 
   const handleStartNewChat = React.useCallback(async () => {
     reconnectBlockedRef.current = false;
@@ -864,7 +821,7 @@ export default function LiveChat({ locale, area, LANG }) {
     }
   }, [connectWs]);
 
-  // 切回聊天视图时确保 WS 在线：closePanel / goBackToFaq 会主动断开并阻止重连，
+  // 切回聊天视图时确保 WS 在线：closePanel / goBackToLead 会主动断开并阻止重连，
   // 重新进入聊天必须用最新 token 重建连接，否则只能靠轮询兜底、实时消息会延迟十几秒。
   const ensureWsConnected = React.useCallback(
     async (sess) => {
@@ -895,7 +852,7 @@ export default function LiveChat({ locale, area, LANG }) {
     [connectWs]
   );
 
-  const proceedToAgent = React.useCallback(async () => {
+  const proceedToAgent = React.useCallback(async (code) => {
     let cfg = config;
     if (!cfg) {
       try {
@@ -914,14 +871,14 @@ export default function LiveChat({ locale, area, LANG }) {
     }
     if (!cfg?.enabled) return;
 
-    const online = cfg.is_work_time !== false;
-    if (online) {
+    // 营业时间模块已下线，恒视为在线。
+    {
       if (session?.conversation_id && session.status !== "closed") {
         setView("chat");
         ensureWsConnected(session);
         return;
       }
-      await startLiveChat();
+      await startLiveChat(code);
       return;
     }
     // 非工作时段：进行中会话（未关闭）仍回聊天视图续聊，勿丢进留言表单（对齐 online 分支）。
@@ -943,36 +900,90 @@ export default function LiveChat({ locale, area, LANG }) {
     setView("lead");
   }, [proceedToAgent]);
 
-  const handleLeadSubmit = React.useCallback(async () => {
-    const name = leadForm.name.trim();
+  // 发邮箱验证码：Turnstile 挂在这一步（真发邮件的那步），成功后起 60s 冷却。
+  const handleSendChatCode = React.useCallback(async () => {
+    if (codeSending || codeCountdown > 0) return;
     const email = leadForm.email.trim();
-    const nextError = {
-      name: name ? "" : copy.invalidName,
-      email: isValidEmail(email) ? "" : copy.invalidEmail,
-    };
-    setLeadError(nextError);
-    if (nextError.name || nextError.email) return;
-
-    // 🔴 先确认已通过人机验证，没通过就把提示挂在邮箱字段下（本组件无 toast，沿用既有 leadError 通道），
-    // 否则 proceedToAgent 里的 getToken() 会干等到 30s 超时，用户点了「继续」毫无反应。
+    if (!isValidEmail(email)) {
+      setLeadError((st) => ({ ...st, email: copy.invalidEmail }));
+      return;
+    }
+    // 未完成人机验证就直接提示，不发请求（否则 getToken 会干等到 30s 超时）
     if (turnstileRef.current?.isEnabled() && !turnstileRef.current?.hasToken()) {
-      setLeadError((s) => ({
-        ...s,
-        email: copy.turnstileRequired || "Please complete the verification first",
+      setLeadError((st) => ({
+        ...st,
+        code: copy.turnstileRequired || "Please complete the verification first",
       }));
       return;
     }
+    setCodeSending(true);
+    try {
+      const tsToken = await turnstileRef.current?.getToken();
+      const res = await sendChatCode(
+        { email, locale: locale || "en" },
+        turnstileHeaders(tsToken)
+      );
+      if (res?.code === 0) {
+        // 🔴 consume 而非 reset：控件停在已验证态，冷却结束才重新武装，
+        // 一次验证只兑换一次发码（与注册页同口径）。
+        turnstileRef.current?.consume();
+        setCodeCountdown(60);
+        setLeadError((st) => ({ ...st, code: "" }));
+      } else {
+        turnstileRef.current?.reset(); // 失败无冷却，放用户立即重试
+        setLeadError((st) => ({
+          ...st,
+          code: copy.codeSendFailed || "Failed to send code, please try again",
+        }));
+      }
+    } catch {
+      turnstileRef.current?.reset();
+      setLeadError((st) => ({
+        ...st,
+        code: copy.codeSendFailed || "Failed to send code, please try again",
+      }));
+    } finally {
+      setCodeSending(false);
+    }
+  }, [codeCountdown, codeSending, copy, leadForm.email, locale]);
+
+  // 冷却结束重新武装人机验证控件（与「可以再发一次码」同步）
+  const prevCodeCountdownRef = React.useRef(0);
+  React.useEffect(() => {
+    if (prevCodeCountdownRef.current > 0 && codeCountdown === 0) {
+      turnstileRef.current?.reset();
+    }
+    prevCodeCountdownRef.current = codeCountdown;
+  }, [codeCountdown]);
+
+  const handleLeadSubmit = React.useCallback(async () => {
+    const name = leadForm.name.trim();
+    const email = leadForm.email.trim();
+    const code = leadForm.code.trim();
+    const nextError = {
+      name: name ? "" : copy.invalidName,
+      email: isValidEmail(email) ? "" : copy.invalidEmail,
+      // 验证码在这里只做「非空」校验，正确性由后端判（错码/过期回 2811）。
+      // 前端不预判：已登录用户和重连既有会话是后端豁免的，前端无法可靠区分。
+      code: code ? "" : copy.codeRequired || "Please enter the verification code",
+    };
+    setLeadError(nextError);
+    if (nextError.name || nextError.email || nextError.code) return;
+
+    // 人机验证已在「发送验证码」那步消耗，这里不再要求 token——
+    // 带对邮箱验证码本身就证明了收件箱所有权，与后端 /chat/session 的放行口径一致。
 
     const nextLead = { name, email };
     setLead(nextLead);
     leadRef.current = nextLead;
     saveLead(nextLead);
     setOffline((s) => ({ ...s, email }));
-    await proceedToAgent();
+    await proceedToAgent(code);
   }, [
+    copy.codeRequired,
     copy.invalidEmail,
     copy.invalidName,
-    copy.turnstileRequired,
+    leadForm.code,
     leadForm.email,
     leadForm.name,
     proceedToAgent,
@@ -1613,8 +1624,7 @@ export default function LiveChat({ locale, area, LANG }) {
     disconnectWs(true);
     setOpen(false);
     setPanelClosing(false);
-    setView("faq");
-    setExpandedFaqId(null);
+    setView("lead");
   }, [disconnectWs]);
 
   const closePanel = React.useCallback(() => {
@@ -1636,10 +1646,9 @@ export default function LiveChat({ locale, area, LANG }) {
     }, MOBILE_PANEL_CLOSE_MS);
   }, [finishClosePanel, open, panelClosing]);
 
-  const goBackToFaq = () => {
+  const goBackToLead = () => {
     disconnectWs(true);
-    setView("faq");
-    setExpandedFaqId(null);
+    setView("lead");
     setOfflineSent(false);
   };
 
@@ -1650,7 +1659,6 @@ export default function LiveChat({ locale, area, LANG }) {
     }
     setPanelClosing(false);
     setOpen(true);
-    setExpandedFaqId(null);
     // 已有 config（state 或模块缓存）时跳过网络，避免 idle 后 stale connection Stalled
     const cachedCfg = config || peekChatConfig();
     if (cachedCfg) {
@@ -1673,7 +1681,7 @@ export default function LiveChat({ locale, area, LANG }) {
       }
       return;
     }
-    setView("faq");
+    setView("lead");
   };
   openPanelRef.current = openPanel;
 
@@ -1684,8 +1692,8 @@ export default function LiveChat({ locale, area, LANG }) {
           <button
             type="button"
             className={styles.headerBack}
-            aria-label={copy.backToFaq}
-            onClick={goBackToFaq}
+            aria-label={copy.backToStart}
+            onClick={goBackToLead}
           >
             ‹
           </button>
@@ -1711,54 +1719,6 @@ export default function LiveChat({ locale, area, LANG }) {
       </div>
       <div className={styles.headerWave} aria-hidden="true" />
     </div>
-  );
-
-  const renderFaqView = () => (
-    <>
-      {renderHeader(
-        headerTitle,
-        isWorkTime ? copy.panelStatusOnline : copy.panelStatusOffline,
-        isWorkTime
-      )}
-      <div className={styles.body}>
-        <div className={styles.faqScroll}>
-          <p className={styles.faqIntro}>{copy.intro}</p>
-          <ul className={styles.faqList}>
-            {faqItems.map((item) => {
-              const expanded = expandedFaqId === item.id;
-              return (
-                <li key={item.id} className={styles.faqItem}>
-                  <button
-                    type="button"
-                    className={styles.faqQuestion}
-                    aria-expanded={expanded}
-                    onClick={() =>
-                      setExpandedFaqId(expanded ? null : item.id)
-                    }
-                  >
-                    <span>{item.question}</span>
-                    <ChevronIcon open={expanded} />
-                  </button>
-                  {expanded ? (
-                    <div className={styles.faqAnswer}>{item.answer}</div>
-                  ) : null}
-                </li>
-              );
-            })}
-          </ul>
-        </div>
-        <div className={styles.faqFooter}>
-          <button
-            type="button"
-            className={styles.transferBtn}
-            disabled={loading || config?.enabled === false}
-            onClick={handleTransferToAgent}
-          >
-            {copy.transferBtn}
-          </button>
-        </div>
-      </div>
-    </>
   );
 
   const renderLeadView = () => (
@@ -1828,8 +1788,50 @@ export default function LiveChat({ locale, area, LANG }) {
                 <span className={styles.formError}>{leadError.email}</span>
               ) : null}
             </div>
+            <div className={styles.formField}>
+              <label className={styles.formLabel} htmlFor="chat-lead-code">
+                {copy.codeLabel || "Verification code"}
+              </label>
+              <div className={styles.codeRow}>
+                <input
+                  id="chat-lead-code"
+                  type="text"
+                  inputMode="numeric"
+                  autoComplete="one-time-code"
+                  className={styles.formInput}
+                  placeholder={copy.codePlaceholder || "6-digit code"}
+                  value={leadForm.code}
+                  onChange={(e) => {
+                    const value = e.target.value;
+                    setLeadForm((st) => ({ ...st, code: value }));
+                    if (leadError.code) setLeadError((st) => ({ ...st, code: "" }));
+                  }}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      e.preventDefault();
+                      handleLeadSubmit();
+                    }
+                  }}
+                />
+                <button
+                  type="button"
+                  className={styles.codeBtn}
+                  disabled={codeSending || codeCountdown > 0}
+                  onClick={handleSendChatCode}
+                >
+                  {codeCountdown > 0
+                    ? `${codeCountdown}s`
+                    : codeSending
+                      ? copy.codeSending || "Sending…"
+                      : copy.sendCode || "Send code"}
+                </button>
+              </div>
+              {leadError.code ? (
+                <span className={styles.formError}>{leadError.code}</span>
+              ) : null}
+            </div>
           </div>
-          {/* 人机验证：业务 code = livechat。后端未配 secret 时不渲染、不占位。 */}
+          {/* 人机验证：挂在「发送验证码」那步（真发邮件的一步）。后端未配 secret 时不渲染、不占位。 */}
           <Turnstile ref={turnstileRef} action="livechat" />
         </div>
         <button
@@ -1865,7 +1867,7 @@ export default function LiveChat({ locale, area, LANG }) {
           <>
             <div className={styles.offlineScroll}>
               <p className={styles.offlineIntro}>
-                {config?.away_message || copy.offlineIntro}
+                {copy.offlineIntro}
               </p>
               <div className={styles.offlineForm}>
                 <div className={styles.formField}>
@@ -2034,7 +2036,7 @@ export default function LiveChat({ locale, area, LANG }) {
         <div className={styles.messages}>
           {showOfflineBanner ? (
             <div className={styles.offlineBanner}>
-              {config?.away_message || copy.offlineBanner}
+              {copy.offlineBanner}
             </div>
           ) : null}
           {welcomeText ? (
@@ -2220,7 +2222,6 @@ export default function LiveChat({ locale, area, LANG }) {
             role="dialog"
             aria-label="Live chat"
           >
-            {view === "faq" ? renderFaqView() : null}
             {view === "lead" ? renderLeadView() : null}
             {view === "offline" ? renderOfflineView() : null}
             {view === "chat" ? renderChatView() : null}

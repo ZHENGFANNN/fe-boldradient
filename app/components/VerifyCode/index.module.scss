@@ -11,6 +11,11 @@
   // 右内边距（给按钮让位）走内联样式，避免被宿主的移动端媒体查询覆盖。
   input {
     width: 100%;
+    // 🔴 必须 border-box：本组件给输入框内联了 padding-right 116px 给按钮让位，
+    // 宿主若是默认 content-box（客服面板的 .formInput 就是），width:100% 会连同左右
+    // padding 一起溢出容器约 128px（2026-08-09 实测：客服面板输入框整个撑出去）。
+    // 写在组件里而不是让每个宿主自己加——溢出是本组件的 padding 造成的，责任在这。
+    box-sizing: border-box;
   }
 
   .send_code_btn {

@@ -1662,11 +1662,11 @@ export default function LiveChat({ locale, area, LANG }) {
 
   const renderLeadView = () => (
     <>
+      {/* 不显示返回箭头：常见问题视图已下线，留资表单就是面板首屏，返回无处可去。 */}
       {renderHeader(
         headerTitle,
         isWorkTime ? copy.panelStatusOnline : copy.panelStatusOffline,
-        isWorkTime,
-        true
+        isWorkTime
       )}
       <div className={styles.body}>
         <div className={styles.offlineScroll}>

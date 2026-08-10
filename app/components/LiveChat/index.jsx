@@ -15,7 +15,6 @@ import {
   peekChatConfig,
   refreshWsToken,
   sendChatMessage,
-  sendChatCode,
   sendOfflineMessage,
   startChatApiKeepalive,
   stopChatApiKeepalive,
@@ -23,6 +22,7 @@ import {
 } from "./api";
 import { buildChatCopy } from "./faq";
 import Turnstile, { turnstileHeaders } from "@/components/Turnstile";
+import VerifyCode from "@/components/VerifyCode";
 import openLiveChat, { registerLiveChatOpen } from "./openLiveChat";
 import OrderPicker, { getOrderStatusText } from "./orderPicker";
 import ProductPicker from "./productPicker";
@@ -384,16 +384,10 @@ export default function LiveChat({ locale, area, LANG }) {
   // 邮箱验证码：进人工客服前必须收码并填写（后端 /chat/session 校验）。
   // 已登录用户与重连既有会话由后端豁免，但表单一律展示——前端无法可靠预判豁免与否，
   // 与其猜错把人挡在外面，不如让豁免路径多一个可留空的输入框。
-  const [codeSending, setCodeSending] = React.useState(false);
-  const [codeCountdown, setCodeCountdown] = React.useState(0);
+  // 发码/倒计时/人机验证已下沉到 <VerifyCode>，此处只留提交时要用的码值（在 leadForm.code）。
+  const verifyCodeRef = React.useRef(null);
   const leadRef = React.useRef(null);
 
-  // 发码冷却倒计时（与后端 60s 冷却对齐）
-  React.useEffect(() => {
-    if (codeCountdown <= 0) return undefined;
-    const t = setTimeout(() => setCodeCountdown((n) => n - 1), 1000);
-    return () => clearTimeout(t);
-  }, [codeCountdown]);
   // Cloudflare 人机验证：进入人工客服 / 离线留言共用（业务 code = livechat）。
   // 这两个端点公开无鉴权、会建会话并落库，此前只有 IP 限流兜底，脚本换 IP 即可绕过。
   const turnstileRef = React.useRef(null);
@@ -735,6 +729,7 @@ export default function LiveChat({ locale, area, LANG }) {
           ...st,
           code: copy.codeInvalid || "Invalid or expired code, please resend",
         }));
+        verifyCodeRef.current?.resetCooldown(); // 码错/过期：放开冷却让用户立刻重发
         setView("lead");
         return null;
       }
@@ -899,62 +894,6 @@ export default function LiveChat({ locale, area, LANG }) {
     setLeadError({ name: "", email: "" });
     setView("lead");
   }, [proceedToAgent]);
-
-  // 发邮箱验证码：Turnstile 挂在这一步（真发邮件的那步），成功后起 60s 冷却。
-  const handleSendChatCode = React.useCallback(async () => {
-    if (codeSending || codeCountdown > 0) return;
-    const email = leadForm.email.trim();
-    if (!isValidEmail(email)) {
-      setLeadError((st) => ({ ...st, email: copy.invalidEmail }));
-      return;
-    }
-    // 未完成人机验证就直接提示，不发请求（否则 getToken 会干等到 30s 超时）
-    if (turnstileRef.current?.isEnabled() && !turnstileRef.current?.hasToken()) {
-      setLeadError((st) => ({
-        ...st,
-        code: copy.turnstileRequired || "Please complete the verification first",
-      }));
-      return;
-    }
-    setCodeSending(true);
-    try {
-      const tsToken = await turnstileRef.current?.getToken();
-      const res = await sendChatCode(
-        { email, locale: locale || "en" },
-        turnstileHeaders(tsToken)
-      );
-      if (res?.code === 0) {
-        // 🔴 consume 而非 reset：控件停在已验证态，冷却结束才重新武装，
-        // 一次验证只兑换一次发码（与注册页同口径）。
-        turnstileRef.current?.consume();
-        setCodeCountdown(60);
-        setLeadError((st) => ({ ...st, code: "" }));
-      } else {
-        turnstileRef.current?.reset(); // 失败无冷却，放用户立即重试
-        setLeadError((st) => ({
-          ...st,
-          code: copy.codeSendFailed || "Failed to send code, please try again",
-        }));
-      }
-    } catch {
-      turnstileRef.current?.reset();
-      setLeadError((st) => ({
-        ...st,
-        code: copy.codeSendFailed || "Failed to send code, please try again",
-      }));
-    } finally {
-      setCodeSending(false);
-    }
-  }, [codeCountdown, codeSending, copy, leadForm.email, locale]);
-
-  // 冷却结束重新武装人机验证控件（与「可以再发一次码」同步）
-  const prevCodeCountdownRef = React.useRef(0);
-  React.useEffect(() => {
-    if (prevCodeCountdownRef.current > 0 && codeCountdown === 0) {
-      turnstileRef.current?.reset();
-    }
-    prevCodeCountdownRef.current = codeCountdown;
-  }, [codeCountdown]);
 
   const handleLeadSubmit = React.useCallback(async () => {
     const name = leadForm.name.trim();
@@ -1792,47 +1731,32 @@ export default function LiveChat({ locale, area, LANG }) {
               <label className={styles.formLabel} htmlFor="chat-lead-code">
                 {copy.codeLabel || "Verification code"}
               </label>
-              <div className={styles.codeRow}>
-                <input
-                  id="chat-lead-code"
-                  type="text"
-                  inputMode="numeric"
-                  autoComplete="one-time-code"
-                  className={styles.formInput}
-                  placeholder={copy.codePlaceholder || "6-digit code"}
-                  value={leadForm.code}
-                  onChange={(e) => {
-                    const value = e.target.value;
-                    setLeadForm((st) => ({ ...st, code: value }));
-                    if (leadError.code) setLeadError((st) => ({ ...st, code: "" }));
-                  }}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter") {
-                      e.preventDefault();
-                      handleLeadSubmit();
-                    }
-                  }}
-                />
-                <button
-                  type="button"
-                  className={styles.codeBtn}
-                  disabled={codeSending || codeCountdown > 0}
-                  onClick={handleSendChatCode}
-                >
-                  {codeCountdown > 0
-                    ? `${codeCountdown}s`
-                    : codeSending
-                      ? copy.codeSending || "Sending…"
-                      : copy.sendCode || "Send code"}
-                </button>
-              </div>
+              {/* 与注册页共用同一个组件与 UI，只是业务类型不同 */}
+              <VerifyCode
+                ref={verifyCodeRef}
+                businessType="livechat"
+                email={leadForm.email}
+                locale={locale}
+                value={leadForm.code}
+                onChange={(v) => {
+                  setLeadForm((st) => ({ ...st, code: v }));
+                  if (leadError.code) setLeadError((st) => ({ ...st, code: "" }));
+                }}
+                placeholder={copy.codePlaceholder || "6-digit code"}
+                onError={(text) => setLeadError((st) => ({ ...st, code: text }))}
+                texts={{
+                  send: copy.sendCode,
+                  sending: copy.codeSending,
+                  invalidEmail: copy.invalidEmail,
+                  sendFailed: copy.codeSendFailed,
+                  turnstileRequired: copy.turnstileRequired,
+                }}
+              />
               {leadError.code ? (
                 <span className={styles.formError}>{leadError.code}</span>
               ) : null}
             </div>
           </div>
-          {/* 人机验证：挂在「发送验证码」那步（真发邮件的一步）。后端未配 secret 时不渲染、不占位。 */}
-          <Turnstile ref={turnstileRef} action="livechat" />
         </div>
         <button
           type="button"

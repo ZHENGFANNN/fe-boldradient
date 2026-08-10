@@ -915,42 +915,6 @@ $shadow-md: 0 8px 28px rgba(0, 0, 0, 0.14);
   color: $text-primary;
 }
 
-// 验证码一行：输入框自适应 + 右侧发送按钮定宽，冷却期间按钮显示倒计时并置灰。
-.codeRow {
-  display: flex;
-  align-items: stretch;
-  gap: 8px;
-
-  .formInput {
-    flex: 1;
-    min-width: 0; // 防 flex 子项被内容撑破
-  }
-}
-
-.codeBtn {
-  flex: 0 0 auto;
-  min-width: 96px;
-  padding: 0 12px;
-  border: 1px solid $border;
-  border-radius: 10px;
-  background: #fff;
-  font-size: 13px;
-  font-weight: 600;
-  color: $text-primary;
-  cursor: pointer;
-  font-family: inherit;
-  transition: border-color 0.2s ease, color 0.2s ease;
-
-  &:hover:not(:disabled) {
-    border-color: $text-primary;
-  }
-
-  &:disabled {
-    color: #9a9a9a;
-    cursor: not-allowed;
-  }
-}
-
 .formInput,
 .formTextarea {
   border: 1px solid $border;

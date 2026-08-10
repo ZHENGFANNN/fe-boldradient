@@ -1,0 +1,46 @@
+// 验证码输入行：按钮绝对定位嵌在输入框右侧，左侧一道分隔线。
+// 形态原样取自注册页 page.module.scss 的 .code_row / .send_code_btn，
+// 抽离到公共组件后注册页与在线客服共用同一套外观。
+//
+// input 只写 width/padding-right，其余（边框/圆角/高度/focus 态）沿用各业务页面自身的
+// 表单样式——本组件被塞进不同页面的表单里，把边框也带过来反而会与宿主样式打架。
+.code_row {
+  position: relative;
+
+  input {
+    width: 100%;
+    // 给右侧按钮让位；116px 是按钮最宽态（"Sending…" / "60s" + 左右内边距）实测值
+    padding-right: 116px;
+  }
+
+  .send_code_btn {
+    position: absolute;
+    top: 5px;
+    bottom: 5px;
+    right: 5px;
+    display: flex;
+    align-items: center;
+    padding: 0 14px;
+    border: none;
+    border-left: 1px solid #e1e3e6;
+    border-radius: 0;
+    background: transparent;
+    color: rgba(0, 0, 0, 0.88);
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: color 200ms;
+
+    &:hover {
+      color: #000;
+    }
+
+    &:disabled,
+    &.is_disabled {
+      color: #b0b0b0;
+      cursor: not-allowed;
+    }
+  }
+}

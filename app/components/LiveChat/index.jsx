@@ -1737,6 +1737,7 @@ export default function LiveChat({ locale, area, LANG }) {
                 businessType="livechat"
                 email={leadForm.email}
                 locale={locale}
+                inputClassName={styles.formInput}
                 value={leadForm.code}
                 onChange={(v) => {
                   setLeadForm((st) => ({ ...st, code: v }));

@@ -7,10 +7,10 @@
 .code_row {
   position: relative;
 
+  // 输入框只保证撑满行宽；边框/圆角/高度等外观由宿主页面的表单样式提供（见 index.jsx 注释）。
+  // 右内边距（给按钮让位）走内联样式，避免被宿主的移动端媒体查询覆盖。
   input {
     width: 100%;
-    // 给右侧按钮让位；116px 是按钮最宽态（"Sending…" / "60s" + 左右内边距）实测值
-    padding-right: 116px;
   }
 
   .send_code_btn {

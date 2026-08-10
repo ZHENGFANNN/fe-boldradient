@@ -55,6 +55,7 @@ function VerifyCode(
     placeholder,
     texts = {},
     className,
+    inputClassName,
   },
   ref
 ) {
@@ -154,6 +155,14 @@ function VerifyCode(
           autoComplete="one-time-code"
           inputMode="numeric"
           placeholder={placeholder}
+          // 🔴 输入框外观交给宿主：本组件被塞进不同页面的表单里，自带边框/圆角会与宿主打架。
+          // 注册页靠 .form_item input 的后代选择器命中，无需传；客服面板必须传 styles.formInput，
+          // 否则渲染成没有边框的裸 input（2026-08-09 实测踩到）。
+          className={inputClassName}
+          // 🔴 右内边距用内联样式而非 CSS：这是给右侧按钮让位的**布局刚需**，
+          // 原实现靠 .form_item .code_row input 的 specificity 压住宿主的移动端媒体查询；
+          // 抽成公共组件后类名变了、那层保护没了，内联样式是唯一不会被宿主覆盖的写法。
+          style={{ paddingRight: 116 }}
           {...inputProps}
           {...controlled}
         />

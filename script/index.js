@@ -24,6 +24,21 @@ async function getData() {
   await fetchConfig();
   await fetchSeo();
 }
-getData();
+
+// 🔴 必须 await + 非 0 退出：本脚本是 `yarn deploy`（fetch-prod && cf-build && cf-deploy）
+// 的第一环，靠退出码决定后面构建/部署跑不跑。
+//
+// 原来是裸调 `getData();`——fetchConfig 连续三次拉取失败时抛的错只是一个**未处理的 Promise
+// rejection**，进程仍以 0 退出，`&&` 链照常往下走，于是拿着不完整的 fetch-data 构建并推上线。
+// 2026-08-09 就是这样：本地网络拉不动 4.5MB 的 /config/getProduct（30s 超时），
+// 数据没落全却照样部署，线上商品页 500，而部署日志一路显示成功。
+//
+// 构建数据不完整时**必须让整条链停在这里**——宁可不发版，也不能发一个静默残缺的包。
+getData().catch((err) => {
+  console.error("\n【构建数据拉取失败，已中止】", err && err.message ? err.message : err);
+  console.error("构建数据不完整时禁止继续构建/部署：产物会缺页面数据且不会报错，直到线上 500 才被发现。");
+  console.error("排查方向：后端 service 域名可达性、/config/getProduct（约 4.5MB）是否在超时内拉完。");
+  process.exit(1);
+});
 
 module.exports = getData;

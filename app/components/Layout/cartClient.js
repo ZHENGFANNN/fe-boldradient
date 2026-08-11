@@ -19,12 +19,18 @@ function parseOptions(raw) {
 // 返回: [{ id, comboName, comboKey, name, image, sortKey, productKey,
 //          areaInfo:{currency,currency_symbol,currency_unit,product_price,
 //          stock}, productNum, options }]
-export default async function resolveCartFromApi({ area, language }) {
+// storageKey 默认站内购物车 store_shopping；立即购买链路传入 store_buy_now，
+// 使结算页只结算当前商品、不读购物车既有商品（见 utils/checkoutSource）。
+export default async function resolveCartFromApi({
+  area,
+  language,
+  storageKey = "store_shopping",
+}) {
   let localStoreList;
   try {
-    localStoreList = JSON.parse(window.localStorage.getItem("store_shopping") ?? "[]");
+    localStoreList = JSON.parse(window.localStorage.getItem(storageKey) ?? "[]");
   } catch {
-    window.localStorage.setItem("store_shopping", JSON.stringify([]));
+    window.localStorage.setItem(storageKey, JSON.stringify([]));
     return [];
   }
   if (!Array.isArray(localStoreList) || localStoreList.length === 0) return [];

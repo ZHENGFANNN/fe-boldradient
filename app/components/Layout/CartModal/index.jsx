@@ -18,6 +18,7 @@ import {
   formatRejectedCodeMessage,
 } from "@/utils/discount-codes";
 import getProductsOffer from "@/service/product/get-offer";
+import { CHECKOUT_SOURCE, setCheckoutSource } from "@/utils/checkoutSource";
 import { discountedUnitPrice, savedUnitAmount } from "@/utils/productPricing";
 import CustomizeFileLink from "@/components/CustomizeFileLink";
 
@@ -860,6 +861,9 @@ const CartMain = function ({ handleClose }) {
                     value: totalPrice,
                     contents: cartList,
                   });
+                  // 从购物车结算：标记来源为 cart，结算页读站内购物车 store_shopping
+                  // （清掉可能遗留的 buy_now 标记）。
+                  setCheckoutSource(CHECKOUT_SOURCE.CART);
                   location.href = `/${locale}/order`;
                 }}
               >

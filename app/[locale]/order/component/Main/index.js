@@ -31,6 +31,13 @@ import {
   writeStoredDiscountCodes,
   formatRejectedCodeMessage,
 } from "@/utils/discount-codes";
+import {
+  CHECKOUT_SOURCE,
+  resolveEffectiveSource,
+  setCheckoutSource,
+  cartStorageKey,
+  discountStorageKey,
+} from "@/utils/checkoutSource";
 
 function parsePreviewAmount(value) {
   if (typeof value === "number") return value;
@@ -40,6 +47,18 @@ function parsePreviewAmount(value) {
 export default function Main({ CONFIG, LANG, area, token }) {
   const router = useRouter();
   const { locale } = useParams();
+  // 结算来源：cart（购物车结算，默认）/ buy_now（详情页立即购买）。
+  // 决定读写哪一份 localStorage（购物车 store_shopping vs 立即购买 store_buy_now），
+  // 使两条链路互不污染。SSR 下取默认 cart，客户端首帧 useState 初始化时按实际存储解析。
+  const [checkoutSource] = React.useState(() => resolveEffectiveSource());
+  const cartKey = React.useMemo(
+    () => cartStorageKey(checkoutSource),
+    [checkoutSource]
+  );
+  const discountKey = React.useMemo(
+    () => discountStorageKey(checkoutSource),
+    [checkoutSource]
+  );
   const [userInfo, setUserInfo] = React.useState();
   const [orderLoading, setOrderLoading] = React.useState(false);
   // 订单备注
@@ -157,7 +176,11 @@ export default function Main({ CONFIG, LANG, area, token }) {
     // 获取购物车列表（价格随 area 实时，走 /api/cart）
     let cancelled = false;
     (async () => {
-      const rows = await resolveCartFromApi({ area, language: locale });
+      const rows = await resolveCartFromApi({
+        area,
+        language: locale,
+        storageKey: cartKey,
+      });
       if (cancelled) return;
       const list = rows.map((row) => ({
         // 套餐相关
@@ -193,7 +216,7 @@ export default function Main({ CONFIG, LANG, area, token }) {
     return () => {
       cancelled = true;
     };
-  }, [payKey, area, locale]);
+  }, [payKey, area, locale, cartKey]);
 
   // 商品小计（标价 product_price，仅作 preview 未返回时的兜底）
   const subtotalPrice = React.useMemo(() => {
@@ -204,7 +227,7 @@ export default function Main({ CONFIG, LANG, area, token }) {
 
   const [discountCodeInput, setDiscountCodeInput] = React.useState("");
   const [discountCodes, setDiscountCodes] = React.useState(() =>
-    readStoredDiscountCodes()
+    readStoredDiscountCodes(discountStorageKey(resolveEffectiveSource()))
   );
   const [previewLoading, setPreviewLoading] = React.useState(false);
   const [previewData, setPreviewData] = React.useState(null);
@@ -278,7 +301,8 @@ export default function Main({ CONFIG, LANG, area, token }) {
       const rejectedSet = new Set(rejected.map((r) => r.code));
       setDiscountCodes((prev) => {
         const next = prev.filter((c) => !rejectedSet.has(c));
-        if (next.length !== prev.length) writeStoredDiscountCodes(next);
+        if (next.length !== prev.length)
+          writeStoredDiscountCodes(next, discountKey);
         return next;
       });
       const text = rejected
@@ -287,7 +311,7 @@ export default function Main({ CONFIG, LANG, area, token }) {
       showTip({ text, type: "error" });
       return rejectedSet;
     },
-    [LANG, showTip]
+    [LANG, showTip, discountKey]
   );
 
   React.useEffect(() => {
@@ -371,7 +395,7 @@ export default function Main({ CONFIG, LANG, area, token }) {
       }
       const accepted = next.filter((c) => !rejectedSet.has(c));
       setDiscountCodes(accepted);
-      writeStoredDiscountCodes(accepted);
+      writeStoredDiscountCodes(accepted, discountKey);
       setDiscountCodeInput("");
     } catch (err) {
       showTip({
@@ -387,17 +411,18 @@ export default function Main({ CONFIG, LANG, area, token }) {
     previewRegion,
     showTip,
     LANG,
+    discountKey,
   ]);
 
   const handleRemoveDiscountCode = React.useCallback(
     (code) => {
       setDiscountCodes((prev) => {
         const next = prev.filter((item) => item !== code);
-        writeStoredDiscountCodes(next);
+        writeStoredDiscountCodes(next, discountKey);
         return next;
       });
     },
-    []
+    [discountKey]
   );
 
   // 获取用户信息
@@ -480,13 +505,15 @@ export default function Main({ CONFIG, LANG, area, token }) {
   // Deferred 模式下订单在点 Pay 时才创建，这里只保留订单 secret 供成功回调/跳转使用。
   const secret = React.useRef();
 
-  // 清空购物车
+  // 下单完成后清空本次结算来源的数据。
+  // buy_now：只清「立即购买」独立存储，购物车 store_shopping 里的既有商品不受影响；
+  // cart：清站内购物车。随后把来源复位为 cart，避免下次直接进结算页仍走 buy_now。
   const clearOrderList = React.useCallback(() => {
-    // 获取购物车列表
-    window.localStorage.removeItem("store_shopping");
-    // 清空购物车 Drawer 持久化的折扣码，防止下次进购物车残留旧码（已用过的码再次提交会被后端拒）
-    writeStoredDiscountCodes([]);
-  }, []);
+    window.localStorage.removeItem(cartKey);
+    // 清本次来源持久化的折扣码，防止残留旧码（已用过的码再次提交会被后端拒）
+    writeStoredDiscountCodes([], discountKey);
+    setCheckoutSource(CHECKOUT_SOURCE.CART);
+  }, [cartKey, discountKey]);
 
   // 埋点
   const trackingInitiateCheckout = React.useCallback(() => {

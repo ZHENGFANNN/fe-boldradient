@@ -9,10 +9,12 @@
  */
 export const DISCOUNT_CODES_STORAGE_KEY = "store_shopping_discount_codes";
 
-export function readStoredDiscountCodes() {
+// key 默认购物车来源；立即购买链路传入 store_buy_now_discount_codes（见 utils/checkoutSource），
+// 使两条链路的已应用折扣码互不污染。
+export function readStoredDiscountCodes(key = DISCOUNT_CODES_STORAGE_KEY) {
   if (typeof window === "undefined") return [];
   try {
-    const raw = window.localStorage.getItem(DISCOUNT_CODES_STORAGE_KEY);
+    const raw = window.localStorage.getItem(key);
     if (!raw) return [];
     const parsed = JSON.parse(raw);
     return Array.isArray(parsed)
@@ -23,16 +25,13 @@ export function readStoredDiscountCodes() {
   }
 }
 
-export function writeStoredDiscountCodes(codes) {
+export function writeStoredDiscountCodes(codes, key = DISCOUNT_CODES_STORAGE_KEY) {
   if (typeof window === "undefined") return;
   try {
     const safe = Array.isArray(codes)
       ? codes.filter((x) => typeof x === "string")
       : [];
-    window.localStorage.setItem(
-      DISCOUNT_CODES_STORAGE_KEY,
-      JSON.stringify(safe)
-    );
+    window.localStorage.setItem(key, JSON.stringify(safe));
   } catch {}
 }
 

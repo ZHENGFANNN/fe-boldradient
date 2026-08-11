@@ -22,6 +22,13 @@ import BtnListSkeleton from "./BtnListSkeleton";
 
 import { roundToDecimalPlaces } from "@/utils";
 import { readClientArea } from "@/utils/readClientArea";
+import {
+  CHECKOUT_SOURCE,
+  setCheckoutSource,
+  cartStorageKey,
+  discountStorageKey,
+} from "@/utils/checkoutSource";
+import { writeStoredDiscountCodes } from "@/utils/discount-codes";
 import RestockForm from "./RestockForm";
 
 function parsePreviewAmount(value) {
@@ -365,8 +372,9 @@ export default function GoodBtnList() {
     !!productCurCombo.areaInfo?.product_price &&
     !!productCurCombo.areaInfo?.stock;
 
-  // 立即购买：把当前所选套餐（含变体 options + 定制字段）作为单行写入购物车缓存，
-  // 直接跳转结算页，不再打开弹窗。已应用折扣码经 localStorage 自动带入结算页。
+  // 立即购买：把当前所选套餐（含变体 options + 定制字段）作为单行写入「立即购买」
+  // 独立存储 store_buy_now，绝不改动购物车 store_shopping 里的既有商品。
+  // 结算页据 checkout_source=buy_now 读这份数据；完成/放弃都不影响购物车。
   const openBuyNow = React.useCallback(() => {
     if (!buyable) return;
     // 定制字段必填校验：未通过则由 CustomizationFields 内联报错并阻断跳转
@@ -384,8 +392,14 @@ export default function GoodBtnList() {
       options: cartOptions,
       customize_data: customizeData
     };
-    // 立即购买语义：结算页只结算当前商品，直接以单行覆盖购物车缓存。
-    window.localStorage.setItem("store_shopping", JSON.stringify([line]));
+    // 立即购买语义：只结算当前商品，单行覆盖「立即购买」独立存储；
+    // 同时清掉这份链路上遗留的折扣码，避免上次放弃的立即购买把旧码带进来。
+    window.localStorage.setItem(
+      cartStorageKey(CHECKOUT_SOURCE.BUY_NOW),
+      JSON.stringify([line])
+    );
+    writeStoredDiscountCodes([], discountStorageKey(CHECKOUT_SOURCE.BUY_NOW));
+    setCheckoutSource(CHECKOUT_SOURCE.BUY_NOW);
     track("InitiateCheckout", { productName: productInfo.name, from: "product_page" });
     router.push(`/${locale}/order`);
   }, [

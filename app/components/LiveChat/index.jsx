@@ -1465,6 +1465,12 @@ export default function LiveChat({ locale, area, LANG }) {
     const content = offline.content.trim();
     if (!isValidEmail(email) || !content) return;
     if (offlineSubmitting) return;
+    // 🔴 先确认已通过人机验证，没通过直接提示、不发请求（否则 getToken 会干等到 30s 超时，
+    // 用户点了提交毫无反应、体感卡死；且空 token 发出去只会被后端 TurnstileGuard 打回）。
+    if (turnstileRef.current?.isEnabled() && !turnstileRef.current?.hasToken()) {
+      tip(copy.turnstileRequired, "info");
+      return;
+    }
     setOfflineSubmitting(true);
     try {
       // 人机验证：与在线入口同一业务 code（livechat），token 用后即弃。
@@ -1955,7 +1961,7 @@ export default function LiveChat({ locale, area, LANG }) {
         chatTitle,
         closed ? copy.chatEnded : copy.chatOnline,
         !closed,
-        true
+        false
       )}
       <div className={styles.body}>
         <div className={styles.messages}>

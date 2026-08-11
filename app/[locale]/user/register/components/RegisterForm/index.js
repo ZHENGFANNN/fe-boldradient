@@ -163,6 +163,9 @@ export default function RegisterForm({ LANG }) {
             sending: LANG["user.register.code_sending"] || "Sending…",
             invalidEmail: LANG["user.register.email_format"],
             sendFailed: LANG["user.register.code_send_fail"],
+            turnstileRequired:
+              LANG["common.turnstile.required"] ||
+              "Please complete the verification first",
           }}
         />
         <p>{errors.code?.message}</p>

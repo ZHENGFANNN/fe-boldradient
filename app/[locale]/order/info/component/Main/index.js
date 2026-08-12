@@ -207,6 +207,12 @@ export default function Main({ secret, locale, area, LANG, CONFIG }) {
       cancelled: LANG["order.info.cancelled"] || "Cancelled",
       refunding: LANG["order.info.refunding"] || "Refunding",
       refunded: LANG["order.info.refunded"] || "Refunded",
+      partial_refunded:
+        LANG["order.info.partial_refunded"] || "Partially refunded",
+      fully_refunded:
+        LANG["order.info.fully_refunded"] || "Fully refunded",
+      refund_rejected:
+        LANG["order.info.refund_rejected"] || "Refund rejected",
       closed: LANG["order.info.closed"] || "Closed",
     };
   }, [LANG]);
@@ -221,6 +227,9 @@ export default function Main({ secret, locale, area, LANG, CONFIG }) {
       cancelled: styles.black,
       refunding: styles.yellow,
       refunded: styles.black,
+      partial_refunded: styles.yellow,
+      fully_refunded: styles.black,
+      refund_rejected: styles.error,
       closed: styles.black,
     };
   }, []);
@@ -686,6 +695,18 @@ export default function Main({ secret, locale, area, LANG, CONFIG }) {
                           </h3>
                           <p className={styles.flex_3}>
                             {money(order.pay_price)}
+                          </p>
+                        </li>
+                      ) : null}
+                      {Number(order.total_refunded) > 0 ? (
+                        <li>
+                          <h3 className={styles.flex_2}>
+                            {LANG["order.info.refunded_amount"] || "Refunded"}
+                          </h3>
+                          <p className={styles.flex_3}>
+                            <span className={styles.red}>{`- ${money(
+                              order.total_refunded
+                            )}`}</span>
                           </p>
                         </li>
                       ) : null}

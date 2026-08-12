@@ -34,6 +34,12 @@ export default function OrderInfo({ LANG, locale }) {
       cancelled: LANG["user.account.my_order.cancelled"] || "Cancelled",
       refunding: LANG["user.account.my_order.refunding"] || "Refunding",
       refunded: LANG["user.account.my_order.refunded"] || "Refunded",
+      partial_refunded:
+        LANG["user.account.my_order.partial_refunded"] || "Partially refunded",
+      fully_refunded:
+        LANG["user.account.my_order.fully_refunded"] || "Fully refunded",
+      refund_rejected:
+        LANG["user.account.my_order.refund_rejected"] || "Refund rejected",
       closed: LANG["user.account.my_order.closed"] || "Closed",
     };
   }, [LANG]);
@@ -48,6 +54,9 @@ export default function OrderInfo({ LANG, locale }) {
       cancelled: styles.black,
       refunding: styles.yellow,
       refunded: styles.black,
+      partial_refunded: styles.yellow,
+      fully_refunded: styles.black,
+      refund_rejected: styles.error,
       closed: styles.black,
     };
   }, []);

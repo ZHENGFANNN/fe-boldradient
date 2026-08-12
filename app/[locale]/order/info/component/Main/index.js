@@ -968,6 +968,7 @@ export default function Main({ secret, locale, area, LANG, CONFIG }) {
                       currency={order.order_list[0].priceCurrency.toLowerCase()}
                       locale={locale}
                       LANG={LANG}
+                      publishableKey={CONFIG?.["setting.pay"]?.stripe?.publishableKey}
                       onCreateOrder={handleStripeRepayConfirm}
                       amountLabel={`${
                         order.order_list[0].priceSymbol

@@ -34,7 +34,7 @@ async function OrderInfoContent({ locale, searchParams }) {
       "common.pay",
       "user.account.login_guard"
     ],
-    configNameSpace: ["common.base"]
+    configNameSpace: ["common.base", "setting.pay"]
   });
   
   return (

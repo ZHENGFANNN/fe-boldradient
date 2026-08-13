@@ -23,25 +23,59 @@
   color: rgba(0, 0, 0, 0.4);
 }
 
-/* 选择框：实线描边（原商详为虚线，统一收敛为实线） */
+/* 选择框：虚线描边的拖放区卡片（上传图标 + 文案，居中垂直排列） */
 .file_picker {
-  display: inline-flex;
+  display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  border: 1px solid #c4c4c4;
-  border-radius: 8px;
-  padding: 12px 18px;
+  gap: 8px;
+  border: 1.5px dashed #d0d0d0;
+  border-radius: 12px;
+  padding: 26px 18px;
   font-size: 14px;
   color: #1a1a1a;
   background: #fafafa;
   cursor: pointer;
-  transition: border-color 0.18s ease, background 0.18s ease;
+  transition: border-color 0.18s ease, background 0.18s ease,
+    color 0.18s ease;
   text-align: center;
 }
 
 .file_picker:hover {
   border-color: #1a1a1a;
   background: #f3f3f3;
+}
+
+.picker_inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.picker_icon {
+  color: #8a8a8a;
+  transition: color 0.18s ease;
+}
+
+.file_picker:hover .picker_icon {
+  color: #1a1a1a;
+}
+
+.picker_text {
+  font-size: 14px;
+  color: #555;
+  line-height: 1.3;
+}
+
+.picker_spinner {
+  width: 22px;
+  height: 22px;
+  border: 2px solid rgba(0, 0, 0, 0.15);
+  border-top-color: #1a1a1a;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
 }
 
 .file_picker_disabled {
@@ -245,8 +279,10 @@
 /* ---------- 响应式 ---------- */
 @media screen and (max-width: 779px) {
   .file_picker {
+    padding: 22px 16px;
+  }
+  .picker_text {
     font-size: 15px;
-    padding: 13px 18px;
   }
   .file_thumb {
     width: 42px;

@@ -129,7 +129,31 @@ export default function MediaUploader({
             e.target.value = "";
           }}
         />
-        <span>{uploading ? uploadingLabel : uploadLabel}</span>
+        <span className={styles.picker_inner}>
+          {!uploading ? (
+            <svg
+              className={styles.picker_icon}
+              viewBox="0 0 24 24"
+              width="22"
+              height="22"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.6"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M12 16V4" />
+              <path d="M8 8l4-4 4 4" />
+              <path d="M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3" />
+            </svg>
+          ) : (
+            <span className={styles.picker_spinner} />
+          )}
+          <span className={styles.picker_text}>
+            {uploading ? uploadingLabel : uploadLabel}
+          </span>
+        </span>
       </label>
 
       {files.length ? (

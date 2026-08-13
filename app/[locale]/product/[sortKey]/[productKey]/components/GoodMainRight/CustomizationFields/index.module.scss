@@ -1,14 +1,17 @@
 .container {
-  margin: 20px 0;
+  /* 顶部与上方 Metal 色块拉开（原两个 20px margin 折叠成 20px，偏挤）；
+     字段间距与 VariantSelector 轴区节奏统一（28px 分隔各字段） */
+  margin: 32px 0 24px;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 28px;
 }
 
+/* label→输入框间距与 VariantSelector .axis（gap:10）统一 */
 .field {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
 }
 
 /* 区块标题：与选项轴名 .axis_name、数量标题 GoodNumber h3 统一（14px / 600 / #1a1a1a / 非大写） */
@@ -222,7 +225,7 @@
 /* ---------- 响应式 ---------- */
 @media screen and (max-width: 779px) {
   .container {
-    margin: 16px 0;
+    margin: 24px 0 20px;
     gap: 24px;
   }
   .input,
@@ -233,6 +236,6 @@
 
 @media screen and (min-width: 780px) and (max-width: 1440px) {
   .container {
-    gap: 24px;
+    gap: 26px;
   }
 }

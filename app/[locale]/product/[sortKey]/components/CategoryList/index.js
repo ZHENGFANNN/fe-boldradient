@@ -324,8 +324,9 @@ export default function CategoryList({
         </div>
       ) : null}
 
-      {/* 筛选区：纯客户端，pricing 就绪后渲染（SSR 不输出，避免影响首屏/SEO） */}
-      {pricingReady ? (
+      {/* 筛选区：纯客户端，pricing 就绪后渲染（SSR 不输出，避免影响首屏/SEO）。
+          无任何可筛选标签、也无已选筛选时不渲染，避免只剩上下两条边框线的空筛选栏。 */}
+      {pricingReady && (tagList.length > 0 || hasAnyFilter) ? (
         <div className={styles.filter_bar}>
           {/* 商品标签筛选 */}
           {tagList.length > 0 ? (

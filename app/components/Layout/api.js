@@ -8,6 +8,10 @@ const request = {
   contactForm: (data, config) => {
     return api.post(`/user/contactForm`, data, config);
   },
+  // 底部邮件订阅：走独立的无人机验证端点（footer 不渲染 Turnstile widget）
+  newsletterSubscribe: (data) => {
+    return api.post(`/user/newsletterSubscribe`, data);
+  },
 };
 
 export default request;

@@ -68,7 +68,7 @@ export default function ContactModule() {
       setEmailStatue("error");
     } else {
       try {
-        const data = await Api.contactForm({
+        const data = await Api.newsletterSubscribe({
           type: "subscribe",
           email,
           path: location.pathname,

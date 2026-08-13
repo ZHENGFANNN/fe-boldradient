@@ -127,63 +127,23 @@
         border-bottom: 1px solid #edeff2;
         padding-bottom: 16px;
 
-        .reviews_header_num {
-          color: rgba(0, 0, 0, 0.85);
-          font-size: 14px;
-        }
-
-        .reviews_header_actions {
+        .reviews_header_select {
           display: flex;
           align-items: center;
-          gap: 24px;
 
-          .reviews_header_select {
-            display: flex;
-            align-items: center;
-
-            .select_tip {
-              margin-right: 6px;
-              color: rgb(138, 140, 144);
-              font-size: 14px;
-            }
-
-            .select_label {
-              display: flex;
-              justify-content: center;
-              min-width: 40px;
-              color: #000;
-              font-size: 14px;
-              cursor: pointer;
-            }
+          .select_tip {
+            margin-right: 6px;
+            color: rgb(138, 140, 144);
+            font-size: 14px;
           }
 
-          .write_btn {
-            display: inline-flex;
-            align-items: center;
+          .select_label {
+            display: flex;
             justify-content: center;
-            padding: 10px 24px;
-            border: none;
-            border-radius: 64px;
-            background: #534040;
-            color: #fff;
+            min-width: 40px;
+            color: #000;
             font-size: 14px;
-            font-weight: 500;
-            font-family: inherit;
-            text-decoration: none;
-            white-space: nowrap;
             cursor: pointer;
-            transition: opacity 200ms;
-
-            &:hover {
-              opacity: 0.9;
-            }
-            &:active {
-              opacity: 1;
-            }
-            &:disabled {
-              cursor: default;
-              opacity: 0.6;
-            }
           }
         }
       }
@@ -280,15 +240,8 @@
         margin-top: 32px;
 
         .reviews_header {
-          flex-direction: column;
-          align-items: flex-start;
+          justify-content: space-between;
           gap: 12px;
-
-          .reviews_header_actions {
-            width: 100%;
-            justify-content: space-between;
-            gap: 12px;
-          }
         }
       }
     }

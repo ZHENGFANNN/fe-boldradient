@@ -7,6 +7,7 @@ import Api from "../../api";
 import styles from "./index.module.scss";
 
 import DropSelect from "@/components/DropSelect";
+import Button from "@/components/Button";
 import { StarRating, ReviewList, Pagination } from "@/components/Review";
 import { StarActiveIcon } from "@/components/Icon";
 import ReviewModal from "@/[locale]/order/info/component/ReviewModal";
@@ -361,38 +362,29 @@ export default function GoodReviewsContent() {
             {/* 底部：条数 + 星级过滤 + 写评论 + 卡片列表 + 分页 */}
             <div className={styles.review_bottom}>
               <div className={styles.reviews_header}>
-                <div className={styles.reviews_header_num}>
-                  {LANG["product.reviews"]?.replace(
-                    "${num}",
-                    filteredCards.length
-                  )}
-                </div>
-                <div className={styles.reviews_header_actions}>
-                  <div className={styles.reviews_header_select}>
-                    <span className={styles.select_tip}>
-                      {LANG["product.filter"] || "Filter by:"}
-                    </span>
-                    <DropSelect
-                      zIndex={9}
-                      position="bottom"
-                      tanslatefromX={16}
-                      selectValue={handleStarChange}
-                      options={starOptions}
-                    >
-                      <div className={styles.select_label}>
-                        {starOptions.find((o) => o.value === starFilter)?.label}
-                      </div>
-                    </DropSelect>
-                  </div>
-                  <button
-                    type="button"
-                    className={styles.write_btn}
-                    disabled={resolving}
-                    onClick={handleWriteClick}
+                <div className={styles.reviews_header_select}>
+                  <span className={styles.select_tip}>
+                    {LANG["product.filter"] || "Filter by:"}
+                  </span>
+                  <DropSelect
+                    zIndex={9}
+                    position="bottom"
+                    tanslatefromX={16}
+                    selectValue={handleStarChange}
+                    options={starOptions}
                   >
-                    {LANG["product.write_review"] || "Write a Review"}
-                  </button>
+                    <div className={styles.select_label}>
+                      {starOptions.find((o) => o.value === starFilter)?.label}
+                    </div>
+                  </DropSelect>
                 </div>
+                <Button
+                  size="small"
+                  disabled={resolving}
+                  onClick={handleWriteClick}
+                >
+                  {LANG["product.write_review"] || "Write a Review"}
+                </Button>
               </div>
 
               <ReviewList

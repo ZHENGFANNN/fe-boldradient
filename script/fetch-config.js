@@ -8,7 +8,7 @@ const api = require("./api");
 /**
  * 从两个公开接口拉取配置，按后端 code 原样写入：
  *   fetch-data/pageConfig/<locale>.json  ← /config/getPageSettings
- *   fetch-data/globalConfig/index.json   ← /config/get{Market,Language,Pay}Settings（拆分后按命名空间拉取重组）
+ *   fetch-data/globalConfig/index.json   ← /config/get{Market,Language,Pay,Analytics}Settings（拆分后按命名空间拉取重组）
  *
  * locale 取自 globalConfig.setting.language 的 iso_code（小写）
  */
@@ -75,11 +75,25 @@ const fetchConfig = async (times = 1, cookie = "") => {
       api.get("/config/getPaySettings", { headers: { cookie } }),
     ]);
 
+    // 埋点配置（setting.analytics）单独拉取并独立容错：新接口（getAnalyticsSettings）若尚未
+    // 随后端上线（前端先于后端部署的时间窗），这里降级为 {} 而非让整个构建失败——
+    // 埋点缺失只是 GA/Pixel 不注入，不该阻断商城构建。后端上线后重新构建即补齐。
+    const analyticsRes = await api
+      .get("/config/getAnalyticsSettings", { headers: { cookie } })
+      .catch((err) => {
+        console.log(
+          `${chalk.yellow("【埋点配置获取失败，降级为空】")}`,
+          err?.message || err
+        );
+        return { data: {} };
+      });
+
     const pageList = pageRes?.data?.list || [];
     const globalConfig = {
       "setting.markets": marketRes?.data ?? [],
       "setting.language": languageRes?.data ?? [],
       "setting.pay": payRes?.data ?? {},
+      "setting.analytics": analyticsRes?.data ?? {},
     };
 
     writeJson("./fetch-data/globalConfig/index.json", globalConfig);

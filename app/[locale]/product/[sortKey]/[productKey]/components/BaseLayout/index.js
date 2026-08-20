@@ -44,7 +44,9 @@ export default function BaseLayout({
   const [productShowType, setProductShowType] = React.useState("image");
   // 评论模块是否有内容可展示：GoodReviewsContent 合并真实评论 + 营销好评后回写，
   // 供 GoodNav 决定是否显示「评论」导航 tab（两套都空时置 false → 隐藏 tab）。
-  const [reviewsVisible, setReviewsVisible] = React.useState(true);
+  // 初始 false：评论懒加载（滚入视口才拉），拉回确认有内容才回写 true 亮出 tab，
+  // 避免「评论还没加载就先冒出 Reviews 标签、加载完才发现没评论」的闪烁。
+  const [reviewsVisible, setReviewsVisible] = React.useState(false);
 
   // 自动规则折扣（限时促销）：当前单商品命中的促销，命中且未过期则注入 ProductContext，
   // 驱动 Countdown 限时倒计时展示。取数已并入下方「价格+折扣聚合」effect。

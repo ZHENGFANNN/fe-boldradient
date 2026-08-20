@@ -18,6 +18,7 @@ import ProductModal from "./components/ProductModal";
 import { buildAlternates } from "@/config/seo";
 import { mergeMeta } from "@/config/mergeMeta";
 import "@/styles/richtext.scss";
+import './index.scss'
 
 // 构建期枚举所有 (locale, sortKey, blogKey) 预生成文章页（与产品页 getProductPaths 同模式）；
 // 接口失败返回空数组（getBlogPaths 内部已容错），未列出的 slug 仍按需生成（dynamicParams 默认 true）。

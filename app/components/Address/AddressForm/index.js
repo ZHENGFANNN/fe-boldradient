@@ -127,7 +127,7 @@ function AddressForm({ LANG, apiParse, onStateChange }, ref) {
         onSubmit={handleSubmit(() => {})}
         className={styles.form_container}
       >
-        {apiParse ? (
+        {/* {apiParse ? (
           <PasteAddressBox
             apiParse={apiParse}
             language={locale}
@@ -135,7 +135,7 @@ function AddressForm({ LANG, apiParse, onStateChange }, ref) {
             onError={handleParseError}
             LANG={LANG}
           />
-        ) : null}
+        ) : null} */}
         <div className={styles.form_item}>
           <FormCountryItem
             value={watch("area")}

@@ -205,7 +205,7 @@ export default function AddressFormModal({
             onSubmit={handleSubmit(onSubmit)}
             className={styles.form_container}
           >
-            {apiParse ? (
+            {/* {apiParse ? (
               <PasteAddressBox
                 apiParse={apiParse}
                 language={locale}
@@ -213,7 +213,7 @@ export default function AddressFormModal({
                 onError={handleParseError}
                 LANG={LANG}
               />
-            ) : null}
+            ) : null} */}
             <div className={styles.form_item}>
               <FormCountryItem
                 disabled={isEdit}

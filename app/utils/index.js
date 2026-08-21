@@ -60,8 +60,18 @@ export function roundToDecimalPlaces(value, unit = 100) {
   if (typeof value !== "number") {
     value = parseFloat(value);
   }
+  if (!isFinite(value)) {
+    value = 0;
+  }
+  // unit 是精度因子(10^n)，必须 > 0 且有限；否则回退 100。
+  // 🔴 与 currencyDecimals/formatCurrency 的守卫保持一致：
+  //   历史脏数据(如某站 currency_unit 被种成 0)会让 value*0/0 = NaN，
+  //   经 formatCurrency 后整单金额被渲染成 0.00（既往 vailmoon 订单页转圈/显 $0 的根因）。
   if (typeof unit !== "number") {
-    unit = unit || 100;
+    unit = parseFloat(unit);
+  }
+  if (!isFinite(unit) || unit <= 0) {
+    unit = 100;
   }
 
   return Math.round(value * unit) / unit;

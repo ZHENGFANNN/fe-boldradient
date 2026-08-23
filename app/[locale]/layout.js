@@ -43,7 +43,11 @@ const LANG_NAMESPACE = [
   "common.contact",
   "common.cookie",
   // 在线客服（LiveChat）UI 文案：面板/表单/评分/订单商品分享等，统一走公共多语言
-  "common.chat"
+  "common.chat",
+  // 页脚政策链接（PolicyModule）：隐私条款 / 用户协议。取自 user.login 命名空间，
+  // 只取这两条叶子 key，避免为两条文案拉整个 login 命名空间（否则非英文站回退英文）。
+  "user.login.privacy_policy",
+  "user.login.user_service"
 ];
 
 const CONFIG_NAMESPACE = [

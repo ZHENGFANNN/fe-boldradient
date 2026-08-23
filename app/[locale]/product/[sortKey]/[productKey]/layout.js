@@ -21,7 +21,10 @@ const LANG_NAMESPACE = [
   "order.info",
   "common.pay",
   "common.other",
-  "common.footer.sales_policy"
+  "common.footer.sales_policy",
+  // 页脚政策链接（PolicyModule）：隐私条款 / 用户协议，非英文站否则回退英文
+  "user.login.privacy_policy",
+  "user.login.user_service"
 ];
 const CONFIG_NAMESPACE = ["common.base", "setting.pay"];
 

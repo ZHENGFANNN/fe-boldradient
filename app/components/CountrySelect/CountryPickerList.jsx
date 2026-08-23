@@ -27,12 +27,12 @@ export default function CountryPickerList({
 
     return countries.filter((item) => {
       const label = getCountryLabel(item, locale);
+      // 只按国家名/代码匹配，不含 currency——否则输 "US" 会命中每条的 "USD" 货币标签
       const searchText = [
         label,
         item.country,
         item.country_cn,
         item.country_english,
-        item.currency,
         item.country_code,
       ]
         .filter(Boolean)

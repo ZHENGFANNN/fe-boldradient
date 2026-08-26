@@ -1,0 +1,88 @@
+// TrustBar —— Hero 下方信任条，细长带，暖白底与相邻白底模块区分。
+.bar {
+  background: #f6f5f3;
+  border-block: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.inner {
+  max-width: 1280px;
+  width: calc(100% - 48px);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  padding-block: 28px;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  // 竖分隔线（末项不画）
+  &:not(:last-child) {
+    border-right: 1px solid rgba(0, 0, 0, 0.08);
+  }
+}
+
+.icon {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #96794a;
+  svg {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+.title {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 16px;
+  font-weight: 500;
+  color: #1b1b1b;
+  line-height: 1.2;
+}
+.desc {
+  font-size: 13px;
+  line-height: 1.4;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+@media screen and (max-width: 1079px) {
+  .inner {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px 24px;
+    padding-block: 24px;
+  }
+  // 两列布局下只在左列画右分隔线
+  .item:nth-child(2n) {
+    border-right: none;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .inner {
+    width: calc(100% - 32px);
+  }
+  .item {
+    gap: 10px;
+  }
+  .icon svg {
+    width: 26px;
+    height: 26px;
+  }
+  .title {
+    font-size: 14px;
+  }
+  // 移动端隐藏描述，只留图标 + 标题，保持紧凑
+  .desc {
+    display: none;
+  }
+}

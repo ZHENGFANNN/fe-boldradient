@@ -49,6 +49,7 @@
   display: flex;
   gap: 16px;
   overflow-x: auto;
+  // overflow-x 设为 auto 后,overflow-y 会被规范隐式提升为 auto → 意外可上下滚,须显式锁死
   overflow-y: hidden;
   // 拦掉横向滚到尽头联动浏览器「后退/前进」手势
   overscroll-behavior-x: contain;
@@ -57,6 +58,8 @@
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
   padding-right: 24px;
+  // overflow-y: hidden 的裁剪线会压到卡片底部文字行盒 → 切掉 g/y 下伸部,留出底部空间避让
+  padding-bottom: 6px;
   &::-webkit-scrollbar {
     display: none;
   }
@@ -138,18 +141,9 @@
   }
 }
 
-@media screen and (max-width: 1079px) {
+@media screen and (max-width: 780px) {
   .module {
-    padding-block: 88px;
-    --home-pad-left: 24px; // 平板：标题与第一张卡同步收窄左缘
-  }
-  .card {
-    width: 34vw;
-  }
-}
-@media screen and (max-width: 767px) {
-  .module {
-    padding-block: 56pc;
+    padding-block: 56px;
     --home-pad-left: 16px; // 移动：同上
   }
   .scroller {
@@ -157,7 +151,7 @@
     padding-right: 16px;
   }
   .card {
-    width: 62vw;
+    width: 200px;
     .name {
       font-size: 16px;
       margin-top: 12px;

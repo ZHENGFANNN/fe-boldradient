@@ -1,0 +1,186 @@
+// ReviewsModule —— 首页评价聚合，ivory 底，左摘要右评价卡。
+.module {
+  padding-block: 96px;
+  background: #f6f5f3;
+}
+
+.inner {
+  max-width: 1280px;
+  width: calc(100% - 48px);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(240px, 300px) 1fr;
+  gap: 56px;
+  align-items: start;
+}
+
+// 左：聚合摘要
+.summary {
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: 100px;
+}
+.kicker {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #96794a;
+  margin-bottom: 18px;
+}
+.avgRow {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+.avg {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 56px;
+  font-weight: 500;
+  line-height: 1;
+  color: #1b1b1b;
+}
+.count {
+  font-size: 15px;
+  color: rgba(0, 0, 0, 0.55);
+  margin: 0;
+}
+
+// 右：评价卡 3 列
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.card {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 28px 24px;
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 4px;
+}
+.quote {
+  margin: 18px 0 0;
+  font-size: 15px;
+  line-height: 1.7;
+  color: rgba(0, 0, 0, 0.75);
+  quotes: "\201C" "\201D";
+  &::before {
+    content: open-quote;
+    font-family: Georgia, serif;
+    color: #96794a;
+    margin-right: 2px;
+  }
+  &::after {
+    content: close-quote;
+    font-family: Georgia, serif;
+    color: #96794a;
+    margin-left: 1px;
+  }
+}
+.meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 20px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+.author {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 15px;
+  font-weight: 500;
+  color: #1b1b1b;
+}
+.verified {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-family: system-ui, sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: #4a7c59;
+  svg {
+    width: 12px;
+    height: 12px;
+  }
+}
+.product {
+  font-size: 13px;
+  color: rgba(0, 0, 0, 0.45);
+}
+
+// 星条（复刻商品卡覆盖法）
+.stars {
+  position: relative;
+}
+.starsBase,
+.starsActive {
+  display: flex;
+  position: absolute;
+  left: 0;
+  top: 0;
+  overflow: hidden;
+  height: 100%;
+  svg {
+    height: 100%;
+    width: auto;
+  }
+}
+.starsBase svg {
+  color: #e2ddd3;
+}
+.starsActive {
+  color: #c9a96a;
+  white-space: nowrap;
+}
+
+@media screen and (max-width: 1079px) {
+  .module {
+    padding-block: 72px;
+  }
+  .inner {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+  .summary {
+    position: static;
+  }
+  .avgRow {
+    margin-bottom: 8px;
+  }
+  // 摘要转横排一行
+  .avg {
+    font-size: 44px;
+  }
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  // 平板两列下藏第三条，保持整齐
+  .card:nth-child(3) {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .module {
+    padding-block: 56px;
+  }
+  .inner {
+    width: calc(100% - 32px);
+  }
+  .grid {
+    grid-template-columns: 1fr;
+  }
+  .card:nth-child(3) {
+    display: flex;
+  }
+}

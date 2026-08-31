@@ -1,5 +1,6 @@
 /** @format */
 import { ssrFetch } from "@/config/Api/ssrFetch";
+import { isFrameworkBailout } from "@/config/Api/bailout";
 
 // ============================================================
 // 远程数据 API · GET ${HOST}/config/getProductOptions
@@ -49,6 +50,7 @@ export async function getProductOptions({
       variants: Array.isArray(data.variants) ? data.variants : [],
     };
   } catch (err: any) {
+    if (isFrameworkBailout(err)) throw err;
     console.error("getProductOptions fetch 失败:", err?.message);
     return EMPTY;
   }

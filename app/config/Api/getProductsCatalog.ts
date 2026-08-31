@@ -1,5 +1,6 @@
 /** @format */
 import { ssrFetch } from "@/config/Api/ssrFetch";
+import { isFrameworkBailout } from "@/config/Api/bailout";
 
 // ============================================================
 // 远程数据 API · GET ${HOST}/config/getProduct
@@ -32,6 +33,7 @@ async function loadSlimCatalog(locale: string): Promise<SlimProduct[]> {
     // no-store：绕过 Next 对超大响应的 Data Cache（>2MB 无法写入）
     res = await ssrFetch(`${HOST}/config/getProduct`, { cache: "no-store" });
   } catch (err: any) {
+    if (isFrameworkBailout(err)) throw err;
     console.error("getProductsCatalog fetch 失败:", err?.message);
     return [];
   }

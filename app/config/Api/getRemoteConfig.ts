@@ -1,5 +1,6 @@
 /** @format */
 import { ssrFetch } from "@/config/Api/ssrFetch";
+import { isFrameworkBailout } from "@/config/Api/bailout";
 
 // ============================================================
 // 远程数据 API · GET ${HOST}/config/getPageConfigByNamespace
@@ -42,6 +43,7 @@ export default async function getRemoteConfig({
       cache: "force-cache"
     });
   } catch (err: any) {
+    if (isFrameworkBailout(err)) throw err;
     console.error("getRemoteConfig fetch 失败:", err?.message);
     return {};
   }

@@ -1,5 +1,6 @@
 /** @format */
 import { ssrFetch } from "@/config/Api/ssrFetch";
+import { isFrameworkBailout } from "@/config/Api/bailout";
 
 // ============================================================
 // 远程数据 API · GET ${HOST}/config/getProduct（复用分类页同一数据源）
@@ -89,6 +90,7 @@ export default async function getTagProducts({
   try {
     res = await ssrFetch(`${HOST}/config/getProduct`, { cache: "force-cache" });
   } catch (err: any) {
+    if (isFrameworkBailout(err)) throw err;
     console.error("getTagProducts fetch 失败:", err?.message);
     return null;
   }
@@ -133,7 +135,8 @@ export async function getAllTagPaths(): Promise<
   let res;
   try {
     res = await ssrFetch(`${HOST}/config/getProduct`, { cache: "force-cache" });
-  } catch {
+  } catch (err: any) {
+    if (isFrameworkBailout(err)) throw err;
     return [];
   }
   if (!res.ok) return [];

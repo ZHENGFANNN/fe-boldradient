@@ -1,5 +1,6 @@
 /** @format */
 import { ssrFetch } from "@/config/Api/ssrFetch";
+import { isFrameworkBailout } from "@/config/Api/bailout";
 
 // ============================================================
 // 远程数据 API · GET ${HOST}/config/getProductsPricing
@@ -118,6 +119,7 @@ export async function getProductsPricing({
     }
     return (json.data ?? null) as ProductsPricingResult | null;
   } catch (err: any) {
+    if (isFrameworkBailout(err)) throw err;
     console.error("getProductsPricing fetch 失败:", err?.message);
     return null;
   }

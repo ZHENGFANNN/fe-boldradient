@@ -1,6 +1,7 @@
 import getRemoteLanguage from "@/config/Api/getRemoteLanguage";
 import getRemoteConfig from "@/config/Api/getRemoteConfig";
 import getRemoteProductList from "@/config/Api/getRemoteProductList";
+import getSortList from "@/config/Api/getSortList";
 
 import IndexContext from "./components/IndexContext";
 import IndexBanner from "./components/IndexBanner";
@@ -24,7 +25,7 @@ import { mergeMeta } from "@/config/mergeMeta";
 //                价格/折扣由客户端 IndexProductList 按 area cookie 调 /api/products-offer 批量取齐）
 // 不读 area cookie → 首页整页可 SSG；JSON-LD 走 IndexProductLdJson server 子组件以 us 兜底。
 async function getData({ locale }) {
-  const [LANG, CONFIG, goodsSortList] = await Promise.all([
+  const [LANG, CONFIG, goodsSortList, categoryList] = await Promise.all([
     getRemoteLanguage({
       locale,
       nameSpace: [
@@ -37,10 +38,11 @@ async function getData({ locale }) {
       ]
     }),
     getRemoteConfig({ locale, nameSpace: ["home.banner", "common.base"] }),
-    getRemoteProductList({ locale })
+    getRemoteProductList({ locale }),
+    getSortList({ locale })
   ]);
 
-  return { LANG, CONFIG, goodsSortList };
+  return { LANG, CONFIG, goodsSortList, categoryList };
 }
 
 // 「为什么选培育钻」图文交替 mock（无图走 tonal 占位；接后端后换真实图/文案）。
@@ -77,7 +79,7 @@ export async function generateMetadata({ params }) {
 
 export default async function Home({ params }) {
   const { locale } = await params;
-  const { CONFIG, LANG, goodsSortList } = await getData({ locale });
+  const { CONFIG, LANG, goodsSortList, categoryList } = await getData({ locale });
 
   return (
     <main>
@@ -85,6 +87,7 @@ export default async function Home({ params }) {
         CONFIG={CONFIG}
         LANG={LANG}
         goodsSortList={goodsSortList}
+        categoryList={categoryList}
         locale={locale}
       >
         {/* 首屏 KV 轮播（banner 为空时组件内部渲染空轨道，不报错） */}

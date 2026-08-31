@@ -1,16 +1,15 @@
 /**
- * CategoryModule — Shop Jewelry by Category（严格对齐参考图一的排版，原创实现）。
+ * CategoryModule — Shop Jewelry by Category（左对齐标题 + 横向滑动分类卡，原创实现）。
  *
- * 版式（图一）:
+ * 版式:
  *   - 左对齐大标题（serif）+ 副标题一行。
- *   - 一排横向可滑动的分类卡（scroll-snap），右侧圆形箭头翻页。
- *   - 卡片: 近方形图（略竖 4:5）+ 标签在图下方左对齐；无 "Shop →"。
+ *   - 一排横向可滑动的分类卡（scroll-snap），右侧圆形箭头翻页；到边隐藏对应箭头。
+ *   - 卡片: 近方形图 + 标签在图下方左对齐。
  *
- * 数据源:
- *   - 优先 HomeContent.goodsSortList（真实分类，取 name/key/image_src）。
- *   - 空店兜底: 为空时回退 DEFAULT_CATEGORIES，key 对齐库内 erp_goods_sort。
- * 渲染条件: 最终分类数 >=2 才渲染。
- * 配图: 有 image_src 用真实图；无图用 CSS 渐变占位（出图后回填 image_src 即替换）。
+ * 数据源: HomeContent.categoryList ← /config/getSortList（直接读 erp_goods_sort 全量分类，
+ *   不依赖商品是否上架、不在前端写死）。每项取 key/name/image_src。
+ * 渲染条件: 分类数 >=2 才渲染。
+ * 配图: 有 image_src 用真实图；该分类未配图时用 CSS 渐变占位（配图后回填 image_src 即替换）。
  */
 "use client";
 import React from "react";
@@ -19,36 +18,32 @@ import styles from "./index.module.scss";
 import { HomeContent } from "../IndexContext";
 import { fillOssImage } from "@/utils";
 
-const DEFAULT_CATEGORIES = [
-  { key: "engagement-rings", name: "Engagement Rings", tint: "linear-gradient(135deg,#2f4f4a,#5b7a72)" },
-  { key: "womens-wedding-rings", name: "Women's Wedding Rings", tint: "linear-gradient(135deg,#b8862f,#d8ad55)" },
-  { key: "mens-wedding-rings", name: "Men's Wedding Rings", tint: "linear-gradient(135deg,#b6a888,#cbbb99)" },
-  { key: "gemstone-rings", name: "Gemstone Rings", tint: "linear-gradient(135deg,#274a44,#3f6b62)" },
-  { key: "earrings", name: "Earrings", tint: "linear-gradient(135deg,#b9a87f,#d0bd97)" },
-  { key: "necklaces", name: "Necklaces", tint: "linear-gradient(135deg,#7a2b25,#a8433a)" },
-  { key: "bracelets", name: "Bracelets", tint: "linear-gradient(135deg,#8a6a3a,#b08a4f)" },
-  { key: "rings", name: "Rings", tint: "linear-gradient(135deg,#3a4a48,#5a6f6b)" },
+// 未配图分类的渐变占位色板（仅作占位，按序轮用；不代表任何具体分类）。
+const TINTS = [
+  "linear-gradient(135deg,#2f4f4a,#5b7a72)",
+  "linear-gradient(135deg,#b8862f,#d8ad55)",
+  "linear-gradient(135deg,#b6a888,#cbbb99)",
+  "linear-gradient(135deg,#274a44,#3f6b62)",
+  "linear-gradient(135deg,#b9a87f,#d0bd97)",
+  "linear-gradient(135deg,#7a2b25,#a8433a)",
+  "linear-gradient(135deg,#8a6a3a,#b08a4f)",
+  "linear-gradient(135deg,#3a4a48,#5a6f6b)",
 ];
 
-const TINTS = DEFAULT_CATEGORIES.map((c) => c.tint);
-
 export default function CategoryModule() {
-  const { goodsSortList, LANG } = React.useContext(HomeContent) || {};
+  const { categoryList, LANG } = React.useContext(HomeContent) || {};
   const scrollerRef = React.useRef(null);
   // 滚动到头/尾时隐藏对应箭头（起始态在最左 → 不显示左箭头）
   const [atStart, setAtStart] = React.useState(true);
   const [atEnd, setAtEnd] = React.useState(false);
 
-  const real = Array.isArray(goodsSortList) ? goodsSortList : [];
-  const cats =
-    real.length >= 2
-      ? real.slice(0, 12).map((c, i) => ({
-          key: c.key,
-          name: c.name,
-          image: c.image_src || c.goodList?.[0]?.image,
-          tint: TINTS[i % TINTS.length],
-        }))
-      : DEFAULT_CATEGORIES;
+  const raw = Array.isArray(categoryList) ? categoryList : [];
+  const cats = raw.slice(0, 12).map((c, i) => ({
+    key: c.key,
+    name: c.name,
+    image: c.image_src,
+    tint: TINTS[i % TINTS.length],
+  }));
 
   const updateEdges = React.useCallback(() => {
     const el = scrollerRef.current;

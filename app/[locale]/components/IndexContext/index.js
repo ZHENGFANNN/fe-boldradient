@@ -15,6 +15,7 @@ export default function IndexContext({
   CONFIG,
   LANG,
   goodsSortList,
+  categoryList,
   blogList,
   locale,
 }) {
@@ -24,6 +25,7 @@ export default function IndexContext({
         CONFIG,
         LANG,
         goodsSortList,
+        categoryList,
         blogList,
         locale,
       }}

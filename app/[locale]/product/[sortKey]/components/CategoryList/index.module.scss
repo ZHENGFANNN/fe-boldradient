@@ -35,6 +35,7 @@
   text-align: left;
   margin-bottom: 36px;
   .collection_title {
+    font-family: var(--font-serif, Georgia, "Times New Roman", serif);
     font-weight: 600;
     font-size: 44px;
     line-height: 1.15;
@@ -282,6 +283,7 @@
     flex-direction: column;
     padding: 18px 24px 64px;
     .product_name {
+      font-family: var(--font-serif, Georgia, "Times New Roman", serif);
       font-size: 20px;
       line-height: 28px;
       color: rgba(0, 0, 0, 0.85);

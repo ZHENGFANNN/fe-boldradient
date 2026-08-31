@@ -126,12 +126,13 @@
                 flex-direction: column;
                 padding: 18px 24px 84px;
                 .product_name {
+                    font-family: var(--font-serif, Georgia, "Times New Roman", serif);
                     font-size: 20px;
                     line-height: 28px;
                     color: rgba(0,0,0,.85);
                     font-weight: 600;
                     word-break: break-word;
-    
+
                     display: -webkit-box;
                     -webkit-box-orient: vertical;
                     -webkit-line-clamp: 3;

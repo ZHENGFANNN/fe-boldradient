@@ -1,3 +1,9 @@
+:root {
+  /* 展示衬线字体栈：标题 / 商品名统一消费。--font-playfair 由 next/font 在 <html> 注入；
+     未加载时优雅降级到 Georgia（原硬编码栈），零破坏。 */
+  --font-serif: var(--font-playfair), Georgia, 'Times New Roman', 'Songti SC', serif;
+}
+
 html,
 body {
   font-family: var(--font-base, 'Open Sans', 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', 'Hiragino Sans GB', 'WenQuanYi Micro Hei', Arial, sans-serif);

@@ -36,7 +36,7 @@
   margin-bottom: 14px;
 }
 .avg {
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: var(--font-serif, Georgia, "Times New Roman", serif);
   font-size: 56px;
   font-weight: 500;
   line-height: 1;
@@ -71,13 +71,13 @@
   quotes: "\201C" "\201D";
   &::before {
     content: open-quote;
-    font-family: Georgia, serif;
+    font-family: var(--font-serif, Georgia, serif);
     color: #96794a;
     margin-right: 2px;
   }
   &::after {
     content: close-quote;
-    font-family: Georgia, serif;
+    font-family: var(--font-serif, Georgia, serif);
     color: #96794a;
     margin-left: 1px;
   }
@@ -94,7 +94,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: var(--font-serif, Georgia, "Times New Roman", serif);
   font-size: 15px;
   font-weight: 500;
   color: #1b1b1b;

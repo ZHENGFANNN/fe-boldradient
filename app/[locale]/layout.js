@@ -2,6 +2,8 @@ import "@/styles/globals.css";
 import "@/styles/reset.css";
 import "@/styles/common.scss"
 
+import { Playfair_Display } from "next/font/google";
+
 import Layout from "@/components/Layout";
 import Navbar from "@/components/Layout/NavBar";
 import Footer from "@/components/Layout/Footer";
@@ -18,6 +20,16 @@ import getRemoteConfig from "@/config/Api/getRemoteConfig";
 import getSiteStatus from "@/config/Api/getSiteStatus";
 import languageSettings from "@/config/languageSettings";
 import SiteDisabled from "@/components/SiteDisabled";
+
+// 展示衬线字体（标题 / 商品名）：高对比优雅衬线，奢品调性。
+// 自托管（next/font 构建期下载 + 子集化），无外部渲染阻塞请求、无布局抖动。
+// 输出 CSS 变量 --font-playfair，由 globals.css 的 --font-serif 消费（带 Georgia 兜底）。
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  weight: ["500", "600", "700"],
+  display: "swap",
+  variable: "--font-playfair",
+});
 
 // [locale] 段在构建期可枚举，配合 generateStaticParams 完全预渲染
 export function generateStaticParams() {
@@ -95,7 +107,7 @@ export default async function RootLayout(props) {
   const { CONFIG, LANG } = await getData({ locale });
 
   return (
-    <html lang={locale}>
+    <html lang={locale} className={playfair.variable}>
       <Head logoLink={CONFIG["common.base"]?.logo} favicon={CONFIG["common.base"]?.favicon} theme={CONFIG["common.base"]?.theme} />
       <body>
         <ChunkErrorReloader />

@@ -1,5 +1,6 @@
 /** @format */
 import { ssrFetch } from "@/config/Api/ssrFetch";
+import { isFrameworkBailout } from "@/config/Api/bailout";
 
 // ============================================================
 // 远程数据 API · GET ${HOST}/config/getProduct
@@ -95,6 +96,7 @@ export default async function getCategoryProducts({
       cache: "force-cache",
     });
   } catch (err: any) {
+    if (isFrameworkBailout(err)) throw err;
     console.error("getCategoryProducts fetch 失败:", err?.message);
     return null;
   }
@@ -149,7 +151,8 @@ export async function getAllCategories({
     res = await ssrFetch(`${HOST}/config/getProduct`, {
       cache: "force-cache",
     });
-  } catch {
+  } catch (err: any) {
+    if (isFrameworkBailout(err)) throw err;
     return [];
   }
   if (!res.ok) return [];

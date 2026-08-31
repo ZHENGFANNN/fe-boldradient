@@ -1,5 +1,6 @@
 /** @format */
 import { ssrFetch } from "@/config/Api/ssrFetch";
+import { isFrameworkBailout } from "@/config/Api/bailout";
 
 // ============================================================
 // 远程数据 API · POST ${HOST}/config/getCartByKeys
@@ -36,6 +37,7 @@ export default async function getCartByKeys({
       cache: "no-store",
     });
   } catch (err: any) {
+    if (isFrameworkBailout(err)) throw err;
     console.error("getCartByKeys fetch 失败:", err?.message);
     return [];
   }

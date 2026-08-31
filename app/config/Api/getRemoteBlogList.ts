@@ -1,5 +1,6 @@
 /** @format */
 import { ssrFetch } from "@/config/Api/ssrFetch";
+import { isFrameworkBailout } from "@/config/Api/bailout";
 
 // ============================================================
 // 远程数据 API · GET ${HOST}/config/getBlog
@@ -30,6 +31,7 @@ async function fetchBlogListByLocale(locale: string): Promise<any[]> {
       cache: "force-cache",
     });
   } catch (err: any) {
+    if (isFrameworkBailout(err)) throw err;
     console.error("getRemoteBlogList fetch 失败:", err?.message);
     return [];
   }

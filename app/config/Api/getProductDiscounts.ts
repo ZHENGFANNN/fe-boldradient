@@ -1,5 +1,6 @@
 /** @format */
 import { ssrFetch } from "@/config/Api/ssrFetch";
+import { isFrameworkBailout } from "@/config/Api/bailout";
 
 // ============================================================
 // 远程数据 API · POST ${HOST}/pay/getProductDiscounts（order-service）
@@ -46,6 +47,7 @@ async function fetchChunk(
     if (json?.code !== 0) return [];
     return Array.isArray(json.data?.discounts) ? json.data.discounts : [];
   } catch (err: any) {
+    if (isFrameworkBailout(err)) throw err;
     console.error("getProductDiscounts fetch 失败:", err?.message);
     return [];
   }

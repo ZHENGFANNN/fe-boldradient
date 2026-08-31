@@ -1,5 +1,6 @@
 /** @format */
 import { ssrFetch } from "@/config/Api/ssrFetch";
+import { isFrameworkBailout } from "@/config/Api/bailout";
 
 // ============================================================
 // 远程数据 API · GET ${HOST}/config/getProductPage
@@ -66,6 +67,7 @@ export async function getProductPage({
       );
     }
   } catch (err: any) {
+    if (isFrameworkBailout(err)) throw err;
     console.error(`getProductPage fetch 失败:`, err?.message);
     // 网络/超时错误不吞掉，避免 use cache 把 null 缓存成「永久 404」
     throw err;

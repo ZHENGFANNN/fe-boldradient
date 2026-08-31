@@ -1,5 +1,6 @@
 /** @format */
 import { ssrFetch } from "@/config/Api/ssrFetch";
+import { isFrameworkBailout } from "@/config/Api/bailout";
 
 // ============================================================
 // 远程数据 API · GET ${HOST}/config/getBlogPaths
@@ -36,6 +37,7 @@ export async function getBlogPaths(): Promise<BlogPathItem[]> {
       })
     );
   } catch (err: any) {
+    if (isFrameworkBailout(err)) throw err;
     console.error("getBlogPaths fetch 失败:", err?.message);
     return [];
   }

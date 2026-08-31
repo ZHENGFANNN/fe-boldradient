@@ -8,6 +8,7 @@ import type { LocaleArg, CategoryItem } from "./types";
 //
 // 直接读 erp_goods_sort 全量分类（enabled=1，按 weight 降序），不依赖商品是否已上架，
 // 也不在前端写死——空店同样能展示已配置分类及其 image_src。
+// 通用接口 /config/getSortList 支持 language/enabled/key 筛选；首页只要启用分类，故传 enabled=1。
 // 后端全语言聚合返回，这里按 locale 过滤，取不到回退 en（与 getRemoteProductList 一致）。
 // 纯 SSG，构建期固化，靠「发布」重建。
 // ============================================================
@@ -23,7 +24,7 @@ export default async function getSortList({
   }
   let res;
   try {
-    res = await ssrFetch(`${HOST}/config/getSortList`, {
+    res = await ssrFetch(`${HOST}/config/getSortList?enabled=1`, {
       cache: "force-cache",
     });
   } catch (err: any) {

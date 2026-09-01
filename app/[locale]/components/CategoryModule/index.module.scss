@@ -84,9 +84,17 @@
       object-fit: cover;
       transition: transform 1.5s cubic-bezier(0.22, 1, 0.36, 1);
     }
+    // 场景图叠在 cover 之上，默认透明，hover 交叉淡入（附带轻微放大）
+    .scene {
+      opacity: 0;
+      transition: opacity 0.55s ease, transform 1.5s cubic-bezier(0.22, 1, 0.36, 1);
+    }
   }
   &:hover .thumb img {
     transform: scale(1.05);
+  }
+  &:hover .thumb .scene {
+    opacity: 1;
   }
   .placeholderMark {
     position: absolute;

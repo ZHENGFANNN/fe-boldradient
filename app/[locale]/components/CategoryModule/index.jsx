@@ -42,6 +42,7 @@ export default function CategoryModule() {
     key: c.key,
     name: c.name,
     image: c.image_src,
+    scene: c.image_scenes,
     tint: TINTS[i % TINTS.length],
   }));
 
@@ -98,6 +99,7 @@ export default function CategoryModule() {
         <div className={styles.scroller} ref={scrollerRef}>
           {cats.map((c) => {
             const img = c.image ? fillOssImage(c.image) : null;
+            const scene = c.scene ? fillOssImage(c.scene) : null;
             return (
               <Link
                 key={c.key}
@@ -111,10 +113,25 @@ export default function CategoryModule() {
                   style={img ? undefined : { backgroundImage: c.tint }}
                 >
                   {img ? (
-                    <img src={img} alt={c.name} loading="lazy" />
+                    <img
+                      className={styles.cover}
+                      src={img}
+                      alt={c.name}
+                      loading="lazy"
+                    />
                   ) : (
                     <span className={styles.placeholderMark} aria-hidden="true" />
                   )}
+                  {/* 场景图（生活化实拍）：hover 时交叉淡入覆盖 cover；未配置则不渲染，hover 保持原缩放行为 */}
+                  {scene ? (
+                    <img
+                      className={styles.scene}
+                      src={scene}
+                      alt=""
+                      aria-hidden="true"
+                      loading="lazy"
+                    />
+                  ) : null}
                 </div>
                 <span className={styles.name}>{c.name}</span>
               </Link>

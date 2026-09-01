@@ -47,6 +47,7 @@ export default async function getSortList({
       name: item.name,
       description: item.description,
       image_src: item.image_src,
+      image_scenes: item.image_scenes,
       weight: item.weight,
       language: item.language,
     });

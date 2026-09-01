@@ -147,6 +147,7 @@ export interface CategoryItem {
   name: string;
   description?: string;
   image_src?: string;
+  image_scenes?: string;
   weight?: number;
   language?: string;
 }

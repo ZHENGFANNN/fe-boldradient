@@ -64,7 +64,7 @@ export default function IndexDiamondShapes({ featuredImage } = {}) {
                 <span className={styles.icon}>
                   <img
                     className={styles.iconImg}
-                    src={`/diamond-shapes/${shape.slug}.webp`}
+                    src={`/diamond-shapes/${shape.slug}.png`}
                     alt={label}
                     width={120}
                     height={120}

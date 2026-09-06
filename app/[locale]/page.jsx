@@ -2,6 +2,7 @@ import getRemoteLanguage from "@/config/Api/getRemoteLanguage";
 import getRemoteConfig from "@/config/Api/getRemoteConfig";
 import getRemoteProductList from "@/config/Api/getRemoteProductList";
 import getSortList from "@/config/Api/getSortList";
+import getTagProducts from "@/config/Api/getTagProducts";
 
 import IndexContext from "./components/IndexContext";
 import IndexBanner from "./components/IndexBanner";
@@ -18,31 +19,46 @@ import IndexProductLdJson from "./components/IndexProductLdJson";
 import { buildAlternates } from "@/config/seo";
 import { mergeMeta } from "@/config/mergeMeta";
 
+// 首页 Best Sellers 位的商品来源：后台「商品标签」建这个 key 的标签并给商品打标即可，
+// 换商品不需要发版（改完打标去发布页点发布重建即可）。标签不存在 → 模块自动隐藏。
+const BEST_SELLERS_TAG = "best-sellers";
+
 // 首页数据层（后端整形 + TTL，前端开箱即用），构建期一次 Promise.all 取全 —— 纯 SSG：
 //   - LANG      ← /config/getLanguageByNamespace（home + home.category 文案命名空间）
 //   - CONFIG    ← /config/getPageConfigByNamespace（home.banner / common.base）
 //   - 产品列表  ← getRemoteProductList（comboList 仅含 key + associate_country_key，
 //                价格/折扣由客户端 IndexProductList 按 area cookie 调 /api/products-offer 批量取齐）
+//   - 热卖位    ← getTagProducts（按 best-sellers 标签取 Top 10，同样不含价格）
 // 不读 area cookie → 首页整页可 SSG；JSON-LD 走 IndexProductLdJson server 子组件以 us 兜底。
 async function getData({ locale }) {
-  const [LANG, CONFIG, goodsSortList, categoryList] = await Promise.all([
-    getRemoteLanguage({
-      locale,
-      nameSpace: [
-        "home",
-        "common.advantage",
-        "home.title",
-        "home.description",
-        "home.keywords",
-        "home.category"
-      ]
-    }),
-    getRemoteConfig({ locale, nameSpace: ["home.banner", "common.base"] }),
-    getRemoteProductList({ locale }),
-    getSortList({ locale })
-  ]);
+  const [LANG, CONFIG, goodsSortList, categoryList, bestSellersData] =
+    await Promise.all([
+      getRemoteLanguage({
+        locale,
+        nameSpace: [
+          "home",
+          "common.advantage",
+          "home.title",
+          "home.description",
+          "home.keywords",
+          "home.category"
+        ]
+      }),
+      getRemoteConfig({ locale, nameSpace: ["home.banner", "common.base"] }),
+      getRemoteProductList({ locale }),
+      getSortList({ locale }),
+      getTagProducts({ locale, tagKey: BEST_SELLERS_TAG, limit: 10 })
+    ]);
 
-  return { LANG, CONFIG, goodsSortList, categoryList };
+  return {
+    LANG,
+    CONFIG,
+    goodsSortList,
+    categoryList,
+    // 标签不存在/接口失败 → null → 下发空数组，BestSellersModule 自行隐藏
+    bestSellers: bestSellersData?.goodList || [],
+    bestSellersTag: bestSellersData?.tag || null
+  };
 }
 
 // 「为什么选培育钻」图文交替 mock（无图走 tonal 占位；接后端后换真实图/文案）。
@@ -79,7 +95,8 @@ export async function generateMetadata({ params }) {
 
 export default async function Home({ params }) {
   const { locale } = await params;
-  const { CONFIG, LANG, goodsSortList, categoryList } = await getData({ locale });
+  const { CONFIG, LANG, goodsSortList, categoryList, bestSellers, bestSellersTag } =
+    await getData({ locale });
 
   return (
     <main>
@@ -88,6 +105,8 @@ export default async function Home({ params }) {
         LANG={LANG}
         goodsSortList={goodsSortList}
         categoryList={categoryList}
+        bestSellers={bestSellers}
+        bestSellersTag={bestSellersTag}
         locale={locale}
       >
         {/* 首屏 KV 轮播（banner 为空时组件内部渲染空轨道，不报错） */}
@@ -96,14 +115,14 @@ export default async function Home({ params }) {
         <TrustBar />
         {/* Shop Jewelry by Category：横向滑动分类卡（参考 brilliantearth 版式，空店走 8 分类兜底） */}
         <CategoryModule />
-        {/* 当前热卖 Top 10：横向滑动商品卡（先 mock，接后端后由 context 下发 bestSellers 自动切换） */}
+        {/* 当前热卖：商品来自后台「best-sellers」标签（见 BEST_SELLERS_TAG），标签为空则整块隐藏 */}
         <BestSellersModule />
         {/* 按形状选购钻石（旗舰站特色，纯 SSG） */}
         <IndexDiamondShapes />
         {/* 为什么选培育钻：图文交替品牌故事（mock list，无图走占位） */}
         <FeatureShowcase list={WHY_LAB_GROWN} />
         {/* 精选商品分类网格（复用现有卡片 + 客户端取价）：0 商品时各类 goodList 为空、不渲染 */}
-        <IndexProductList />
+        {/* <IndexProductList /> */}
         {/* 客户评价聚合：总均分 + 精选评价卡（mock，接后端后由 props 下发） */}
         <ReviewsModule LANG={LANG} />
         {/* From the Journal：最新博客（先 mock，接后端后由 page 下发 blogList 自动切换） */}

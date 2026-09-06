@@ -5,8 +5,8 @@
 }
 
 .inner {
-  max-width: 1280px;
-  width: calc(100% - 48px);
+  max-width: var(--layout-max);
+  width: calc(100% - var(--layout-gutter) * 2);
   margin: 0 auto;
 }
 
@@ -41,10 +41,10 @@
   max-width: 520px;
 }
 
-// 横向滑动区:左缘与标题对齐,右侧出血
+// 横向滑动区:左缘与标题(= Nav 内容左缘)对齐,右侧出血到视口边
 .carousel {
   position: relative;
-  padding-left: max(calc((100% - 1280px) / 2 + 24px), 24px);
+  padding-left: max(calc((100% - var(--layout-max)) / 2), var(--layout-gutter));
 }
 
 .scroller {
@@ -57,7 +57,7 @@
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
-  padding-right: 24px;
+  padding-right: var(--layout-gutter);
   padding-bottom: 6px;
   &::-webkit-scrollbar {
     display: none;
@@ -171,21 +171,25 @@
     min-height: 2.6em;
   }
 
+  // 价格行：内部两个 div 由 ProductCardPrice 渲染（第 1 个折后/原价、第 2 个划线原价），
+  // 故样式挂在子元素上而不是自有 .price/.compareAt 类名。
   .priceRow {
     display: flex;
     align-items: baseline;
     gap: 8px;
     margin-top: 12px;
-  }
-  .price {
     font-size: 16px;
     font-weight: 600;
     color: #1b1b1b;
-  }
-  .compareAt {
-    font-size: 14px;
-    color: rgba(0, 0, 0, 0.4);
-    text-decoration: line-through;
+
+    // 划线原价（ProductCardPrice 的 .origin_price，第二个 div）
+    div:nth-child(2) {
+      margin-left: 0;
+      font-size: 14px;
+      font-weight: 400;
+      color: rgba(0, 0, 0, 0.4);
+      text-decoration: line-through;
+    }
   }
 }
 
@@ -248,10 +252,10 @@
     background: #f6f5f3;
   }
   &.next {
-    right: 24px;
+    right: var(--layout-gutter);
   }
   &.prev {
-    left: max(calc((100% - 1280px) / 2 + 12px), 12px);
+    left: max(calc((100% - var(--layout-max)) / 2 + 12px), calc(var(--layout-gutter) + 12px));
   }
 }
 
@@ -265,21 +269,14 @@
   .module {
     padding-block: 56px;
   }
-  .inner {
-    width: calc(100% - 32px);
-  }
   .head {
     margin-bottom: 28px;
     .title {
       font-size: 28px;
     }
   }
-  .carousel {
-    padding-left: 16px;
-  }
   .scroller {
     gap: 14px;
-    padding-right: 16px;
   }
   .card {
     width: 220px;

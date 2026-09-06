@@ -19,10 +19,10 @@
   padding-block: var(--home-section-gap-desktop);
   background: var(--home-bg);
 }
-// 标题区左缘用 padding-left 对齐（不再 max-width 居中）
+// 标题区左右缘都对齐 Nav 内容盒（下方 .carousel 才向右出血）
 .inner {
-  padding-left: max(calc((100% - 1200px) / 2), 16px);
-  padding-right: 24px;
+  padding-left: max(calc((100% - var(--layout-max)) / 2), var(--layout-gutter));
+  padding-right: max(calc((100% - var(--layout-max)) / 2), var(--layout-gutter));
 }
 // 标题区左对齐（图一）
 .head {
@@ -42,7 +42,7 @@
 // 横向滑动区：满宽，左内边距与标题同值（第一张卡与标题左对齐），右侧出血到视口边
 .carousel {
   position: relative;
-  padding-left: max(calc((100% - 1200px) / 2), 16px);
+  padding-left: max(calc((100% - var(--layout-max)) / 2), var(--layout-gutter));
 }
 
 .scroller {
@@ -57,7 +57,7 @@
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
-  padding-right: 24px;
+  padding-right: var(--layout-gutter);
   // overflow-y: hidden 的裁剪线会压到卡片底部文字行盒 → 切掉 g/y 下伸部,留出底部空间避让
   padding-bottom: 6px;
   &::-webkit-scrollbar {
@@ -142,10 +142,10 @@
     background: #f2f0ec;
   }
   &.next {
-    right: 24px;
+    right: var(--layout-gutter);
   }
   &.prev {
-    left: max(calc((100% - 1200px) / 2 + 12px), 28px);
+    left: max(calc((100% - var(--layout-max)) / 2 + 12px), calc(var(--layout-gutter) + 12px));
   }
 }
 
@@ -156,7 +156,6 @@
   }
   .scroller {
     gap: 12px;
-    padding-right: 16px;
   }
   .card {
     width: 300px;

@@ -5,8 +5,8 @@
 }
 
 .inner {
-  max-width: 1280px;
-  width: calc(100% - 48px);
+  max-width: var(--layout-max);
+  width: calc(100% - var(--layout-gutter) * 2);
   margin: 0 auto;
 }
 

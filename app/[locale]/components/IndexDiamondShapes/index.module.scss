@@ -3,8 +3,8 @@
   background: #f6f5f3;
 }
 .inner {
-  max-width: 1280px;
-  width: calc(100% - 48px);
+  max-width: var(--layout-max);
+  width: calc(100% - var(--layout-gutter) * 2);
   margin: 0 auto;
   display: grid;
   grid-template-columns: minmax(280px, 360px) 1fr;
@@ -115,7 +115,6 @@ a.tile:hover .icon {
     padding-block: 48px;
   }
   .inner {
-    width: calc(100% - 32px);
     gap: 32px;
   }
   .intro {

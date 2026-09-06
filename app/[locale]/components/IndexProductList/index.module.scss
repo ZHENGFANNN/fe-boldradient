@@ -2,8 +2,8 @@
 .container {
     margin-bottom: 72px;
     .sort_container {
-      max-width: 1200px;
-      width: calc(100% - 48px);
+      max-width: var(--layout-max);
+      width: calc(100% - var(--layout-gutter) * 2);
       box-sizing: border-box;
       margin: auto;
       padding-top: 120px;
@@ -225,7 +225,6 @@
     .container {
       .sort_container {
         padding-top: 72px;
-        width: calc(100% - 32px);
         .goods_container {
             .goods_item {
                 margin-bottom: 16px;

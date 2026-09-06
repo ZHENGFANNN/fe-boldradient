@@ -5,8 +5,8 @@
 }
 
 .inner {
-  max-width: 1280px;
-  width: calc(100% - 48px);
+  max-width: var(--layout-max);
+  width: calc(100% - var(--layout-gutter) * 2);
   margin: 0 auto;
   display: grid;
   grid-template-columns: minmax(240px, 300px) 1fr;
@@ -173,9 +173,6 @@
 @media screen and (max-width: 767px) {
   .module {
     padding-block: 56px;
-  }
-  .inner {
-    width: calc(100% - 32px);
   }
   .grid {
     grid-template-columns: 1fr;

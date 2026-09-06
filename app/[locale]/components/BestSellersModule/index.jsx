@@ -1,12 +1,14 @@
 /**
- * BestSellersModule — 当前热卖 Top 10（首页,横向滑动,mock 数据）。
+ * BestSellersModule — 首页热卖位（横向滑动商品卡）。
  *
- * 设计: 对齐 BlogModule/CategoryModule 调性;卡片复用商品卡语义(方图 + 评分 + 名称 + 价格),
- *   带排名角标(#1..#10)、限时折后价划线原价。10 件走横向 scroll-snap + 圆形翻页箭头。
+ * 数据: context 的 bestSellers —— 由 page.jsx 调 /config/getTagProducts 按后台
+ *   「best-sellers」标签取 Top 10。运营在 ERP 给商品打/去掉该标签即可换位，不需要发版
+ *   （改完去发布页点发布重建）。标签不存在或该标签下无上架商品 → 空数组 → 整块不渲染。
  *
- * 数据: 先 mock(MOCK_PRODUCTS,形状贴近后端 product:key/sort_key/name/image/price...)。
- *   接后端后把 MOCK 换成 props/context 下发的真实热卖列表即可,组件渲染不变。
- *   价格此处直接给数字 + 币种(mock),真实接线时改用 ProductCardPrice + 批量取价。
+ * 价格: 与 IndexProductList 同口径——SSG 阶段不落价，客户端按 area cookie 调
+ *   /api/products-offer 批量取「价格 + 自动折扣」，未就绪显示骨架、无价显示缺货文案。
+ *
+ * 视觉: 排名角标 #1..#10、命中折扣显示 Sale 标签 + 折后价划线原价。
  */
 "use client";
 import React from "react";
@@ -15,6 +17,11 @@ import styles from "./index.module.scss";
 import { HomeContent } from "../IndexContext";
 import { fillOssImage } from "@/utils";
 import { StarIcon, StarActiveIcon } from "@/components/Icon";
+import ProductCardPrice from "@/components/ProductCardPrice";
+import Skeleton from "@/components/Skeleton";
+import useArea from "@/hooks/useArea";
+import getProductsOffer from "@/service/product/get-offer";
+import { savedUnitAmount, pickAutoDiscount } from "@/utils/productPricing";
 
 // 低饱和 tonal 占位主题(无图时用),与 BlogModule 同色系。
 const TINTS = [
@@ -23,24 +30,14 @@ const TINTS = [
   "linear-gradient(150deg,#eeeae6 0%,#ddd6cd 100%)",
 ];
 
-// mock 热卖商品(10 件),形状贴近后端 product;price/compare_at 为 mock 数字(单位美元)。
-const MOCK_PRODUCTS = [
-  { key: "round-solitaire", sort_key: "engagement-rings", name: "Round Solitaire Engagement Ring", image: "", price: 1290, compare_at: 1590, reviews_score: 4.9, reviews_num: 218 },
-  { key: "oval-halo", sort_key: "engagement-rings", name: "Oval Halo Diamond Ring", image: "", price: 1680, compare_at: 0, reviews_score: 4.8, reviews_num: 176 },
-  { key: "emerald-three-stone", sort_key: "engagement-rings", name: "Emerald Cut Three-Stone Ring", image: "", price: 2150, compare_at: 2490, reviews_score: 5.0, reviews_num: 94 },
-  { key: "tennis-bracelet", sort_key: "bracelets", name: "Lab-Grown Diamond Tennis Bracelet", image: "", price: 990, compare_at: 1250, reviews_score: 4.7, reviews_num: 312 },
-  { key: "stud-earrings", sort_key: "earrings", name: "Classic Diamond Stud Earrings", image: "", price: 560, compare_at: 0, reviews_score: 4.9, reviews_num: 401 },
-  { key: "pear-pendant", sort_key: "necklaces", name: "Pear Solitaire Pendant Necklace", image: "", price: 720, compare_at: 890, reviews_score: 4.8, reviews_num: 143 },
-  { key: "cushion-pave", sort_key: "engagement-rings", name: "Cushion Pavé Engagement Ring", image: "", price: 1450, compare_at: 0, reviews_score: 4.9, reviews_num: 87 },
-  { key: "eternity-band", sort_key: "womens-wedding-rings", name: "Diamond Eternity Wedding Band", image: "", price: 880, compare_at: 1080, reviews_score: 4.8, reviews_num: 205 },
-  { key: "hoop-earrings", sort_key: "earrings", name: "Pavé Diamond Hoop Earrings", image: "", price: 640, compare_at: 0, reviews_score: 4.7, reviews_num: 129 },
-  { key: "marquise-ring", sort_key: "engagement-rings", name: "Marquise Diamond Engagement Ring", image: "", price: 1590, compare_at: 1890, reviews_score: 5.0, reviews_num: 66 },
-];
-
-// mock 价格格式化(真实接线后改走 ProductCardPrice / areaInfo)。
-function formatUsd(n) {
-  if (!Number(n)) return "";
-  return new Intl.NumberFormat("en", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(n);
+// 从批量取价结果挑出当前商品的 areaInfo：取首个有 areaInfo 的 combo（与 IndexProductList 一致）。
+function pickAreaInfo(pricingItem) {
+  if (!pricingItem) return null;
+  const combos = Array.isArray(pricingItem.combos) ? pricingItem.combos : [];
+  for (const c of combos) {
+    if (c?.areaInfo) return c.areaInfo;
+  }
+  return null;
 }
 
 // 5 星评分(复刻 IndexProductList 的星条覆盖法,90px 满宽)。
@@ -60,12 +57,51 @@ function ReviewRate({ score, num, LANG }) {
 }
 
 export default function BestSellersModule() {
-  const { LANG, bestSellers } = React.useContext(HomeContent) || {};
+  const { LANG, bestSellers, bestSellersTag, locale } =
+    React.useContext(HomeContent) || {};
+  const { area, areaReady } = useArea();
   const scrollerRef = React.useRef(null);
   const [atStart, setAtStart] = React.useState(true);
   const [atEnd, setAtEnd] = React.useState(false);
 
-  const list = (Array.isArray(bestSellers) && bestSellers.length > 0 ? bestSellers : MOCK_PRODUCTS).slice(0, 10);
+  const list = React.useMemo(
+    () => (Array.isArray(bestSellers) ? bestSellers : []).slice(0, 10),
+    [bestSellers]
+  );
+
+  // 批量取价入参：该位全部 (sortKey, productKey)。
+  const allKeys = React.useMemo(
+    () =>
+      list
+        .filter((p) => p.sort_key && p.key)
+        .map((p) => ({ sortKey: p.sort_key, productKey: p.key })),
+    [list]
+  );
+
+  // pricingMap: { "{sortKey}:{productKey}": item } —— null 表示未就绪（显示骨架）。
+  const [pricingMap, setPricingMap] = React.useState(null);
+  const [discountMap, setDiscountMap] = React.useState({});
+
+  React.useEffect(() => {
+    if (!areaReady || allKeys.length === 0) return;
+    let cancelled = false;
+    getProductsOffer({ area: area || "us", locale, keys: allKeys }).then((data) => {
+      if (cancelled) return;
+      const pMap = {};
+      const dMap = {};
+      (data?.list || []).forEach((item) => {
+        pMap[`${item.sortKey}:${item.productKey}`] = item;
+        if (item.discount) dMap[item.productKey] = item.discount;
+      });
+      setPricingMap(pMap);
+      setDiscountMap(dMap);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [areaReady, area, locale, allKeys]);
+
+  const pricingReady = pricingMap !== null;
 
   const updateEdges = React.useCallback(() => {
     const el = scrollerRef.current;
@@ -85,8 +121,9 @@ export default function BestSellersModule() {
       el.removeEventListener("scroll", updateEdges);
       window.removeEventListener("resize", updateEdges);
     };
-  }, [updateEdges]);
+  }, [updateEdges, list.length]);
 
+  // 后台没建 best-sellers 标签 / 标签下没上架商品 → 整块不渲染（不留空白区块）。
   if (list.length < 2) return null;
 
   const scrollBy = (dir) => {
@@ -107,7 +144,9 @@ export default function BestSellersModule() {
         <div className={styles.head}>
           <div className={styles.headText}>
             <span className={styles.kicker}>{LANG?.["home.bestsellers.kicker"] || "Most Loved"}</span>
-            <h2 className={styles.title}>{LANG?.["home.bestsellers.title"] || "Best Sellers"}</h2>
+            <h2 className={styles.title}>
+              {LANG?.["home.bestsellers.title"] || bestSellersTag?.name || "Best Sellers"}
+            </h2>
             <p className={styles.subtitle}>
               {LANG?.["home.bestsellers.subtitle"] || "The pieces our customers can't stop talking about."}
             </p>
@@ -119,7 +158,16 @@ export default function BestSellersModule() {
         <div className={styles.scroller} ref={scrollerRef}>
           {list.map((p, i) => {
             const img = p.image ? fillOssImage(p.image) : null;
-            const onSale = Number(p.compare_at) > Number(p.price);
+            const areaInfo = pricingReady
+              ? pickAreaInfo(pricingMap?.[`${p.sort_key}:${p.key}`])
+              : null;
+            // 命中自动折扣（限时促销）→ Sale 角标 + 折后价 + 划线原价。
+            const autoDiscount = pickAutoDiscount(p, discountMap);
+            const savedAmount = autoDiscount ? savedUnitAmount(areaInfo, autoDiscount) : 0;
+            const onSale = savedAmount > 0;
+            // 评分：后端已按「有真实评价按评价算，否则取商品表存量分」算好 reviewScore/reviewsNum。
+            const score = Number(p.reviewScore || p.reviews_score || 0);
+            const reviewsNum = Number(p.reviewsNum || p.reviews_num || 0);
             return (
               <Link
                 key={p.key || i}
@@ -141,16 +189,27 @@ export default function BestSellersModule() {
                   )}
                 </div>
                 <div className={styles.body}>
-                  {p.reviews_score ? (
-                    <ReviewRate score={p.reviews_score} num={p.reviews_num} LANG={LANG} />
+                  {score ? (
+                    <ReviewRate score={score} num={reviewsNum} LANG={LANG} />
                   ) : null}
                   <h3 className={styles.name}>{p.name}</h3>
-                  <div className={styles.priceRow}>
-                    <span className={styles.price}>{formatUsd(p.price)}</span>
-                    {onSale ? (
-                      <span className={styles.compareAt}>{formatUsd(p.compare_at)}</span>
-                    ) : null}
-                  </div>
+                  {/* 价格：未就绪骨架 → 无价缺货 → 有价按折扣渲染（与 IndexProductList 同口径） */}
+                  {!pricingReady ? (
+                    <div className={styles.priceRow}>
+                      <Skeleton variant="rect" width={80} height={16} />
+                    </div>
+                  ) : !areaInfo?.product_price ? (
+                    <div className={styles.priceRow}>
+                      {LANG?.["home.no_stock"] || ""}
+                    </div>
+                  ) : (
+                    <ProductCardPrice
+                      className={styles.priceRow}
+                      areaInfo={areaInfo}
+                      discount={onSale ? autoDiscount : null}
+                      LANG={LANG}
+                    />
+                  )}
                 </div>
               </Link>
             );

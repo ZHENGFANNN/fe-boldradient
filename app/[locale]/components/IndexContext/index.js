@@ -17,6 +17,8 @@ export default function IndexContext({
   goodsSortList,
   categoryList,
   blogList,
+  bestSellers,
+  bestSellersTag,
   locale,
 }) {
   return (
@@ -27,6 +29,8 @@ export default function IndexContext({
         goodsSortList,
         categoryList,
         blogList,
+        bestSellers,
+        bestSellersTag,
         locale,
       }}
     >

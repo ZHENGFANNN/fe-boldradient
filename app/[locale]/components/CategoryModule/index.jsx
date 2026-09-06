@@ -101,7 +101,7 @@ export default function CategoryModule() {
             const img = c.image ? fillOssImage(c.image) : null;
             // 场景图与 cover 同名(R2 覆盖上传),CF 边缘 immutable 缓存旧图 → 附版本参数强制回源取新图。
             // 换新一批场景图时把 SCENE_VER 递增即可绕过边缘缓存。
-            const scene = c.scene ? `${fillOssImage(c.scene)}?v=3` : null;
+            const scene = c.scene ? `${fillOssImage(c.scene)}?v=4` : null;
             return (
               <Link
                 key={c.key}

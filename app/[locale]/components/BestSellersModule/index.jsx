@@ -124,7 +124,8 @@ export default function BestSellersModule() {
   }, [updateEdges, list.length]);
 
   // 后台没建 best-sellers 标签 / 标签下没上架商品 → 整块不渲染（不留空白区块）。
-  if (list.length < 2) return null;
+  // 只打了 1 个也照常展示：卡片定宽左对齐，单卡布局正常，运营打了标签就该看见。
+  if (list.length === 0) return null;
 
   const scrollBy = (dir) => {
     const el = scrollerRef.current;
